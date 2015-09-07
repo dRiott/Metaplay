@@ -41,7 +41,7 @@ public class PlaylistService {
 	
 	public Playlist find(int playlistId){
 		return this.playlists.stream().filter(p -> {
-			return p.getId()==playlistId;
+			return p.getPlaylistId()==playlistId;
 		}).collect(Collectors.toList()).get(0);
 	}
 
@@ -50,7 +50,7 @@ public class PlaylistService {
 		Playlist playlist = new Playlist();
 		playlist.setName(name);
 		playlist.setDescription(description);
-		playlist.setId(playlistId);
+		playlist.setPlaylistId(playlistId);
 		return playlist;
 	}
 

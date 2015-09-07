@@ -2,29 +2,26 @@ package com.thoughtriott.metaplay.data.entities;
 
 public class Playlist {
 
-	//fields
+	// fields
 	private int playlistId;
-	
 	private String name;
-
 	private String description;
-
 	private String type;
 
-	//getters & setters
-	
-	public int getId() {
+	// getters & setters
+
+	public int getPlaylistId() {
 		return playlistId;
 	}
 
-	public void setId(int playlistId) {
+	public void setPlaylistId(int playlistId) {
 		this.playlistId = playlistId;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		System.out.println("Spring MVC Data Binding In Action");
 		this.name = name;
@@ -51,7 +48,5 @@ public class Playlist {
 		return "Playlist [playlistId=" + playlistId + ", name=" + name + ", description=" + description + ", type="
 				+ type + "]";
 	}
-
-	
 
 }

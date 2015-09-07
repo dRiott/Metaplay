@@ -1,15 +1,19 @@
 package com.thoughtriott.metaplay.data.entities;
 
+import java.util.List;
+
 public class Artist {
 
 	//fields
 	private int artistId;
-	private int genreId;
+	private String genre;
 	private int recordlabelId;
-	private int locationId;
+	private String location;
 	private String name;
 	private String biography;
+	private Album album;
 	private String artistImage;
+	private List<String> members;
 	
 	//getters & setters
 	public int getArtistId() {
@@ -19,11 +23,11 @@ public class Artist {
 		this.artistId = artistId;
 	}
 	
-	public int getGenreId() {
-		return genreId;
+	public String getGenre() {
+		return genre;
 	}
-	public void setGenreId(int genreId) {
-		this.genreId = genreId;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 	
 	public int getRecordlabelId() {
@@ -33,11 +37,11 @@ public class Artist {
 		this.recordlabelId = recordlabelId;
 	}
 	
-	public int getLocationId() {
-		return locationId;
+	public String getLocation() {
+		return location;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	public String getName() {
@@ -54,6 +58,12 @@ public class Artist {
 		this.biography = biography;
 	}
 	
+	public Album getAlbum() {
+		return album;
+	}
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 	public String getArtistImage() {
 		return artistImage;
 	}
@@ -61,11 +71,18 @@ public class Artist {
 		this.artistImage = artistImage;
 	}
 	
+	public List<String> getMembers() {
+		return members;
+	}
+	public void setMembers(List<String> members) {
+		this.members = members;
+	}
+	
 	@Override
 	public String toString() {
-		return "Artist [artistId=" + artistId + ", genreId=" + genreId + ", recordlabelId=" + recordlabelId
-				+ ", locationId=" + locationId + ", name=" + name + ", biography=" + biography + ", artistImage="
-				+ artistImage + "]";
+		return "Artist [artistId=" + artistId + ", genre=" + genre + ", recordlabelId=" + recordlabelId + ", location="
+				+ location + ", name=" + name + ", biography=" + biography + ", album=" + album + ", artistImage="
+				+ artistImage + ", members=" + members + "]";
 	}
 
 
