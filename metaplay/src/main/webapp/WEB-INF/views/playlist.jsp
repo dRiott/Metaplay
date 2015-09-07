@@ -23,7 +23,7 @@
 		<div class="row">
 
 			<div class="form-group">
-				<label for="project-name">Name</label> <span>${project.name}</span>
+				<label for="project-name">Name</label> <span>${playlist.name}</span>
 			</div>
 
 			<div class="form-group">

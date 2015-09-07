@@ -25,13 +25,13 @@
 			<form action="<spring:url value="/playlist/add"/>" method="post" class="col-md-8 col-md-offset-2">
 			
 				<div class="form-group">
-					<label for="project-name">Name</label>
-					<input type="text" id="project-name" 
+					<label for="playlist-name">Name</label>
+					<input type="text" id="playlist-name" 
 							class="form-control" name="name"/>
 				</div>
 				
 				<div class="form-group">
-					<label for="project_type">Type</label>
+					<label for="playlist_type">Type</label>
 					<select name="type" class="selectpicker">
 						<option></option>
 						<option value="solo">Sole Author Playlist</option>
@@ -40,8 +40,8 @@
 				</div>
 								
 				<div class="form-group">
-					<label for="project-name">Description</label>
-					<textarea class="form-control" rows="3"></textarea>
+					<label for="description">Description</label>
+					<textarea class="form-control" name="description" rows="3"></textarea>
 				</div>
 	
 				<button type="submit" class="btn btn-default">Submit</button>

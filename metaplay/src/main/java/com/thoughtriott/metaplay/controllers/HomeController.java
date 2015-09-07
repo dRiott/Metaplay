@@ -15,7 +15,7 @@ public class HomeController {
 		Playlist playlist = new Playlist();
 		playlist.setName("First Playlist");
 		playlist.setType("Shared Playlist");
-		playlist.setDescription("This is the first playlist, hardcoded.");
+		playlist.setDescription("This is the first playlist, hardcoded in the HomeController's goHome() method...");
 		
 		model.addAttribute("currentPlaylist", playlist);
 		
