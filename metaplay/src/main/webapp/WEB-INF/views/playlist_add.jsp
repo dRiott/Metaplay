@@ -35,8 +35,7 @@
 		</div>
 
 		<spring:url value="/playlist/review" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post"
-			modelAttribute="playlist">
+		<form:form action="${thisFormURL}" method="post" modelAttribute="playlist">
 
 			<div class="row">
 

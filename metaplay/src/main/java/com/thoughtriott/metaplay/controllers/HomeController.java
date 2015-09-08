@@ -9,7 +9,7 @@ import com.thoughtriott.metaplay.data.entities.Playlist;
 @Controller
 public class HomeController {
 
-	@RequestMapping("/")
+	@RequestMapping("/home")
 	public String goHome(Model model){
 		
 		Playlist playlist = new Playlist();
@@ -20,5 +20,10 @@ public class HomeController {
 		model.addAttribute("currentPlaylist", playlist);
 		
 		return "home";
+	}
+	
+	@RequestMapping("/")
+	public String goMain () {
+		return "welcome";
 	}
 }

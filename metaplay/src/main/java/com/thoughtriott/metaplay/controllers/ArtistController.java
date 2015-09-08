@@ -40,6 +40,13 @@ public class ArtistController {
 		return "redirect:/artist/add";
 	}
 	
+	@RequestMapping("/find")
+	public String findArtist() {
+		//implement findArtist method
+		// return "artsits"
+		return "404";
+	}
+	
 	// Adds the Artist to the Model with the @ModelAttribute annotation
 	@ModelAttribute("artist")
 	public Artist getArtist() {

@@ -12,7 +12,6 @@
 
 	<!-- Never provide direct access to a view or resource. Use the InternalResourceViewResolver 
 		to tack on .jsp to the name of the view that the controller returns... -->
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
