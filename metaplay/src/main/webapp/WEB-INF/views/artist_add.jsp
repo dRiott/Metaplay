@@ -25,7 +25,7 @@
 			<h1>Artist</h1>
 		</div>
 
-		<spring:url value="/artist/save" var="thisValueAttributesFormURL"/>
+		<spring:url value="/artist/review" var="thisValueAttributesFormURL"/>
 		<form:form action="${thisValueAttributesFormURL}" method="POST" modelAttribute="artist">
 	
 			<div class="row">
