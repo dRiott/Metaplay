@@ -54,13 +54,13 @@ public class PlaylistController {
 	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
 	public String find(Model model) {
-		model.addAttribute("playlists", this.playlistService.findAll());
+		model.addAttribute("playlists", this.playlistService.findAll("p1", "p2", "p3"));
 		return "playlists";
 	}
 	
 	@RequestMapping(value="/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
-		model.addAttribute("playlist", this.playlistService.find(playlistId));
+		model.addAttribute("playlist", this.playlistService.findPlaylistById(playlistId));
 		return "playlist";
 	}
 

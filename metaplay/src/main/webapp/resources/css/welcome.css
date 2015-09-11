@@ -16,3 +16,11 @@ h4{
 	color:green;
 	padding-left:25em
 }
+
+body {
+	background-image: url(../img/enduser.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+	
+}

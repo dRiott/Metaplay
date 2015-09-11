@@ -10,39 +10,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.User;
+import com.thoughtriott.metaplay.data.entities.Account;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/account")
 @SessionAttributes("user")
-public class UserController {
+public class AccountController {
 
 	//User Add Page
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String findRecordLabels(Model model){
 		System.out.println("Adding a new User to the model with the @ModelAttribute annotation");
 		System.out.println("Invoking the addPlaylist() method.");
-		return "user_add";
+		return "account_add";
 	}
 	
 	//User reviews their credentials before Submit
 	@RequestMapping("/review")
-	public String review(@ModelAttribute User user) {
-		System.out.println("Invoking review() in UserController");
-		return "user_review";
+	public String review(@ModelAttribute Account account) {
+		System.out.println("Invoking review() in AccountController");
+		return "account_review";
 	}
 
-	//Saves the User to the DB?
+	//Saves the Account to the DB?
 	@RequestMapping(value="/save")
-	public String saveUser(@ModelAttribute User user, SessionStatus status){
-		System.out.println("invoking saveUser");
+	public String saveAccount(@ModelAttribute Account account, SessionStatus status){
+		System.out.println("invoking saveAcount");
 		System.out.println("setting Registration Date...");		
-		user.setRegistrationDate(new Date());
-		System.out.println(user); //invoking toString Method
+		account.setRegistrationDate(new Date());
+		System.out.println(account); //invoking toString Method
 		//setComplete wipes the session of the info that we passed to the review page
 		//so that when we redirect to the /artist/add page, a blank form is displayed.
 		status.setComplete();
-		return "redirect:/user/login";
+		return "redirect:/account/login";
 	}
 	
 	//User Login Page
@@ -64,10 +64,10 @@ public class UserController {
 	}
 	
 	//adds a new User() to the model
-	@ModelAttribute("user")
-	public User getUser() {
-		System.out.println("Creating new User();");
-		return new User();
+	@ModelAttribute("account")
+	public Account getAccount() {
+		System.out.println("Creating new Account();");
+		return new Account();
 	}
 	
 }

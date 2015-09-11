@@ -28,8 +28,7 @@
 				</tr>
 				<c:forEach items="${playlists}" var="playlist">
 					<tr>
-						<td><a href="<spring:url value="/playlist/${playlist.playlistId}"/>">${playlist.name}</a></td>
-						<td>${playlist.type}</td>
+						<td><a href="<spring:url value="/playlist/${playlist.id}"/>">${playlist.name}</a></td>
 						<td>${playlist.description}</td>
 					</tr>	
 				</c:forEach>

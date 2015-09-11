@@ -3,25 +3,31 @@ package com.thoughtriott.metaplay.data.services;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.thoughtriott.metaplay.data.entities.Playlist;
 
 public class PlaylistService {
 
+	@PersistenceContext
+	private EntityManager em;
+	
 	private List<Playlist> playlists = new LinkedList<>();
 
 	public PlaylistService() {
-		Playlist drumAndBassPlaylist = this.createPlaylist("Drum and Bass Playlist",
-				"These are some dope ass D&B jams! HARDCODED IN PLAYLISTSERVICE CONSTRUCTOR", 1);
-		Playlist bluesProject = this.createPlaylist("Blues Playlist", "Everyone gets the Blues. HARDCODED IN PLAYLISTSERVICE CONSTRUCTOR", 2);
-		Playlist popHitsProject = this.createPlaylist("Pop Hits Playlist", "Pop it like it's hot. HARDCODED IN PLAYLISTSERVICE CONSTRUCTOR", 3);
-
-		// adds each of the above to the List<Playlist> playlists.
-		this.playlists.addAll(Arrays.asList(new Playlist[] { drumAndBassPlaylist, bluesProject, popHitsProject }));
+		//no arg constructor
+	}
+	
+	public PlaylistService(String p1, String p2, String p3) {
 	}
 
-	public List<Playlist> findAll() {
+	public List<Playlist> findAll(String p1, String p2, String p3) {
+		Playlist playlist1 = this.createPlaylist(p1, "These are some dope ass D&B jams!");
+		Playlist playlist2 = this.createPlaylist(p2, "Everyone gets the Blues.");
+		Playlist playlist3 = this.createPlaylist(p3, "Pop it like it's hot.");
+		this.playlists.addAll(Arrays.asList(new Playlist[] { playlist1, playlist2, playlist3 }));
 		return this.playlists;
 	}
 
@@ -39,19 +45,21 @@ public class PlaylistService {
 //		return fakePlaylist;
 //	}
 	
-	public Playlist find(int playlistId){
-		return this.playlists.stream().filter(p -> {
-			return p.getPlaylistId()==playlistId;
-		}).collect(Collectors.toList()).get(0);
+	
+	public Playlist findPlaylistById(int id) {
+		return (Playlist) em.createQuery("SELECT p FROM Playlist p WHERE l.id = :id").setParameter("id", id).getSingleResult();
 	}
 
 	// constructs a Playlist with arguments name and description
-	private Playlist createPlaylist(String name, String description, int playlistId) {
-		Playlist playlist = new Playlist();
-		playlist.setName(name);
-		playlist.setDescription(description);
-		playlist.setPlaylistId(playlistId);
-		return playlist;
+	public Playlist createPlaylist(String name, String description) {
+		em.clear();
+		em.getTransaction().begin();
+		Playlist p = new Playlist();
+		p.setName(name);
+		p.setDescription(description);
+		em.persist(p);
+		em.close();
+		return p;
 	}
 
 }

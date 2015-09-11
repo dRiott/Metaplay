@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,12 +16,19 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.services.ArtistService;
 
 @Controller
 @RequestMapping("/artist")
 @SessionAttributes("artist")
 public class ArtistController {
 
+	@PersistenceContext
+	private EntityManager em;
+	
+	@Autowired
+	private ArtistService artistService;
+	
 	@RequestMapping("/add")
 	public String addArtist(Model model) {
 		System.out.println("Adding a new Artist to the model with the @ModelAttribute annotation.");
@@ -32,6 +43,8 @@ public class ArtistController {
 	
 	@RequestMapping("/save")
 	public String saveArtist(@ModelAttribute Artist artist, SessionStatus status) {
+		
+		
 		System.out.println("Invoking the saveArtist() from ArtistController.");
 		System.out.println(artist);
 		//setComplete wipes the session of the info that we passed to the review page
@@ -43,7 +56,7 @@ public class ArtistController {
 	@RequestMapping("/find")
 	public String findArtist() {
 		//implement findArtist method
-		// return "artsits"
+		// return "artists"
 		return "404";
 	}
 	

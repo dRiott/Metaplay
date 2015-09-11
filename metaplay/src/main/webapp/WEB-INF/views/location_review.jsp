@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -21,20 +22,27 @@
 	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
 
 	<div class="container">
+		
+		<spring:url value="/location/save" var="thisURL" />
+		<form:form action="${thisURL}" method="post" modelAttribute="location">
+		
 		<div class="row">
-			<h2>Please Your Credentials for Accuracy</h2>
+			<h2>Please Review the Location for Accuracy</h2>
+
 
 			<div class="form-group">
-				<label for="username">Username</label> <span>${user.username}</span>
+				<label for="location-city">Location City</label> <span>${location.city}</span>
 			</div>
-			
+
 			<div class="form-group">
-				<label for="user-email">Email</label> <span>${user.email}</span>
+				<label for="location-state">Location State</label> <span>${location.state}</span>
 			</div>
-			
-			<a href="<spring:url value="/user/add"/>" class="btn btn-default">Edit</a>
-			<a href="<spring:url value="/user/save"/>" class="btn btn-default">Save</a>
+		
+
+			<a href="<spring:url value="/location/add"/>" class="btn btn-default">Edit</a>
+			<button type="submit" class="btn btn-default">Save</button>
 		</div>
+		</form:form>
 	</div>
 </body>
 </html>

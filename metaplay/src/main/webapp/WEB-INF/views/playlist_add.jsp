@@ -9,19 +9,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Playlist Manager</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<link rel="stylesheet"
-	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>"
-	type="text/css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script
-	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
+<link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
 
 </head>
 <body>
@@ -41,7 +34,7 @@
 
 				<div class="form-group">
 					<label for="playlist-id">Playlist ID</label>
-					<form:input type="text" path="playlistId" cssClass="form-control"
+					<form:input type="text" path="id" cssClass="form-control"
 						id="playlist-id" />
 				</div>
 				
@@ -51,11 +44,11 @@
 					<form:input path="name" cssClass="form-control" id="playlist-name" />
 				</div>
 
-				<div class="form-group">
+			<%-- 	<div class="form-group">
 					<label for="playlist-type">Type</label>
 					<form:select path="type" items="${typeOptions}" cssClass="selectpicker" />
 
-				</div>
+				</div> --%>
 
 				<div class="form-group">
 					<label for="description">Description</label>

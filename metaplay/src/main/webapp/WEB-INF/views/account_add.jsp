@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome User!</title>
+<title>Welcome ${account.accountname}!</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -27,7 +27,7 @@
 	<div>
 		<h2>Want to make Friendship?</h2>
 		<h3>HonestDad.docx love friends</h3>
-		<h4>Prepare to be user'd.</h4>
+		<h4>Prepare to be account'd.</h4>
 	</div>
 
 	<div class="container">
@@ -36,32 +36,32 @@
 			<h1>Fill In Your Desired Credentials</h1>
 		</div>
 
-		<spring:url value="/user/review" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="user">
+		<spring:url value="/account/review" var="thisFormURL" />
+		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
 
 			<div class="row">
 
 				<div class="form-group">
-					<label for="username">Username</label>
-					<form:input type="text" path="username" cssClass="form-control"
-						id="username" />
+					<label for="accountname">Account Name</label>
+					<form:input type="text" path="accountname" cssClass="form-control"
+						id="accountname" />
 				</div>
 
 
+			<%-- 	<div class="form-group">
+					<label for="account-email">Email</label>
+					<form:input path="email" cssClass="form-control" id="account-email" />
+				</div> --%>
+
+
 				<div class="form-group">
-					<label for="user-email">Email</label>
-					<form:input path="email" cssClass="form-control" id="user-email" />
+					<label for="account-password">Password</label>
+					<form:input type="password" path="password" cssClass="form-control" id="account-password" />
 				</div>
 
-
 				<div class="form-group">
-					<label for="user-password">Password</label>
-					<form:input type="password" path="password" cssClass="form-control" id="user-password" />
-				</div>
-
-				<div class="form-group">
-					<label for="user-passwordConfirm">Confirm Password</label>
-					<form:input type="password" path="passwordConfirm" cssClass="form-control" id="user-passwordConfirm" />
+					<label for="account-passwordConfirm">Confirm Password</label>
+					<form:input type="password" path="passwordConfirm" cssClass="form-control" id="account-passwordConfirm" />
 				</div>
 				
 				<button type="submit" class="btn btn-default">Submit</button>
