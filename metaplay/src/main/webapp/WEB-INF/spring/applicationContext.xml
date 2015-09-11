@@ -6,4 +6,5 @@
 <!-- Beans declared here are available to Dispatcher Servlets -->
 <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
 
+
 </beans>

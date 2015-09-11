@@ -19,11 +19,10 @@
 
 
 	<div class="container">
-		<h2>Current Playlist</h2>
+		<h2>Current Location</h2>
 		<ul class="list-group">
-			<li class="list-group-item"><label>Playlist Name:</label><span>${currentPlaylist.name}</span></li>
-			<li class="list-group-item"><label>Type:</label><span>${currentPlaylist.type}</span></li>
-			<li class="list-group-item"><label>Description:</label><br /> <span>${currentPlaylist.description}</span></li>
+			<li class="list-group-item"><label>Location City:</label><span>${currentLocation.city}</span></li>
+			<li class="list-group-item"><label>State:</label><br /> <span>${currentLocation.state}</span></li>
 		</ul>
 	</div>
 </body>
