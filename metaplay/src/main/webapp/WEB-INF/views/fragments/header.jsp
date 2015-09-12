@@ -83,7 +83,7 @@
 
 			<!-- Login Page -->
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-expanded="false">User
+				data-toggle="dropdown" role="button" aria-expanded="false">Account
 					<span class="caret"></span>
 			</a>
 

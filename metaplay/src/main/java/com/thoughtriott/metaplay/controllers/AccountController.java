@@ -14,7 +14,7 @@ import com.thoughtriott.metaplay.data.entities.Account;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes("user")
+@SessionAttributes("account")
 public class AccountController {
 
 	//User Add Page

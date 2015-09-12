@@ -44,6 +44,7 @@ public class Account {
 	
 	private String accountname;
 	private String password;
+	private String email;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="REGISTRATION_DATE")
@@ -99,7 +100,15 @@ public class Account {
 		this.registrationDate = registrationDate;
 	}
 	
-//--------------------------Collection Adders and Removers--------------------------
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	//--------------------------Collection Adders and Removers--------------------------
 	//adds a Role to Collection<Role>
 	public void addRole(Role role) {
 		if (!getRoles().contains(role)) {
@@ -184,7 +193,7 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", roles= " + this.getRolesToString() + ", playlists=" + this.getPlaylistsToString() + ", accountname=" + accountname
-				+ ", password=" + password + ", registrationDate=" + registrationDate + "]";
+				+ ", password=" + password + ", registrationDate=" + registrationDate + ", email=" + email + "]";
 	}
 
 }

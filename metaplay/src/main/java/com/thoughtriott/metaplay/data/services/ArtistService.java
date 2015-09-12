@@ -5,6 +5,9 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.thoughtriott.metaplay.data.entities.Artist;
 
 public class ArtistService {
@@ -12,17 +15,28 @@ public class ArtistService {
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Autowired
+	private LocationService locationService;
+	@Autowired
+	private GenreService genreService;
+	
+	@Autowired
+	private RecordLabelService recordLabelService;
+	
 	public ArtistService () {
 		//no-arg constructor
 	}
 	
-	public Artist createArtist(String name, String genre, String recordLabel, String location) {
+	@Transactional
+	public Artist createArtist(String name, int genreId, int locationId, int recordLabelId, String biography) {
 		em.clear();
-		em.getTransaction().begin();
 		Artist a = new Artist();
 		a.setName(name);
+		a.setBiography(biography);
+		a.setLocation(locationService.findLocationById(locationId));
+		a.setGenre(genreService.findGenreById(genreId));
+		a.setRecordLabel(recordLabelService.findRecordLabelById(recordLabelId));
 		em.persist(a);
-		em.close();
 		return a;
 	}
 	

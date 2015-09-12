@@ -25,32 +25,62 @@
 			<h1>Artist</h1>
 		</div>
 
-		<spring:url value="/artist/review" var="thisValueAttributesFormURL"/>
-		<form:form action="${thisValueAttributesFormURL}" method="POST" modelAttribute="artist">
+		<spring:url value="/artist/review" var="thisURL"/>
+		<form:form action="${thisURL}" method="POST" modelAttribute="artist">
 	
 			<div class="row">
 
 				<div class="form-group">
 					<label for="artist-name">Name</label>
-					<form:input path="name" cssClass="form-control" id="artist-name"/>
-				</div>
-
-				<div class="form-group">
-					<label for="genre">Genre</label> 
-					<form:select path="genre" items="${genreOptions}" cssClass="selectpicker"/>
-				</div>
-
-				<div class="form-group">
-					<label for="location">Location</label> 
-					<form:select path="location" items="${locationOptions}" cssClass="selectpicker"/>
-				</div>
-
-				<div class="form-group">
-					<label for="recordlabel-id">Record Label ID (Required)</label> 
-					<form:input path="recordlabelId" cssClass="form-control" value="2" id="recordlabel-id" />
+					<form:input path="artist.name" cssClass="form-control" id="artist-name"/>
 				</div>
 				
-				<!--  Album fields here -->
+				
+				
+				<div class="form-group">
+					<label for="biography">Biography</label>
+					<form:textarea path="artist.biography" cssClass="form-control" id="biography" rows="3"/>
+				</div>
+				
+				<div class="form-group">
+					<label for="artist-image">Artist Image</label> 
+					<form:input  path="artist.artistImage" cssClass="form-control" id="artist-image"/>
+				</div>
+				
+				<div class="form-group">
+					<label for="genre-name">Genre Name (Required)</label> 
+					<form:input path="genre.name" cssClass="form-control" value="Pop/Rock" id="genre-name" />
+				</div>
+				
+				<div class="form-group">
+					<label for="location-city">Location City (Required)</label> 
+					<form:input path="location.city" cssClass="form-control" value="Denver" id="location-city" />
+				</div>
+
+				<div class="form-group">
+					<label for="location-state">Location State (Required)</label> 
+					<form:input path="location.state" cssClass="form-control" value="Colorado" id="location-state" />
+				</div>
+				
+				<div class="form-group">
+					<label for="recordLabel-name">Record Label (Required)</label> 
+					<form:input path="recordLabel.name" cssClass="form-control" value="Paw Tracks" id="recordLabel-name" />
+				</div>
+				
+<%-- 				<div class="form-group">
+					<label for="member">Artist Member</label> 
+					<form:input  path="members[0]" cssClass="form-control" id="member"/>
+				</div>
+				<div class="form-group">
+					<label for="member2">Artist Member 2</label> 
+					<form:input  path="members[1]" cssClass="form-control" id="member2"/>
+				</div>
+				<div class="form-group">
+					<label for="member3">Artist Member 3</label> 
+					<form:input  path="members[2]" cssClass="form-control" id="member3"/>
+				</div> --%>
+				
+<%-- 				<!--  Album fields here -->
 				<div class="form-group">
 					<label for="album-name">Album: Name</label>
 					<form:input path="album.name" cssClass="form-control" id="album-name" />
@@ -71,31 +101,7 @@
 					<label for="album-albumCover">Album: Album Cover</label>
 					<form:input path="album.albumCover" cssClass="form-control" id="album-albumCover" />
 				</div>
-				<!--  End Album fields -->
-				
-				
-				<div class="form-group">
-					<label for="biography">Biography</label>
-					<form:textarea path="biography" cssClass="form-control" id="biography" rows="3"/>
-				</div>
-				
-				<div class="form-group">
-					<label for="artist-image">Artist Image</label> 
-					<form:input  path="artistImage" cssClass="form-control" id="artist-image"/>
-				</div>
-				
-				<div class="form-group">
-					<label for="member">Artist Member</label> 
-					<form:input  path="members[0]" cssClass="form-control" id="member"/>
-				</div>
-				<div class="form-group">
-					<label for="member2">Artist Member 2</label> 
-					<form:input  path="members[1]" cssClass="form-control" id="member2"/>
-				</div>
-				<div class="form-group">
-					<label for="member3">Artist Member 3</label> 
-					<form:input  path="members[2]" cssClass="form-control" id="member3"/>
-				</div>
+				<!--  End Album fields --> --%>
 				
 					<button type="submit" class="btn btn-default">Submit</button>
 				

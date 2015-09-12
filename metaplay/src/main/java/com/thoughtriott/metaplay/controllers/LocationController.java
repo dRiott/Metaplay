@@ -29,22 +29,6 @@ public class LocationController {
 	@RequestMapping("/add")
 	public String addLocation(Model model){
 		
-		//"denver" attribute
-		Location denver = locationService.findLocation("Denver", "Colorado");
-		model.addAttribute("currentLocation", denver);
-
-		//"all" attribute
-		String all = locationService.findAllAsString();
-		model.addAttribute("all", all);
-
-		//"states" attribute
-		Iterator<String> it = locationService.findDistinctStates().iterator();
-		String states = "";
-		while(it.hasNext()) {
-			states = states + " " + it.next();
-		}
-		model.addAttribute("states", states);
-		
 		//"location" attribute - STORES LOCATION TO BE EVENTUALLY PERSISTED
 		model.addAttribute("location", new Location());
 	

@@ -43,5 +43,7 @@
    <bean id="locationService" class="com.thoughtriott.metaplay.data.services.LocationService"/>
    <bean id="artistService" class="com.thoughtriott.metaplay.data.services.ArtistService"/>
    <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
+   <bean id="genreService" class="com.thoughtriott.metaplay.data.services.GenreService"/>
+   <bean id="recordLabelService" class="com.thoughtriott.metaplay.data.services.RecordLabelService"/>
 
 </beans>
