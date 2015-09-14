@@ -1,0 +1,39 @@
+package com.thoughtriott.metaplay.utilities;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class DateFormatter {
+
+	
+	public DateFormatter() {
+		
+	}
+	
+	
+public Date getDateFromString(String date) {
+	
+	String[] dateArray = date.split("-");
+	
+	Calendar cal = Calendar.getInstance();
+
+	int month = Integer.parseInt(dateArray[0]);
+	int day = Integer.parseInt(dateArray[1]);
+	int year = Integer.parseInt(dateArray[2]);
+
+	cal.set(year, month, day);
+
+	Date actualDate = new Date(cal.getTime());
+	} else {
+
+	} catch (ParseException exp) {
+	    exp.printStackTrace();
+	}
+}
+	
+	
+	
+	
+}

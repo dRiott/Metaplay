@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="MetaPlayPersistence" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        
+        <non-jta-data-source>jdbc/metaplay</non-jta-data-source>
+        
+        <!--  This bad boy prevents you from having to list all for the classes manually, JPA finds them on its own. -->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        
+        <properties>
+            <property name="eclipselink.logging.level" value="WARNING" />
+        </properties>
+    </persistence-unit>
+</persistence>

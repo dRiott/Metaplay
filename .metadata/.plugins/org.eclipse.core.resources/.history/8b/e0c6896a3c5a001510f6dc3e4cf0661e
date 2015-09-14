@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/metaplay" reloadable="true" crossContext="true">
+  <Resource name="jdbc/metaplay" 
+    auth="Container" type="javax.sql.DataSource"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://metaplay.c1nbtf7dwiku.us-west-2.rds.amazonaws.com:3306/driott_metaplay"
+    username="driott" password="B3nchl3y.Sch00led"/>
+</Context>

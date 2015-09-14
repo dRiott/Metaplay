@@ -71,11 +71,6 @@ public class ArtistController {
 	@RequestMapping("/save")
 	public String saveArtist(@ModelAttribute CreateArtistWrapper createArtistWrapper, SessionStatus status, HttpSession session) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
-
-		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
-		if(caw == null) {
-			System.out.println("CreateArtistWrapper is null for some reason.");
-		}
 		
 		Artist futureArtist = new Artist();
 		String artistName = (String) session.getAttribute("name");

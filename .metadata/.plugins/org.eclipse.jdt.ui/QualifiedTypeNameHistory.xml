@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Location"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Album"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Member"/>
+<fullyQualifiedTypeName name="java.text.ParseException"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.utilities.DateFormatter"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+</qualifiedTypeNameHistroy>

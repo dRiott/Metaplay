@@ -1,0 +1,16 @@
+package com.thoughtriott.metaplay.data.entities;
+
+import com.thoughtriott.metaplay.data.entities.*;
+
+public class ArtistTest {
+
+	public static void main(String[] args) {
+		Artist a = new Artist();
+		a.setName("David");
+		a.setBiography("Supa FLy");
+		System.out.println(a);
+	}
+
+	
+	
+}

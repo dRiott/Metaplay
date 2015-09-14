@@ -91,13 +91,28 @@ public class LocationService {
 	}
 	
 	//finds Location with City and State arguments
+	@SuppressWarnings("unchecked")
 	public Location findLocation(String city, String state) {
-		return (Location) em.createQuery("SELECT l FROM Location l WHERE l.city = :city AND l.state = :state").setParameter("city", city).setParameter("state", state).getSingleResult();
+		
+		List<Location> locList = (List<Location>) em.createQuery("SELECT l FROM Location l WHERE l.city = :city AND l.state = :state").setParameter("city", city).setParameter("state", state).getResultList();
+		if(locList.size() ==1) {
+			return locList.get(0);
+		} else {
+			System.out.println("Colleciton contained more than one item.");
+			return locList.get(0);
+		}
 	}
 	
 	//finds Location by Id
-	public Location findLocationById(int id) {
-		return (Location) em.createQuery("SELECT l FROM Location l WHERE l.id = :id").setParameter("id", id).getSingleResult();
+	public Location findLocationById(int id) {		
+		@SuppressWarnings("unchecked")
+		List<Location> locList = (List<Location>) em.createQuery("SELECT l FROM Location l WHERE l.id = :id").setParameter("id", id).getResultList();
+		if(locList.size() ==1) {
+			return locList.get(0);
+		} else {
+			System.out.println("Colleciton contained more than one item.");
+			return locList.get(0);
+		}
 	}
 
 }

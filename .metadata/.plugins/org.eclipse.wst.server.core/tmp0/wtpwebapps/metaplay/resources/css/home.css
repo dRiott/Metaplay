@@ -1,0 +1,11 @@
+h1{
+	color:red;
+}
+
+body {
+	background-image: url(../img/jackieconfused.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+	
+}
