@@ -30,21 +30,29 @@ public class GenreService {
 		return g;
 	}
 	
-	//grabs all Locations in Location table
+	@Transactional
+	public Genre createGenre(String name) {
+		em.clear();
+		Genre g = new Genre();
+		g.setName(name);
+		em.persist(g);
+		return g;
+	}
+	
+	//grabs all Genres in Genre table
 	public Collection<Genre> findAllAsCollection() {
 		return em.createQuery("SELECT g FROM Genre g ORDER BY g.name", Genre.class).getResultList();
 	}
 	
-	//grabs all the Locations belonging to a certain State
-	@SuppressWarnings("unchecked")
-	public List<Genre> findListGenreByName(String name) {
-		return em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getResultList();
+	//grabs the Genre with of certain name
+	public Genre findGenreByName(String name) {
+		return (Genre) em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getSingleResult();
 
 	}
 	
 	//return a string of all of the cities in that state
 	@SuppressWarnings("unchecked")
-	public String findGenreByName(String name) {
+	public String findGenreByNameToString(String name) {
 		List<Genre> genre = em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getResultList();
 		int size = genre.size();
 		int indexCounter = 0;

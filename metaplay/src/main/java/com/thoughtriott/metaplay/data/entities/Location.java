@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "LOCATION")
+@Table(name = "location")
 public class Location {
 	
 // --------------------------Constructors--------------------------

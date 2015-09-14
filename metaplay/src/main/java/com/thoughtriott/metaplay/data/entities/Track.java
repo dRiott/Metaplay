@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TRACK")
+@Table(name = "track")
 public class Track {
 	
 // --------------------------Constructors--------------------------
@@ -35,18 +35,18 @@ public class Track {
 
 	private String name;
 	
-	@Column(name="LENGTH_SECONDS")
+	@Column(name="length_seconds")
 	private int length;
 	
 	private String lyrics;
 	
 	private int bpm;
 	
-	@Column(name="TRACK_NUMBER")
+	@Column(name="track_number")
 	private int trackNumber;
 	
 	@ManyToOne
-	@JoinColumn(name = "ALBUM_ID", nullable=false)
+	@JoinColumn(name = "album_id", nullable=false)
 	private Album album;
 	
 	@ManyToMany(mappedBy="tracks", cascade = CascadeType.ALL)
@@ -222,6 +222,13 @@ public class Track {
 		}
 		return playlistTracksString;
 	}	
+	
+	public String getAlbumToString () {
+		if(album!=null) {
+			return album.toString();
+		}
+		return "Album is null.";
+	}
 		
 	
 //--------------------------toString()--------------------------
@@ -230,9 +237,9 @@ public class Track {
 	//Tracks and Playlists: @ManyToMany. B/c StackOverflowError --> Altered toString(): playlists, playlistTracks, album.getName()
 	@Override
 	public String toString() {
-		return "Track [id=" + id + ", playlistTracks.size()=" + playlistTracks.size() + ", name=" + name + ", length=" + length
-				+ ", lyrics=" + lyrics + ", bpm=" + bpm + ", trackNumber=" + trackNumber + ", album.getName()=" + album.getName()
-				+ ", playlists.size()=" + playlists.size() + "]";
+		return "Track [id=" + id + ", playlistTracks=" + getPlaylistTracksToString() + ", name=" + name + ", length=" + length
+				+ ", lyrics=" + lyrics + ", bpm=" + bpm + ", trackNumber=" + trackNumber + ", album=" + getAlbumToString()
+				+ ", playlists=" + getPlaylistsToString() + "]";
 	}
 	
 }

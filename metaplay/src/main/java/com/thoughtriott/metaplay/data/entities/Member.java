@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEMBER")
+@Table(name = "member")
 public class Member {
 	
 // --------------------------Constructors--------------------------
@@ -28,16 +28,16 @@ public class Member {
 	@ManyToMany(mappedBy="members")
 	private Collection<Artist> artists;
 
-	@Column(name="FIRST_NAME")
+	@Column(name="first_name")
 	private String firstName;
 
-	@Column(name="MIDDLE_NAME")
+	@Column(name="middle_name")
 	private String middleName;
 	
-	@Column(name="LAST_NAME")
+	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="STAGE_NAME")
+	@Column(name="stage_name")
 	private String stageName;
 
 //--------------------------Getters & Setters--------------------------

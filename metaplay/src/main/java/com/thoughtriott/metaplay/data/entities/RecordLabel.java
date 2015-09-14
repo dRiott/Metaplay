@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RECORDLABEL")
+@Table(name = "recordlabe")
 public class RecordLabel {
 	
 	
@@ -30,7 +30,7 @@ public class RecordLabel {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "LOCATION_ID", nullable=false)
+	@JoinColumn(name = "location_id", nullable=false)
 	private Location location;
 
 	@OneToMany(mappedBy = "recordLabel")
@@ -108,13 +108,20 @@ public class RecordLabel {
 		} return "No artists.";
 	}
 	
+	public String getLocationToString () {
+		if(location!=null) {
+			return location.toString();
+		}
+		return "Location is null.";
+	}
+	
 //--------------------------toString()--------------------------
 	
 	//In Artist: recordLabel.getName()
 	//B/c StackOverflowError, altered this toString(): location.getCity()
 	@Override
 	public String toString() {
-		return "RecordLabel [id=" + id + ", name=" + name + ", location.getCity()=" + location.getCity() + ", " + location.getState() + ", artists=" + this.getArtistsToString() + "]";
+		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", artists=" + this.getArtistsToString() + "]";
 	}
 
 }

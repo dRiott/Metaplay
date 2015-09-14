@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Project Manager</title>
+<title>Artist Manager</title>
 
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -24,66 +24,75 @@
 	<div class="container">
 	
 		<spring:url value="/artist/save" var="thisURL" />
-		<form:form action="${thisURL}" method="post" modelAttribute="artist">
+		<form:form action="${thisURL}" method="post" modelAttribute="createArtistWrapper">
 		
 			<div class="row">
 				<h2>Please Review the Artist for Accuracy</h2>
 	
 				<div class="form-group">
-					<label for="artist-name">Name</label> <span>${artist.name}</span>
+					<label for="artist-name">Name</label> <span>${createArtistWrapper.name}</span>
 				</div>
 	
 				<div class="form-group">
-					<label for="genre-name">Genre</label> <span>${genre.name }</span>
+					<label for="biography">Biography</label> <span>${createArtistWrapper.biography }</span>
 				</div>
 	
-				<div class="form-group">
-					<label for="location-city">Location City</label> <span>${location.city}</span>
-				</div>
-				
-				<div class="form-group">
-					<label for="location-state">Location State</label> <span>${location.state}</span>
-				</div>
-	
-				<div class="form-group">
-					<label for="recordLabel-name">Record Label</label> <span>${recordLabel.name}</span>
-				</div>
-				
-							
-												<%-- <!--  Album fields here -->
-												<div class="form-group">
-													<label for="album-name">Album: Name</label><span>${artist.album.name }</span>
-												</div>
-												<div class="form-group">
-													<label for="album-numTracks">Album: Number of Tracks</label><span>${artist.album.numTracks }</span>
-												</div>
-												<div class="form-group">
-													<label for="album-artistId">Album: Artist ID</label><span>${artist.album.artistId }</span>
-												</div>
-												<div class="form-group">
-													<label for="album-releaseDate">Album: Release Date</label><span>${artist.album.releaseDate }</span>
-												</div>
-												<div class="form-group">
-													<label for="album-albumCover">Album: Album Cover</label><span>${artist.album.albumCover }</span>
-												</div>
-												<!--  End Album fields --> --%>
-												
-												<%-- 			<div class="form-group">
-													<label>Members</label>
-													<c:forEach var="members" items="${artist.members}">
-														<span>${members}</span>
-													</c:forEach>
-													</div> --%>
-					
-				
-				<div class="form-group">
-					<label for="artist-biography">Biography</label><span>${artist.biography }</span>
-				</div>
-				
-				<div class="form-group">
+			<!--	<div class="form-group">
 					<label for="artist-image">Artist Image</label><span>${artist.artistImage }</span>
+				</div> -->
+	
+				<div class="form-group">
+					<label for="genreName">Genre</label> <span>${createArtistWrapper.genreName }</span>
+				</div>
+	
+				<div class="form-group">
+					<label for="location-city">City</label> <span>${createArtistWrapper.locationCity}</span>
 				</div>
 				
+				<div class="form-group">
+					<label for="location-state">State</label> <span>${createArtistWrapper.locationState}</span>
+				</div>
+	
+				<div class="form-group">
+					<label for="recordLabel-name">Record Label</label> <span>${createArtistWrapper.recordLabelName}</span>
+				</div>
+				
+		<!--  Artist Member fields here -->
+				<div class="form-group">
+					<label for="member1">Artist Member #1</label> <span>${createArtistWrapper.member1}</span>
+				</div>
+				<div class="form-group">
+					<label for="member2">Artist Member #2</label> <span>${createArtistWrapper.member2}</span>
+				</div>
+				<div class="form-group">
+					<label for="member3">Artist Member #3</label> <span>${createArtistWrapper.member3}</span>
+				</div>
+				<div class="form-group">
+					<label for="member4">Artist Member #3</label> <span>${createArtistWrapper.member4}</span>
+				</div>
+		<!--  Artist Member fields here -->
+							
+		<!--  Album fields here -->
+				<div class="form-group">
+					<label for="album-name">Album: Name</label><span>${createArtistWrapper.albumName }</span>
+				</div>
+				<div class="form-group">
+					<label for="album-numTracks">Album: Number of Tracks</label><span>${createArtistWrapper.albumNumTracks }</span>
+				</div>
+				<div class="form-group">
+					<label for="album-releaseDate">Album: Release Date</label><span>${createArtistWrapper.albumReleaseDate }</span>
+				</div>
+				<div class="form-group">
+					<label for="album-albumCover">Album: Album Cover</label><span>${createArtistWrapper.albumAlbumCover }</span>
+				</div>
+		<!--  End Album fields -->
+				
+				<!-- <div class="form-group">
+					<label>Members</label>
+					<c:forEach var="members" items="${artist.members}">
+						<span>${members}</span>
+					</c:forEach>
+				</div> -->
 				
 				<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Edit</a>
 				<a href="<spring:url value="/artist/save"/>"	class="btn btn-default">Save</a>

@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "ACCOUNT")
+@Table(name = "account")
 public class Account {
 
 // --------------------------Constructors--------------------------
@@ -31,15 +31,15 @@ public class Account {
 	private int id;
 
 	@ManyToMany
-	@JoinTable(name="ACCOUNT_ROLE", 
-		joinColumns = @JoinColumn(name = "ACCOUNT_ID", referencedColumnName="id"),
-		inverseJoinColumns= @JoinColumn(name = "ROLE_ID", referencedColumnName="id"))
+	@JoinTable(name="account_role", 
+		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
+		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
 	private Collection<Role> roles;
 
 	@ManyToMany
-	@JoinTable(name="PLAYLIST_ACCOUNT", 
-		joinColumns = @JoinColumn(name = "ACCOUNT_ID", referencedColumnName="id"),
-		inverseJoinColumns= @JoinColumn(name = "PLAYLIST_ID", referencedColumnName="id"))
+	@JoinTable(name="playlist_account", 
+		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
+		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
 	private Collection<Playlist> playlists;
 	
 	private String accountname;
@@ -47,7 +47,7 @@ public class Account {
 	private String email;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="REGISTRATION_DATE")
+	@Column(name="registration_date")
 	private Date registrationDate;
 
 //--------------------------Getters & Setters--------------------------

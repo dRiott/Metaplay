@@ -25,7 +25,7 @@
 	<div class="container">
 		<h2>Current Location</h2>
 		<ul class="list-group">
-			<li class="list-group-item"><label>locationService.findLocation("Denver", "Colorado"): </label><br/><span>${currentLocation.city}, ${currentLocation.state}</span></li>
+			<li class="list-group-item"><label>locationService.findLocation("Portland", "Oregon"): </label><br/><span>${currentLocation.city}, ${currentLocation.state}</span></li>
 			<li class="list-group-item"><label>States:</label><br/> <span>${states}</span></li>
  			<li class="list-group-item"><label>Locations (Formatted):</label><br/><span>${all}</span></li>
 		</ul>

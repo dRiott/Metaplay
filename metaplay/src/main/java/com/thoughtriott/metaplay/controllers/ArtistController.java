@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,17 +11,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Genre;
 import com.thoughtriott.metaplay.data.entities.Location;
+import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import com.thoughtriott.metaplay.data.services.AlbumService;
 import com.thoughtriott.metaplay.data.services.ArtistService;
+import com.thoughtriott.metaplay.data.services.GenreService;
+import com.thoughtriott.metaplay.data.services.LocationService;
+import com.thoughtriott.metaplay.data.services.MemberService;
+import com.thoughtriott.metaplay.data.services.RecordLabelService;
+import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
+import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/artist")
@@ -32,45 +41,116 @@ public class ArtistController {
 	
 	@Autowired
 	private ArtistService artistService;
+	@Autowired
+	private LocationService locationService;
+	@Autowired
+	private GenreService genreService;
+	@Autowired
+	private RecordLabelService recordLabelService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private AlbumService albumService;
+	@Autowired
+	private DateFormatter dateFormatter;
+
 	
 	@RequestMapping("/add")
-	public String addArtist(Model model) {
+	public String addArtist() {
 		System.out.println("Adding a new Artist to the model with the @ModelAttribute annotation.");
 		return "artist_add";
 	}
 	
-//	@RequestMapping("/add")
-//	public String addLocation(Model model){
-//		
-//		//"location" attribute - STORES LOCATION TO BE EVENTUALLY PERSISTED
-//		model.addAttribute("location", new Location());
-//	
-//		return "location_add";
-//	}
-	
 	@RequestMapping("/review")
-	public String review(@ModelAttribute Artist artist, @ModelAttribute Location location, @ModelAttribute Genre genre, @ModelAttribute RecordLabel recordLabel, HttpSession session) {
+	public String review(HttpSession session, @ModelAttribute CreateArtistWrapper createArtistWrapper) {
 		System.out.println("Invoking review() in ArtistController");
-		System.out.println(artist.getName());
-		session.setAttribute("artist", artist);
-		session.setAttribute("location", location);
-//		model.addAttribute(artist);
+		session.setAttribute("createArtistWrapper", createArtistWrapper);
 		return "artist_review";
 	}
 	
 	@RequestMapping("/save")
-	public String saveArtist(@ModelAttribute Artist artist, @ModelAttribute Location location, SessionStatus status, @ModelAttribute Genre genre, @ModelAttribute RecordLabel recordLabel, HttpSession session) {
+	public String saveArtist(@ModelAttribute CreateArtistWrapper createArtistWrapper, SessionStatus status, HttpSession session) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
-		Artist a = (Artist) session.getAttribute("artist");
-		Location l = (Location) session.getAttribute("location");
-		Genre g = (Genre) session.getAttribute("genre");
-		RecordLabel rl = (RecordLabel) session.getAttribute("recordLabel");
-		int locationId = l.getId();
-		int recordLabelId = rl.getId();
-		int genreId = g.getId();
+
+		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
+		if(caw == null) {
+			System.out.println("CreateArtistWrapper is null for some reason.");
+		}
 		
-		artistService.createArtist(a.getName(), genreId, locationId, recordLabelId, a.getBiography());
+		Artist futureArtist = new Artist();
+		String artistName = (String) session.getAttribute("name");
+		futureArtist.setName(artistName);
+		String artistBiography = (String) session.getAttribute("biography");
+		futureArtist.setBiography(artistBiography);
 		
+	// 		Setting/Creating a Location
+		String city = (String) session.getAttribute("locationCity");
+		String state = (String) session.getAttribute("locationState");
+		if(locationService.findLocation(city, state)!=null) {
+			Location l = locationService.findLocation(city, state);
+			futureArtist.setLocation(l);
+		} else {
+			Location l = locationService.createLocation(city, state);
+			futureArtist.setLocation(l);
+		}
+		
+	// 		Setting/Creating a Record Label
+		String recordLabelName = (String) session.getAttribute("recordLabelName");
+		if(recordLabelService.findRecordLabelByName(recordLabelName)!=null) {
+			RecordLabel rl = (RecordLabel) recordLabelService.findRecordLabelByName(recordLabelName);
+			futureArtist.setRecordLabel(rl);
+		} else {
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(recordLabelName, locationService.findLocation(city, state));
+			futureArtist.setRecordLabel(rl);
+		}
+		
+	//		Setting/Creating a Genre
+		String genreName = (String) session.getAttribute("genreName");
+		if(genreService.findGenreByName(genreName)!=null) {
+			Genre g = (Genre) genreService.findGenreByName(genreName);
+			futureArtist.setGenre(g);
+		} else {
+			Genre g = (Genre) genreService.createGenre(genreName);
+			futureArtist.setGenre(g);
+		}
+
+	// 		adding members to the artist
+		String member1fullName = (String) session.getAttribute("member1");
+		Member member1 = memberService.splitQueryCreate(member1fullName);
+		futureArtist.addMember(member1);
+
+		String member2fullName = (String) session.getAttribute("member2");
+		Member member2 = memberService.splitQueryCreate(member2fullName);	
+		futureArtist.addMember(member2);
+		
+		String member3fullName = (String) session.getAttribute("member3");
+		Member member3 = memberService.splitQueryCreate(member3fullName);
+		futureArtist.addMember(member3);
+		
+		String member4fullName = (String) session.getAttribute("member4");
+		Member member4 = memberService.splitQueryCreate(member4fullName);
+		futureArtist.addMember(member4);
+		
+	//		Setting/Creating a Genre
+		String albumName = (String) session.getAttribute("albumName");
+		if(albumService.findAlbumByName(albumName)!=null) {
+			Album a = (Album) albumService.findAlbumByName(albumName);
+			futureArtist.addAlbum(a);
+		} else {
+			int albumNumTracks = Integer.parseInt((String) session.getAttribute("albumNumTracks"));
+			Date albumReleaseDate = dateFormatter.getDateFromString((String) session.getAttribute("albumReleaseDate")); 
+	//			String albumAlbumCover = (String) session.getAttribute("albumAlbumCover"); //no corresponding field in Album exists yet...
+	//			a.setAlbumCover(albumAlbumCover);
+
+			Album a = new Album();
+			a.setName(albumName);
+			a.setNumTracks(albumNumTracks);
+			a.setReleaseDate(albumReleaseDate);
+			futureArtist.addAlbum(a);
+		}
+		
+		artistService.createArtist(futureArtist);
+
 		//setComplete wipes the session of the info that we passed to the review page
 		//so that when we redirect to the /artist/add page, a blank form is displayed.
 		status.setComplete();
@@ -84,39 +164,38 @@ public class ArtistController {
 		return "404";
 	}
 	
-	// Adds the Artist to the Model with the @ModelAttribute annotation
+// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("artist")
 	public Artist getArtist() {
 		return new Artist();
 	}
 	
-	// Adds the Location to the Model with the @ModelAttribute annotation
 	@ModelAttribute("location")
 	public Location getLocation() {
 		return new Location();
 	}
 	
-	// Adds the Location to the Model with the @ModelAttribute annotation
 	@ModelAttribute("genre")
 	public Genre getGenre() {
 		return new Genre();
 	}
 	
-	// Adds the Location to the Model with the @ModelAttribute annotation
 	@ModelAttribute("recordLabel")
 	public RecordLabel getRecordLabel() {
 		return new RecordLabel();
 	}
 	
-	//@ModelAttribute annotation tells spring that this method 
-	// should have its return value placed within the model with key "locationOptions"
+	@ModelAttribute("createArtistWrapper")
+	public CreateArtistWrapper getCreateArtistWrapper() {
+		return new CreateArtistWrapper();
+	}
+	
 	@ModelAttribute(value="locationOptions")
 	public List<String> getLocations() {
 		return new LinkedList<>(Arrays.asList(new String[] { "Seattle", "Los Angeles", "Denver",
 				"San Francisco", "Chicago", "Atlanta", "Dallas", "Portland", "Other" }));
 	}
 	
-	// place "genreOptions" List in the model to be used on our artist_add.jsp page
 	@ModelAttribute(value="genreOptions")
 	public List<String> getGenres() {
 		return  new LinkedList<>(Arrays.asList(new String[] { "Blues", "Rock", "Juke",

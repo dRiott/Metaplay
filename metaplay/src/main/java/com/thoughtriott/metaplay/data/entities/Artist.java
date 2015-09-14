@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ARTIST")
+@Table(name = "artist")
 public class Artist {
 	
 // --------------------------Constructors--------------------------
@@ -32,21 +32,21 @@ public class Artist {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "GENRE_ID", nullable=false)
+	@JoinColumn(name = "genre_id", nullable=false)
 	private Genre genre;
 	
 	@ManyToOne
-	@JoinColumn(name = "RECORDLABEL_ID", nullable=false)
+	@JoinColumn(name = "recordlabel_id", nullable=false)
 	private RecordLabel recordLabel;
 
 	@ManyToOne
-	@JoinColumn(name = "LOCATION_ID", nullable=false)
+	@JoinColumn(name = "location_id", nullable=false)
 	private Location location;
 	
 	@ManyToMany
-	@JoinTable(name="ARTIST_MEMBER", 
-		joinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName="id"),
-		inverseJoinColumns= @JoinColumn(name = "MEMBER_ID", referencedColumnName="id"))
+	@JoinTable(name="artist_member", 
+		joinColumns = @JoinColumn(name = "artist_id", referencedColumnName="id"),
+		inverseJoinColumns= @JoinColumn(name = "member_id", referencedColumnName="id"))
 	private Collection<Member> members;
 	
 	@OneToMany(mappedBy="artist")
@@ -57,7 +57,7 @@ public class Artist {
 	private String biography;
 	
 	@Lob
-	@Column(name="ARTIST_IMAGE")
+	@Column(name="artist_image")
 	private String artistImage;
 	
 //--------------------------Getters & Setters--------------------------	
@@ -211,6 +211,29 @@ public class Artist {
 		return albumsString; 
 		} return "No albums";
 	}
+	
+	public String getGenreToString () {
+		if(genre!=null) {
+			return genre.toString();
+		}
+		return "Genre is null.";
+	}
+	
+	public String getRecordLabelToString () {
+		if(recordLabel!=null) {
+			return recordLabel.toString();
+		}
+		return "recordLabel is null.";
+	}
+	
+	public String getLocationToString () {
+		if(location!=null) {
+			return location.toString();
+		}
+		return "Location is null.";
+	}
+	
+	
 
 //--------------------------toString()--------------------------
 	
@@ -218,10 +241,9 @@ public class Artist {
 	//Altered toString(): recordLabel, location
 	@Override
 	public String toString() {
-		return "Artist [id=" + id + ", genre.getName()=" + genre.getName() + ", recordLabel.getName()=" + recordLabel.getName() + ", location.getCity()=" + location.getCity()
+		
+		return "Artist [id=" + id + ", genre=" + this.getGenreToString() + ", recordLabel=" + this.getRecordLabelToString() + ", location=" + this.getLocationToString()
 				+ ", members=" + this.getMembersToString() + ", albums=" + this.getAlbumsToString() + ", name=" + name + ", biography=" + biography
 				+ ", artistImage=" + artistImage + "]";
+		}
 	}
-
-		
-}

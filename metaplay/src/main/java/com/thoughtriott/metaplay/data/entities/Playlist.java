@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PLAYLIST")
+@Table(name = "playlist")
 public class Playlist {
 	
 // --------------------------Constructors--------------------------
@@ -32,9 +32,9 @@ public class Playlist {
 	private Collection<Playlist_Track> playlistTracks;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="TRACK_PLAYLIST", 
-	joinColumns = @JoinColumn(name = "PLAYLIST_ID", referencedColumnName="id"),
-	inverseJoinColumns= @JoinColumn(name = "TRACK_ID", referencedColumnName="id"))
+	@JoinTable(name="track_playlist", 
+	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
+	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
 	private Collection<Track> tracks;
 	
 	@ManyToMany(mappedBy = "playlists")

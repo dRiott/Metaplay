@@ -51,9 +51,10 @@ public class AccountController {
 		return "login";
 	}
 	
-	//Login POST — Check credentials with DB?
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String doLogin() {
+		
+		//check credentials with DB
 		return "404";
 	}
 	
@@ -63,7 +64,7 @@ public class AccountController {
 		return "404";
 	}
 	
-	//adds a new User() to the model
+	//adds a new Account() to the model
 	@ModelAttribute("account")
 	public Account getAccount() {
 		System.out.println("Creating new Account();");

@@ -35,21 +35,21 @@
 <!-- two boxes, one for username, password; -->
 <!-- post goes to database to check credentials? -->
 
-		<spring:url value="/user/login" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="user">
+		<spring:url value="/account/login" var="thisFormURL" />
+		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
 
 			<div class="row">
 
 				<div class="form-group">
-					<label for="username">Username</label>
-					<form:input type="text" path="username" cssClass="form-control"
-						id="username" />
+					<label for="accountname">Account</label>
+					<form:input type="text" path="accountname" cssClass="form-control"
+						id="accountname" />
 				</div>
 				
 				
 				<div class="form-group">
-					<label for="playlist-name">Password</label>
-					<form:input type="password" path="password" cssClass="form-control" id="password" />
+					<label for="account-password">Password</label>
+					<form:input type="password" path="password" cssClass="form-control" id="account-password" />
 				</div>
 				
 				<button type="submit" class="btn btn-default">Login</button>

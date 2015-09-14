@@ -35,7 +35,7 @@ public class LocationController {
 		return "location_add";
 	}
 	
-	//allows user to confirm the new information
+	 //allows user to confirm the new information
 	@RequestMapping("/review")
 	public String reviewLocation(@ModelAttribute Location location, Model model, HttpSession session) {
 		System.out.println("Invoking reviewLocation() in LocationController");
@@ -61,8 +61,8 @@ public class LocationController {
 	public String findLocation(Model model){
 		
 		//"denver" attribute
-		Location denver = locationService.findLocation("Denver", "Colorado");
-		model.addAttribute("currentLocation", denver);
+		Location portland = locationService.findLocation("Portland", "Oregon");
+		model.addAttribute("currentLocation", portland);
 
 		//"all" attribute
 		String all = locationService.findAllAsString();

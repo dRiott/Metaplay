@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "ALBUM")
+@Table(name = "album")
 public class Album {
 	
 // --------------------------Constructors--------------------------
@@ -35,22 +35,22 @@ public class Album {
 	private String description;
 
 	@ManyToOne
-	@JoinColumn(name = "ARTIST_ID", nullable=false)
+	@JoinColumn(name = "artist_id", nullable=false)
 	private Artist artist;
 	
 	@OneToMany(mappedBy="album")
 	private Collection<Track> tracks;
 	
-	@Column(name="NUM_TRACKS")
+	@Column(name="num_tracks")
 	private int numTracks;
 	
 	//album_cover BLOB!!
 	
-	@Column(name="RELEASE_DATE")
+	@Column(name="release_date")
 	@Temporal(TemporalType.DATE)
 	private java.util.Date releaseDate;
 	
-	@Column(name="LENGTH_SECONDS")
+	@Column(name="length_seconds")
 	private int length;
 	
 	
@@ -164,6 +164,14 @@ public class Album {
 		return tracksString;
 		} return "No tracks";
 	}
+	
+	public String getArtistToString () {
+		if(artist!=null) {
+			return artist.toString();
+		}
+		return "Artist is null.";
+	}
+	
 
 //--------------------------toString()--------------------------
 	
@@ -171,7 +179,7 @@ public class Album {
 	//B/c StackOverflowError, altered this toString(): artist.getName()
 	@Override
 	public String toString() {
-		return "Album [id=" + id + ", name=" + name + ", description=" + description + ", artist.getName()=" + artist.getName()
+		return "Album [id=" + id + ", name=" + name + ", description=" + description + ", artist=" + getArtistToString()
 				+ ", tracks=" + this.getTracksToString() + ", numTracks=" + numTracks + ", releaseDate=" + releaseDate + ", length="
 				+ length + "]";
 	}

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TRACK_PLAYLIST")
+@Table(name = "track_playlist")
 @IdClass(Playlist_TrackPK.class)
 public class  Playlist_Track {
 	
@@ -31,24 +31,24 @@ public class  Playlist_Track {
 // --------------------------Fields--------------------------
 	
 	@Id
-	@Column(name="TRACK_ID", insertable=false, updatable=false)
+	@Column(name="track_id", insertable=false, updatable=false)
 	private int trackId;
 
 	@Id
-	@Column(name="PLAYLIST_ID", insertable=false, updatable=false)
+	@Column(name="playlist_id", insertable=false, updatable=false)
 	private int playlistId;
 
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="TRACK_ID", referencedColumnName="id")
+	@JoinColumn(name="track_id", referencedColumnName="id")
 	private Track track;
 
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="PLAYLIST_ID", referencedColumnName="id")
+	@JoinColumn(name="playlist_id", referencedColumnName="id")
 	private Playlist playlist;
 
-	@Column(name="TRACK_NUMBER")
+	@Column(name="track_number")
 	private int trackNumber;
 	
 //--------------------------Getters & Setters--------------------------

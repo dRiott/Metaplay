@@ -45,5 +45,8 @@
    <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
    <bean id="genreService" class="com.thoughtriott.metaplay.data.services.GenreService"/>
    <bean id="recordLabelService" class="com.thoughtriott.metaplay.data.services.RecordLabelService"/>
+   <bean id="albumService" class="com.thoughtriott.metaplay.data.services.AlbumService"/>
+   <bean id="memberService" class="com.thoughtriott.metaplay.data.services.MemberService"/>
+   <bean id="dateFormatter" class="com.thoughtriott.metaplay.utilities.DateFormatter"/>
 
 </beans>

@@ -40,6 +40,22 @@ public class ArtistService {
 		return a;
 	}
 	
+	@Transactional
+	public Artist createArtist(String name, String biography) {
+		em.clear();
+		Artist a = new Artist();
+		a.setName(name);
+		a.setBiography(biography);
+		em.persist(a);
+		return a;
+	}
+	
+	@Transactional
+	public void createArtist(Artist a) {
+		em.clear();
+		em.persist(a);
+	}
+	
 	public Collection<Artist> findAllArtists() {
 		 return em.createQuery("SELECT a FROM Artist a ORDER BY a.name", Artist.class).getResultList();
 	}
