@@ -8,9 +8,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -30,6 +34,7 @@ import com.thoughtriott.metaplay.data.services.MemberService;
 import com.thoughtriott.metaplay.data.services.RecordLabelService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
+import com.thoughtriott.metaplay.validators.CreateArtistWrapperValidator;
 
 @Controller
 @RequestMapping("/artist")
@@ -69,8 +74,15 @@ public class ArtistController {
 	}
 	
 	@RequestMapping("/save")
-	public String saveArtist(@ModelAttribute CreateArtistWrapper createArtistWrapper, SessionStatus status, HttpSession session) {
+	public String saveArtist(@Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors, SessionStatus status, HttpSession session) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
+		
+		//validation. The errors parameter must be directly after the ModelAttribute with the @Valid annotation.
+		if(!errors.hasErrors()) {
+			System.out.println("The artist name field was validated.");
+		} else{
+			System.out.println("The artist did not validate.");
+		}
 		
 		Artist futureArtist = new Artist();
 		String artistName = (String) session.getAttribute("name");
@@ -158,6 +170,15 @@ public class ArtistController {
 		// return "artists"
 		return "404";
 	}
+	
+// ------------------------------ Validator ------------------------------
+
+	//registering the ArtistValidator with this controller using a WebDataBinder object.
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new CreateArtistWrapperValidator());
+	}
+	
 	
 // ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("artist")
