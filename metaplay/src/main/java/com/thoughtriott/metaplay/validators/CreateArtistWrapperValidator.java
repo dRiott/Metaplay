@@ -28,7 +28,7 @@ public class CreateArtistWrapperValidator implements Validator {
 
 		// if there are any digits in the City field, throw error
 		if (caw.getLocationCity().length()!=0 && caw.getLocationCity().matches("^[a-zA-Z]+$")) {
-			errors.rejectValue("locationCity", "location.city", "The state can only contain letters.");
+			errors.rejectValue("locationCity", "location.city", "The city can only contain letters.");
 		}
 
 		// if there are any digits in the State field, throw error

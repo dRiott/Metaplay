@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.data.services;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +19,8 @@ public class AccountService {
 		//no-arg constructor
 	}
 	
+//------------------------------- Creates ---------------------------------------	
+	
 	@Transactional
 	public Account createAccount(String accountname, String password) {
 		em.clear();
@@ -30,15 +31,49 @@ public class AccountService {
 		return a;
 	}
 	
+//------------------------------- Queries ---------------------------------------	
+	
 	//finds all Accounts in Account table
-	public Collection<Account> findAllAsCollection() {
-		return em.createQuery("SELECT a FROM Account a ORDER BY a.accountname", Account.class).getResultList();
+	public List<Account> findAllAsList() {
+		List<Account> acctList = (List<Account>) em.createQuery("SELECT a FROM Account a ORDER BY a.accountname", Account.class).getResultList();
+		if(acctList.size()==0) {
+			System.out.println("The results list was empty.");
+			return null;
+		} else {
+			return acctList;
+		}
 	}
 	
 	//grabs all the Accounts belonging to a certain State
 	public Account findAccountByAccountname(String accountname) {
-		return (Account) em.createQuery("SELECT a FROM Account a WHERE a.accountname = :accountname").setParameter("accountname", accountname).getSingleResult();
+		@SuppressWarnings("unchecked")
+		List<Account> acctList = (List<Account>) em.createQuery("SELECT a FROM Account a WHERE a.accountname = :accountname").setParameter("accountname", accountname).getResultList();
+		if(acctList.size()==0) {
+			return null;
+		} else if(acctList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return acctList.get(0);
+		} else {
+			return acctList.get(0);
+		}
 	}
+	
+	//find Account by Id
+	public Account findAccountById(int id) {
+		@SuppressWarnings("unchecked")
+		List<Account> acctList = (List<Account>) em.createQuery("SELECT a FROM Account a WHERE a.id = :id").setParameter("id", id).getResultList();
+		if(acctList.size()==0) {
+			System.out.println("The results list was empty.");
+			return null;
+		} else if(acctList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return acctList.get(0);
+		} else {
+			return acctList.get(0);
+		}
+	}
+	
+//------------------------------- to String ---------------------------------------		
 	
 	//return a string of all of the cities in that state
 	@SuppressWarnings("unchecked")
@@ -65,9 +100,5 @@ public class AccountService {
 		return accountsString;
 	}
 	
-	//find Account by Id
-	public Account findAccountById(int id) {
-		return (Account) em.createQuery("SELECT a FROM Account a WHERE a.id = :id").setParameter("id", id).getSingleResult();
-	}
 
 }

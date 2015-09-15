@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.data.services;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class AlbumService {
 	public AlbumService () {
 		//no-arg constructor
 	}
+	
+//------------------------------- Creates ---------------------------------------	
 	
 	@Transactional
 	public Album createAlbum(String name, String description) {
@@ -46,19 +47,51 @@ public class AlbumService {
 		return a;
 	}
 
+//------------------------------- Queries ---------------------------------------	
 	
-	//grabs all Genres in Genre table
-	public Collection<Album> findAllAsCollection() {
-		return em.createQuery("SELECT a FROM Album a ORDER BY a.name", Album.class).getResultList();
+	//grabs all Albums in Album table
+	public List<Album> findAllAsCollection() {
+		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a ORDER BY a.name", Album.class).getResultList();
+		if(albumList.size()==0) {
+			System.out.println("The results list was empty.");
+			return null;
+		} else {
+			return albumList;
+		}
 	}
 	
-	//grabs the Genre with of certain name
+	//grabs the Album with of certain name
 	public Album findAlbumByName(String name) {
-		return (Album) em.createQuery("SELECT a FROM Album a WHERE a.name = :name").setParameter("name", name).getSingleResult();
+		@SuppressWarnings("unchecked")
+		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a WHERE a.name = :name").setParameter("name", name).getResultList();
+		if(albumList.size()==0) {
+			return null;
+		} else if(albumList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return albumList.get(0);
+		} else {
+			return albumList.get(0);
+		}
 
 	}
 	
-	//return a string of all of the cities in that state
+	//finds Album by Id
+	public Album findAlbumById(int id) {		
+		@SuppressWarnings("unchecked")
+		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a WHERE a.id = :id").setParameter("id", id).getResultList();
+		if(albumList.size()==0) {
+			return null;
+		} else if(albumList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return albumList.get(0);
+		} else {
+			return albumList.get(0);
+		}
+	}
+	
+//------------------------------- to String ---------------------------------------			
+	
+	//return a string of all of the albums of a given name
 	@SuppressWarnings("unchecked")
 	public String findAlbumByNameToString(String name) {
 		List<Album> album = em.createQuery("SELECT a FROM Album a WHERE a.name = :name").setParameter("name", name).getResultList();
@@ -83,9 +116,4 @@ public class AlbumService {
 		return albumString;
 	}
 	
-	//finds Location by Id
-	public Album findAlbumById(int id) {
-		return (Album) em.createQuery("SELECT a FROM Album a WHERE a.id = :id").setParameter("id", id).getSingleResult();
-	}
-
 }

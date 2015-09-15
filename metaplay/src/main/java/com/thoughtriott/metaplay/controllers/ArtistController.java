@@ -8,13 +8,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -34,7 +31,6 @@ import com.thoughtriott.metaplay.data.services.MemberService;
 import com.thoughtriott.metaplay.data.services.RecordLabelService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
-import com.thoughtriott.metaplay.validators.CreateArtistWrapperValidator;
 
 @Controller
 @RequestMapping("/artist")
@@ -74,7 +70,7 @@ public class ArtistController {
 	}
 	
 	@RequestMapping("/save")
-	public String saveArtist(@Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors, SessionStatus status, HttpSession session) {
+	public String saveArtist(/*@Valid*/ @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors, SessionStatus status, HttpSession session) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
 		
 		//validation. The errors parameter must be directly after the ModelAttribute with the @Valid annotation.
@@ -85,14 +81,16 @@ public class ArtistController {
 		}
 		
 		Artist futureArtist = new Artist();
-		String artistName = (String) session.getAttribute("name");
+		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
+		String artistName = caw.getName();
 		futureArtist.setName(artistName);
-		String artistBiography = (String) session.getAttribute("biography");
+		String artistBiography = caw.getBiography();
 		futureArtist.setBiography(artistBiography);
 		
 	// 		Setting/Creating a Location
-		String city = (String) session.getAttribute("locationCity");
-		String state = (String) session.getAttribute("locationState");
+		System.out.println("Setting/Creating a Location");
+		String city = caw.getLocationCity();
+		String state = caw.getLocationState();
 		if(locationService.findLocation(city, state)!=null) {
 			Location l = locationService.findLocation(city, state);
 			futureArtist.setLocation(l);
@@ -102,7 +100,8 @@ public class ArtistController {
 		}
 		
 	// 		Setting/Creating a Record Label
-		String recordLabelName = (String) session.getAttribute("recordLabelName");
+		System.out.println("Setting/Creating a Record Label");
+		String recordLabelName = caw.getRecordLabelName();
 		if(recordLabelService.findRecordLabelByName(recordLabelName)!=null) {
 			RecordLabel rl = (RecordLabel) recordLabelService.findRecordLabelByName(recordLabelName);
 			futureArtist.setRecordLabel(rl);
@@ -112,7 +111,8 @@ public class ArtistController {
 		}
 		
 	//		Setting/Creating a Genre
-		String genreName = (String) session.getAttribute("genreName");
+		System.out.println("Setting/Creating a Genre");
+		String genreName = caw.getGenreName();
 		if(genreService.findGenreByName(genreName)!=null) {
 			Genre g = (Genre) genreService.findGenreByName(genreName);
 			futureArtist.setGenre(g);
@@ -122,31 +122,45 @@ public class ArtistController {
 		}
 
 	// 		adding members to the artist
-		String member1fullName = (String) session.getAttribute("member1");
-		Member member1 = memberService.splitQueryCreate(member1fullName);
-		futureArtist.addMember(member1);
+		System.out.println("Adding members to the artist");
 
-		String member2fullName = (String) session.getAttribute("member2");
+		String member1fullName = caw.getMember1();
+		System.out.println(member1fullName + " whodunit...?");
+		if (member1fullName!=null) {
+			Member member1 = memberService.splitQueryCreate(member1fullName);
+			futureArtist.addMember(member1);
+		}
+
+		String member2fullName = caw.getMember2();
+		System.out.println(member2fullName + "blah blah");
+		if (member2fullName!=null) {
 		Member member2 = memberService.splitQueryCreate(member2fullName);	
 		futureArtist.addMember(member2);
+		}
 		
-		String member3fullName = (String) session.getAttribute("member3");
+		String member3fullName = caw.getMember3();
+		System.out.println("Member 3: " + member3fullName);
+		if (member3fullName!=null) {
 		Member member3 = memberService.splitQueryCreate(member3fullName);
 		futureArtist.addMember(member3);
-		
-		String member4fullName = (String) session.getAttribute("member4");
+		}
+		String member4fullName = caw.getMember4();
+		System.out.println("Member 4: " + member4fullName);
+		if (member1fullName!=null) {
 		Member member4 = memberService.splitQueryCreate(member4fullName);
 		futureArtist.addMember(member4);
+		}
 		
-	//		Setting/Creating a Genre
-		String albumName = (String) session.getAttribute("albumName");
+	//		Setting/Creating an Album
+		System.out.println("Setting/Creating an Album");
+		String albumName = caw.getAlbumName();
 		if(albumService.findAlbumByName(albumName)!=null) {
 			Album a = (Album) albumService.findAlbumByName(albumName);
 			futureArtist.addAlbum(a);
 		} else {
-			int albumNumTracks = Integer.parseInt((String) session.getAttribute("albumNumTracks"));
-			Date albumReleaseDate = dateFormatter.getDateFromString((String) session.getAttribute("albumReleaseDate")); 
-	//			String albumAlbumCover = (String) session.getAttribute("albumAlbumCover"); //no corresponding field in Album exists yet...
+			int albumNumTracks = Integer.parseInt(caw.getAlbumNumTracks());
+			Date albumReleaseDate = dateFormatter.getDateFromString(caw.getAlbumReleaseDate()); 
+	//			String albumAlbumCover = caw.getAlbumAlbumCover(); //no corresponding field in Album exists yet...
 	//			a.setAlbumCover(albumAlbumCover);
 
 			Album a = new Album();
@@ -155,8 +169,9 @@ public class ArtistController {
 			a.setReleaseDate(albumReleaseDate);
 			futureArtist.addAlbum(a);
 		}
-		
+		System.out.println("artistService.createArtist about to be called...");
 		artistService.createArtist(futureArtist);
+		System.out.println("artistService.createArtist called.");
 
 		//setComplete wipes the session of the info that we passed to the review page
 		//so that when we redirect to the /artist/add page, a blank form is displayed.
@@ -174,11 +189,10 @@ public class ArtistController {
 // ------------------------------ Validator ------------------------------
 
 	//registering the ArtistValidator with this controller using a WebDataBinder object.
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(new CreateArtistWrapperValidator());
-	}
-	
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.addValidators(new CreateArtistWrapperValidator());
+//	}
 	
 // ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("artist")

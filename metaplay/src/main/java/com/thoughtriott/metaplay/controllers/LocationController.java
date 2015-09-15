@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
@@ -45,9 +46,9 @@ public class LocationController {
 		return "location_review";
 	}
 	
-	//creates a new location!
+	//creates a new location! @Valid
 	@RequestMapping(value="/save")
-	public String saveLocation(@ModelAttribute Location location, HttpSession session, SessionStatus status){
+	public String saveLocation(/*@Valid*/ @ModelAttribute Location location, Errors errors, HttpSession session, SessionStatus status){
 		System.out.println("invoking saveLocation");
 		Location l = (Location) session.getAttribute("location");
 		locationService.createLocation(l.getCity(), l.getState());
@@ -69,7 +70,7 @@ public class LocationController {
 		model.addAttribute("all", all);
 
 		//"states" attribute
-		Iterator<String> it = locationService.findDistinctStates().iterator();
+		Iterator<String> it = locationService.findDistinctStatesToString().iterator();
 		String states = "";
 		while(it.hasNext()) {
 			states = states + " " + it.next();
@@ -79,4 +80,14 @@ public class LocationController {
 		return "location_find";
 	}
 
+	
+// ------------------------------ Validator ------------------------------
+
+	//registering the LocationValidator with this controller using a WebDataBinder object.
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.addValidators(new LocationValidator());
+//	}
+		
+	
 }

@@ -31,6 +31,17 @@
 		<form:form action="${thisFormURL}" method="post"
 			modelAttribute="location">
 
+
+<!--  c:out values for showing validation errors to the user on the view. -->
+<%--             <tr><td>User Id:</td><td><input name="userId" type="text" /></td><td><font color="red"><c:out value="${userIdError}" /></font> </td></tr>
+            <tr><td>Password:</td><td><input name="userPassword" type="password"/></td><td><font color="red"><c:out value="${userPasswordError}" /></font></td></tr>
+            <tr><td>Confirm Password:</td><td><input name="userConfirmPassword" type="password"/></td><td><font color="red"><c:out value="${userPasswordError}" /></font></td></tr>
+            <tr><td>Name:</td><td><input name="userName" type="text"/></td><td><font color="red"><c:out value="${userPasswordError}" /></font></td></tr>
+            <tr><td></td><td><input type="submit" value="Create"/></td></tr> --%>
+
+
+
+
 			<div class="row">
 
 				<div class="form-group">

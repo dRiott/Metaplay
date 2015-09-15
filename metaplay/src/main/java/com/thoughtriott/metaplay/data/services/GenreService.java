@@ -20,6 +20,8 @@ public class GenreService {
 		//no-arg constructor
 	}
 	
+//------------------------------- Creates ---------------------------------------		
+	
 	@Transactional
 	public Genre createGenre(String name, String description) {
 		em.clear();
@@ -39,18 +41,50 @@ public class GenreService {
 		return g;
 	}
 	
+//------------------------------- Queries ---------------------------------------	
+
 	//grabs all Genres in Genre table
-	public Collection<Genre> findAllAsCollection() {
-		return em.createQuery("SELECT g FROM Genre g ORDER BY g.name", Genre.class).getResultList();
+	public Collection<Genre> findAllAsCollection() {		
+		 List<Genre> genreList = (List<Genre>) em.createQuery("SELECT g FROM Genre g ORDER BY g.name", Genre.class).getResultList();
+			if(genreList.size()==0) {
+				System.out.println("The results list was empty.");
+				return null;
+			} else {
+				return genreList;
+			}
 	}
 	
 	//grabs the Genre with of certain name
 	public Genre findGenreByName(String name) {
-		return (Genre) em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getSingleResult();
-
+		@SuppressWarnings("unchecked")
+		List<Genre> genreList = (List<Genre>) em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getResultList();
+		if(genreList.size()==0) {
+			return null;
+		} else if(genreList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return genreList.get(0);
+		} else {
+			return genreList.get(0);
+		}
 	}
 	
-	//return a string of all of the cities in that state
+	//finds Genre by Id
+	public Genre findGenreById(int id) {
+		@SuppressWarnings("unchecked")
+		List<Genre> genreList = (List<Genre>) em.createQuery("SELECT g FROM Genre g WHERE g.id = :id").setParameter("id", id).getResultList();
+		if(genreList.size()==0) {
+			return null;
+		} else if(genreList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return genreList.get(0);
+		} else {
+			return genreList.get(0);
+		}	
+	}
+	
+//------------------------------- to String ---------------------------------------			
+
+	//return a string of all of the Genres with a certain name
 	@SuppressWarnings("unchecked")
 	public String findGenreByNameToString(String name) {
 		List<Genre> genre = em.createQuery("SELECT g FROM Genre g WHERE g.name = :name").setParameter("name", name).getResultList();
@@ -75,9 +109,6 @@ public class GenreService {
 		return genresString;
 	}
 	
-	//finds Location by Id
-	public Genre findGenreById(int id) {
-		return (Genre) em.createQuery("SELECT g FROM Genre g WHERE g.id = :id").setParameter("id", id).getSingleResult();
-	}
+
 
 }

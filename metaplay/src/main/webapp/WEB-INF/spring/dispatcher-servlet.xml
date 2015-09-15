@@ -14,8 +14,13 @@
 	
 	<context:component-scan base-package="com.thoughtriott.metaplay.controllers" />
 
-
-	
+	 <!-- Never provide direct access to a view or resource. Use the InternalResourceViewResolver 
+        to tack on .jsp to the name of the view that the controller returns... -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -34,13 +39,14 @@
     </bean>
     
     
-   <bean id="locationService" class="com.thoughtriott.metaplay.data.services.LocationService"/>
+   <bean id="albumService" class="com.thoughtriott.metaplay.data.services.AccountService"/>
+   <bean id="accountService" class="com.thoughtriott.metaplay.data.services.AlbumService"/>
    <bean id="artistService" class="com.thoughtriott.metaplay.data.services.ArtistService"/>
-   <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
-   <bean id="genreService" class="com.thoughtriott.metaplay.data.services.GenreService"/>
-   <bean id="recordLabelService" class="com.thoughtriott.metaplay.data.services.RecordLabelService"/>
-   <bean id="albumService" class="com.thoughtriott.metaplay.data.services.AlbumService"/>
-   <bean id="memberService" class="com.thoughtriott.metaplay.data.services.MemberService"/>
    <bean id="dateFormatter" class="com.thoughtriott.metaplay.utilities.DateFormatter"/>
+   <bean id="genreService" class="com.thoughtriott.metaplay.data.services.GenreService"/>
+   <bean id="locationService" class="com.thoughtriott.metaplay.data.services.LocationService"/>
+   <bean id="memberService" class="com.thoughtriott.metaplay.data.services.MemberService"/>
+   <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
+   <bean id="recordLabelService" class="com.thoughtriott.metaplay.data.services.RecordLabelService"/>
 
 </beans>

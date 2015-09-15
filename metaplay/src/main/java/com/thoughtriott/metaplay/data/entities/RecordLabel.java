@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "recordlabe")
+@Table(name = "recordlabel")
 public class RecordLabel {
 	
 	
