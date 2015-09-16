@@ -29,6 +29,7 @@ public class GenreService {
 		g.setName(name);
 		g.setDescription(description);
 		em.persist(g);
+		em.close();
 		return g;
 	}
 	
@@ -38,6 +39,7 @@ public class GenreService {
 		Genre g = new Genre();
 		g.setName(name);
 		em.persist(g);
+		em.close();
 		return g;
 	}
 	

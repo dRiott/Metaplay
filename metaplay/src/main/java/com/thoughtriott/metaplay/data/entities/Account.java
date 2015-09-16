@@ -111,7 +111,7 @@ public class Account {
 	//--------------------------Collection Adders and Removers--------------------------
 	//adds a Role to Collection<Role>
 	public void addRole(Role role) {
-		if (!getRoles().contains(role)) {
+		if (getRoles()!=null && !getRoles().contains(role)) {
 			getRoles().add(role);
 //			if (!role.getAccounts().contains(this)) {
 //				role.addAccount(this);
@@ -121,7 +121,7 @@ public class Account {
 	
 	// removes a Member from Collection<Member>.
 	public void removeRole(Role role) {
-		if (getRoles().contains(role)) {
+		if (getRoles()!=null && getRoles().contains(role)) {
 			getRoles().remove(role);
 			if (role.getAccounts().contains(this)) {
 				role.removeAccount(this);
@@ -131,7 +131,7 @@ public class Account {
 	
 	//adds a Role to Collection<Role>
 	public void addPlaylist(Playlist playlist) {
-		if (!getPlaylists().contains(playlist)) {
+		if (getPlaylists()!=null && !getPlaylists().contains(playlist)) {
 			getPlaylists().add(playlist);
 			if (!playlist.getAccounts().contains(this)) {
 				playlist.addAccount(this);
@@ -141,7 +141,7 @@ public class Account {
 	
 	// removes a Playlist from Collection<Playlist>.
 	public void removePlaylist(Playlist playlist) {
-		if (getPlaylists().contains(playlist)) {
+		if (getPlaylists()!=null && getPlaylists().contains(playlist)) {
 			getPlaylists().remove(playlist);
 			if (playlist.getAccounts().contains(this)) {
 				playlist.removeAccount(this);

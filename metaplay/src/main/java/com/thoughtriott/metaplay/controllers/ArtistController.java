@@ -122,33 +122,41 @@ public class ArtistController {
 		}
 
 	// 		adding members to the artist
-		System.out.println("Adding members to the artist");
-
+		System.out.println("Going to add members to the artist");
 		String member1fullName = caw.getMember1();
 		System.out.println(member1fullName + " whodunit...?");
 		if (member1fullName!=null) {
-			Member member1 = memberService.splitQueryCreate(member1fullName);
-			futureArtist.addMember(member1);
+			String[] nameArray = memberService.splitFullName(member1fullName);
+			Member newMember = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember);
+			futureArtist.addMember(newMember);
 		}
 
 		String member2fullName = caw.getMember2();
 		System.out.println(member2fullName + "blah blah");
 		if (member2fullName!=null) {
-		Member member2 = memberService.splitQueryCreate(member2fullName);	
-		futureArtist.addMember(member2);
+			String[] nameArray = memberService.splitFullName(member2fullName);
+			Member newMember2 = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember2);
+			futureArtist.addMember(newMember2);
 		}
 		
 		String member3fullName = caw.getMember3();
 		System.out.println("Member 3: " + member3fullName);
 		if (member3fullName!=null) {
-		Member member3 = memberService.splitQueryCreate(member3fullName);
-		futureArtist.addMember(member3);
+			String[] nameArray = memberService.splitFullName(member3fullName);
+			Member newMember3 = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember3);
+			futureArtist.addMember(newMember3);
 		}
+		
 		String member4fullName = caw.getMember4();
 		System.out.println("Member 4: " + member4fullName);
-		if (member1fullName!=null) {
-		Member member4 = memberService.splitQueryCreate(member4fullName);
-		futureArtist.addMember(member4);
+		if (member4fullName!=null) {
+			String[] nameArray = memberService.splitFullName(member4fullName);
+			Member newMember4 = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember4);
+			futureArtist.addMember(newMember4);
 		}
 		
 	//		Setting/Creating an Album

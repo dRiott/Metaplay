@@ -28,6 +28,7 @@ public class AccountService {
 		a.setAccountname(accountname);
 		a.setPassword(password);
 		em.persist(a);
+		em.close();
 		return a;
 	}
 	

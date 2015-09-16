@@ -93,7 +93,7 @@ public class Member {
 
 		//adds a Artist to Collection<Artist>
 		public void addArtist(Artist artist) {
-			if (!getArtists().contains(artist)) {
+			if (getArtists()!=null && !getArtists().contains(artist)) {
 				getArtists().add(artist);
 				if (!artist.getMembers().contains(this)) {
 					artist.addMember(this);
@@ -103,7 +103,7 @@ public class Member {
 		
 		// removes a Artist from Collection<Artist>.
 		public void removeArtist(Artist artist) {
-			if (getArtists().contains(artist)) {
+			if (getArtists()!=null && getArtists().contains(artist)) {
 				getArtists().remove(artist);
 				if (artist.getMembers().contains(this)) {
 					artist.removeMember(this);

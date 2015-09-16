@@ -66,7 +66,7 @@ public class Genre {
 //--------------------------Collection Adders and Removers--------------------------
 	//adds an Artist to Collection<Artist>, removing it's Genre, and setting to this.
 	public void addArtist(Artist artist) {
-		if (!getArtists().contains(artist)) {
+		if (getArtists()!=null && !getArtists().contains(artist)) {
 			getArtists().add(artist);
 			if (artist.getGenre() != null) {
 				artist.getGenre().getArtists().remove(artist);
@@ -77,7 +77,7 @@ public class Genre {
 	
 	//removes an Artist from Collection<Artist>, setting its Genre to null.
 	public void removeArtist(Artist artist) {
-		if(getArtists().contains(artist)) {
+		if(getArtists()!=null && getArtists().contains(artist)) {
 			getArtists().remove(artist);
 			artist.setGenre(null);
 		}

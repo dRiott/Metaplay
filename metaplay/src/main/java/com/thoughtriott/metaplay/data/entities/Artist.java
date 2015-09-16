@@ -137,7 +137,8 @@ public class Artist {
 
 	//adds a Member to Collection<Member>
 	public void addMember(Member member) {
-		if (!getMembers().contains(member)) {
+		
+		if (getMembers()!=null && !getMembers().contains(member)) {
 			getMembers().add(member);
 			if (!member.getArtists().contains(this)) {
 				member.addArtist(this);
@@ -147,7 +148,7 @@ public class Artist {
 	
 	// removes a Member from Collection<Member>, setting its Artist_Member to null.
 	public void removeMember(Member member) {
-		if (getMembers().contains(member)) {
+		if (getMembers()!=null && getMembers().contains(member)) {
 			getMembers().remove(member);
 			if (member.getArtists().contains(this)) {
 				member.removeArtist(this);
@@ -157,7 +158,7 @@ public class Artist {
 	
 	// adds an Album to Collection<Album>, removing it's Artist, and setting to this.
 	public void addAlbum(Album artist) {
-		if (!getAlbums().contains(artist)) {
+		if (getAlbums()!=null && !getAlbums().contains(artist)) {
 			getAlbums().add(artist);
 			if (artist.getArtist() != null) {
 				artist.getArtist().getAlbums().remove(artist);
@@ -168,7 +169,7 @@ public class Artist {
 
 	// removes an Album from Collection<Album>, setting its Artist to null.
 	public void removeAlbum(Album artist) {
-		if (getAlbums().contains(artist)) {
+		if (getAlbums()!=null && getAlbums().contains(artist)) {
 			getAlbums().remove(artist);
 			artist.setArtist(null);
 		}

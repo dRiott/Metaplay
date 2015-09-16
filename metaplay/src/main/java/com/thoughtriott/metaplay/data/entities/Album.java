@@ -128,7 +128,7 @@ public class Album {
 
 	// adds an Track to Collection<Track>, removing it's Album, and setting to this.
 	public void addTrack(Track track) {
-		if (!getTracks().contains(track)) {
+		if (getTracks()!=null && !getTracks().contains(track)) {
 			getTracks().add(track);
 			if (track.getAlbum() != null) {
 				track.getAlbum().getTracks().remove(track);
@@ -139,7 +139,7 @@ public class Album {
 
 	// removes an Track from Collection<Track>, setting its Artist to null.
 	public void removeTrack(Track track) {
-		if (getTracks().contains(track)) {
+		if (getTracks()!=null && getTracks().contains(track)) {
 			getTracks().remove(track);
 			track.setAlbum(null);
 		}

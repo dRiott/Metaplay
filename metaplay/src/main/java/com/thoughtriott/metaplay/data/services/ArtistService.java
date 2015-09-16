@@ -40,6 +40,7 @@ public class ArtistService {
 		a.setGenre(genreService.findGenreById(genreId));
 		a.setRecordLabel(recordLabelService.findRecordLabelById(recordLabelId));
 		em.persist(a);
+		em.close();
 		return a;
 	}
 	
@@ -50,6 +51,7 @@ public class ArtistService {
 		a.setName(name);
 		a.setBiography(biography);
 		em.persist(a);
+		em.close();
 		return a;
 	}
 	
@@ -57,6 +59,7 @@ public class ArtistService {
 	public void createArtist(Artist a) {
 		em.clear();
 		em.persist(a);
+		em.close();
 	}
 
 //------------------------------- Queries ---------------------------------------	

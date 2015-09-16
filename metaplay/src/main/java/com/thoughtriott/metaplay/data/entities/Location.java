@@ -76,7 +76,7 @@ public class Location {
 // --------------------------Collection Adders and Removers--------------------------
 	// adds a RecordLabel to Collection<RecordLabel>, removing it's Location, and setting to this.
 	public void addRecordLabel(RecordLabel recordLabel) {
-		if (!getRecordLabels().contains(recordLabel)) {
+		if (getRecordLabels()!=null && !getRecordLabels().contains(recordLabel)) {
 			getRecordLabels().add(recordLabel);
 			if (recordLabel.getLocation() != null) {
 				recordLabel.getLocation().getArtists().remove(recordLabel);
@@ -87,7 +87,7 @@ public class Location {
 
 	// removes a RecordLabel from Collection<RecordLabel>, setting its Location to null.
 	public void removeRecordLabel(RecordLabel recordLabel) {
-		if (getRecordLabels().contains(recordLabel)) {
+		if (getRecordLabels()!=null && getRecordLabels().contains(recordLabel)) {
 			getRecordLabels().remove(recordLabel);
 			recordLabel.setLocation(null);
 		}

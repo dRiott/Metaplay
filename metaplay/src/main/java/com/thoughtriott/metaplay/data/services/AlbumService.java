@@ -28,6 +28,7 @@ public class AlbumService {
 		a.setName(name);
 		a.setDescription(description);
 		em.persist(a);
+		em.close();
 		return a;
 	}
 	
@@ -37,6 +38,7 @@ public class AlbumService {
 		Album a = new Album();
 		a.setName(name);
 		em.persist(a);
+		em.close();
 		return a;
 	}
 
@@ -44,6 +46,7 @@ public class AlbumService {
 	public Album createAlbum(Album a) {
 		em.clear();
 		em.persist(a);
+		em.close();
 		return a;
 	}
 

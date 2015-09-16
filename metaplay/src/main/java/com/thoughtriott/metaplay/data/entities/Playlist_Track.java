@@ -88,7 +88,6 @@ public class  Playlist_Track {
 	
 //--------------------------toString()--------------------------
 	
-	//In track: playlistTracks.size(), In playlist: playlistTracks.size()
 	@Override
 	public String toString() {
 		return "Playlist_Track [track=" + track + ", playlist=" + playlist + ", trackNumber="
@@ -97,10 +96,12 @@ public class  Playlist_Track {
 
 }
 
-//Class Required for Composite Primary Key. Rules: 
-// 1. It must have a default constructor without arguments.
-// 2. It must implement the java.io.Serializable interface.
-// 3. It must override the methods equals and hashCode.
+//--------------------------PK CLASS--------------------------
+
+	//Class Required for Composite Primary Key. Rules: 
+	// 1. It must have a default constructor without arguments.
+	// 2. It must implement the java.io.Serializable interface.
+	// 3. It must override the methods equals and hashCode.
 
 
 @SuppressWarnings("serial")

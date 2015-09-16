@@ -66,7 +66,7 @@ public class Role {
 //--------------------------Collection Adders and Removers--------------------------
 	//adds an Account to Collection<Account>
 	public void addAccount(Account account) {
-		if (!getAccounts().contains(account)) {
+		if (getAccounts()!=null && !getAccounts().contains(account)) {
 			getAccounts().add(account);
 			if (!account.getRoles().contains(this)) {
 				account.addRole(this);
@@ -76,7 +76,7 @@ public class Role {
 			
 	// removes an Account from Collection<Account>.
 	public void removeAccount(Account account) {
-		if (getAccounts().contains(account)) {
+		if (getAccounts()!=null && getAccounts().contains(account)) {
 			getAccounts().remove(account);
 			if (account.getRoles().contains(this)) {
 				account.removeRole(this);

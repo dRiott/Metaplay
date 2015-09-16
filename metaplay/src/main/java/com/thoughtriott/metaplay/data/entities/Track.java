@@ -162,14 +162,14 @@ public class Track {
 	
 	//adds a Playlist_Track to Collection<Playlist_Track>
 	public void addPlaylist(Playlist playlist, int trackNumber) {
-		if (!getPlaylistTracks().contains(playlist)) {
+		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(playlist)) {
 			getPlaylistTracks().add(new Playlist_Track(this, playlist, trackNumber));
 		}
 	}
 		
 	// removes a Member from Collection<Member>, setting its Artist_Member to null.
 	public void removePlaylist(Playlist playlist) {
-		if (getPlaylistTracks().contains(playlist)) {
+		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(playlist)) {
 			getPlaylistTracks().remove(playlist);
 		}
 		if (playlist.getTracks().contains(this)) {

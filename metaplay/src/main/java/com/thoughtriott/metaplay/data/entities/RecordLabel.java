@@ -70,7 +70,7 @@ public class RecordLabel {
 //--------------------------Collection Adders and Removers--------------------------
 	//adds an Artist to Collection<Artist>, removing it's RecordLabel, and setting to this.
 	public void addArtist(Artist artist) {
-		if (!getArtists().contains(artist)) {
+		if (getArtists()!=null && !getArtists().contains(artist)) {
 			getArtists().add(artist);
 			if (artist.getRecordLabel() != null) {
 				artist.getRecordLabel().getArtists().remove(artist);
@@ -81,7 +81,7 @@ public class RecordLabel {
 	
 	//removes an Artist from Collection<Artist>, setting its RecordLabel to null.
 	public void removeArtist(Artist artist) {
-		if(getArtists().contains(artist)) {
+		if(getArtists()!=null && getArtists().contains(artist)) {
 			getArtists().remove(artist);
 			artist.setRecordLabel(null);
 		}

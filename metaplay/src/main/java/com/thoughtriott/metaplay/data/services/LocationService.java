@@ -28,6 +28,7 @@ public class LocationService {
 		l.setCity(city);
 		l.setState(state);
 		em.persist(l);
+		em.close();
 		return l;
 	}
 	

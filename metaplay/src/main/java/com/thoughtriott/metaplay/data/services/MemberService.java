@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thoughtriott.metaplay.data.entities.Member;
@@ -20,81 +19,92 @@ public class MemberService {
 		// no-arg constructor
 	}
 
-	// ------------------------------- SplitQueryCreate ---------------------------------------
-	// takes a full name concatenated string, splits it into either two or three
-	// parts, and queries: if exists, returns, if not, creates and returns.
-	public Member splitQueryCreate(String fullName) {
-		System.out.println("Inside the splitQueryCreate method");
-		String[] nameArray = fullName.split(" ");
-		System.out.println("Split successfully");
+// ------------------------------- Proprietary Methods ---------------------------------------
+	// takes a String array uses indexes to query members table: if exists, returns, if not, creates and returns.
+	@Transactional
+	public Member createFromNameArray(String[] nameArray) {
 		if (nameArray.length != 0) {
-			if(nameArray.length==1) {
+			if (nameArray.length == 1) {
 				System.out.println("Inside if(nameArray.length == 1)...");
 				String lastName = nameArray[0];
 				if (this.findMemberByName(lastName) != null) {
-					Member m = (Member) this.findMemberByName(lastName);
-					return m;
+					return (Member) this.findMemberByName(lastName);
 				} else {
 					System.out.println("About to call this.createMember() With One Argument");
-					Member m = (Member) this.createMember(lastName);
+					this.createMember(lastName);
 					System.out.println("New member created because one did not already exist in database.");
-					return m;
-				}			
+					return (Member) this.findMemberByName(lastName);
+				}
 			} else if (nameArray.length == 2) {
 				System.out.println("Inside if(nameArray.length == 2)...");
 				String firstName = nameArray[0];
 				String lastName = nameArray[1];
-	
+
 				if (this.findMemberByName(lastName, firstName) != null) {
-					Member m = (Member) this.findMemberByName(lastName, firstName);
-					return m;
+					return (Member) this.findMemberByName(lastName, firstName);
 				} else {
 					System.out.println("About to call this.createMember() With Two Arguments");
-					Member m = (Member) this.createMember(lastName, firstName);
+					this.createMember(lastName, firstName);
 					System.out.println("New member created because one did not already exist in database.");
-					return m;
+					return (Member) this.findMemberByName(lastName, firstName);
 				}
-			} else {
+			} else if (nameArray.length == 3) {
 				String firstName = nameArray[0];
 				String middleName = nameArray[1];
 				String lastName = nameArray[2];
-	
+
 				if (this.findMemberByName(lastName, firstName, middleName) != null) {
-					Member m = (Member) this.findMemberByName(lastName, firstName, middleName);
-					return m;
+					return (Member) this.findMemberByName(lastName, firstName, middleName);
 				} else {
 					System.out.println("About to call this.createMember() With Three Arguments");
-					Member m = (Member) this.createMember(lastName, firstName, middleName);
+					this.createMember(lastName, firstName, middleName);
 					System.out.println("New member created because one did not already exist in database.");
-					return m;
+					return this.findMemberByName(lastName, firstName, middleName);
 				}
+			} else {
+				System.out.println("The array argument had more than 3 indexes, and only supports 3 (first name, middle name, last name)..."
+						+ "returning null.");
+				return null;
 			}
 		} else {
-			System.out.println("The argument was split into an empty array, could the argument be empty?");
+			System.out.println("The array argument was empty, returning null.");
 			return null;
 		}
 	}
 
-// ------------------------------- Creates ---------------------------------------
+	public String[] splitFullName(String fullName) {
+		System.out.println("Inside the splitQueryCreate method");
+		String[] nameArray = fullName.split(" ");
+		System.out.println("Split successfully");
+		return nameArray;
+	}
 
-	@Transactional
+	// ------------------------------- Creates
+	// ---------------------------------------
+
+	@Transactional("transactionManager")
 	public Member createMember(String lastName, String firstName) {
 		em.clear();
 		Member m = new Member();
 		m.setFirstName(firstName);
 		m.setLastName(lastName);
 		em.persist(m);
+		em.close();
 		return m;
 	}
 
-	@Transactional
+	@Transactional("transactionManager")
 	public Member createMember(String lastName, String firstName, String middleName) {
+		System.out.println("Inside the createMember method.");
 		em.clear();
 		Member m = new Member();
 		m.setFirstName(firstName);
 		m.setMiddleName(middleName);
 		m.setLastName(lastName);
+		System.out.println("Just before persist");
 		em.persist(m);
+		System.out.println("After before persist");
+		em.close();
 		return m;
 	}
 
@@ -104,6 +114,7 @@ public class MemberService {
 		Member m = new Member();
 		m.setLastName(lastName);
 		em.persist(m);
+		em.close();
 		return m;
 	}
 
@@ -111,10 +122,12 @@ public class MemberService {
 	public Member createMember(Member m) {
 		em.clear();
 		em.persist(m);
+		em.close();
 		return m;
 	}
 
-// ------------------------------- Queries ---------------------------------------
+	// ------------------------------- Queries
+	// ---------------------------------------
 
 	// grabs all Members in Member table
 	public List<Member> findAllAsList() {
@@ -194,7 +207,7 @@ public class MemberService {
 		}
 	}
 
-// ------------------------------- to String ---------------------------------------
+	// ------------------------------- to String ---------------------------------------
 
 	// return a string of all of the Members with a certain name
 	@SuppressWarnings("unchecked")

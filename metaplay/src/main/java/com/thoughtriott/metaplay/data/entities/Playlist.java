@@ -97,7 +97,7 @@ public class Playlist {
 	
 	//adds a Track to Collection<Playlist_Track>
 	public void addTrackToPlaylistTrack(Track track, int trackNumber) {
-		if (!getPlaylistTracks().contains(track)) {
+		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(track)) {
 			getPlaylistTracks().add(new Playlist_Track(track, this, trackNumber));
 //			if (!track.getPlaylistTracks().contains(this)) {
 //				track.getPlaylistTracks().add(new Playlist_Track(track, this, trackNumber));
@@ -107,7 +107,7 @@ public class Playlist {
 	
 	// removes a Track from Collection<Playlist_Track>
 	public void removeTrackToPlaylistTrack(Track track) {
-		if (getPlaylistTracks().contains(track)) {
+		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(track)) {
 			getPlaylistTracks().remove(track);
 //			if (track.getPlaylistTracks().contains(this)) {
 //				track.getPlaylistTracks().remove(this);
@@ -117,7 +117,7 @@ public class Playlist {
 	
 	//adds a Track to Collection<Tracks>
 	public void addTrack(Track track, int trackNumber) {
-		if (!getTracks().contains(track)) {
+		if (getTracks()!=null && !getTracks().contains(track)) {
 			getTracks().add(track);
 //			if (!track.getPlaylists().contains(this)) {
 //				track.addPlaylist(this, trackNumber);
@@ -127,7 +127,7 @@ public class Playlist {
 	
 	// removes a Track from Collection<Tracks>
 	public void removeTrack(Track track) {
-		if (getTracks().contains(track)) {
+		if (getTracks()!=null && getTracks().contains(track)) {
 			getTracks().remove(track);
 			if (track.getPlaylists().contains(this)) {
 				track.removePlaylist(this);
@@ -137,7 +137,7 @@ public class Playlist {
 	
 	//adds a User to Collection<User>
 	public void addAccount(Account account) {
-		if (!getAccounts().contains(account)) {
+		if (getAccounts()!=null && !getAccounts().contains(account)) {
 			getAccounts().add(account);
 			if (!account.getPlaylists().contains(this)) {
 				account.addPlaylist(this);
@@ -147,7 +147,7 @@ public class Playlist {
 			
 	// removes a Member from Collection<Member>, setting its Artist_Member to null.
 	public void removeAccount(Account account) {
-		if (getAccounts().contains(account)) {
+		if (getAccounts()!=null && getAccounts().contains(account)) {
 			getAccounts().remove(account);
 			if (account.getPlaylists().contains(this)) {
 				account.removePlaylist(this);
