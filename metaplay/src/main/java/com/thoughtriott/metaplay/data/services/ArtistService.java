@@ -57,8 +57,12 @@ public class ArtistService {
 	
 	@Transactional
 	public void createArtist(Artist a) {
+		String name = a.getName();
+		String biography = a.getBiography();
 		em.clear();
 		em.persist(a);
+		Artist ar = findArtistByNameAndBiography(name, biography);
+		System.out.println(ar);
 		em.close();
 	}
 
@@ -77,6 +81,19 @@ public class ArtistService {
 	public Artist findArtistByName(String name) {		
 		@SuppressWarnings("unchecked")
 		List<Artist> artistList = (List<Artist>) em.createQuery("SELECT a FROM Artist a WHERE a.name = :name").setParameter("name", name).getResultList();
+		if(artistList.size()==0) {
+			return null;
+		} else if(artistList.size()>1) {
+			System.out.println("The results contained more than one item, the first item was returned.");
+			return artistList.get(0);
+		} else {
+			return artistList.get(0);
+		}
+	}
+	
+	public Artist findArtistByNameAndBiography(String name, String biography) {		
+		@SuppressWarnings("unchecked")
+		List<Artist> artistList = (List<Artist>) em.createQuery("SELECT a FROM Artist a WHERE a.name = :name AND a.biography = :biography").setParameter("name", name).setParameter("biography", biography).getResultList();
 		if(artistList.size()==0) {
 			return null;
 		} else if(artistList.size()>1) {

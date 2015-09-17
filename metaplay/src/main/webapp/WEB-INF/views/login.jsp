@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome User!</title>
+<title>Welcome!</title>
 
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -35,8 +35,8 @@
 <!-- two boxes, one for username, password; -->
 <!-- post goes to database to check credentials? -->
 
-		<spring:url value="/account/login" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
+		<spring:url value="/login" var="thisFormURL" />
+		<form:form action="${thisFormURL}" method="post" modelAttribute="createAccountWrapper">
 
 			<div class="row">
 
@@ -49,7 +49,7 @@
 				
 				<div class="form-group">
 					<label for="account-password">Password</label>
-					<form:input type="password" path="password" cssClass="form-control" id="account-password" />
+					<form:input type="password" path="password" cssClass="form-control" id="password" />
 				</div>
 				
 				<button type="submit" class="btn btn-default">Login</button>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome ${account.accountname}!</title>
+<title>Welcome!</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -37,7 +37,7 @@
 		</div>
 
 		<spring:url value="/account/review" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
+		<form:form action="${thisFormURL}" method="post" modelAttribute="createAccountWrapper">
 
 			<div class="row">
 
@@ -47,12 +47,10 @@
 						id="accountname" />
 				</div>
 
-
-			<%-- 	<div class="form-group">
-					<label for="account-email">Email</label>
-					<form:input path="email" cssClass="form-control" id="account-email" />
-				</div> --%>
-
+				<div class="form-group">
+					<label for="account-passwordConfirm">Email Address</label>
+					<form:input type="text" path="email" cssClass="form-control" id="email" />
+				</div>
 
 				<div class="form-group">
 					<label for="account-password">Password</label>
@@ -61,8 +59,9 @@
 
 				<div class="form-group">
 					<label for="account-passwordConfirm">Confirm Password</label>
-					<form:input type="password" path="passwordConfirm" cssClass="form-control" id="account-passwordConfirm" />
+					<form:input type="password" path="confirmPassword" cssClass="form-control" id="account-passwordConfirm" />
 				</div>
+
 				
 				<button type="submit" class="btn btn-default">Submit</button>
 				

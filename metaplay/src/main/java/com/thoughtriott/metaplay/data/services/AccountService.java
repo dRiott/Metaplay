@@ -32,6 +32,14 @@ public class AccountService {
 		return a;
 	}
 	
+	@Transactional
+	public Account createAccount(Account account) {
+		em.clear();
+		em.persist(account);
+		em.close();
+		return account;
+	}
+	
 //------------------------------- Queries ---------------------------------------	
 	
 	//finds all Accounts in Account table

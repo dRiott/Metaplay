@@ -8,7 +8,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String goMain () {
-		return "welcome";
+		return "index";
 	}
 
 }

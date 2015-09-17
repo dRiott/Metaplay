@@ -25,7 +25,7 @@ public class MemberService {
 	public Member createFromNameArray(String[] nameArray) {
 		if (nameArray.length != 0) {
 			if (nameArray.length == 1) {
-				System.out.println("Inside if(nameArray.length == 1)...");
+				System.out.println("Inside createFromNameArray method: if(nameArray.length == 1)...");
 				String lastName = nameArray[0];
 				if (this.findMemberByName(lastName) != null) {
 					return (Member) this.findMemberByName(lastName);
@@ -36,7 +36,7 @@ public class MemberService {
 					return (Member) this.findMemberByName(lastName);
 				}
 			} else if (nameArray.length == 2) {
-				System.out.println("Inside if(nameArray.length == 2)...");
+				System.out.println("Inside createFromNameArray method: if(nameArray.length == 2)...");
 				String firstName = nameArray[0];
 				String lastName = nameArray[1];
 
@@ -49,6 +49,7 @@ public class MemberService {
 					return (Member) this.findMemberByName(lastName, firstName);
 				}
 			} else if (nameArray.length == 3) {
+				System.out.println("Inside createFromNameArray method: if(nameArray.length == 3)...");
 				String firstName = nameArray[0];
 				String middleName = nameArray[1];
 				String lastName = nameArray[2];
@@ -160,16 +161,19 @@ public class MemberService {
 
 	// grabs the Member with of certain lastName
 	public Member findMemberByName(String lastName) {
+		System.out.println("Inside findMemberByName...");
 		@SuppressWarnings("unchecked")
 		List<Member> memberList = (List<Member>) em
 				.createQuery("SELECT m FROM Member m WHERE m.lastName" + " = :lastName")
 				.setParameter("lastName", lastName).getResultList();
 		if (memberList.size() == 0) {
+			System.out.println("memberList.size() == 0... returning null");
 			return null;
 		} else if (memberList.size() > 1) {
 			System.out.println("Results list contained more than one item, the first item was returned.");
 			return memberList.get(0);
 		} else {
+			System.out.println("memberList.size() == 1... returning Member from memberList.get(0)");
 			return memberList.get(0);
 		}
 	}

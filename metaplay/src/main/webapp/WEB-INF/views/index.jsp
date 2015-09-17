@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>You're Here! Omg You're here?</title>
+<title>You're Here! Omg.. You're here?</title>
 
+	<link rel="stylesheet" href="<spring:url value="/resources/css/reset.css"/>" type="text/css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/welcome.css"/>" type="text/css" />
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -14,13 +15,16 @@
 
 </head>
 <body>
-
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
-	<div>
-		<h2>Yo Dog</h2>
-		<h3>HonestDad.exe be liek</h3>
-		<h1>W3lcome to the Fr0nt Page</h1>
-		<h4>Naw meen?</h4>
+	<div id="wrapper">
+		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+		<div class=text id=mainTest>
+			<h1>W3lcome to the Fr0nt Page</h1>
+			<h2>Naw meen?</h2>
+			<h3>Naw meen?</h3>
+			<h4>Naw meen?</h4>
+			<h5>Naw meen?</h5>
+			<h6>Naw meen?</h6>
+		</div>
 	</div>
 </body>
 </html>

@@ -8,6 +8,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.thoughtriott.metaplay.data.entities.Playlist;
 
 public class PlaylistService {
@@ -27,9 +30,9 @@ public class PlaylistService {
 // ------------------------------- Creates ---------------------------------------	
 	
 	// constructs a Playlist with arguments name and description
+		@Transactional(propagation = Propagation.REQUIRES_NEW)
 		public Playlist createPlaylist(String name, String description) {
 			em.clear();
-			em.getTransaction().begin();
 			Playlist p = new Playlist();
 			p.setName(name);
 			p.setDescription(description);
@@ -39,7 +42,8 @@ public class PlaylistService {
 		}
 
 // ------------------------------- TechBus Spring MVC Tutorial Stuff ---------------------------------------
-	public List<Playlist> findAll(String p1, String p2, String p3) {
+		@Transactional
+		public List<Playlist> findAll(String p1, String p2, String p3) {
 		Playlist playlist1 = this.createPlaylist(p1, "These are some dope ass D&B jams!");
 		Playlist playlist2 = this.createPlaylist(p2, "Everyone gets the Blues.");
 		Playlist playlist3 = this.createPlaylist(p3, "Pop it like it's hot.");
@@ -103,5 +107,4 @@ public class PlaylistService {
 			}
 			return playlistString;
 		}
-
 }

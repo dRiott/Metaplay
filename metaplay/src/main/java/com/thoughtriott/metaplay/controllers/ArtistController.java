@@ -34,7 +34,7 @@ import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/artist")
-@SessionAttributes("artist")
+@SessionAttributes("createArtistWrapper")
 public class ArtistController {
 
 	@PersistenceContext
@@ -124,7 +124,7 @@ public class ArtistController {
 	// 		adding members to the artist
 		System.out.println("Going to add members to the artist");
 		String member1fullName = caw.getMember1();
-		System.out.println(member1fullName + " whodunit...?");
+		System.out.println("Member 1: " + member1fullName);
 		if (member1fullName!=null) {
 			String[] nameArray = memberService.splitFullName(member1fullName);
 			Member newMember = (Member) memberService.createFromNameArray(nameArray);
@@ -133,11 +133,11 @@ public class ArtistController {
 		}
 
 		String member2fullName = caw.getMember2();
-		System.out.println(member2fullName + "blah blah");
+		System.out.println("Member 2: " + member2fullName);
 		if (member2fullName!=null) {
 			String[] nameArray = memberService.splitFullName(member2fullName);
 			Member newMember2 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember2);
+			System.out.println("ArtistController: Printing out returned member: " + newMember2);
 			futureArtist.addMember(newMember2);
 		}
 		
@@ -180,6 +180,8 @@ public class ArtistController {
 		System.out.println("artistService.createArtist about to be called...");
 		artistService.createArtist(futureArtist);
 		System.out.println("artistService.createArtist called.");
+		
+		
 
 		//setComplete wipes the session of the info that we passed to the review page
 		//so that when we redirect to the /artist/add page, a blank form is displayed.

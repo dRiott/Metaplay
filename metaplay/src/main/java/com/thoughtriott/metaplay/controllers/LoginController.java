@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/more")
-public class MoreController {
+@RequestMapping("/login")
+public class LoginController {
 
 	@RequestMapping("/recordlabels")
 	public String findRecordLabels(){

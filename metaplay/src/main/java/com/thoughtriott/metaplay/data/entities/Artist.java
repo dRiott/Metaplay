@@ -1,8 +1,9 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,14 +44,14 @@ public class Artist {
 	@JoinColumn(name = "location_id", nullable=false)
 	private Location location;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name="artist_member", 
 		joinColumns = @JoinColumn(name = "artist_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "member_id", referencedColumnName="id"))
-	private Collection<Member> members;
+	private LinkedList<Member> members = new LinkedList<Member>();
 	
-	@OneToMany(mappedBy="artist")
-	private Collection<Album> albums;
+	@OneToMany(mappedBy="artist", cascade = CascadeType.PERSIST)
+	private LinkedList<Album> albums = new LinkedList<Album>();
 	
 	private String name;
 	
@@ -93,19 +94,19 @@ public class Artist {
 		this.location = location;
 	}
 
-	public Collection<Member> getMembers() {
+	public LinkedList<Member> getMembers() {
 		return members;
 	}
 
-	public void setMembers(Collection<Member> members) {
+	public void setMembers(LinkedList<Member> members) {
 		this.members = members;
 	}
 	
-	public Collection<Album> getAlbums() {
+	public LinkedList<Album> getAlbums() {
 		return albums;
 	}
 
-	public void setAlbums(Collection<Album> albums) {
+	public void setAlbums(LinkedList<Album> albums) {
 		this.albums = albums;
 	}
 
@@ -137,11 +138,24 @@ public class Artist {
 
 	//adds a Member to Collection<Member>
 	public void addMember(Member member) {
-		
+		System.out.println("In Arist addMember()");
 		if (getMembers()!=null && !getMembers().contains(member)) {
+			System.out.println("Made it past first condition (1/2): getMembers()!=null && !getMembers().contains(member)");
 			getMembers().add(member);
+			System.out.println("getMembers().add(member) called.");
 			if (!member.getArtists().contains(this)) {
+				System.out.println("Made it nested condition (Within 1): !member.getArtists().contains(this)");
 				member.addArtist(this);
+				System.out.println("Called member.addArtist(this)");
+			}
+		} else if(getMembers()==null) {
+			System.out.println("Made it past second condition (2/2): getMembers()!=null && !getMembers().contains(member)");
+			getMembers().add(member);
+			System.out.println("getMembers().add(member) called.");
+			if (!member.getArtists().contains(this)) {
+				System.out.println("Made it nested condition (Within 2): !member.getArtists().contains(this)");
+				member.addArtist(this);
+				System.out.println("Called member.addArtist(this)");
 			}
 		}
 	}
