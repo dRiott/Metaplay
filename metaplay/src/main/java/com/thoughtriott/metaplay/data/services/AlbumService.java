@@ -53,7 +53,7 @@ public class AlbumService {
 //------------------------------- Queries ---------------------------------------	
 	
 	//grabs all Albums in Album table
-	public List<Album> findAllAsCollection() {
+	public List<Album> findAllAsList() {
 		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a ORDER BY a.name", Album.class).getResultList();
 		if(albumList.size()==0) {
 			System.out.println("The results list was empty.");

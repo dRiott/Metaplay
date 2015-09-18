@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Playlist Manager</title>
+<title>MetaPlay &copy Location</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -17,21 +17,17 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
 
 			<div class="form-group">
-				<label for="project-name">Name</label> <span>${playlist.name}</span>
+				<label for="project-name">Name</label> <span>${artist.city}</span>
 			</div>
 
 			<div class="form-group">
-				<label for="project_type">Type</label> <span>${playlist.type }</span>
-			</div>
-
-			<div class="form-group">
-				<label for="project-name">Description</label> <span>${playlist.description}</span>
+				<label for="project-name">State</label> <span>${location.state}</span>
 			</div>
 
 		</div>

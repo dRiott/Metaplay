@@ -20,11 +20,11 @@
 
 	<div class="container">
 		
-		<h2>Playlists</h2>
+		<h2>Artists</h2>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Type</th><th>Description</th>
+					<th>Name</th><th>Description</th>
 				</tr>
 				<c:forEach items="${playlists}" var="playlist">
 					<tr>

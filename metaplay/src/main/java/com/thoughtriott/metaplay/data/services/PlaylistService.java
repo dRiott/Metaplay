@@ -66,9 +66,20 @@ public class PlaylistService {
 		
 //------------------------------- Queries ---------------------------------------
 	
+	//grabs all Locations in Location table
+	public List<Playlist> findAllAsList() {
+		List<Playlist> playlistList = (List<Playlist>) em.createQuery("SELECT p FROM Playlist p ORDER BY p.name, p.id", Playlist.class).getResultList();
+		if(playlistList.size()==0) {
+			System.out.println("The results list was empty.");
+			return null;
+		} else {
+			return playlistList;
+		}
+	}	
+		
 		public Playlist findPlaylistById(int id) {		
 		@SuppressWarnings("unchecked")
-		List<Playlist> playlistList = (List<Playlist>) em.createQuery("SELECT p FROM Playlist p WHERE l.id = :id").setParameter("id", id).getResultList();
+		List<Playlist> playlistList = (List<Playlist>) em.createQuery("SELECT p FROM Playlist p WHERE p.id = :id").setParameter("id", id).getResultList();
 		if (playlistList.size() == 0) {
 			return null;
 		} else if (playlistList.size() > 1) {

@@ -27,7 +27,7 @@ public class LocationService {
 		Location l = new Location();
 		l.setCity(city);
 		l.setState(state);
-		em.persist(l);
+		em.merge(l);
 		em.close();
 		return l;
 	}

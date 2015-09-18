@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Playlist Manager</title>
+<title>Metaplay &copy Albums</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
@@ -20,22 +20,21 @@
 
 	<div class="container">
 		
-		<h2>Playlists</h2>
+		<h2>Albums</h2>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Type</th><th>Description</th>
+					<th>Name</th><th>Description</th>
 				</tr>
-				<c:forEach items="${playlists}" var="playlist">
+				<c:forEach items="${albums}" var="album">
 					<tr>
-						<td><a href="<spring:url value="/playlist/${playlist.id}"/>">${playlist.name}</a></td>
-						<td>${playlist.description}</td>
+						<td><a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a></td>
+						<td>${album.description}</td>
 					</tr>	
 				</c:forEach>
 			</tbody>
 		</table>
-		<!-- <img src="../src/main/webapp/resources/img/j2.gif">
-		<img src="../img/jackieconfused.jpg"> -->
+
 	</div>
 </body>
 </html>

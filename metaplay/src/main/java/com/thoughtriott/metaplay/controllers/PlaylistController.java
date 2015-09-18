@@ -1,9 +1,5 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +57,7 @@ public class PlaylistController {
 	@RequestMapping(value="/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
 		model.addAttribute("playlist", this.playlistService.findPlaylistById(playlistId));
-		return "playlist";
+		return "single_playlist";
 	}
 
 	
@@ -71,9 +67,5 @@ public class PlaylistController {
 		return new Playlist();
 	}
 
-	//adds "typeOptions" List to the model
-	@ModelAttribute("typeOptions")
-	public List<String> getTypes () {
-		return new LinkedList<>(Arrays.asList(new String[] { "Solo", "Shared"}));
-	}	
+
 }

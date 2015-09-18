@@ -53,7 +53,7 @@
 
 				<div class="form-group">
 					<label for="location-state">State</label>
-					<form:input path="state" cssClass="form-control"
+					<form:select path="state" items="${stateOptions}" cssClass="selectpicker"
 						id="location-state" />
 				</div>
 

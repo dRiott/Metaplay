@@ -6,10 +6,11 @@ h1,h2,h3,h4,h5,h6{
 
 
 body {
-	background-image: url(../img/enduser.gif);
+	background-image: url(../img/jdilla.gif);
 	background-color: #C1E4E0;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: bottom right;
+	background-size: contain;
 	
 }

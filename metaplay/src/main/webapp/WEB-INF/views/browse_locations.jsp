@@ -20,16 +20,16 @@
 
 	<div class="container">
 		
-		<h2>Playlists</h2>
+		<h2>Location</h2>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Type</th><th>Description</th>
+					<th>City</th><th>State</th>
 				</tr>
-				<c:forEach items="${playlists}" var="playlist">
+				<c:forEach items="${locations}" var="location">
 					<tr>
-						<td><a href="<spring:url value="/playlist/${playlist.id}"/>">${playlist.name}</a></td>
-						<td>${playlist.description}</td>
+						<td><a href="<spring:url value="/location/${location.id}"/>">${location.city}</a></td>
+						<td>${location.state}</td>
 					</tr>	
 				</c:forEach>
 			</tbody>
