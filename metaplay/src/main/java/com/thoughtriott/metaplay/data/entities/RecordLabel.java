@@ -28,6 +28,7 @@ public class RecordLabel {
 	private int id;
 	
 	private String name;
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name = "location_id", nullable=false)
@@ -66,8 +67,16 @@ public class RecordLabel {
 	public void setArtists(Collection<Artist> artists) {
 		this.artists = artists;
 	}
-	
-//--------------------------Collection Adders and Removers--------------------------
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	//--------------------------Collection Adders and Removers--------------------------
 	//adds an Artist to Collection<Artist>, removing it's RecordLabel, and setting to this.
 	public void addArtist(Artist artist) {
 		if (getArtists()!=null && !getArtists().contains(artist)) {
@@ -121,7 +130,7 @@ public class RecordLabel {
 	//B/c StackOverflowError, altered this toString(): location.getCity()
 	@Override
 	public String toString() {
-		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", artists=" + this.getArtistsToString() + "]";
+		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", description=" + getDescription() + ", artists=" + getArtistsToString() + "]";
 	}
 
 }

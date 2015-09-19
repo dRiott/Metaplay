@@ -12,8 +12,17 @@
 	<link rel="stylesheet" href="<spring:url value="/resources/css/welcome.css"/>" type="text/css" />
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<!-- 	<script>function fnSetStatus(status){alert(status);document.getElementById("myStatus").innerHTML="Dem Boiz be liek..."+status;}</script>
- -->	
+	<script>
+	
+	document.write("Good Morning, and Welcome My Friends");
+	document.write("<hr/>");
+	document.write("Welcome To Metaplay");
+
+	
+	function fnSetStatus(status){alert("What does J Dilla say?");document.getElementById("myStatus").innerHTML="J Dilla be liek..."+status;}
+	
+	
+	</script>	
 </head>
 <body>
 	<div id="wrapper">
@@ -28,11 +37,10 @@
 		</div>
 	</div>
 	
-<!-- 	<div id="myStatus" style="position:fixed; left:250px; bottom:250px; background-color:yellow;">status</div>
- -->	
+	<div id="myStatus" style="position:fixed; left:56%; bottom:40%; background-color:#FBD475;">Hmmm...</div>	
 	
 	<script>
-		/* fnSetStatus("Twerk it girl"); */
+		fnSetStatus("Daayum");
 	</script>
 	
 </body>

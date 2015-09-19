@@ -43,13 +43,12 @@
 
 				<div class="form-group">
 					<label for="accountname">Account Name</label>
-					<form:input type="text" path="accountname" cssClass="form-control"
-						id="accountname" />
+					<form:input type="text" path="accountname" id="accountname" />
 				</div>
 
 				<div class="form-group">
 					<label for="account-passwordConfirm">Email Address</label>
-					<form:input type="text" path="email" cssClass="form-control" id="email" />
+					<form:input type="text" pattern="^\w+[.]\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" path="email" cssClass="form-control" id="email" />
 				</div>
 
 				<div class="form-group">

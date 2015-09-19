@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.thoughtriott.metaplay.data.services.AlbumService;
 import com.thoughtriott.metaplay.data.services.LocationService;
 import com.thoughtriott.metaplay.data.services.PlaylistService;
+import com.thoughtriott.metaplay.data.services.RecordLabelService;
 
 @Controller
 @RequestMapping("/browse")
 public class BrowseController {
-
 	
 	@Autowired
 	PlaylistService playlistService;
-	
 	@Autowired
 	LocationService locationService;
-	
 	@Autowired
 	AlbumService albumService;
+	@Autowired
+	RecordLabelService recordLabelService;
 	
+//Albums
 	@RequestMapping(value="/albums", method=RequestMethod.GET)
 	public String findAlbums(Model model){
 		model.addAttribute("albums", albumService.findAllAsList());
@@ -37,22 +38,20 @@ public class BrowseController {
 		return "single_album";
 	}
 	
-	@RequestMapping(value="/find", method=RequestMethod.GET)
-	public String find(Model model) {
-		return "playlists";
-	}
 	
 	@RequestMapping("/artists")
 	public String findArtists(){
 		return "browse_artists";
 	}
 	
+//Locations
 	@RequestMapping("/locations")
 	public String findLocations(Model model){
 		model.addAttribute("locations", locationService.findAllAsList()); 
 		return "browse_locations";
 	}
 	
+//Playlists
 	@RequestMapping(value="/playlists", method=RequestMethod.GET)
 	public String findPlaylists(Model model){
 		model.addAttribute("playlists", playlistService.findAllAsList());
@@ -65,11 +64,20 @@ public class BrowseController {
 		return "single_playlist";
 	}
 	
+//RecordLabels
 	@RequestMapping("/recordlabels")
-	public String findRecordLabels(){
+	public String findRecordLabels(Model model){
+		model.addAttribute("recordlabels", recordLabelService.findAllAsList()); 
 		return "browse_recordlabels";
 	}
 	
+	@RequestMapping(value="recordlabel/{recordlabelId}")
+	public String findRecordLabel(Model model, @PathVariable("recordlabelId") int recordlabelId) {
+		model.addAttribute("recordlabel", recordLabelService.findRecordLabelById(recordlabelId));
+		return "single_recordlabel";
+	}
+	
+//Tracks
 	@RequestMapping("/tracks")
 	public String findGroupMembers(){
 		return "browse_tracks";

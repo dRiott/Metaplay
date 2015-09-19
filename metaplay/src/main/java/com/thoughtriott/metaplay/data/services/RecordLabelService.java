@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.data.services;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class RecordLabelService {
 //------------------------------- Queries ---------------------------------------
 	
 	//grabs all Locations in Location table
-	public Collection<RecordLabel> findAllAsCollection() {
+	public List<RecordLabel> findAllAsList() {
 		List<RecordLabel> recordLabelList = (List<RecordLabel>) em.createQuery("SELECT r FROM RecordLabel r ORDER BY r.name", RecordLabel.class)
 				.getResultList();
 		if (recordLabelList.size() == 0) {
