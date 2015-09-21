@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,28 +59,22 @@ public class ArtistController {
 	
 	@RequestMapping("/add")
 	public String addArtist() {
-		System.out.println("Adding a new Artist to the model with the @ModelAttribute annotation.");
 		return "artist_add";
 	}
 	
 	@RequestMapping("/review")
-	public String review(HttpSession session, @ModelAttribute CreateArtistWrapper createArtistWrapper) {
+	public String review(HttpSession session, @Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors) {
 		System.out.println("Invoking review() in ArtistController");
+		if(errors.hasErrors()) {
+			return "artist_add";
+		}
 		session.setAttribute("createArtistWrapper", createArtistWrapper);
 		return "artist_review";
 	}
 	
 	@RequestMapping("/save")
-	public String saveArtist(/*@Valid*/ @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors, SessionStatus status, HttpSession session) {
+	public String saveArtist(HttpSession session, SessionStatus status) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
-		
-		//validation. The errors parameter must be directly after the ModelAttribute with the @Valid annotation.
-		if(!errors.hasErrors()) {
-			System.out.println("The artist name field was validated.");
-		} else{
-			System.out.println("The artist did not validate.");
-		}
-		
 		Artist futureArtist = new Artist();
 		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
 		String artistName = caw.getName();
@@ -170,21 +165,14 @@ public class ArtistController {
 			Date albumReleaseDate = dateFormatter.getDateFromString(caw.getAlbumReleaseDate()); 
 	//			String albumAlbumCover = caw.getAlbumAlbumCover(); //no corresponding field in Album exists yet...
 	//			a.setAlbumCover(albumAlbumCover);
-
 			Album a = new Album();
 			a.setName(albumName);
 			a.setNumTracks(albumNumTracks);
 			a.setReleaseDate(albumReleaseDate);
 			futureArtist.addAlbum(a);
 		}
-		System.out.println("artistService.createArtist about to be called...");
 		artistService.createArtist(futureArtist);
-		System.out.println("artistService.createArtist called.");
-		
-		
 
-		//setComplete wipes the session of the info that we passed to the review page
-		//so that when we redirect to the /artist/add page, a blank form is displayed.
 		status.setComplete();
 		return "redirect:/artist/add";
 	}

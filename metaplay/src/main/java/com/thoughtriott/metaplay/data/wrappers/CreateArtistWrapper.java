@@ -1,22 +1,38 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateArtistWrapper {
 
 	
 // --------------------------Fields--------------------------	
+	@NotNull
+	@Size(min = 3, max = 50)
 	String name;
+	@Size(min = 3)
 	String biography;
+	@Size(min = 3, max = 20)
 	String genreName;
+	@Size(min = 3, max = 40)
 	String locationCity;
+	@Size(min = 3, max = 25)
 	String locationState;
+	@Size(min = 3, max = 30)
 	String recordLabelName;
 	
+	@Size(min = 3, max = 50)
 	String member1;
+	@Size(min = 3, max = 50)
 	String member2;
+	@Size(min = 3, max = 50)
 	String member3;
+	@Size(min = 3, max = 50)
 	String member4;
 	
+	@Size(min = 3, max = 50)
 	String albumName;
+	@Size(min = 1, max = 5)
 	String albumNumTracks;
 	String albumReleaseDate;
 	String albumAlbumCover;

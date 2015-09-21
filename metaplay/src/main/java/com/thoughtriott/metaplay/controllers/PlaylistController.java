@@ -1,7 +1,5 @@
 package com.thoughtriott.metaplay.controllers;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +21,8 @@ public class PlaylistController {
 	@Autowired
 	private PlaylistService playlistService;
 	
-	//demonstrates adding an Attribute to the HttpSession (pulled out in method below)
 	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public String addPlaylist(Model model, HttpSession session){
-//		session.setAttribute("token", "12345");
-		System.out.println("Adding a new Playlist to the model with the @ModelAttribute annotation.");
-		System.out.println("invoking addPlaylist");
+	public String addPlaylist(){
 		return "playlist_add";
 	}
 	
@@ -41,22 +35,19 @@ public class PlaylistController {
 	@RequestMapping(value="/save")
 	public String savePlaylist(@ModelAttribute Playlist playlist, SessionStatus status){
 		System.out.println("invoking savePlaylist");
-		System.out.println(playlist); //invoking toString Method
-		//setComplete wipes the session of the info that we passed to the review page
-				//so that when we redirect to the /artist/add page, a blank form is displayed.
-		status.setComplete();
+		System.out.println(playlist); 
 		return "redirect:/playlist/add";
 	}
 	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
 	public String find(Model model) {
-		model.addAttribute("playlists", this.playlistService.findAll("p1", "p2", "p3"));
+		model.addAttribute("playlists", playlistService.findAllAsList());
 		return "playlists";
 	}
 	
 	@RequestMapping(value="/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
-		model.addAttribute("playlist", this.playlistService.findPlaylistById(playlistId));
+		model.addAttribute("playlist", playlistService.findPlaylistById(playlistId));
 		return "single_playlist";
 	}
 

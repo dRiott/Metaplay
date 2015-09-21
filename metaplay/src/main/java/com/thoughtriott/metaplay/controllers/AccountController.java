@@ -1,19 +1,23 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Account;
+import com.thoughtriott.metaplay.data.entities.Role;
 import com.thoughtriott.metaplay.data.services.AccountService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 
@@ -25,75 +29,56 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
-	//User Add Page
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addAccount(){
-		System.out.println("Adding a new User to the model with the @ModelAttribute annotation");
+		System.out.println("Adding a new CreateAccountWrapper to the model with the @ModelAttribute annotation");
 		return "account_add";
 	}
 	
-	//User reviews their credentials before Submit
 	@RequestMapping("/review")
-	public String review(HttpSession session, @ModelAttribute CreateAccountWrapper createAccountWrapper) {
+	public String review(HttpSession session, @Valid @ModelAttribute CreateAccountWrapper createAccountWrapper, Errors errors) {
 		System.out.println("Invoking review() in AccountController");
+		if(errors.hasErrors()) {
+			return "account_add";
+		}
 		session.setAttribute("createAccountWrapper", createAccountWrapper);
 		return "account_review";
 	}
 
-	//Saves the Account to the DB?
 	@RequestMapping(value="/save")
-	public String saveAccount(@ModelAttribute CreateAccountWrapper createAccountWrapper, Errors errors, SessionStatus status, HttpSession session){
+	public String saveAccount(SessionStatus status, HttpSession session){
 		System.out.println("invoking saveAcount");
-		
-		//validation. The errors parameter must be directly after the ModelAttribute with the @Valid annotation.
-		if(!errors.hasErrors()) {
-			System.out.println("The account was validated.");
-		} else{
-			System.out.println("The account did not validate.");
-		}
-		
-		Account account = new Account();
 		CreateAccountWrapper caw = (CreateAccountWrapper) session.getAttribute("createAccountWrapper");
-		
-		String accountname = caw.getAccountname();
-		System.out.println("setting Accountname...");
-		account.setAccountname(accountname);
-		
-		//some kind of password confirmation business here...
-		String password = caw.getPassword();
-		String confirmPassword = caw.getConfirmPassword();	
-		if(!confirmPassword.equals(password)) {
-			throw new RuntimeException();
-		}
-		System.out.println("setting Password...");
-		account.setPassword(password);
-		
-		String email = caw.getEmail();
-		System.out.println("setting Email...");
-		account.setEmail(email);
-	
-		System.out.println("setting Registration Date...");		
-		account.setRegistrationDate(new Date());
-		System.out.println(account);
-		
-		accountService.createAccount(account);
-		System.out.println(accountService.findAccountByAccountname(accountname));
+		Account newAccount = accountService.createAccount(caw);
 		status.setComplete();
-		return "redirect:/account/login";
+		return "redirect:/account/" + newAccount.getAccountname();
 	}
 	
-	//User Login Page
+	@RequestMapping(value="/{accountName}")
+	public String showProfile(@PathVariable String accountName, Model model) {
+		Account account = accountService.findAccountByAccountname(accountName);
+		List<Role> rolesList = account.getRoles();
+		model.addAttribute("roles", rolesList);
+		model.addAttribute(account);
+		return "account_profile";
+	}
+	
+	// LOGIN STUFF BEGINS HERE
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String showLogin() {
-		return "login";
+	public String getLoginPage(){
+		return "account_login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String doLogin() {
-		
-		//check credentials with DB
-		return "404";
-	}
+	public String performLogin(@ModelAttribute Account account){
+		System.out.println(account.getAccountname());
+		System.out.println(account.getPassword());
+		if(accountService.authenticate(account)) {
+			return "redirect:/account/" + account.getAccountname();
+		} else {
+			return "redirect:login";
+		}
+	}	
 	
 	//Logout
 	@RequestMapping("/byebye")
@@ -101,10 +86,14 @@ public class AccountController {
 		return "404";
 	}
 	
-	//adds a new CreateAccountWrapper() to the model
 	@ModelAttribute("createAccountWrapper")
 	public CreateAccountWrapper getCreateAccountWrapper() {
 		return new CreateAccountWrapper();
+	}
+	
+	@ModelAttribute("account")
+	public Account getAccount() {
+		return new Account();
 	}
 	
 }

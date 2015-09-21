@@ -19,7 +19,7 @@
 
 <body class="DVBody">
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 
 	<div class="container">
 

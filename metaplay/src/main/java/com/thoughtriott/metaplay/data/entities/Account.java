@@ -3,6 +3,7 @@ package com.thoughtriott.metaplay.data.entities;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Account {
 	@JoinTable(name="account_role", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
-	private Collection<Role> roles;
+	private List<Role> roles;
 
 	@ManyToMany
 	@JoinTable(name="playlist_account", 
@@ -60,11 +61,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public Collection<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

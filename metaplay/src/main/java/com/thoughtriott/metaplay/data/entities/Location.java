@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "location")
@@ -23,7 +25,11 @@ public class Location {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@NotNull
+	@Size(min=3, max=40)
 	private String city;
+	@NotNull
+	@Size(min=3, max=40)
 	private String state;
 
 	@OneToMany(mappedBy = "location")

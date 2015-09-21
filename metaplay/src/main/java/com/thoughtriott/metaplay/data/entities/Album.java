@@ -19,14 +19,42 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "album")
 public class Album {
-	
-// --------------------------Constructors--------------------------
-	public Album() {
-					
-	}
-	
 
-// --------------------------Fields--------------------------
+	// --------------------------Constructors--------------------------
+	public Album() {
+
+	}
+
+	public Album(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
+
+	public Album(String name, String description, Artist artist, Collection<Track> tracks, int numTracks,
+			Date releaseDate, int length) {
+		super();
+
+		this.name = name;
+		this.description = description;
+		this.artist = artist;
+		this.tracks = tracks;
+		this.numTracks = numTracks;
+		this.releaseDate = releaseDate;
+		this.length = length;
+	}
+
+	// omits the Collection<Tracks>
+	public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.artist = artist;
+		this.numTracks = numTracks;
+		this.releaseDate = releaseDate;
+		this.length = length;
+	}
+
+	// --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -35,26 +63,25 @@ public class Album {
 	private String description;
 
 	@ManyToOne
-	@JoinColumn(name = "artist_id", nullable=false)
+	@JoinColumn(name = "artist_id", nullable = false)
 	private Artist artist;
-	
-	@OneToMany(mappedBy="album")
+
+	@OneToMany(mappedBy = "album")
 	private Collection<Track> tracks;
-	
-	@Column(name="num_tracks")
+
+	@Column(name = "num_tracks")
 	private int numTracks;
-	
-	//album_cover BLOB!!
-	
-	@Column(name="release_date")
+
+	// album_cover BLOB!!
+
+	@Column(name = "release_date")
 	@Temporal(TemporalType.DATE)
 	private java.util.Date releaseDate;
-	
-	@Column(name="length_seconds")
+
+	@Column(name = "length_seconds")
 	private int length;
-	
-	
-//--------------------------Getters & Setters--------------------------
+
+	// --------------------------Getters & Setters--------------------------
 	public int getId() {
 		return id;
 	}
@@ -102,7 +129,7 @@ public class Album {
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-	
+
 	public int getLength() {
 		return length;
 	}
@@ -110,12 +137,12 @@ public class Album {
 	public void setLength(int length) {
 		this.length = length;
 	}
-	
+
 	public void setLengthMinSec(int minutes, int seconds) {
-		int length = (minutes*60) + seconds;
+		int length = (minutes * 60) + seconds;
 		this.length = length;
 	}
-	
+
 	public Collection<Track> getTracks() {
 		return tracks;
 	}
@@ -123,12 +150,14 @@ public class Album {
 	public void setTracks(Collection<Track> tracks) {
 		this.tracks = tracks;
 	}
-	
-//--------------------------Collection Adders and Removers--------------------------
 
-	// adds an Track to Collection<Track>, removing it's Album, and setting to this.
+	// --------------------------Collection Adders and
+	// Removers--------------------------
+
+	// adds an Track to Collection<Track>, removing it's Album, and setting to
+	// this.
 	public void addTrack(Track track) {
-		if (getTracks()!=null && !getTracks().contains(track)) {
+		if (getTracks() != null && !getTracks().contains(track)) {
 			getTracks().add(track);
 			if (track.getAlbum() != null) {
 				track.getAlbum().getTracks().remove(track);
@@ -139,50 +168,50 @@ public class Album {
 
 	// removes an Track from Collection<Track>, setting its Artist to null.
 	public void removeTrack(Track track) {
-		if (getTracks()!=null && getTracks().contains(track)) {
+		if (getTracks() != null && getTracks().contains(track)) {
 			getTracks().remove(track);
 			track.setAlbum(null);
 		}
 	}
 
-//--------------------------Collection Printers--------------------------
-	
-	public String getTracksToString () {
-		if(getTracks()!=null) {
-		Iterator<Track> it = getTracks().iterator();
-		String tracksString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			if(tracksString.length() > 1) {
-			tracksString = tracksString + ", " + it.next().getName();
-			} else if (!it.hasNext()) {
-				tracksString = tracksString + ", " + it.next().getName() + "}";
-			} else {
-				tracksString = "Tracks: {" + it.next().getName();
+	// --------------------------Collection Printers--------------------------
+
+	public String getTracksToString() {
+		if (getTracks() != null) {
+			Iterator<Track> it = getTracks().iterator();
+			String tracksString = "";
+			while (it.hasNext()) {
+				// if-else prevents ", " from being appended the first time,
+				// appends } on the final time.
+				if (tracksString.length() > 1) {
+					tracksString = tracksString + ", " + it.next().getName();
+				} else if (!it.hasNext()) {
+					tracksString = tracksString + ", " + it.next().getName() + "}";
+				} else {
+					tracksString = "Tracks: {" + it.next().getName();
+				}
 			}
+			return tracksString;
 		}
-		return tracksString;
-		} return "No tracks";
+		return "No tracks";
 	}
-	
-	public String getArtistToString () {
-		if(artist!=null) {
+
+	public String getArtistToString() {
+		if (artist != null) {
 			return artist.toString();
 		}
 		return "Artist is null.";
 	}
-	
 
-//--------------------------toString()--------------------------
-	
-	//In Tracks: album.getName()
-	//B/c StackOverflowError, altered this toString(): artist.getName()
+	// --------------------------toString()--------------------------
+
+	// In Tracks: album.getName()
+	// B/c StackOverflowError, altered this toString(): artist.getName()
 	@Override
 	public String toString() {
 		return "Album [id=" + id + ", name=" + name + ", description=" + description + ", artist=" + getArtistToString()
-				+ ", tracks=" + this.getTracksToString() + ", numTracks=" + numTracks + ", releaseDate=" + releaseDate + ", length="
-				+ length + "]";
+				+ ", tracks=" + this.getTracksToString() + ", numTracks=" + numTracks + ", releaseDate=" + releaseDate
+				+ ", length=" + length + "]";
 	}
 
-	
 }

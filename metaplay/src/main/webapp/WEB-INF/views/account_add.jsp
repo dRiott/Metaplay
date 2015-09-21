@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 	<div>
 		<h2>Want to make Friendship?</h2>
 		<h3>HonestDad.docx love friends</h3>

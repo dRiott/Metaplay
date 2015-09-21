@@ -1,12 +1,25 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateAccountWrapper {
 
 // --------------------------Fields--------------------------	
-	
+	@NotNull
+	@Size(min=5, max=16)
 	private String accountname;
+	
+	@NotNull
+	@Size(min=5, max=25)
 	private String password;
+	
+	@NotNull
+	@Size(min=5, max=25)
 	private String confirmPassword;
+	
+	@NotNull
+	@Size(min=5, max=50)
 	private String email;
 
 	

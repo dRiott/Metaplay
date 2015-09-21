@@ -25,6 +25,13 @@ public class BrowseController {
 	@Autowired
 	RecordLabelService recordLabelService;
 	
+	public BrowseController(AlbumService albumService) {
+		this.albumService = albumService;
+	}
+	
+	public BrowseController() {
+	}
+	
 //Albums
 	@RequestMapping(value="/albums", method=RequestMethod.GET)
 	public String findAlbums(Model model){
