@@ -79,6 +79,7 @@
 					<li><a href="<spring:url value="/more/groupmembers"/>">Group
 							Members</a></li>
 					<li><a href="<spring:url value="/more/locations"/>">Locations</a></li>
+					<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
 				</ul></li>
 
 			<!-- Login Page -->

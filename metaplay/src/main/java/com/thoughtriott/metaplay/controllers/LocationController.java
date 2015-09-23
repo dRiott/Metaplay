@@ -48,7 +48,7 @@ public class LocationController {
 	}
 	
 	@RequestMapping(value="/save")
-	public String saveLocation(@ModelAttribute Location location, HttpSession session, SessionStatus status){
+	public String saveLocation(HttpSession session, SessionStatus status){
 		System.out.println("invoking saveLocation");
 		Location l = (Location) session.getAttribute("location");
 		locationService.createLocation(l.getCity(), l.getState());
@@ -78,8 +78,6 @@ public class LocationController {
 		return "location_find";
 	}
 
-	
-	//adds "stateOptions" List to the model
 	@ModelAttribute("stateOptions")
 	public List<String> getTypes () {
 		return new LinkedList<>(Arrays.asList(new String[] { 
@@ -92,17 +90,19 @@ public class LocationController {
 		}));
 	}	
 	
-// ------------------------------ Validator ------------------------------
-
-	//registering the LocationValidator with this controller using a WebDataBinder object.
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.addValidators(new LocationValidator());
-//	}
-		
 	@ModelAttribute("location")
 	public Location getLocation() {
 		return new Location();
 	}
+	
+	
+	// ------------------------------ Validator ------------------------------
+
+		//registering the LocationValidator with this controller using a WebDataBinder object.
+//		@InitBinder
+//		public void initBinder(WebDataBinder binder) {
+//			binder.addValidators(new LocationValidator());
+//		}
+
 	
 }

@@ -25,6 +25,7 @@
 	
 		<spring:url value="/account/save" var="thisURL" />
 		<form:form action="${thisURL}" method="post" modelAttribute="createArtistWrapper">
+		<form:errors path="*" element="div" cssClass="has-error"/>
 		
 			<div class="row">
 				<h2>Please Review Your Credentials for Accuracy</h2>

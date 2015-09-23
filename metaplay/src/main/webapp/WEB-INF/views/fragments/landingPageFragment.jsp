@@ -55,7 +55,7 @@
 					<li><a href="<spring:url value="/playlist/add"/>">Add</a></li>
 				</ul></li>
 
-			<!-- More -->
+<!-- More -->
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown" role="button" aria-expanded="false">More
 					<span class="caret"></span>
@@ -63,6 +63,7 @@
 
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="<spring:url value="/browse/accounts"/>">Group Members</a></li>
+					<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
 				</ul></li>
 
 		</ul>

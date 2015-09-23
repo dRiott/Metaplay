@@ -1,8 +1,8 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class Album {
 		this.description = description;
 	}
 
-	public Album(String name, String description, Artist artist, Collection<Track> tracks, int numTracks,
+	public Album(String name, String description, Artist artist, List<Track> tracks, int numTracks,
 			Date releaseDate, int length) {
 		super();
 
@@ -67,7 +67,7 @@ public class Album {
 	private Artist artist;
 
 	@OneToMany(mappedBy = "album")
-	private Collection<Track> tracks;
+	private List<Track> tracks;
 
 	@Column(name = "num_tracks")
 	private int numTracks;
@@ -143,19 +143,17 @@ public class Album {
 		this.length = length;
 	}
 
-	public Collection<Track> getTracks() {
+	public List<Track> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Collection<Track> tracks) {
+	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
 	}
 
-	// --------------------------Collection Adders and
-	// Removers--------------------------
+// --------------Collection Adders and Removers-------------
 
-	// adds an Track to Collection<Track>, removing it's Album, and setting to
-	// this.
+	// adds an Track to Collection<Track>, removing it's Album, setting to this.
 	public void addTrack(Track track) {
 		if (getTracks() != null && !getTracks().contains(track)) {
 			getTracks().add(track);
@@ -174,7 +172,7 @@ public class Album {
 		}
 	}
 
-	// --------------------------Collection Printers--------------------------
+// ----------------Collection Printers----------------
 
 	public String getTracksToString() {
 		if (getTracks() != null) {
@@ -203,7 +201,7 @@ public class Album {
 		return "Artist is null.";
 	}
 
-	// --------------------------toString()--------------------------
+// --------------------------toString()--------------------------
 
 	// In Tracks: album.getName()
 	// B/c StackOverflowError, altered this toString(): artist.getName()

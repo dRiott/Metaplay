@@ -22,11 +22,6 @@
 <body>
 
 	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
-	<div>
-		<h2>Want to make Friendship?</h2>
-		<h3>HonestDad.docx love friends</h3>
-		<h4>Prepare to be account'd.</h4>
-	</div>
 
 	<div class="container">
 
@@ -34,35 +29,43 @@
 			<h1>Fill In Your Desired Credentials</h1>
 		</div>
 
-		<spring:url value="/account/review" var="thisFormURL" />                                 
-		<form:form action="${thisFormURL}" method="post" modelAttribute="createAccountWrapper">  
+		<spring:url value="/ablum/review" var="thisFormURL" />                                 
+		<form:form action="${thisFormURL}" method="post" modelAttribute="album">  
 		<form:errors path="*" element="div" cssClass="errors"/>
                                                                                                  
 			<div class="row">                                                                    
                                                                                                  
 				<div class="form-group">                                                         
-					<label for="accountname">Account Name</label>                                
-					<form:input type="text" path="accountname" id="accountname" cssErrorClass="has-error"/>          
-					
-				</div>                                                                           
-                                                                                                 
+					<label for="album-Name">Album Name</label>                                
+					<form:input type="text" path="name" id="albumName" cssErrorClass="has-error"/>          
+				</div>       
 				<div class="form-group">                                                         
-					<label for="account-passwordConfirm">Email Address</label>
-					<form:input type="text" pattern="^\w+.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" path="email"  id="email" cssClass="form-control" cssErrorClass="has-error"/>
+					<label for="album-artist">Artist Name</label>                                
+					<form:input type="text" path="artist" id="albumArtistname" cssErrorClass="has-error"/>          
+				</div> 
 				</div>
-
 				<div class="form-group">
-					<label for="account-password">Password</label>
-					<form:password path="password" id="account-password" cssClass="form-control" cssErrorClass="has-error" />
+					<label for="album-releaseDate">Release Date</label>
+					<form:input path="releaseDate" cssClass="form-control"
+						id="album-releaseDate" />
 				</div>
-
 				<div class="form-group">
-					<label for="account-passwordConfirm">Confirm Password</label>
-					<form:password path="confirmPassword" id="account-passwordConfirm" cssClass="form-control" cssErrorClass="has-error" />
+					<label for="album-numTracks">Number of Tracks</label>
+					<form:input path="numTracks" cssClass="form-control"
+						id="album-numTracks" />
+				<div class="form-group">
+					<label for="album-length">Length</label>
+					<form:input path="length" cssClass="form-control"
+						id="album-length" />
 				</div>
-
 				
+				<div class="form-group">
+				<label for="album-track">Track: </label>
+					<form:input path="numTracks" cssClass="form-control" id="album-track1" />
+				</div>
+
 				<button type="submit" class="btn btn-default">Submit</button>
+
 			
 			</div>
 		</form:form>

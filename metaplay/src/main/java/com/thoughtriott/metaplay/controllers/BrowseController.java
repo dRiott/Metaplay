@@ -32,6 +32,12 @@ public class BrowseController {
 	public BrowseController() {
 	}
 	
+
+	@RequestMapping("/accounts")
+	public String findAccounts(){
+		return "404";
+	}
+	
 //Albums
 	@RequestMapping(value="/albums", method=RequestMethod.GET)
 	public String findAlbums(Model model){

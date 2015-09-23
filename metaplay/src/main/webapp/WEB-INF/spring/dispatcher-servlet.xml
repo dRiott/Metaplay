@@ -48,5 +48,6 @@
    <bean id="memberService" class="com.thoughtriott.metaplay.data.services.MemberService"/>
    <bean id="playlistService" class="com.thoughtriott.metaplay.data.services.PlaylistService"/>
    <bean id="recordLabelService" class="com.thoughtriott.metaplay.data.services.RecordLabelService"/>
+   <bean id="trackService" class="com.thoughtriott.metaplay.data.services.TrackService"/>
 
 </beans>

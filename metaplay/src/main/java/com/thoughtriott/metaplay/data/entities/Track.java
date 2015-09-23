@@ -20,8 +20,8 @@ import javax.persistence.Table;
 public class Track {
 	
 // --------------------------Constructors--------------------------
-	public Track() {
-					
+
+	public Track() {			
 	}
 	
 // --------------------------Fields--------------------------

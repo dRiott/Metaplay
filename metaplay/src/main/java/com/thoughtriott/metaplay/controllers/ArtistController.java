@@ -77,10 +77,8 @@ public class ArtistController {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
 		Artist futureArtist = new Artist();
 		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
-		String artistName = caw.getName();
-		futureArtist.setName(artistName);
-		String artistBiography = caw.getBiography();
-		futureArtist.setBiography(artistBiography);
+		futureArtist.setName(caw.getName());
+		futureArtist.setBiography(caw.getBiography());
 		
 	// 		Setting/Creating a Location
 		System.out.println("Setting/Creating a Location");
