@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.data.services;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -120,6 +121,27 @@ public class ArtistService {
 	
 //------------------------------- to String ---------------------------------------			
 
+	//returns List<String> of each Artist
+	public List<String> findAllAsListString() {
+		@SuppressWarnings("unchecked")
+		List<Artist> artistList = (List<Artist>) em.createQuery("SELECT a FROM Artist a ORDER BY a.name").getResultList();
+		Iterator<Artist> it = artistList.iterator();
+		List<String> artistStrList = new LinkedList<String>();
+		while(it.hasNext()) {
+			Artist a = it.next();
+			artistStrList.add(a.getName());
+		}
+		if(artistList.size()==0) {
+			System.out.println("The results list was empty.");
+			artistStrList.add("No Artists, add one!");
+			artistStrList.add("New Artist");
+			return artistStrList;
+		} else {
+			artistStrList.add("Other");
+			return artistStrList;
+		}
+	}
+	
 	//return a string of all of the Artists by given name
 	@SuppressWarnings("unchecked")
 	public String findAristByNameToString(String name) {

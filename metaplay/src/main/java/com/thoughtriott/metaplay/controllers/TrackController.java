@@ -1,5 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -35,7 +37,6 @@ public class TrackController {
 	@Autowired
 	private TrackService trackService;
 
-	
 	@RequestMapping("/add")
 	public String addTrack() {
 		return "track_add";
@@ -112,15 +113,14 @@ public class TrackController {
 		return new CreateTrackWrapper();
 	}
 	
-//	@ModelAttribute(value="locationOptions")
-//	public List<String> getLocations() {
-//		return new LinkedList<>(Arrays.asList(new String[] { "Seattle", "Los Angeles", "Denver",
-//				"San Francisco", "Chicago", "Atlanta", "Dallas", "Portland", "Other" }));
-//	}
-//	
-//	@ModelAttribute(value="genreOptions")
-//	public List<String> getGenres() {
-//		return  new LinkedList<>(Arrays.asList(new String[] { "Blues", "Rock", "Juke",
-//				"D&B", "Jazz Hop", "Hip Hop", "BasedGod", "Drugs", "Other" }));
-//	}
+	@ModelAttribute(value="artistOptions")
+	public List<String> getArtists() {
+		return  artistService.findAllAsListString();
+	}
+	
+	@ModelAttribute(value="albumOptions")
+	public List<String> getAlbums() {
+		return  albumService.findAllAsListString();
+	}
+
 }

@@ -90,7 +90,8 @@ public class RecordLabelService {
 		}
 		if(recordLabelList.size()==0) {
 			System.out.println("The results list was empty.");
-			return null;
+			recLblStrList.add("Other");
+			return recLblStrList;
 		} else {
 			recLblStrList.add("Other");
 			return recLblStrList;

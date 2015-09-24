@@ -99,7 +99,8 @@ public class GenreService {
 			}
 			if(genreList.size()==0) {
 				System.out.println("The results list was empty.");
-				return null;
+				genStrList.add("Other");
+				return genStrList;
 			} else {
 				genStrList.add("Other");
 				return genStrList;

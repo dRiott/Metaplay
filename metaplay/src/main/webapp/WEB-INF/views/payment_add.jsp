@@ -55,7 +55,7 @@
 						</form:select>
 							
 						<div class="form-group" id="optionCardTypeInput" style="display:none;">
-							<label for="nameOnCard">Other Card Type:</label>
+							<label for="nameOnCard" style="font-style:italic;">Other Card Type:</label>
 							<form:input type="text" path="cardType" id="otherCardTypeOption" cssErrorClass="has-error" />
 						</div>
 					</div>

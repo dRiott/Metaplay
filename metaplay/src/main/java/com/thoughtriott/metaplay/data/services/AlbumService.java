@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.data.services;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -93,6 +94,26 @@ public class AlbumService {
 	}
 	
 //------------------------------- to String ---------------------------------------			
+	
+	//returns List<String> of each Album
+	public List<String> findAllAsListString() {
+		@SuppressWarnings("unchecked")
+		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a ORDER BY a.name").getResultList();
+		Iterator<Album> it = albumList.iterator();
+		List<String> albumStrList = new LinkedList<String>();
+		while(it.hasNext()) {
+			Album a = it.next();
+			albumStrList.add(a.getName());
+		}
+		if(albumList.size()==0) {
+			System.out.println("The results list was empty.");
+			albumStrList.add("Other");
+			return albumStrList;
+		} else {
+			albumStrList.add("Other");
+			return albumStrList;
+		}
+	}
 	
 	//return a string of all of the albums of a given name
 	@SuppressWarnings("unchecked")
