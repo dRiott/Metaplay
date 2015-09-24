@@ -1,7 +1,7 @@
 package com.thoughtriott.metaplay.data.services;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -46,7 +46,7 @@ public class GenreService {
 //------------------------------- Queries ---------------------------------------	
 
 	//grabs all Genres in Genre table
-	public Collection<Genre> findAllAsCollection() {		
+	public List<Genre> findAllAsList() {		
 		 List<Genre> genreList = (List<Genre>) em.createQuery("SELECT g FROM Genre g ORDER BY g.name", Genre.class).getResultList();
 			if(genreList.size()==0) {
 				System.out.println("The results list was empty.");
@@ -86,6 +86,26 @@ public class GenreService {
 	
 //------------------------------- to String ---------------------------------------			
 
+	
+	//returns List<String> of each Genre
+		public List<String> findAllAsListString() {
+			@SuppressWarnings("unchecked")
+			List<Genre> genreList = (List<Genre>) em.createQuery("SELECT g FROM Genre g ORDER BY g.name").getResultList();
+			Iterator<Genre> it = genreList.iterator();
+			List<String> genStrList = new LinkedList<String>();
+			while(it.hasNext()) {
+				Genre genre = it.next();
+				genStrList.add(genre.getName());
+			}
+			if(genreList.size()==0) {
+				System.out.println("The results list was empty.");
+				return null;
+			} else {
+				genStrList.add("Other");
+				return genStrList;
+			}
+		}
+	
 	//return a string of all of the Genres with a certain name
 	@SuppressWarnings("unchecked")
 	public String findGenreByNameToString(String name) {

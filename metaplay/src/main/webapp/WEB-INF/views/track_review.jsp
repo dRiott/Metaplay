@@ -30,13 +30,13 @@
 				<h2>Please Review the Track for Accuracy</h2>
 	
 				<div class="form-group">
-					<label for="trackNumber">Track Number (Required!)</label> <span>${createTrackWrapper.trackNumber}</span>
+					<label for="trackNumber">* Track Number</label> <span>${createTrackWrapper.trackNumber}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackName">Name (Required!)</label> <span>${createTrackWrapper.name }</span>
+					<label for="trackName">* Name</label> <span>${createTrackWrapper.name }</span>
 				</div>
 				<div class="form-group">
-					<label for="trackArtistName">Artist (Required!)</label>${createTrackWrapper.artist }</span>
+					<label for="trackArtistName">Artist</label>${createTrackWrapper.artist }</span>
 				</div>
 				<div class="form-group">
 					<label for="trackAlbumName">Album</label> <span>${createTrackWrapper.album}</span>
@@ -45,10 +45,10 @@
 					<label for="trackAlbumCover">Album Cover</label> <span>${createTrackWrapper.albumCover}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthSeconds">Length Seconds (Required!)</label> <span>${createTrackWrapper.lengthSeconds}</span>
+					<label for="trackLengthMinutes">* Length: Minutes</label> <span>${createTrackWrapper.lengthMinutes}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthMinutes">Length Minutes (Required!)</label> <span>${createTrackWrapper.lengthSeconds}</span>
+					<label for="trackLengthSeconds">* Seconds</label> <span>${createTrackWrapper.lengthSeconds}</span>
 				</div>
 				<div class="form-group">
 					<label for="trackBpm">BPM</label> <span>${createTrackWrapper.bpm}</span>

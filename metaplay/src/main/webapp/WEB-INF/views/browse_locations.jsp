@@ -28,7 +28,7 @@
 				</tr>
 				<c:forEach items="${locations}" var="location">
 					<tr>
-						<td><a href="<spring:url value="/location/${location.id}"/>">${location.city}</a></td>
+						<td><a href="<spring:url value="/browse/location/${location.id}"/>">${location.city}</a></td>
 						<td>${location.state}</td>
 					</tr>	
 				</c:forEach>

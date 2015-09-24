@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +31,36 @@
 			<div class="form-group">
 				<label for="project-name">State</label> <span>${location.state}</span>
 			</div>
+			
+			<div class="form-group">
+				<label for="project-name">Record Labels</label> 
+				<div>
+					<c:if test="${location.recordLabels.size()==0 }">
+						<c:out value="This location has no record labels." />
+					</c:if>
+					<ul>
+						<c:forEach items="${location.recordLabels}" var="recordLabel">
+							<li>${recordLabel}</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="project-name">Artists</label>
+				<div>
+					<c:if test="${location.artists.size()==0 }">
+						<c:out value="This location has no artists." />
+					</c:if>
+					<ul>
+						<c:forEach items="${location.artists}" var="artist">
+							<li>${artist}</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+
+		<a href="<spring:url value="/browse/locations"/>" class="btn btn-default">Back To Browse</a>
 
 		</div>
 	</div>

@@ -80,8 +80,7 @@ public class MemberService {
 		return nameArray;
 	}
 
-	// ------------------------------- Creates
-	// ---------------------------------------
+	// ------------------------------- Creates ---------------------------------------
 
 	@Transactional("transactionManager")
 	public Member createMember(String lastName, String firstName) {
@@ -127,8 +126,7 @@ public class MemberService {
 		return m;
 	}
 
-	// ------------------------------- Queries
-	// ---------------------------------------
+	// ------------------------------- Queries\---------------------------------------
 
 	// grabs all Members in Member table
 	public List<Member> findAllAsList() {

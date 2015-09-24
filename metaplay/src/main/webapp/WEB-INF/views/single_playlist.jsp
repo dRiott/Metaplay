@@ -30,6 +30,8 @@
 				<label for="project-name">Description</label> <span>${playlist.description}</span>
 			</div>
 
+		<a href="<spring:url value="/browse/playlists"/>" class="btn btn-default">Back To Browse</a>
+
 		</div>
 	</div>
 </body>

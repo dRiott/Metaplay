@@ -27,46 +27,26 @@
 
 <!-- Browse -->
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-expanded="false">Browse
-					<span class="caret"></span>
-			</a>
-
+				data-toggle="dropdown" role="button" aria-expanded="false">Browse <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-
-
-					<li><a href="<spring:url value="/browse/artists"/>">Artists</a></li>
+					<li><a href="<spring:url value="/browse/accounts"/>">Accounts</a></li>
 					<li><a href="<spring:url value="/browse/albums"/>">Albums</a></li>
-					<li><a href="<spring:url value="/browse/tracks"/>">Tracks</a></li>
+					<li><a href="<spring:url value="/browse/artists"/>">Artists</a></li>
 					<li><a href="<spring:url value="/browse/locations"/>">Locations</a></li>
 					<li><a href="<spring:url value="/browse/playlists"/>">Playlists</a></li>
 					<li><a href="<spring:url value="/browse/recordlabels"/>">Record Labels</a></li>
-					<li><a href="<spring:url value="/browse/accounts"/>">Group Members</a></li>
-
-				</ul></li>
-
-
-<!-- Something Else -->
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-expanded="false">Something Else
-					<span class="caret"></span>
-			</a>
-
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="<spring:url value="/playlist/add"/>">Add</a></li>
-				</ul></li>
+					<li><a href="<spring:url value="/browse/tracks"/>">Tracks</a></li>
+				</ul>
+			</li>
 
 <!-- More -->
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-expanded="false">More
-					<span class="caret"></span>
-			</a>
-
+				data-toggle="dropdown" role="button" aria-expanded="false">More<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="<spring:url value="/browse/accounts"/>">Group Members</a></li>
 					<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
-				</ul></li>
-
+				</ul>
+			</li>
+		
 		</ul>
-
 	</div>
 </nav>

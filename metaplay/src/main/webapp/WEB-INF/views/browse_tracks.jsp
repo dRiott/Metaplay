@@ -24,13 +24,14 @@
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Album Id</th><th>Lyrics</th>
+					<th>Name</th><th>Number</th><th>Album</th><th>Length</th>
 				</tr>
-				<c:forEach items="${playlists}" var="playlist">
+				<c:forEach items="${tracks}" var="track">
 					<tr>
 						<td><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a></td>
-						<td>${track.album_id}</td>
-						<td>${track.lyrics}</td>
+						<td>${track.trackNumber}</td>
+						<td>${track.album}</td>
+						<td>${track.length}</td>
 					</tr>	
 				</c:forEach>
 			</tbody>

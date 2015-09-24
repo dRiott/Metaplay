@@ -164,8 +164,8 @@ public class Location {
 	//In RecordLabel: location.getCity(), In Artist: location.getCity()
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", city=" + city + ", state=" + state + ", recordLabels=" + this.getRecordLabelsToString()
-				+ ", artists=" + this.getArtistsToString() + "]";
+		return "Location [id=" + id + ", city=" + city + ", state=" + state + ", recordLabels=" + getRecordLabelsToString()
+				+ ", artists=" + getArtistsToString() + "]";
 	}
 
 }

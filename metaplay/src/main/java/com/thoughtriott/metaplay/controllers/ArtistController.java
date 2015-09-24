@@ -218,13 +218,28 @@ public class ArtistController {
 	
 	@ModelAttribute(value="locationOptions")
 	public List<String> getLocations() {
-		return new LinkedList<>(Arrays.asList(new String[] { "Seattle", "Los Angeles", "Denver",
-				"San Francisco", "Chicago", "Atlanta", "Dallas", "Portland", "Other" }));
+		return locationService.findDistinctStatesToString();
 	}
 	
 	@ModelAttribute(value="genreOptions")
 	public List<String> getGenres() {
-		return  new LinkedList<>(Arrays.asList(new String[] { "Blues", "Rock", "Juke",
-				"D&B", "Jazz Hop", "Hip Hop", "BasedGod", "Drugs", "Other" }));
+		return  genreService.findAllAsListString();
 	}
+	
+	@ModelAttribute(value="recordLabelOptions")
+	public List<String> getRecordLabels() {
+		return  recordLabelService.findAllAsListString();
+	}
+	
+	@ModelAttribute("stateOptions")
+	public List<String> getTypes () {
+		return new LinkedList<>(Arrays.asList(new String[] { 
+		"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut", 
+		"Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+		"Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+		"Mississippi", "Missouri", "Montana Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+		"North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island","South Carolina",
+		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
+		}));
+	}	
 }

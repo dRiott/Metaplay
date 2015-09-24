@@ -9,8 +9,9 @@
 <title>Artist Manager</title>
 
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<%-- <link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
- --%><script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
+<link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
 
@@ -29,7 +30,7 @@
 
 		<spring:url value="/artist/review" var="thisURL" />
 		<form:form action="${thisURL}" method="POST"
-			modelAttribute="createArtistWrapper">
+			modelAttribute="createArtistWrapper" onsubmit="fixOtherValue();">
 
 			<div class="row">
 
@@ -49,11 +50,17 @@
 					<label for="artist-image">Artist Image</label> 
 					<form:input  path="artist.artistImage" cssClass="form-control" id="artist-image"/>
 				</div> --%>
-
+				
 				<div class="form-group">
 					<label for="genre-name">Genre</label>
-					<form:input path="genreName" cssClass="form-control"
-						value="Pop/Rock" id="genre-name" />
+					<form:select path="genreName" id="genre-name" cssClass="selectpicker">
+						<form:options items="${genreOptions}" />
+					</form:select>
+					<div class="form-group"></div>	
+					<div class="form-group" id="optionGenre-name" style="display:none;">
+						<label for="otherGenre-name" style="font-style:italic;">Other Genre:</label>
+						<form:input cssClass="form-control" type="text" path="genreName" id="optionGenre-nameInput" cssErrorClass="has-error" />
+					</div>
 				</div>
 
 				<div class="form-group">
@@ -67,11 +74,23 @@
 					<form:input path="locationState" cssClass="form-control"
 						value="Colorado" id="location-state" />
 				</div>
-
+				
+				<div class="form-group">
+					<label for="location-state">State</label>
+					<form:select path="locationState" cssClass="selectpicker" items="${stateOptions}"
+						id="location-state" />
+				</div>
+				
 				<div class="form-group">
 					<label for="recordLabel-name">Record Label</label>
-					<form:input path="recordLabelName" cssClass="form-control"
-						value="Paw Tracks" id="recordLabel-name" />
+					<form:select path="recordLabelName" cssClass="selectpicker" id="recordLabel-name" >
+						<form:options items="${recordLabelOptions}" />
+					</form:select>
+					<div class="form-group"></div>	
+					<div class="form-group" id="optionRecordLabel-name" style="display:none;">
+						<label for="otherRecordLabel-name" style="font-style:italic;">Other Record Label:</label>
+						<form:input cssClass="form-control" type="text" path="recordLabelName" id="optionRecordLabel-nameInput" cssErrorClass="has-error" />
+					</div>
 				</div>
 
 				<!--  Artist Member fields here -->
@@ -124,5 +143,6 @@
 		</form:form>
 
 	</div>
+	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
 </body>
 </html>

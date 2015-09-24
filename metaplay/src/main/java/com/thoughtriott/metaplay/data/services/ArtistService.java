@@ -68,7 +68,7 @@ public class ArtistService {
 
 //------------------------------- Queries ---------------------------------------	
 	
-	public List<Artist> findAllArtists() {
+	public List<Artist> findAllAsList() {
 		 List<Artist> artistList = (List<Artist>) em.createQuery("SELECT a FROM Artist a ORDER BY a.name", Artist.class).getResultList();
 			if(artistList.size()==0) {
 				System.out.println("The results list was empty.");

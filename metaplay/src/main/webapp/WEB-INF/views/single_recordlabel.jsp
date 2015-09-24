@@ -29,6 +29,8 @@
 			<div class="form-group">
 				<label for="project-name">Description</label> <span>${recordlabel.description}</span>
 			</div>
+	
+		<a href="<spring:url value="/browse/recordlabels"/>" class="btn btn-default">Back To Browse</a>
 
 		</div>
 	</div>

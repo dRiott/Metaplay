@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Playlist Manager</title>
+<title>Metaplay &copy Accounts</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
@@ -20,23 +20,32 @@
 
 	<div class="container">
 		
-		<h2>Artists</h2>
+		<h2>Accounts</h2>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Biography</th><th>Image</th>
+					<th>Account</th><th>Playlists</th>
 				</tr>
-				<c:forEach items="${artists}" var="artist">
+				<c:forEach items="${accounts}" var="account">
 					<tr>
-						<td><a href="<spring:url value="/browse/artist/${artist.id}"/>">${artist.name}</a></td>
-						<td>${artist.biography}</td>
-						<td>${artist.artistImage}</td>
-					
+						<td><a href="<spring:url value="/browse/account/${account.id}"/>">${account.accountname}</a></td>
+						<td>
+							<div>
+							<c:if test="${account.playlists.size()==0 }">
+								<c:out value="This account has no playlists. Weird." />
+							</c:if>
+							<ul>
+								<c:forEach items="${account.playlists}" var="playlist">
+									<li>${playlist}</li>
+								</c:forEach>
+							</ul>
+							</div>
+						</td>
 					</tr>	
 				</c:forEach>
 			</tbody>
 		</table>
-		
+
 	</div>
 </body>
 </html>

@@ -39,6 +39,9 @@
 
 				<div class="form-group">
 					<label for="roles">Roles</label><br/>
+					<c:if test="${roles.size()==0 }">
+						<c:out value="There are currently no roles assigned to ${account.accountname }." />
+					</c:if>
 					<c:forEach items="${roles}" var="role">
 						<th>Role Name</th>
 						<th>Role Description></th>

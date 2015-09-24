@@ -193,7 +193,7 @@ public class Account {
 	//Roles and Accounts: @ManyToMany. B/c StackOverflowError --> Altered toString(): roles, playlists
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", roles= " + this.getRolesToString() + ", playlists=" + this.getPlaylistsToString() + ", accountname=" + accountname
+		return "Account [id=" + id + ", roles= " + getRolesToString() + ", playlists=" + getPlaylistsToString() + ", accountname=" + accountname
 				+ ", password=" + password + ", registrationDate=" + registrationDate + ", email=" + email + "]";
 	}
 

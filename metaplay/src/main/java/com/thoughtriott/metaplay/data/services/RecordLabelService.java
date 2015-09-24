@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.data.services;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -77,6 +78,25 @@ public class RecordLabelService {
 	
 // ------------------------------- to String ---------------------------------------
 
+	//returns List<String> of each RecordLabel
+	public List<String> findAllAsListString() {
+		@SuppressWarnings("unchecked")
+		List<RecordLabel> recordLabelList = (List<RecordLabel>) em.createQuery("SELECT rl FROM RecordLabel rl ORDER BY rl.name").getResultList();
+		Iterator<RecordLabel> it = recordLabelList.iterator();
+		List<String> recLblStrList = new LinkedList<String>();
+		while(it.hasNext()) {
+			RecordLabel rl = it.next();
+			recLblStrList.add(rl.getName());
+		}
+		if(recordLabelList.size()==0) {
+			System.out.println("The results list was empty.");
+			return null;
+		} else {
+			recLblStrList.add("Other");
+			return recLblStrList;
+		}
+	}
+	
 	// return a string of all of the RecordLabels with a certain name
 	@SuppressWarnings("unchecked")
 	public String findRecordLabelsByNameToString(String name) {
