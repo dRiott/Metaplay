@@ -25,7 +25,7 @@
 	<div class="container">
 
 		<div class="row">
-			<h1><a>Artist</a></h1>
+			<h1><a>Artist</a>&nbsp&nbsp<small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
 		<spring:url value="/artist/review" var="thisURL" />
@@ -35,7 +35,7 @@
 			<div class="row">
 
 				<div class="form-group">
-					<label for="artist-name">Name (Required!)</label>
+					<label for="artist-name">* Name</label>
 					<form:input path="name" cssClass="form-control" id="artist-name" />
 				</div>
 
@@ -52,88 +52,120 @@
 				</div> --%>
 				
 				<div class="form-group">
-					<label for="genre-name">Genre</label>
-					<form:select path="genreName" id="genre-name" cssClass="selectpicker">
+					<label for="genreName">Genre</label>
+					<form:select path="genreName" id="genreName" cssClass="selectpicker">
 						<form:options items="${genreOptions}" />
 					</form:select>
-					<div class="form-group"></div>	
-					<div class="form-group" id="optionGenre-name" style="display:none;">
-						<label for="otherGenre-name" style="font-style:italic;">Other Genre:</label>
-						<form:input cssClass="form-control" type="text" path="genreName" id="optionGenre-nameInput" cssErrorClass="has-error" />
+					<div class="form-group" id="newGenreName" style="display:none;">
+						<hr/>
+						<label for="newGenreName" style="font-style:italic;">* New Genre:</label>
+						<form:input cssClass="form-control" path="genreName" id="newGenreNameInput" cssErrorClass="has-error" />
+					</div>
+					<div class="form-group" id="newGenreDescription" style="display:none;">
+						<label for="newGenreDescription" style="font-style:italic;">Description:</label>
+						<form:textarea rows="3" cssClass="form-control" path="genreDescription" id="newGenreDescriptionInput" cssErrorClass="has-error" />
+						<hr/>
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="location-city">City</label>
-					<form:input path="locationCity" cssClass="form-control"
-						value="Denver" id="location-city" />
-				</div>
-
-				<div class="form-group">
-					<label for="location-state">State</label>
-					<form:input path="locationState" cssClass="form-control"
-						value="Colorado" id="location-state" />
-				</div>
-				
-				<div class="form-group">
-					<label for="location-state">State</label>
-					<form:select path="locationState" cssClass="selectpicker" items="${stateOptions}"
-						id="location-state" />
+				<div class="row">
+					<div class="col-md-4">
+						<label for="location-city">City</label>
+						<form:input path="locationCity" cssClass="form-control"
+							value="Denver" id="location-city" />
+					</div>
+					<div class="cold-md-4">
+						<label for="location-state">State</label>
+						<div class="form-group">
+						<form:select path="locationState" cssClass="selectpicker" items="${stateOptions}"
+							id="location-state" />
+						</div>
+					</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="recordLabel-name">Record Label</label>
-					<form:select path="recordLabelName" cssClass="selectpicker" id="recordLabel-name" >
+					<label for="recordLabelName">Record Label</label>
+					<form:select path="recordLabelName" cssClass="selectpicker" id="recordLabelName" >
 						<form:options items="${recordLabelOptions}" />
 					</form:select>
-					<div class="form-group"></div>	
-					<div class="form-group" id="optionRecordLabel-name" style="display:none;">
-						<label for="otherRecordLabel-name" style="font-style:italic;">Other Record Label:</label>
-						<form:input cssClass="form-control" type="text" path="recordLabelName" id="optionRecordLabel-nameInput" cssErrorClass="has-error" />
+					<div class="form-group" id="newRecordLabelName" style="display:none;">
+						<hr/>
+						<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
+						<form:input cssClass="form-control" type="text" path="recordLabelName" id="newRecordLabelNameInput" cssErrorClass="has-error" />
+						<hr/>
 					</div>
 				</div>
+				<div class="form-group" style="float:clear;"></div>
 
 				<!--  Artist Member fields here -->
-				<div class="form-group">
-					<label for="member1">Artist Member #1</label>
-					<form:input path="member1" cssClass="form-control" id="member1" />
+				<div class="row">
+					<div class="col-md-4">
+						<label for="member1">Artist Member #1</label>
+						<form:input path="member1" cssClass="form-control" id="member1" />
+					</div>
+					<div class="col-md-4">
+						<label for="member2">Artist Member #2</label>
+						<form:input path="member2" cssClass="form-control" id="member2" />
+					</div>
+					<div class="col-md-4">
+						<label for="member3">Artist Member #3</label>
+						<form:input path="member3" cssClass="form-control" id="member3" />
+					</div>
+					<div class="form-group" style="float:clear;"></div>
 				</div>
-				<div class="form-group">
-					<label for="member2">Artist Member #2</label>
-					<form:input path="member2" cssClass="form-control" id="member2" />
+				<div class="form-group" style="float:clear;"></div>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="member1">Artist Member #4</label>
+						<form:input path="member4" cssClass="form-control" id="member4" />
+					</div>
+					<div class="col-md-4">
+						<label for="member2">Artist Member #5</label>
+						<form:input path="member5" cssClass="form-control" id="member5" />
+					</div>
+					<div class="col-md-4">
+						<label for="member3">Artist Member #6</label>
+						<form:input path="member6" cssClass="form-control" id="member6" />
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="member3">Artist Member #3</label>
-					<form:input path="member3" cssClass="form-control" id="member3" />
-				</div>
-				<div class="form-group">
-					<label for="member4">Artist Member #3</label>
-					<form:input path="member4" cssClass="form-control" id="member4" />
-				</div>
-				<!--  Artist Member fields here -->
-
-
+				<div class="form-group" style="float:clear;"></div>
+				
+				
 				<!--  Album fields here -->
 				<div class="form-group">
-					<label for="album-name">Album: Name</label>
-					<form:input path="albumName" cssClass="form-control"
-						id="album-name" />
+					<label for="albumAlbumName">Album</label>
+					<form:select path="albumName" cssClass="selectpicker" id="albumAlbumName" >
+						<form:options items="${albumOptions}" />
+					</form:select>
 				</div>
-				<div class="form-group">
-					<label for="album-numTracks">Album: Number of Tracks</label>
+				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" id="newAlbumAlbumName" style="display:none;">
+					<hr/>
+					<label for="newAlbumAlbumName" style="font-style:italic;">New Album: Name</label>
+					<form:input cssClass="form-control" path="albumName" id="newAlbumAlbumNameInput" cssErrorClass="has-error" />
+				</div>
+				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" id="newAlbumNumTracks" style="display:none;">
+					<label for="albumNumTracks" style="font-style:italic;">New Album: Number of Tracks</label>
 					<form:input path="albumNumTracks" cssClass="form-control"
 						id="album-numTracks" />
 				</div>
-				<div class="form-group">
-					<label for="album-releaseDate">Album: Release Date</label>
+				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" id="newAlbumReleaseDate" style="display:none;">
+					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label>
 					<form:input path="albumReleaseDate" cssClass="form-control"
-						id="album-releaseDate" />
+						id="newAlbumReleaseDate" />
 				</div>
-				<div class="form-group">
-					<label for="album-albumCover">Album: Album Cover</label>
-					<form:input path="albumAlbumCover" cssClass="form-control"
-						id="album-albumCover" />
+				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" id="newAlbumAlbumCover" style="display:none;">
+					<label for="newAlbumAlbumCover" style="font-style:italic;"><em>New Album: Cover</em></label>
+					<form:input path="albumAlbumCover" cssClass="form-control" id="newAlbumAlbumCover" cssErrorClass="has-error" />
+					<hr/>
 				</div>
+				<div class="form-group" style="float:clear;"></div>
+				
+				
+				
 				<!--  End Album fields -->
 
 				<button type="submit" class="btn btn-default">Submit</button>
@@ -143,6 +175,10 @@
 		</form:form>
 
 	</div>
+	
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
 	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
+	
 </body>
 </html>

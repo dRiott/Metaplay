@@ -74,18 +74,24 @@ public class TrackController {
 		futureTrack.setTrackNumber(trackNumber);
 		
 		System.out.println("Setting/Creating an Album");
-		if(albumService.findAlbumByName(ctw.getAlbum())!=null) {
-			futureTrack.setAlbum(albumService.findAlbumByName(ctw.getAlbum()));
+		
+		if(albumService.findAlbumByName(ctw.getAlbumFromList())!=null && ctw.getAlbumFromList()!="** New Artist **,") {
+			futureTrack.setAlbum(albumService.findAlbumByName(ctw.getAlbumFromList()));
 		} else {
 				Album a = new Album();
-				a.setName(ctw.getAlbum());
+				a.setName(ctw.getTheNewAlbum());
 				//to create a new album, an artist isn't necessary... but if it does exist, add the artist to the album.
-				if(artistService.findArtistByName(ctw.getArtist())!=null) {
-					a.setArtist(artistService.findArtistByName(ctw.getArtist()));
+				if(artistService.findArtistByName(ctw.getArtistFromList())!=null && ctw.getArtistFromList()!="** New Artist **,") {
+					a.setArtist(artistService.findArtistByName(ctw.getArtistFromList()));
+				} else if (artistService.findArtistByName(ctw.getTheNewArtist())!=null) {
+					a.setArtist(artistService.findArtistByName(ctw.getTheNewArtist()));
 				}
 				albumService.createAlbum(a);
-				futureTrack.setAlbum(albumService.findAlbumByName(ctw.getAlbum()));
+				futureTrack.setAlbum(albumService.findAlbumByName(ctw.getTheNewAlbum()));
 		}
+		
+		
+		
 		System.out.println("Creating the Track");
 		trackService.createTrack(futureTrack);
 		status.setComplete();

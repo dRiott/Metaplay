@@ -107,10 +107,11 @@ public class AlbumService {
 		}
 		if(albumList.size()==0) {
 			System.out.println("The results list was empty.");
-			albumStrList.add("Other");
+			albumStrList.add("No Albums exist, add one!");
+			albumStrList.add("** New Album **");
 			return albumStrList;
 		} else {
-			albumStrList.add("Other");
+			albumStrList.add("** New Album **");
 			return albumStrList;
 		}
 	}

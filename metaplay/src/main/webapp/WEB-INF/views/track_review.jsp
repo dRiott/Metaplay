@@ -35,11 +35,27 @@
 				<div class="form-group">
 					<label for="trackName">* Name</label> <span>${createTrackWrapper.name }</span>
 				</div>
+				<%-- <div class="form-group">
+					<label for="trackArtistName">Artist</label><span>${createTrackWrapper.artist }</span>
+				</div> --%>
 				<div class="form-group">
-					<label for="trackArtistName">Artist</label>${createTrackWrapper.artist }</span>
+					<label for="trackArtistName">Artist</label>
+					<c:if test="${createTrackWrapper.artistFromList!='** New Artist **' }">
+						<c:out value="${createTrackWrapper.artistFromList}"/>
+					</c:if>
+					<c:if test="${createTrackWrapper.artistFromList=='** New Artist **' }">
+						<c:out value="${createTrackWrapper.theNewArtist}"/>
+					</c:if>
 				</div>
+				
 				<div class="form-group">
-					<label for="trackAlbumName">Album</label> <span>${createTrackWrapper.album}</span>
+					<label for="trackArtistName">Album</label>
+					<c:if test="${createTrackWrapper.albumFromList!='** New Album **' }">
+						<c:out value="${createTrackWrapper.albumFromList}"/>
+					</c:if>
+					<c:if test="${createTrackWrapper.albumFromList=='** New Album **' }">
+						<c:out value="${createTrackWrapper.theNewAlbum}"/>
+					</c:if>
 				</div>
 				<div class="form-group">
 					<label for="trackAlbumCover">Album Cover</label> <span>${createTrackWrapper.albumCover}</span>

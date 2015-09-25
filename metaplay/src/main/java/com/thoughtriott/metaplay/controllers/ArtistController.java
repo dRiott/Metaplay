@@ -106,11 +106,13 @@ public class ArtistController {
 	//		Setting/Creating a Genre
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
+		String genreDescription = caw.getGenreDescription();
 		if(genreService.findGenreByName(genreName)!=null) {
 			Genre g = (Genre) genreService.findGenreByName(genreName);
+			g.setDescription(genreDescription);
 			futureArtist.setGenre(g);
 		} else {
-			Genre g = (Genre) genreService.createGenre(genreName);
+			Genre g = (Genre) genreService.createGenre(genreName, genreDescription);
 			futureArtist.setGenre(g);
 		}
 
@@ -150,6 +152,24 @@ public class ArtistController {
 			Member newMember4 = (Member) memberService.createFromNameArray(nameArray);
 			System.out.println(newMember4);
 			futureArtist.addMember(newMember4);
+		}
+		
+		String member5fullName = caw.getMember5();
+		System.out.println("Member 5: " + member5fullName);
+		if (member5fullName!=null) {
+			String[] nameArray = memberService.splitFullName(member5fullName);
+			Member newMember5 = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember5);
+			futureArtist.addMember(newMember5);
+		}
+		
+		String member6fullName = caw.getMember6();
+		System.out.println("Member 6: " + member4fullName);
+		if (member6fullName!=null) {
+			String[] nameArray = memberService.splitFullName(member6fullName);
+			Member newMember6 = (Member) memberService.createFromNameArray(nameArray);
+			System.out.println(newMember6);
+			futureArtist.addMember(newMember6);
 		}
 		
 	//		Setting/Creating an Album
@@ -229,6 +249,11 @@ public class ArtistController {
 	@ModelAttribute(value="recordLabelOptions")
 	public List<String> getRecordLabels() {
 		return  recordLabelService.findAllAsListString();
+	}
+	
+	@ModelAttribute(value="albumOptions")
+	public List<String> getAlbums() {
+		return  albumService.findAllAsListString();
 	}
 	
 	@ModelAttribute("stateOptions")

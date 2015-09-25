@@ -23,13 +23,12 @@
 	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
 
 	<div class="container">
-
 		<div class="row">
-			<h1><a>Track</a></h1><span>The * indicates a required field.</span><br/>
+			<h1><a>Track</a>&nbsp&nbsp<small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
 		<spring:url value="/track/review" var="thisURL" />
-		<form:form action="${thisURL}" method="POST" modelAttribute="createTrackWrapper" onsubmit="fixOtherValue();">
+		<form:form action="${thisURL}" method="POST" modelAttribute="createTrackWrapper" onsubmit="return validate(this);">
 
 			<div class="row">
 				<div class="form-group">
@@ -40,60 +39,87 @@
 					<label for="trackName">* Name</label>
 					<form:input path="name" cssClass="form-control" id="trackName" />
 				</div>
+	
+				<div class="form-group" style="float:clear;"></div>
 				
-				<div class="form-group">
-					<label for="trackArtistName">Artist</label>
-					<form:select path="artist" cssClass="selectpicker" id="trackArtistName" >
-						<form:options items="${artistOptions}" />
-					</form:select>
-					<div class="form-group"></div>	
-					<div class="form-group" id="optionTrackArtistName" style="display:none;">
-						<label for="optionTrackArtistName" style="font-style:italic;">Other Artist:</label>
-						<form:input cssClass="form-control" type="text" path="artist" id="optionTrackArtistNameInput" cssErrorClass="has-error" />
+				<div class="row">
+					<div class="col-md-1">
+						<label for="trackArtistName">Artist</label>
+						<form:select path="artistFromList" cssClass="selectpicker" id="trackArtistName" >
+							<form:options items="${artistOptions}" />
+						</form:select>
 					</div>
+			
 				</div>
+				
+				<div class="form-group" style="float:clear;"></div>
+				
+				<div class="form-group" id="newTrackArtistName" style="display:none;">
+					<hr/>
+					<label for="newTrackArtistName" style="font-style:italic;">New Artist:</label>
+					<form:input cssClass="form-control" type="text" path="theNewArtist" id="newTrackArtistNameInput" cssErrorClass="has-error" />
+					<div class="form-group" style="float:clear;"></div>
+					<label for="newTrackArtistButton" style="font-style:italic;">Or...</label>
+					<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
+					<hr/>
+				</div>
+				
 				
 				<div class="form-group">
 					<label for="trackAlbumName">Album</label>
-					<form:select path="artist" cssClass="selectpicker" id="trackAlbumName" >
+					<form:select path="albumFromList" cssClass="selectpicker" id="trackAlbumName" >
 						<form:options items="${albumOptions}" />
 					</form:select>
-					<div class="form-group"></div>	
-					<div class="form-group" id="optionTrackAlbumName" style="display:none;">
-						<label for="optionTrackAlbumName" style="font-style:italic;">Other Album:</label>
-						<form:input cssClass="form-control" type="text" path="album" id="optionTrackAlbumNameInput" cssErrorClass="has-error" />
+				</div>
+				
+				<div class="form-group" id="newTrackAlbumName" style="display:none;">
+					<hr/>
+					<label for="newTrackAlbumName" style="font-style:italic;">New Album:</label>
+					<form:input path="theNewAlbum" id="newTrackAlbumNameInput" cssClass="form-control" cssErrorClass="has-error" />
+				</div>
+				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" id="newTrackAlbumCover" style="display:none;">
+					<label for="newTrackAlbumCover"><em>New Album Cover:</em></label>
+					<form:input path="albumCover" id="newTrackAlbumCover" cssClass="form-control" cssErrorClass="has-error" />
+					<hr/>
+				</div>
+				<div class="form-group" style="float:clear;"></div>
+
+				<div class="row">
+					<div class="col-md-1">
+						<label for="trackLengthMinutes">* Minutes</label>
+						<form:input path="lengthMinutes" id="trackLengthMinutes"  cssClass="form-control"/>
+					</div>
+	
+					<div class="col-md-1">
+						<label for="trackLengthSeconds">* Seconds</label>
+						<form:input path="lengthSeconds" id="trackLengthSeconds" cssClass="form-control"/>
+					</div>
+					<div class="col-md-1">
+						<label for="trackBpm">BPM</label>
+						<form:input path="bpm" cssClass="form-control" id="trackBpm" />
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label for="trackAlbumCover">Album Cover</label>
-					<form:input path="albumCover" cssClass="form-control" id="trackAlbumCover" />
-				</div>
-				<div class="form-group">
-					<label for="trackLengthMinutes">* Length: Minutes</label>
-					<form:input path="lengthMinutes" id="trackLengthMinutes"  cssClass="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="trackLengthSeconds">* Seconds</label>
-					<form:input path="lengthSeconds" id="trackLengthSeconds" cssClass="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="trackBpm">BPM</label>
-					<form:input path="bpm" cssClass="form-control" id="trackBpm" />
-				</div>
+				<div class="form-group" style="float:clear;"></div>
+				
 				<div class="form-group">
 					<label for="trackLyrics">Lyrics</label>
 					<form:textarea path="lyrics" rows="10" cols="30" style="text-align:center" cssClass="form-control" id="trackLyrics" />
 				</div>
 			
 				<button type="submit" class="btn btn-default">Submit</button>
-				<br/><hr/>
-				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				
 
 			</div>
 		</form:form>
 	</div>
+	
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
 	<script src="<spring:url value="/resources/js/populateTrackAdd.js"/>"></script>
 	<script src="<spring:url value="/resources/js/trackAdd.js"/>"></script>
+	<script src="<spring:url value="/resources/js/validateTrack.js"/>"></script>
+	
 </body>
 </html>

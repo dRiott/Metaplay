@@ -90,10 +90,11 @@ public class RecordLabelService {
 		}
 		if(recordLabelList.size()==0) {
 			System.out.println("The results list was empty.");
-			recLblStrList.add("Other");
+			recLblStrList.add("No Artists exist, add one!");
+			recLblStrList.add("** New Record Label **");
 			return recLblStrList;
 		} else {
-			recLblStrList.add("Other");
+			recLblStrList.add("** New Record Label **");
 			return recLblStrList;
 		}
 	}

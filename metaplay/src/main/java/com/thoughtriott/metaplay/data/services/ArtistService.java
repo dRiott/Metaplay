@@ -133,8 +133,8 @@ public class ArtistService {
 		}
 		if(artistList.size()==0) {
 			System.out.println("The results list was empty.");
-			artistStrList.add("No Artists, add one!");
-			artistStrList.add("New Artist");
+			artistStrList.add("No Artists exist, add one!");
+			artistStrList.add("** New Artist **");
 			return artistStrList;
 		} else {
 			artistStrList.add("Other");

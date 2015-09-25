@@ -13,7 +13,11 @@ public class CreateTrackWrapper {
 	
 	@NotNull
 	@Size(min = 3, max = 50)
-	private String artist;
+	private String artistFromList;
+	
+	@NotNull
+	@Size(min = 3, max = 50)
+	private String theNewArtist;
 	
 	@NotNull
 	@Size(min = 0, max = 59)
@@ -33,10 +37,13 @@ public class CreateTrackWrapper {
 	private int trackNumber;
 	
 	@Size(min = 0, max = 30)
-	private String album;
+	private String albumFromList;
 
 	@Size(min = 0, max = 30)
-	String albumCover;
+	private String theNewAlbum;
+
+	@Size(min = 0, max = 30)
+	private String albumCover;
 	
 // --------------------------Constructors--------------------------
 	public CreateTrackWrapper () {
@@ -56,12 +63,20 @@ public class CreateTrackWrapper {
 		this.name = name;
 	}
 
-	public String getArtist() {
-		return artist;
+	public String getArtistFromList() {
+		return artistFromList;
 	}
 
-	public void setArtist(String artist) {
-		this.artist = artist;
+	public void setArtistFromList(String artistFromList) {
+		this.artistFromList = artistFromList;
+	}
+
+	public String getTheNewArtist() {
+		return theNewArtist;
+	}
+
+	public void setTheNewArtist(String theNewArtist) {
+		this.theNewArtist = theNewArtist;
 	}
 
 	public int getLengthSeconds() {
@@ -104,12 +119,20 @@ public class CreateTrackWrapper {
 		this.trackNumber = trackNumber;
 	}
 
-	public String getAlbum() {
-		return album;
+	public String getAlbumFromList() {
+		return albumFromList;
 	}
 
-	public void setAlbum(String album) {
-		this.album = album;
+	public void setAlbumFromList(String albumFromList) {
+		this.albumFromList = albumFromList;
+	}
+
+	public String getTheNewAlbum() {
+		return theNewAlbum;
+	}
+
+	public void setTheNewAlbum(String theNewAlbum) {
+		this.theNewAlbum = theNewAlbum;
 	}
 
 	public void setAlbumCover(String albumCover) {
