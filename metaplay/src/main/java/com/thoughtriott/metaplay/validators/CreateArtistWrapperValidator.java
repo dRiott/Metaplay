@@ -42,7 +42,7 @@ public class CreateArtistWrapperValidator implements Validator {
 		}
 
 		// if artist name is LESS THAN three characters, throw error.
-		if (caw.getAlbumName().length()!=0 && caw.getAlbumName().length() < 3) {
+		if (caw.getAlbumNameFromList().length()!=0 && caw.getAlbumNameFromList().length() < 3) {
 			errors.rejectValue("name", "artist.name", "The album name is too short");
 		}
 	

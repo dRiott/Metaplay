@@ -51,8 +51,28 @@
 				</div>
 		<!-- START Record Label fields here -->
 				<div class="form-group">
-					<label for="recordLabel-name">Record Label</label> <span>${createArtistWrapper.recordLabelName}</span>
+					<c:if test="${!createArtistWrapper.recordLabelFromList.contains('** New Record Label **') }">
+						<div class="form-group">
+							<label for="artistRecordLabel">Record Label</label>
+							<c:out value="${createArtistWrapper.recordLabelFromList}"/>
+						</div>
+					</c:if>
+					<c:if test="${createArtistWrapper.recordLabelFromList.contains('** New Record Label **')}">
+						<div class="form-group">
+							<label for="artistNewRecordLabel"><em>New Record Label: Name</em></label>
+							<c:out value="${createArtistWrapper.theNewRecordLabel}"/>
+						</div>
+						<div class="form-group">
+							<label for="artistNewRecordLabelCity"><em>New Record Label: City</em></label>
+							<c:out value="${createArtistWrapper.recordLabelCity}"/>
+						</div>
+						<div class="form-group">
+							<label for="artistNewRecordLabelState"><em>New Record Label: State</em></label>
+							<c:out value="${createArtistWrapper.recordLabelState}"/>
+						</div>
+					</c:if>
 				</div>
+				
 		<!--  START Member fields here -->
 				<div class="form-group">
 					<label for="member1">Artist Member #1</label> <span>${createArtistWrapper.member1}</span>
@@ -64,21 +84,41 @@
 					<label for="member3">Artist Member #3</label> <span>${createArtistWrapper.member3}</span>
 				</div>
 				<div class="form-group">
-					<label for="member4">Artist Member #3</label> <span>${createArtistWrapper.member4}</span>
+					<label for="member4">Artist Member #4</label> <span>${createArtistWrapper.member4}</span>
 				</div>						
+				<div class="form-group">
+					<label for="member5">Artist Member #5</label> <span>${createArtistWrapper.member5}</span>
+				</div>						
+				<div class="form-group">
+					<label for="member6">Artist Member #6</label> <span>${createArtistWrapper.member6}</span>
+				</div>						
+				
 		<!--  START Album fields here -->
 				<div class="form-group">
-					<label for="album-name">Album: Name</label><span>${createArtistWrapper.albumName }</span>
+					<c:if test="${!createArtistWrapper.albumNameFromList.contains('** New Album **')}">
+						<div class="form-group">
+							<label for="trackArtistName">Album: Name</label>
+							<c:out value="${createArtistWrapper.albumNameFromList}"/>
+						</div>
+					</c:if>
+					<c:if test="${createArtistWrapper.albumNameFromList.contains('** New Album **') }">
+						<div class="form-group">
+							<label for="trackArtistName"><em>New Album: Name</em></label>
+							<c:out value="${createArtistWrapper.theNewAlbumName}"/>
+						</div>
+						<div class="form-group">
+							<label for="album-numTracks"><em>New Album: Number of Tracks</em></label><span>${createArtistWrapper.albumNumTracks }</span>
+						</div>
+						<div class="form-group">
+							<label for="album-releaseDate"><em>New Album: Release Date</em></label><span>${createArtistWrapper.albumReleaseDate }</span>
+						</div>
+						<div class="form-group">
+							<label for="album-albumCover"><em>New Album: Album Cover</em></label><span>${createArtistWrapper.albumAlbumCover }</span>
+						</div>
+					</c:if>
 				</div>
-				<div class="form-group">
-					<label for="album-numTracks">Album: Number of Tracks</label><span>${createArtistWrapper.albumNumTracks }</span>
-				</div>
-				<div class="form-group">
-					<label for="album-releaseDate">Album: Release Date</label><span>${createArtistWrapper.albumReleaseDate }</span>
-				</div>
-				<div class="form-group">
-					<label for="album-albumCover">Album: Album Cover</label><span>${createArtistWrapper.albumAlbumCover }</span>
-				</div>
+				
+				
 				
 		<!--  START Member ForEach -->
 				<!-- <div class="form-group">

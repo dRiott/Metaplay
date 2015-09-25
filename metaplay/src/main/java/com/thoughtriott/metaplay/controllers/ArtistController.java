@@ -94,12 +94,14 @@ public class ArtistController {
 		
 	// 		Setting/Creating a Record Label
 		System.out.println("Setting/Creating a Record Label");
-		String recordLabelName = caw.getRecordLabelName();
-		if(recordLabelService.findRecordLabelByName(recordLabelName)!=null) {
-			RecordLabel rl = (RecordLabel) recordLabelService.findRecordLabelByName(recordLabelName);
-			futureArtist.setRecordLabel(rl);
-		} else {
-			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(recordLabelName, locationService.findLocation(city, state));
+		String recordLabelName = caw.getRecordLabelFromList();
+		String recordLabelCity = caw.getRecordLabelCity();
+		String recordLabelState = caw.getRecordLabelState();
+		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
+			futureArtist.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
+		} else if(recordLabelName.equals("** New Record Label **")) {
+			String newRecordLabelName = caw.getTheNewRecordLabel();
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
 			futureArtist.setRecordLabel(rl);
 		}
 		
@@ -174,21 +176,20 @@ public class ArtistController {
 		
 	//		Setting/Creating an Album
 		System.out.println("Setting/Creating an Album");
-		String albumName = caw.getAlbumName();
-		if(albumService.findAlbumByName(albumName)!=null) {
-			Album a = (Album) albumService.findAlbumByName(albumName);
-			futureArtist.addAlbum(a);
+		if(caw.getAlbumNameFromList()!="** New Album **" && albumService.findAlbumByName(caw.getAlbumNameFromList())!=null) {
+			futureArtist.addAlbum(albumService.findAlbumByName(caw.getAlbumNameFromList()));
 		} else {
 			int albumNumTracks = Integer.parseInt(caw.getAlbumNumTracks());
 			Date albumReleaseDate = dateFormatter.getDateFromString(caw.getAlbumReleaseDate()); 
 	//			String albumAlbumCover = caw.getAlbumAlbumCover(); //no corresponding field in Album exists yet...
 	//			a.setAlbumCover(albumAlbumCover);
 			Album a = new Album();
-			a.setName(albumName);
+			a.setName(caw.getTheNewAlbumName());
 			a.setNumTracks(albumNumTracks);
 			a.setReleaseDate(albumReleaseDate);
 			futureArtist.addAlbum(a);
 		}
+		
 		artistService.createArtist(futureArtist);
 
 		status.setComplete();

@@ -20,8 +20,15 @@ public class CreateArtistWrapper {
 	String locationCity;
 	@Size(min = 3, max = 25)
 	String locationState;
+	
 	@Size(min = 3, max = 30)
-	String recordLabelName;
+	String recordLabelFromList;
+	@Size(min = 3, max = 30)
+	String theNewRecordLabel;
+	@Size(min = 3, max = 40)
+	String recordLabelCity;
+	@Size(min = 3, max = 25)
+	String recordLabelState;
 	
 	@Size(min = 3, max = 50)
 	String member1;
@@ -37,7 +44,9 @@ public class CreateArtistWrapper {
 	String member6;
 	
 	@Size(min = 3, max = 50)
-	String albumName;
+	String albumNameFromList;
+	@Size(min = 3, max = 50)
+	String theNewAlbumName;
 	@Size(min = 1, max = 5)
 	String albumNumTracks;
 	String albumReleaseDate;
@@ -96,12 +105,36 @@ public class CreateArtistWrapper {
 		this.locationState = locationState;
 	}
 
-	public String getRecordLabelName() {
-		return recordLabelName;
+	public String getRecordLabelFromList() {
+		return recordLabelFromList;
 	}
 
-	public void setRecordLabelName(String recordLabelName) {
-		this.recordLabelName = recordLabelName;
+	public void setRecordLabelFromList(String recordLabelFromList) {
+		this.recordLabelFromList = recordLabelFromList;
+	}
+
+	public String getTheNewRecordLabel() {
+		return theNewRecordLabel;
+	}
+
+	public void setTheNewRecordLabel(String theNewRecordLabel) {
+		this.theNewRecordLabel = theNewRecordLabel;
+	}
+
+	public String getRecordLabelCity() {
+		return recordLabelCity;
+	}
+
+	public void setRecordLabelCity(String recordLabelCity) {
+		this.recordLabelCity = recordLabelCity;
+	}
+
+	public String getRecordLabelState() {
+		return recordLabelState;
+	}
+
+	public void setRecordLabelState(String recordLabelState) {
+		this.recordLabelState = recordLabelState;
 	}
 
 	public String getMember1() {
@@ -152,12 +185,20 @@ public class CreateArtistWrapper {
 		this.member6 = member6;
 	}
 
-	public String getAlbumName() {
-		return albumName;
+	public String getAlbumNameFromList() {
+		return albumNameFromList;
 	}
 
-	public void setAlbumName(String albumName) {
-		this.albumName = albumName;
+	public void setAlbumNameFromList(String albumNameFromList) {
+		this.albumNameFromList = albumNameFromList;
+	}
+
+	public String getTheNewAlbumName() {
+		return theNewAlbumName;
+	}
+
+	public void setTheNewAlbumName(String theNewAlbumName) {
+		this.theNewAlbumName = theNewAlbumName;
 	}
 
 	public String getAlbumNumTracks() {

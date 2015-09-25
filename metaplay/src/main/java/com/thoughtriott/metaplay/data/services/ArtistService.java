@@ -57,6 +57,16 @@ public class ArtistService {
 	}
 	
 	@Transactional
+	public Artist createArtist(String name) {
+		em.clear();
+		Artist a = new Artist();
+		a.setName(name);
+		em.persist(a);
+		em.close();
+		return a;
+	}
+	
+	@Transactional
 	public void createArtist(Artist a) {
 		String name = a.getName();
 		String biography = a.getBiography();
