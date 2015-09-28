@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,27 +15,19 @@
 </head>
 <body>
 	
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>			
+	<jsp:include page="../views/fragments/header.jsp"></jsp:include>			
 
 	<div class="container">
-		
-		<h2>Location</h2>
-		<table class="table table-hover">
-			<tbody>
-				<tr>
-					<th>City</th><th>State</th>
-				</tr>
-				<c:forEach items="${locations}" var="location">
-					<tr>
-						<td><a href="<spring:url value="/browse/location/${location.id}"/>">${location.city}</a></td>
-						<td>${location.state}</td>
-					</tr>	
-				</c:forEach>
-			</tbody>
-		</table>
-		
+	<h1>We dun Goof'd</h1>
+	
+	<p>Something went wrong. As much as we'd like to skirt blame... Let's be realistic.</p>
+	
+	<h5><em>It's our fault.</em></h5>
+	<br>
+	<hr/>
+	<small>SrslyTHoSry</small>
+
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
-	
 </body>
 </html>

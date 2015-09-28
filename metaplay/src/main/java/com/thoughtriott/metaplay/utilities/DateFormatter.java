@@ -12,7 +12,14 @@ public class DateFormatter {
 	
 	
 public Date getDateFromString(String date) {
-	String[] dateArray = date.split("-");
+	String[] dateArray = null;
+	if(date.contains("/")) {
+		dateArray = date.split("/");
+	} 
+	if (date.contains("-")) {
+		 dateArray = date.split("-");
+	}
+	
 	Calendar cal = Calendar.getInstance();
 
 	int month = Integer.parseInt(dateArray[0]);

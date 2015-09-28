@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Track Manager</title>
+<title>Album Manager</title>
 
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -19,21 +19,22 @@
 </head>
 <body>
 
-	<jsp:include page="../../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
 
 	<div class="container">
 	
-		<spring:url value="/track/save" var="thisURL" />
-		<form:form action="${thisURL}" method="post" modelAttribute="createTrackWrapper">
+		<spring:url value="/album/save" var="thisURL" />
+		<form:form action="${thisURL}" method="post" modelAttribute="createAlbumWrapper">
 		
 			<div class="row">
-				<h2>Please Review the Track for Accuracy</h2>
+				<h2>Please Review the Album</h2>
 	
 				<div class="form-group">
-					<label for="trackNumber">* Track Number</label> <span>${createTrackWrapper.trackNumber}</span>
+					<label for="trackNumber">* Album Name</label> <span>${createAlbumWrapper.name}</span>
 				</div>
+				
 				<div class="form-group">
-					<label for="trackName">* Name</label> <span>${createTrackWrapper.name }</span>
+					<label for="trackName">* Name</label> <span>${createAlbumWrapper.name }</span>
 				</div>
 				<%-- <div class="form-group">
 					<label for="trackArtistName">Artist</label><span>${createTrackWrapper.artist }</span>
@@ -41,36 +42,36 @@
 				<div class="form-group">
 					<label for="trackArtistName">Artist</label>
 					<c:if test="${createTrackWrapper.artistFromList!='** New Artist **' }">
-						<c:out value="${createTrackWrapper.artistFromList}"/>
+						<c:out value="${createAlbumWrapper.artistFromList}"/>
 					</c:if>
 					<c:if test="${createTrackWrapper.artistFromList=='** New Artist **' }">
-						<c:out value="${createTrackWrapper.theNewArtist}"/>
+						<c:out value="${createAlbumWrapper.theNewArtist}"/>
 					</c:if>
 				</div>
 				
 				<div class="form-group">
 					<label for="trackArtistName">Album</label>
 					<c:if test="${createTrackWrapper.albumFromList!='** New Album **' }">
-						<c:out value="${createTrackWrapper.albumFromList}"/>
+						<c:out value="${createAlbumWrapper.albumFromList}"/>
 					</c:if>
 					<c:if test="${createTrackWrapper.albumFromList=='** New Album **' }">
-						<c:out value="${createTrackWrapper.theNewAlbum}"/>
+						<c:out value="${createAlbumWrapper.theNewAlbum}"/>
 					</c:if>
 				</div>
 				<div class="form-group">
-					<label for="trackAlbumCover">Album Cover</label> <span>${createTrackWrapper.albumCover}</span>
+					<label for="trackAlbumCover">Album Cover</label> <span>${createAlbumWrapper.albumCover}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthMinutes">* Length: Minutes</label> <span>${createTrackWrapper.lengthMinutes}</span>
+					<label for="trackLengthMinutes">* Length: Minutes</label> <span>${createAlbumWrapper.lengthMinutes}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthSeconds">* Seconds</label> <span>${createTrackWrapper.lengthSeconds}</span>
+					<label for="trackLengthSeconds">* Seconds</label> <span>${createAlbumWrapper.lengthSeconds}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackBpm">BPM</label> <span>${createTrackWrapper.bpm}</span>
+					<label for="trackBpm">BPM</label> <span>${createAlbumWrapper.bpm}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLyrics">Lyrics</label> <span>${createTrackWrapper.lyrics}</span>
+					<label for="trackLyrics">Lyrics</label> <span>${createAlbumWrapper.lyrics}</span>
 				</div>					
 				
 		<!--  START Exampe ForEach -->
@@ -87,6 +88,7 @@
 			</div>
 		</form:form>
 	</div>
-	<jsp:include page="../../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
 </body>
 </html>

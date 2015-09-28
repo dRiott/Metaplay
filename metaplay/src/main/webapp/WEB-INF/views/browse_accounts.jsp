@@ -16,7 +16,7 @@
 </head>
 <body>
 	
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>			
+	<jsp:include page="../../views/fragments/landingPageFragment.jsp"></jsp:include>			
 
 	<div class="container">
 		
@@ -47,5 +47,7 @@
 		</table>
 
 	</div>
+	<jsp:include page="../../views/fragments/footer.jsp"></jsp:include>
+	
 </body>
 </html>

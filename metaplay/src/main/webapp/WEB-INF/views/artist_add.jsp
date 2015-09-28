@@ -51,6 +51,7 @@
 					<form:input  path="artist.artistImage" cssClass="form-control" id="artist-image"/>
 				</div> --%>
 				
+				<div class="form-group" style="float:clear;"></div>
 				<div class="form-group">
 					<label for="genreName">Genre</label>
 					<form:select path="genreName" id="genreName" cssClass="selectpicker">
@@ -59,11 +60,12 @@
 					<div class="form-group" id="newGenreName" style="display:none;">
 						<hr/>
 						<label for="newGenreName"><em>* New Genre:</em></label>
-						<form:input cssClass="form-control" path="genreName" id="newGenreNameInput" cssErrorClass="has-error" />
+						<form:input cssClass="form-control" path="newGenreName" id="newGenreNameInput" cssErrorClass="has-error" />
 					</div>
+					<div class="form-group" style="float:clear;"></div>
 					<div class="form-group" id="newGenreDescription" style="display:none;">
 						<label for="newGenreDescription"><em>New Genre Description:</em></label>
-						<form:textarea rows="3" cssClass="form-control" path="genreDescription" id="newGenreDescriptionInput" cssErrorClass="has-error" />
+						<form:textarea rows="3" cssClass="form-control" path="newGenreDescription" id="newGenreDescriptionInput" cssErrorClass="has-error" />
 						<hr/>
 					</div>
 				</div>
@@ -71,8 +73,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="location-city">City</label>
-						<form:input path="locationCity" cssClass="form-control"
-							value="Denver" id="location-city" />
+						<form:input path="locationCity" cssClass="form-control"	id="location-city" />
 					</div>
 					<div class="col-md-4">
 						<label for="location-state">State</label>
@@ -99,8 +100,7 @@
 						<div class="row">
 							<div class="col-md-4">
 							<label for="recordLabelCity"><em>Record Label: City</em></label>
-							<form:input path="recordLabelCity" cssClass="form-control"
-								value="Denver" id="recordLabelCity" />
+							<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
 							</div>
 							<div class="col-md-4">
 								<label for="recordLabelState"><em>Record Label: State</em></label>
@@ -171,7 +171,7 @@
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 				<div class="form-group" id="newAlbumReleaseDate" style="display:none;">
-					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label>
+					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label><span><small>Please use format: 04-01-2012</small></span>
 					<form:input path="albumReleaseDate" cssClass="form-control"
 						id="newAlbumReleaseDate" />
 				</div>

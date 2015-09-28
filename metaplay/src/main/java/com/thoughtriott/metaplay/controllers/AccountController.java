@@ -46,12 +46,14 @@ public class AccountController {
 	}
 
 	@RequestMapping(value="/save")
-	public String saveAccount(SessionStatus status, HttpSession session){
+	public String saveAccount(SessionStatus status, HttpSession session, Model model){
 		System.out.println("invoking saveAcount");
 		CreateAccountWrapper caw = (CreateAccountWrapper) session.getAttribute("createAccountWrapper");
 		Account newAccount = accountService.createAccount(caw);
+		model.addAttribute(newAccount.getAccountname());
 		status.setComplete();
-		return "redirect:/account/" + newAccount.getAccountname();
+		//avoiding dangerous string concatenation... SQL injections could have occurred.
+		return "redirect:account/{accountname}";
 	}
 	
 	@RequestMapping(value="/{accountName}")

@@ -147,7 +147,7 @@ public class ArtistService {
 			artistStrList.add("** New Artist **");
 			return artistStrList;
 		} else {
-			artistStrList.add("Other");
+			artistStrList.add("** New Artist **");
 			return artistStrList;
 		}
 	}

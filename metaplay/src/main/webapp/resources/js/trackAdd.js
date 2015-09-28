@@ -1,9 +1,4 @@
 			
-			function fixOtherValue() {
-				if(selectOther.value == "Other") {
-				selectOther.value="";	
-				}
-			}
 			
 			//Artist Options "Other" Box Hide/Unhide
 			var selectOtherAR = document.getElementById("trackArtistName");

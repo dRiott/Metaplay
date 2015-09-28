@@ -22,5 +22,7 @@
 		<h1>Addizzled</h1>
 		<h4>My nizzle.</h4>
 	</div>
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
 </body>
 </html>

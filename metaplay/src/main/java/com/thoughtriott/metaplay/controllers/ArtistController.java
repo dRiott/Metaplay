@@ -108,15 +108,21 @@ public class ArtistController {
 	//		Setting/Creating a Genre
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
-		String genreDescription = caw.getGenreDescription();
-		if(genreService.findGenreByName(genreName)!=null) {
-			Genre g = (Genre) genreService.findGenreByName(genreName);
-			g.setDescription(genreDescription);
-			futureArtist.setGenre(g);
-		} else {
-			Genre g = (Genre) genreService.createGenre(genreName, genreDescription);
-			futureArtist.setGenre(g);
+		caw.getNewGenreDescription();
+		if(genreName!="** New Genre **" && genreService.findGenreByName(genreName)!=null) {
+			futureArtist.setGenre(genreService.findGenreByName(genreName));
+		} else if(genreName.equals("** New Genre **")) {
+			futureArtist.setGenre(genreService.createGenre(caw.getNewGenreName(),caw.getNewGenreDescription()));
 		}
+		
+		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
+			futureArtist.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
+		} else if(recordLabelName.equals("** New Record Label **")) {
+			String newRecordLabelName = caw.getTheNewRecordLabel();
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
+			futureArtist.setRecordLabel(rl);
+		}
+		
 
 	// 		adding members to the artist
 		System.out.println("Going to add members to the artist");

@@ -42,6 +42,6 @@
 	<script>
 		fnSetStatus("Daayum");
 	</script>
-	
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>

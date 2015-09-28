@@ -47,7 +47,7 @@
 					inputBoxAL.style.display="none";	
 					inputBoxALcover.style.display="none";
 					inputBoxALdate.style.display="none";
-					inputBoxALcover.style.display="none";
+					inputBoxALnumtracks.style.display="none";
 				}
 			}
 			

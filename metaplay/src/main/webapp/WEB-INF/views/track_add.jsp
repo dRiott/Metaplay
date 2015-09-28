@@ -49,7 +49,6 @@
 							<form:options items="${artistOptions}" />
 						</form:select>
 					</div>
-			
 				</div>
 				
 				<div class="form-group" style="float:clear;"></div>

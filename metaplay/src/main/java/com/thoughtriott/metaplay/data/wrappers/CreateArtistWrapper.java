@@ -14,8 +14,10 @@ public class CreateArtistWrapper {
 	String biography;
 	@Size(min = 3, max = 20)
 	String genreName;
+	@Size(min = 3, max = 20)
+	String newGenreName;
 	@Size(min = 3, max = 5000)
-	String genreDescription;
+	String newGenreDescription;
 	@Size(min = 3, max = 40)
 	String locationCity;
 	@Size(min = 3, max = 25)
@@ -50,6 +52,7 @@ public class CreateArtistWrapper {
 	@Size(min = 1, max = 5)
 	String albumNumTracks;
 	String albumReleaseDate;
+	@Size(min = 3, max = 50)
 	String albumAlbumCover;
 	
 // --------------------------Constructors--------------------------
@@ -81,12 +84,20 @@ public class CreateArtistWrapper {
 		this.genreName = genreName;
 	}
 
-	public String getGenreDescription() {
-		return genreDescription;
+	public String getNewGenreName() {
+		return newGenreName;
 	}
 
-	public void setGenreDescription(String genreDescription) {
-		this.genreDescription = genreDescription;
+	public void setNewGenreName(String newGenreName) {
+		this.newGenreName = newGenreName;
+	}
+
+	public String getNewGenreDescription() {
+		return newGenreDescription;
+	}
+
+	public void setNewGenreDescription(String newGenreDescription) {
+		this.newGenreDescription = newGenreDescription;
 	}
 
 	public String getLocationCity() {

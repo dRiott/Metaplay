@@ -17,6 +17,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+		
 		<h1>Credit Card Processing</h1>
 
 		<div class="container">
