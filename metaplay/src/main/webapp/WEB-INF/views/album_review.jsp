@@ -30,17 +30,11 @@
 				<h2>Please Review the Album</h2>
 	
 				<div class="form-group">
-					<label for="trackNumber">* Album Name</label> <span>${createAlbumWrapper.name}</span>
+					<label for="albumName">* Album Name</label> <span>${createAlbumWrapper.name}</span>
 				</div>
-				
+
 				<div class="form-group">
-					<label for="trackName">* Name</label> <span>${createAlbumWrapper.name }</span>
-				</div>
-				<%-- <div class="form-group">
-					<label for="trackArtistName">Artist</label><span>${createTrackWrapper.artist }</span>
-				</div> --%>
-				<div class="form-group">
-					<label for="trackArtistName">Artist</label>
+					<label for="albumArtistName">Artist</label>
 					<c:if test="${createTrackWrapper.artistFromList!='** New Artist **' }">
 						<c:out value="${createAlbumWrapper.artistFromList}"/>
 					</c:if>
@@ -50,40 +44,28 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="trackArtistName">Album</label>
-					<c:if test="${createTrackWrapper.albumFromList!='** New Album **' }">
-						<c:out value="${createAlbumWrapper.albumFromList}"/>
-					</c:if>
-					<c:if test="${createTrackWrapper.albumFromList=='** New Album **' }">
-						<c:out value="${createAlbumWrapper.theNewAlbum}"/>
-					</c:if>
+					<label for="albumReleaseDate">Release Date</label> <span>${createAlbumWrapper.releaseDate}</span>
 				</div>
-				<div class="form-group">
-					<label for="trackAlbumCover">Album Cover</label> <span>${createAlbumWrapper.albumCover}</span>
-				</div>
-				<div class="form-group">
-					<label for="trackLengthMinutes">* Length: Minutes</label> <span>${createAlbumWrapper.lengthMinutes}</span>
-				</div>
-				<div class="form-group">
-					<label for="trackLengthSeconds">* Seconds</label> <span>${createAlbumWrapper.lengthSeconds}</span>
-				</div>
-				<div class="form-group">
-					<label for="trackBpm">BPM</label> <span>${createAlbumWrapper.bpm}</span>
-				</div>
-				<div class="form-group">
-					<label for="trackLyrics">Lyrics</label> <span>${createAlbumWrapper.lyrics}</span>
-				</div>					
 				
-		<!--  START Exampe ForEach -->
-				<!-- <div class="form-group">
-					<label>Members</label>
-					<c:forEach var="members" items="${artist.members}">
-						<span>${members}</span>
-					</c:forEach>
-				</div> -->
+				<div class="form-group">
+					<label for="albumLengthMinutes">* Minutes</label> <span>${createAlbumWrapper.lengthMinutes}</span>
+				</div>
+				<div class="form-group">
+					<label for="albumLengthSeconds">* Seconds</label> <span>${createAlbumWrapper.lengthSeconds}</span>
+				</div>
+				
+				<label for="albumTracks">Tracks</label><br/>
+				<c:forEach var="track" items="${createAlbumWrapper.tracks}">
+					<c:if test="${track.name!=''}">
+							<span>${track.trackNumber}.&nbsp</span>
+							<span>${track.name}</span>
+							<br/>
+					</c:if>
+				</c:forEach>
+				
 					
-				<a href="<spring:url value="/track/add"/>" class="btn btn-default">Edit</a>
-				<a href="<spring:url value="/track/save"/>" class="btn btn-default">Save</a>
+				<a href="<spring:url value="/album/add"/>" class="btn btn-default">Edit</a>
+				<a href="<spring:url value="/album/save"/>" class="btn btn-default">Save</a>
 				
 			</div>
 		</form:form>

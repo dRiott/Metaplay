@@ -31,15 +31,17 @@
 		<form:form action="${thisURL}" method="POST" modelAttribute="createTrackWrapper" onsubmit="return validate(this);">
 
 			<div class="row">
-				<div class="form-group">
-					<label for="trackNumber">* Track Number</label>
-					<form:input path="trackNumber" cssClass="form-control" id="trackNumber" />
+				<div class="row">
+					<div class="col-md-1">
+						<label for="trackNumber">* Number</label>
+						<form:input path="trackNumber" cssClass="form-control" id="trackNumber" />
+					</div>
+				
+					<div class="col-md-4">
+						<label for="trackName">* Name</label>
+						<form:input path="name" cssClass="form-control" id="trackName" />
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="trackName">* Name</label>
-					<form:input path="name" cssClass="form-control" id="trackName" />
-				</div>
-	
 				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="row">
@@ -103,12 +105,11 @@
 				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="form-group">
-					<label for="trackLyrics">Lyrics</label>
-					<form:textarea path="lyrics" rows="10" cols="30" style="text-align:center" cssClass="form-control" id="trackLyrics" />
+						<label for="trackLyrics">Lyrics</label>
+						<form:textarea path="lyrics" rows="10" cols="30" style="text-align:center" cssClass="form-control" id="trackLyrics" />
 				</div>
 			
 				<button type="submit" class="btn btn-default">Submit</button>
-				
 
 			</div>
 		</form:form>

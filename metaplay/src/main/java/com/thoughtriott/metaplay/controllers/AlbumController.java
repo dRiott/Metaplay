@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import com.thoughtriott.metaplay.data.services.AlbumService;
 import com.thoughtriott.metaplay.data.services.ArtistService;
 import com.thoughtriott.metaplay.data.services.TrackService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
-import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
+import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/album")
@@ -34,6 +35,8 @@ public class AlbumController {
 	private ArtistService artistService;
 	@Autowired
 	private TrackService trackService;
+	@Autowired
+	private DateFormatter dateFormatter;
 	
 	@RequestMapping("/add")
 	public String addAlbum(){
@@ -55,19 +58,19 @@ public class AlbumController {
 		System.out.println("Invoking the saveAlbum() from AlbumController.");
 		Album futureAlbum = new Album();
 		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
-//
-//		String trackName = ctw.getName();
-//		futureTrack.setName(trackName);
-//		
-//		int seconds = ctw.getLengthSeconds();
-//		int minutes = ctw.getLengthMinutes();
-//		futureTrack.setLengthMinSec(minutes, seconds);
-//		
-//		String lyrics = ctw.getLyrics();
-//		futureTrack.setLyrics(lyrics);
-//		
-//		int trackBpm = ctw.getBpm();
-//		futureTrack.setBpm(trackBpm);
+
+		String albumName = caw.getName();
+		futureAlbum.setName(albumName);
+		
+		int seconds = caw.getLengthSeconds();
+		int minutes = caw.getLengthMinutes();
+		futureAlbum.setLengthMinSec(minutes, seconds);
+
+		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
+		futureAlbum.setReleaseDate(albumReleaseDate);
+		
+		
+		
 //		int trackNumber = ctw.getTrackNumber();
 //		futureTrack.setTrackNumber(trackNumber);
 //		

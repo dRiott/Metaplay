@@ -201,7 +201,9 @@ public class Track {
 	}
 	
 	public String getPlaylistTracksToString () {
+		if(getPlaylistTracks()!=null) {
 		Iterator<Playlist_Track> it = getPlaylistTracks().iterator();
+		
 		String playlistTracksString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
@@ -220,6 +222,7 @@ public class Track {
 			}
 		}
 		return playlistTracksString;
+		} else {return null;}
 	}	
 	
 	public String getAlbumToString () {
