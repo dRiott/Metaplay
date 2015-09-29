@@ -20,39 +20,6 @@ import javax.persistence.TemporalType;
 @Table(name = "album")
 public class Album {
 
-	// --------------------------Constructors--------------------------
-	public Album() {
-
-	}
-
-	public Album(String name, String description) {
-		this.name = name;
-		this.description = description;
-	}
-
-	public Album(String name, String description, Artist artist, List<Track> tracks, int numTracks,
-			Date releaseDate, int length) {
-		super();
-
-		this.name = name;
-		this.description = description;
-		this.artist = artist;
-		this.tracks = tracks;
-		this.numTracks = numTracks;
-		this.releaseDate = releaseDate;
-		this.length = length;
-	}
-
-	// omits the Collection<Tracks>
-	public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.artist = artist;
-		this.numTracks = numTracks;
-		this.releaseDate = releaseDate;
-		this.length = length;
-	}
 
 	// --------------------------Fields--------------------------
 	@Id
@@ -68,6 +35,10 @@ public class Album {
 
 	@OneToMany(mappedBy = "album")
 	private List<Track> tracks;
+	
+	@ManyToOne
+	@JoinColumn(name = "recordlabel_id", nullable=false)
+	private RecordLabel recordLabel;
 
 	@Column(name = "num_tracks")
 	private int numTracks;
@@ -80,6 +51,40 @@ public class Album {
 
 	@Column(name = "length_seconds")
 	private int length;
+	
+	// --------------------------Constructors--------------------------
+		public Album() {
+
+		}
+
+		public Album(String name, String description) {
+			this.name = name;
+			this.description = description;
+		}
+
+		public Album(String name, String description, Artist artist, List<Track> tracks, int numTracks,
+				Date releaseDate, int length) {
+			super();
+
+			this.name = name;
+			this.description = description;
+			this.artist = artist;
+			this.tracks = tracks;
+			this.numTracks = numTracks;
+			this.releaseDate = releaseDate;
+			this.length = length;
+		}
+
+		// omits the Collection<Tracks>
+		public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
+			super();
+			this.name = name;
+			this.description = description;
+			this.artist = artist;
+			this.numTracks = numTracks;
+			this.releaseDate = releaseDate;
+			this.length = length;
+		}
 
 	// --------------------------Getters & Setters--------------------------
 	public int getId() {
@@ -120,6 +125,14 @@ public class Album {
 
 	public void setNumTracks(int numTracks) {
 		this.numTracks = numTracks;
+	}
+
+	public RecordLabel getRecordLabel() {
+		return recordLabel;
+	}
+
+	public void setRecordLabel(RecordLabel recordLabel) {
+		this.recordLabel = recordLabel;
 	}
 
 	public Date getReleaseDate() {
@@ -200,6 +213,13 @@ public class Album {
 		}
 		return "Artist is null.";
 	}
+	
+	public String getRecordLabelToString () {
+		if(recordLabel!=null) {
+			return recordLabel.toString();
+		}
+		return "recordLabel is null.";
+	}
 
 // --------------------------toString()--------------------------
 
@@ -208,7 +228,7 @@ public class Album {
 	@Override
 	public String toString() {
 		return "Album [id=" + id + ", name=" + name + ", description=" + description + ", artist=" + getArtistToString()
-				+ ", tracks=" + this.getTracksToString() + ", numTracks=" + numTracks + ", releaseDate=" + releaseDate
+				+ ", recordLabel=" + getRecordLabelToString() + ", tracks=" + getTracksToString() + ", numTracks=" + numTracks + ", releaseDate=" + releaseDate
 				+ ", length=" + length + "]";
 	}
 

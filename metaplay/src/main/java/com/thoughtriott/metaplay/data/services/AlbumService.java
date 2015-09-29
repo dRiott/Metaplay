@@ -109,9 +109,11 @@ public class AlbumService {
 			System.out.println("The results list was empty.");
 			albumStrList.add("No Albums exist, add one!");
 			albumStrList.add("** New Album **");
+			albumStrList.add("** Do Not Add Album Now **");
 			return albumStrList;
 		} else {
 			albumStrList.add("** New Album **");
+			albumStrList.add("** Do Not Add Album Now **");
 			return albumStrList;
 		}
 	}

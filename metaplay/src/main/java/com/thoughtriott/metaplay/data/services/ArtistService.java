@@ -22,9 +22,6 @@ public class ArtistService {
 	@Autowired
 	private GenreService genreService;
 	
-	@Autowired
-	private RecordLabelService recordLabelService;
-	
 	public ArtistService () {
 		//no-arg constructor
 	}
@@ -39,7 +36,6 @@ public class ArtistService {
 		a.setBiography(biography);
 		a.setLocation(locationService.findLocationById(locationId));
 		a.setGenre(genreService.findGenreById(genreId));
-		a.setRecordLabel(recordLabelService.findRecordLabelById(recordLabelId));
 		em.persist(a);
 		em.close();
 		return a;
@@ -67,7 +63,7 @@ public class ArtistService {
 	}
 	
 	@Transactional
-	public void createArtist(Artist a) {
+	public Artist createArtist(Artist a) {
 		String name = a.getName();
 		String biography = a.getBiography();
 		em.clear();
@@ -75,6 +71,7 @@ public class ArtistService {
 		Artist ar = findArtistByNameAndBiography(name, biography);
 		System.out.println(ar);
 		em.close();
+		return a;
 	}
 
 //------------------------------- Queries ---------------------------------------	

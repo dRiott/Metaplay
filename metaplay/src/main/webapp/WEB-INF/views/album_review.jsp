@@ -43,6 +43,30 @@
 					</c:if>
 				</div>
 				
+			<!-- START Record Label fields here -->
+				<div class="form-group">
+					<c:if test="${!createAlbumWrapper.recordLabelFromList.contains('** New Record Label **') }">
+						<div class="form-group">
+							<label for="artistRecordLabel">Record Label</label>
+							<c:out value="${createAlbumWrapper.recordLabelFromList}"/>
+						</div>
+					</c:if>
+					<c:if test="${createAlbumWrapper.recordLabelFromList.contains('** New Record Label **')}">
+						<div class="form-group">
+							<label for="artistNewRecordLabel"><em>New Record Label: Name</em></label>
+							<c:out value="${createAlbumWrapper.theNewRecordLabel}"/>
+						</div>
+						<div class="form-group">
+							<label for="artistNewRecordLabelCity"><em>New Record Label: City</em></label>
+							<c:out value="${createAlbumWrapper.recordLabelCity}"/>
+						</div>
+						<div class="form-group">
+							<label for="artistNewRecordLabelState"><em>New Record Label: State</em></label>
+							<c:out value="${createAlbumWrapper.recordLabelState}"/>
+						</div>
+					</c:if>
+				</div>	
+				
 				<div class="form-group">
 					<label for="albumReleaseDate">Release Date</label> <span>${createAlbumWrapper.releaseDate}</span>
 				</div>
@@ -57,7 +81,6 @@
 				<label for="albumTracks">Tracks</label><br/>
 				<c:forEach var="track" items="${createAlbumWrapper.tracks}">
 					<c:if test="${track.name!=''}">
-							<span>${track.trackNumber}.&nbsp</span>
 							<span>${track.name}</span>
 							<br/>
 					</c:if>

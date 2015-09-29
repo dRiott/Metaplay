@@ -28,13 +28,17 @@ public class CreateAlbumWrapper {
 	
 	private String releaseDate;
 	
+	@Size(min = 3, max = 30)
+	private String recordLabelFromList;
+	@Size(min = 3, max = 30)
+	private String theNewRecordLabel;
+	@Size(min = 3, max = 40)
+	private String recordLabelCity;
+	@Size(min = 3, max = 25)
+	private String recordLabelState;
 	
 	private List<Track> tracks;
 	
-	private int trackLength;
-	private String trackLyrics;
-	private int trackBpm;
-	private int trackNumber;
 
 // --------------------------Constructors--------------------------
 	
@@ -114,36 +118,37 @@ public class CreateAlbumWrapper {
 	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
 	}
+
+	public String getRecordLabelFromList() {
+		return recordLabelFromList;
+	}
+
+	public void setRecordLabelFromList(String recordLabelFromList) {
+		this.recordLabelFromList = recordLabelFromList;
+	}
+
+	public String getTheNewRecordLabel() {
+		return theNewRecordLabel;
+	}
+
+	public void setTheNewRecordLabel(String theNewRecordLabel) {
+		this.theNewRecordLabel = theNewRecordLabel;
+	}
+
+	public String getRecordLabelCity() {
+		return recordLabelCity;
+	}
+
+	public void setRecordLabelCity(String recordLabelCity) {
+		this.recordLabelCity = recordLabelCity;
+	}
+
+	public String getRecordLabelState() {
+		return recordLabelState;
+	}
+
+	public void setRecordLabelState(String recordLabelState) {
+		this.recordLabelState = recordLabelState;
+	}
 	
-	public int getTrackLength() {
-		return trackLength;
-	}
-
-	public void setTrackLength(int trackLength) {
-		this.trackLength = trackLength;
-	}
-
-	public String getTrackLyrics() {
-		return trackLyrics;
-	}
-
-	public void setTrackLyrics(String trackLyrics) {
-		this.trackLyrics = trackLyrics;
-	}
-
-	public int getTrackBpm() {
-		return trackBpm;
-	}
-
-	public void setTrackBpm(int trackBpm) {
-		this.trackBpm = trackBpm;
-	}
-
-	public int getTrackNumber() {
-		return trackNumber;
-	}
-
-	public void setTrackNumber(int trackNumber) {
-		this.trackNumber = trackNumber;
-	}
 }

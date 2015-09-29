@@ -12,7 +12,7 @@
 			}
 			
 			//all the nonsense for show and hiding add tracks...
-			var box12 = document.getElementById("12");
+			var input12 = document.getElementById("input12");
 			var box13 = document.getElementById("13");
 			var box14 = document.getElementById("14");
 			var box15 = document.getElementById("15");
@@ -32,10 +32,10 @@
 			var box29 = document.getElementById("29");
 			var box30 = document.getElementById("30");
 
-			box12.onkeyup=function(){
+			input12.onkeyup=function(){
 					box13.style.display="inline";
 			}
-			box12.onclick=function(){
+			input12.onclick=function(){
 				box13.style.display="inline";
 			}
 			box13.onkeyup=function(){

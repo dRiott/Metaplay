@@ -71,31 +71,6 @@
 					<label for="location-state">State</label> <span>${createArtistWrapper.locationState}</span>
 				</div>
 				
-				
-		<!-- START Record Label fields here -->
-				<div class="form-group">
-					<c:if test="${!createArtistWrapper.recordLabelFromList.contains('** New Record Label **') }">
-						<div class="form-group">
-							<label for="artistRecordLabel">Record Label</label>
-							<c:out value="${createArtistWrapper.recordLabelFromList}"/>
-						</div>
-					</c:if>
-					<c:if test="${createArtistWrapper.recordLabelFromList.contains('** New Record Label **')}">
-						<div class="form-group">
-							<label for="artistNewRecordLabel"><em>New Record Label: Name</em></label>
-							<c:out value="${createArtistWrapper.theNewRecordLabel}"/>
-						</div>
-						<div class="form-group">
-							<label for="artistNewRecordLabelCity"><em>New Record Label: City</em></label>
-							<c:out value="${createArtistWrapper.recordLabelCity}"/>
-						</div>
-						<div class="form-group">
-							<label for="artistNewRecordLabelState"><em>New Record Label: State</em></label>
-							<c:out value="${createArtistWrapper.recordLabelState}"/>
-						</div>
-					</c:if>
-				</div>
-				
 		<!--  START Member fields here -->
 				<c:if test="${createArtistWrapper.member1!=''}">
 					<div class="form-group">

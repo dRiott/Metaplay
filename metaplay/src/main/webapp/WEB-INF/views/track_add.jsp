@@ -43,7 +43,8 @@
 					</div>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
-				
+			
+			<!-- START ARTIST -->	
 				<div class="row">
 					<div class="col-md-1">
 						<label for="trackArtistName">Artist</label>
@@ -64,8 +65,9 @@
 					<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
 					<hr/>
 				</div>
+			<!-- END ARTIST -->	
 				
-				
+			<!-- START ALBUM -->	
 				<div class="form-group">
 					<label for="trackAlbumName">Album</label>
 					<form:select path="albumFromList" cssClass="selectpicker" id="trackAlbumName" >
@@ -85,6 +87,7 @@
 					<hr/>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
+			<!-- END ALBUM -->	
 
 				<div class="row">
 					<div class="col-md-1">

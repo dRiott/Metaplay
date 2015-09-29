@@ -35,7 +35,7 @@ public class RecordLabel {
 	private Location location;
 
 	@OneToMany(mappedBy = "recordLabel")
-	private Collection<Artist> artists;
+	private Collection<Album> albums;
 	
 //--------------------------Getters & Setters--------------------------	
 	public int getId() {
@@ -60,12 +60,12 @@ public class RecordLabel {
 		this.name = name;
 	}
 	
-	public Collection<Artist> getArtists() {
-		return artists;
+	public Collection<Album> getAlbums() {
+		return albums;
 	}
 
-	public void setArtists(Collection<Artist> artists) {
-		this.artists = artists;
+	public void setAlbums(Collection<Album> albums) {
+		this.albums = albums;
 	}
 
 	public String getDescription() {
@@ -78,30 +78,30 @@ public class RecordLabel {
 
 	//--------------------------Collection Adders and Removers--------------------------
 	//adds an Artist to Collection<Artist>, removing it's RecordLabel, and setting to this.
-	public void addArtist(Artist artist) {
-		if (getArtists()!=null && !getArtists().contains(artist)) {
-			getArtists().add(artist);
-			if (artist.getRecordLabel() != null) {
-				artist.getRecordLabel().getArtists().remove(artist);
+	public void addAlbum(Album album) {
+		if (getAlbums()!=null && !getAlbums().contains(album)) {
+			getAlbums().add(album);
+			if (album.getRecordLabel() != null) {
+				album.getRecordLabel().getAlbums().remove(album);
 			}
-			artist.setRecordLabel(this);
+			album.setRecordLabel(this);
 		}
 	}
 	
 	//removes an Artist from Collection<Artist>, setting its RecordLabel to null.
-	public void removeArtist(Artist artist) {
-		if(getArtists()!=null && getArtists().contains(artist)) {
-			getArtists().remove(artist);
-			artist.setRecordLabel(null);
+	public void removeAlbum(Album album) {
+		if(getAlbums()!=null && getAlbums().contains(album)) {
+			getAlbums().remove(album);
+			album.setRecordLabel(null);
 		}
 	}	
 
 	
 //--------------------------Collection Printers--------------------------
 
-	public String getArtistsToString () {
-		if(getArtists()!=null) {
-		Iterator<Artist> it = getArtists().iterator();
+	public String getAlbumsToString () {
+		if(getAlbums()!=null) {
+		Iterator<Album> it = getAlbums().iterator();
 		String artistsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
@@ -130,7 +130,7 @@ public class RecordLabel {
 	//B/c StackOverflowError, altered this toString(): location.getCity()
 	@Override
 	public String toString() {
-		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", description=" + getDescription() + ", artists=" + getArtistsToString() + "]";
+		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", description=" + getDescription() + ", albums=" + getAlbumsToString() + "]";
 	}
 
 }

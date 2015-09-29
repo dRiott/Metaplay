@@ -92,18 +92,6 @@ public class ArtistController {
 			futureArtist.setLocation(l);
 		}
 		
-	// 		Setting/Creating a Record Label
-		System.out.println("Setting/Creating a Record Label");
-		String recordLabelName = caw.getRecordLabelFromList();
-		String recordLabelCity = caw.getRecordLabelCity();
-		String recordLabelState = caw.getRecordLabelState();
-		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
-			futureArtist.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
-		} else if(recordLabelName.equals("** New Record Label **")) {
-			String newRecordLabelName = caw.getTheNewRecordLabel();
-			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
-			futureArtist.setRecordLabel(rl);
-		}
 		
 	//		Setting/Creating a Genre
 		System.out.println("Setting/Creating a Genre");
@@ -113,14 +101,6 @@ public class ArtistController {
 			futureArtist.setGenre(genreService.findGenreByName(genreName));
 		} else if(genreName.equals("** New Genre **")) {
 			futureArtist.setGenre(genreService.createGenre(caw.getNewGenreName(),caw.getNewGenreDescription()));
-		}
-		
-		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
-			futureArtist.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
-		} else if(recordLabelName.equals("** New Record Label **")) {
-			String newRecordLabelName = caw.getTheNewRecordLabel();
-			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
-			futureArtist.setRecordLabel(rl);
 		}
 		
 
@@ -184,6 +164,7 @@ public class ArtistController {
 		System.out.println("Setting/Creating an Album");
 		if(caw.getAlbumNameFromList()!="** New Album **" && albumService.findAlbumByName(caw.getAlbumNameFromList())!=null) {
 			futureArtist.addAlbum(albumService.findAlbumByName(caw.getAlbumNameFromList()));
+		} else if (caw.getAlbumNameFromList()!="** Do Not Add Album Now **") {
 		} else {
 			int albumNumTracks = Integer.parseInt(caw.getAlbumNumTracks());
 			Date albumReleaseDate = dateFormatter.getDateFromString(caw.getAlbumReleaseDate()); 
@@ -193,7 +174,7 @@ public class ArtistController {
 			a.setName(caw.getTheNewAlbumName());
 			a.setNumTracks(albumNumTracks);
 			a.setReleaseDate(albumReleaseDate);
-			futureArtist.addAlbum(a);
+			futureArtist.addAlbum(albumService.createAlbum(a));
 		}
 		
 		artistService.createArtist(futureArtist);

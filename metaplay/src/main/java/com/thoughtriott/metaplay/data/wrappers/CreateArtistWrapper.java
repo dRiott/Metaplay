@@ -23,15 +23,6 @@ public class CreateArtistWrapper {
 	@Size(min = 3, max = 25)
 	String locationState;
 	
-	@Size(min = 3, max = 30)
-	String recordLabelFromList;
-	@Size(min = 3, max = 30)
-	String theNewRecordLabel;
-	@Size(min = 3, max = 40)
-	String recordLabelCity;
-	@Size(min = 3, max = 25)
-	String recordLabelState;
-	
 	@Size(min = 3, max = 50)
 	String member1;
 	@Size(min = 3, max = 50)
@@ -114,38 +105,6 @@ public class CreateArtistWrapper {
 
 	public void setLocationState(String locationState) {
 		this.locationState = locationState;
-	}
-
-	public String getRecordLabelFromList() {
-		return recordLabelFromList;
-	}
-
-	public void setRecordLabelFromList(String recordLabelFromList) {
-		this.recordLabelFromList = recordLabelFromList;
-	}
-
-	public String getTheNewRecordLabel() {
-		return theNewRecordLabel;
-	}
-
-	public void setTheNewRecordLabel(String theNewRecordLabel) {
-		this.theNewRecordLabel = theNewRecordLabel;
-	}
-
-	public String getRecordLabelCity() {
-		return recordLabelCity;
-	}
-
-	public void setRecordLabelCity(String recordLabelCity) {
-		this.recordLabelCity = recordLabelCity;
-	}
-
-	public String getRecordLabelState() {
-		return recordLabelState;
-	}
-
-	public void setRecordLabelState(String recordLabelState) {
-		this.recordLabelState = recordLabelState;
 	}
 
 	public String getMember1() {

@@ -36,9 +36,6 @@ public class Artist {
 	@JoinColumn(name = "genre_id", nullable=false)
 	private Genre genre;
 	
-	@ManyToOne
-	@JoinColumn(name = "recordlabel_id", nullable=false)
-	private RecordLabel recordLabel;
 
 	@ManyToOne
 	@JoinColumn(name = "location_id", nullable=false)
@@ -76,14 +73,6 @@ public class Artist {
 	
 	public void setGenre(Genre genre) {
 		this.genre = genre;
-	}
-
-	public RecordLabel getRecordLabel() {
-		return recordLabel;
-	}
-
-	public void setRecordLabel(RecordLabel recordLabel) {
-		this.recordLabel = recordLabel;
 	}
 
 	public Location getLocation() {
@@ -234,12 +223,6 @@ public class Artist {
 		return "Genre is null.";
 	}
 	
-	public String getRecordLabelToString () {
-		if(recordLabel!=null) {
-			return recordLabel.toString();
-		}
-		return "recordLabel is null.";
-	}
 	
 	public String getLocationToString () {
 		if(location!=null) {
@@ -257,8 +240,8 @@ public class Artist {
 	@Override
 	public String toString() {
 		
-		return "Artist [id=" + id + ", genre=" + this.getGenreToString() + ", recordLabel=" + this.getRecordLabelToString() + ", location=" + this.getLocationToString()
-				+ ", members=" + this.getMembersToString() + ", albums=" + this.getAlbumsToString() + ", name=" + name + ", biography=" + biography
+		return "Artist [id=" + id + ", genre=" + getGenreToString() + ", location=" + getLocationToString()
+				+ ", members=" + getMembersToString() + ", albums=" + getAlbumsToString() + ", name=" + name + ", biography=" + biography
 				+ ", artistImage=" + artistImage + "]";
 		}
 	}

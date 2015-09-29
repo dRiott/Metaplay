@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Album;
+import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import com.thoughtriott.metaplay.data.entities.Track;
 import com.thoughtriott.metaplay.data.services.AlbumService;
 import com.thoughtriott.metaplay.data.services.ArtistService;
-import com.thoughtriott.metaplay.data.services.TrackService;
+import com.thoughtriott.metaplay.data.services.LocationService;
+import com.thoughtriott.metaplay.data.services.RecordLabelService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 
@@ -34,7 +39,9 @@ public class AlbumController {
 	@Autowired
 	private ArtistService artistService;
 	@Autowired
-	private TrackService trackService;
+	private RecordLabelService recordLabelService;
+	@Autowired
+	private LocationService locationService;
 	@Autowired
 	private DateFormatter dateFormatter;
 	
@@ -69,27 +76,46 @@ public class AlbumController {
 		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
 		futureAlbum.setReleaseDate(albumReleaseDate);
 		
+		List<Track> tracks = caw.getTracks();
+		Iterator<Track> it = tracks.iterator();
+		int counter=0;
+		while(it.hasNext() && !it.next().getName().equals("")) {
+			Track t = it.next();
+
+			if(!t.getMinutes().equals("") && !t.getSeconds().equals("")) {
+				t.setLengthFromStringMinSec(t.getMinutes(), t.getSeconds());
+			}
+			counter++;
+			t.setTrackNumber(counter);
+			futureAlbum.addTrack((Track) it.next());
+		}
 		
+		//		Setting/Creating an Album
+		System.out.println("Setting/Creating an Artist");
+		if(caw.getArtistFromList()!="** New Album **" && albumService.findAlbumByName(caw.getArtistFromList())!=null) {
+			futureAlbum.setArtist(artistService.findArtistByName(caw.getArtistFromList()));
+		} else {
+			//Creating a new Artist...
+			Artist a = new Artist();
+			a.setName(caw.getTheNewArtist());
+			futureAlbum.setArtist(artistService.createArtist(a));
+		}
 		
-//		int trackNumber = ctw.getTrackNumber();
-//		futureTrack.setTrackNumber(trackNumber);
-//		
-//		System.out.println("Setting/Creating an Album");
-//		
-//		if(ctw.getAlbumFromList()!="** New Album **" && albumService.findAlbumByName(ctw.getAlbumFromList())!=null) {
-//			futureTrack.setAlbum(albumService.findAlbumByName(ctw.getAlbumFromList()));
-//		} else {
-//				Album a = new Album();
-//				a.setName(ctw.getTheNewAlbum());
-//				//to create a new album, an artist isn't necessary... but if it does exist, add the artist to the album.
-//				if(ctw.getArtistFromList()!="** New Artist **" && artistService.findArtistByName(ctw.getArtistFromList())!=null) {
-//					a.setArtist(artistService.findArtistByName(ctw.getArtistFromList()));
-//				} else if(ctw.getArtistFromList().equals("** New Artist **")) {
-//					a.setArtist(artistService.createArtist(ctw.getTheNewArtist()));
-//				}
-//				futureTrack.setAlbum(albumService.createAlbum(a));
-//		}
-//		
+		futureAlbum.setNumTracks(counter);
+		
+		// 		Setting/Creating a Record Label
+		System.out.println("Setting/Creating a Record Label");
+		String recordLabelName = caw.getRecordLabelFromList();
+		String recordLabelCity = caw.getRecordLabelCity();
+		String recordLabelState = caw.getRecordLabelState();
+		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
+			futureAlbum.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
+		} else if(recordLabelName.equals("** New Record Label **")) {
+			String newRecordLabelName = caw.getTheNewRecordLabel();
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
+			futureAlbum.setRecordLabel(rl);
+		}
+		
 		System.out.println("Creating the Album");
 		albumService.createAlbum(futureAlbum);
 		status.setComplete();

@@ -84,38 +84,6 @@
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label for="recordLabelName">Record Label</label>
-					<form:select path="recordLabelFromList" cssClass="selectpicker" id="recordLabelName" >
-						<form:options items="${recordLabelOptions}" />
-					</form:select>
-					<div class="form-group" id="newRecordLabelName" style="display:none;">
-						<hr/>
-						<div class=form-group>
-						<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
-						<form:input cssClass="form-control" type="text" path="theNewRecordLabel" id="newRecordLabelNameInput" cssErrorClass="has-error" />
-						</div>
-						
-						<div class="form-group" style="float:clear;"></div>
-						<div class="row">
-							<div class="col-md-4">
-							<label for="recordLabelCity"><em>Record Label: City</em></label>
-							<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
-							</div>
-							<div class="col-md-4">
-								<label for="recordLabelState"><em>Record Label: State</em></label>
-								<div class="form-group">
-								<form:select path="recordLabelState" cssClass="selectpicker" items="${stateOptions}"
-									id="recordLabelState" />
-								</div>
-							</div>
-						</div>
-						<hr/>
-						<div class="form-group" style="float:clear;"></div>
-					</div>
-				</div>
-				<div class="form-group" style="float:clear;"></div>
-
 				<!--  Artist Member fields here -->
 				<div class="row">
 					<div class="col-md-4">
