@@ -9,6 +9,6 @@
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 8 [1.8.0_45]"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="start"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcatalina.base=&quot;/Users/PoorYorick/Dropbox/Metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0&quot; -Dcatalina.home=&quot;/Users/PoorYorick/SD/Tools/apache-tomcat-8.0.24&quot; -Dwtp.deploy=&quot;/Users/PoorYorick/Dropbox/Metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps&quot; -Djava.endorsed.dirs=&quot;/Users/PoorYorick/SD/Tools/apache-tomcat-8.0.24/endorsed&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcatalina.base=&quot;/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0&quot; -Dcatalina.home=&quot;/Users/PoorYorick/SD/Tools/apache-tomcat-8.0.24&quot; -Dwtp.deploy=&quot;/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps&quot; -Djava.endorsed.dirs=&quot;/Users/PoorYorick/SD/Tools/apache-tomcat-8.0.24/endorsed&quot;"/>
 <stringAttribute key="server-id" value="Tomcat v8.0 Server at localhost"/>
 </launchConfiguration>

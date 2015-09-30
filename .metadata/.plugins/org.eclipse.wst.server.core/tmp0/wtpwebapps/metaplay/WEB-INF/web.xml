@@ -27,11 +27,24 @@
 			<param-value>/WEB-INF/spring/dispatcher-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+		    <location>/album/add</location>
+		    <max-file-size>2097152</max-file-size>
+		    <max-request-size>4194304</max-request-size>
+ 		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+<!-- 	Filter for Spring Security... Delegates to Spring Security. -->
+<!-- 	<filter>
+	    <filter-name>springSecurityFilterChain</filter-name>
+	    <filter-class>
+	        org.springframework.web.filter.DelegatingFilterProxy
+	    </filter-class>
+	</filter> -->
 
 </web-app>

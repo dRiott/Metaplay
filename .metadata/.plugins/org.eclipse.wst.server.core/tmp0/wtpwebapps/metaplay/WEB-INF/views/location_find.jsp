@@ -32,6 +32,6 @@
 		<a href="<spring:url value="/location/add"/>" class="btn btn-default">Rep Yo City (Add LocatioN)</a>
 	</div>
 
-	
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>

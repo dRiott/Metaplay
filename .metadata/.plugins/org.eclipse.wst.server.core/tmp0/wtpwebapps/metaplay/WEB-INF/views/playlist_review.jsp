@@ -44,5 +44,6 @@
 			<a href="<spring:url value="/playlist/save"/>" class="btn btn-default">Save</a>
 		</div>
 	</div>
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>

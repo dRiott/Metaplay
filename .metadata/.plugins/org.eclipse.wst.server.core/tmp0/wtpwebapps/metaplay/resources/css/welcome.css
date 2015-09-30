@@ -1,26 +1,16 @@
 
-h1{
-	color:red;
+h1,h2,h3,h4,h5,h6{
+	color:#597EA9;
 	padding-left:5em
 }
 
-h2{
-	padding-left:10em
-}
-
-h3{
-	padding-left:10em
-}
-
-h4{
-	color:green;
-	padding-left:25em
-}
 
 body {
-	background-image: url(../img/enduser.gif);
+	background-image: url(../img/jdilla.gif);
+	background-color: #C1E4E0;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: bottom right;
+	background-size: contain;
 	
 }

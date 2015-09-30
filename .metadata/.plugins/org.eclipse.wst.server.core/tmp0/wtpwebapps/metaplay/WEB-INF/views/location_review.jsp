@@ -44,5 +44,6 @@
 		</div>
 		</form:form>
 	</div>
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>
