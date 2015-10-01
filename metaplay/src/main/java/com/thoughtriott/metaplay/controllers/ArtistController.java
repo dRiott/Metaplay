@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,7 +30,6 @@ import com.thoughtriott.metaplay.data.services.ArtistService;
 import com.thoughtriott.metaplay.data.services.GenreService;
 import com.thoughtriott.metaplay.data.services.LocationService;
 import com.thoughtriott.metaplay.data.services.MemberService;
-import com.thoughtriott.metaplay.data.services.RecordLabelService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 
@@ -47,8 +47,6 @@ public class ArtistController {
 	private LocationService locationService;
 	@Autowired
 	private GenreService genreService;
-	@Autowired
-	private RecordLabelService recordLabelService;
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -106,58 +104,26 @@ public class ArtistController {
 
 	// 		adding members to the artist
 		System.out.println("Going to add members to the artist");
-		String member1fullName = caw.getMember1();
-		System.out.println("Member 1: " + member1fullName);
-		if (member1fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member1fullName);
-			Member newMember = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember);
-			futureArtist.addMember(newMember);
-		}
-
-		String member2fullName = caw.getMember2();
-		System.out.println("Member 2: " + member2fullName);
-		if (member2fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member2fullName);
-			Member newMember2 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println("ArtistController: Printing out returned member: " + newMember2);
-			futureArtist.addMember(newMember2);
-		}
+		ArrayList<String> members = new ArrayList<String>();
+		members.add(caw.getMember1());
+		members.add(caw.getMember2());
+		members.add(caw.getMember3());
+		members.add(caw.getMember4());
+		members.add(caw.getMember5());
+		members.add(caw.getMember6());
 		
-		String member3fullName = caw.getMember3();
-		System.out.println("Member 3: " + member3fullName);
-		if (member3fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member3fullName);
-			Member newMember3 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember3);
-			futureArtist.addMember(newMember3);
-		}
-		
-		String member4fullName = caw.getMember4();
-		System.out.println("Member 4: " + member4fullName);
-		if (member4fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member4fullName);
-			Member newMember4 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember4);
-			futureArtist.addMember(newMember4);
-		}
-		
-		String member5fullName = caw.getMember5();
-		System.out.println("Member 5: " + member5fullName);
-		if (member5fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member5fullName);
-			Member newMember5 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember5);
-			futureArtist.addMember(newMember5);
-		}
-		
-		String member6fullName = caw.getMember6();
-		System.out.println("Member 6: " + member4fullName);
-		if (member6fullName!=null) {
-			String[] nameArray = memberService.splitFullName(member6fullName);
-			Member newMember6 = (Member) memberService.createFromNameArray(nameArray);
-			System.out.println(newMember6);
-			futureArtist.addMember(newMember6);
+		for (String memberFullName : members) {
+			if (!memberFullName.isEmpty()) {
+				String[] nameArray = memberService.splitFullName(memberFullName);
+				Member newMember = (Member) memberService.setNameFromArray(nameArray);
+				newMember.setStageName(caw.getMember1StageName());
+				System.out.println(newMember);
+				if(memberService.findMemberByName(newMember.getLastName())==null) {
+					futureArtist.addMember(memberService.createMember(newMember));				
+				} else {
+					futureArtist.addMember(memberService.findMemberByName(newMember.getLastName()));
+				}		
+			}
 		}
 		
 	//		Setting/Creating an Album
@@ -233,11 +199,7 @@ public class ArtistController {
 	public List<String> getGenres() {
 		return  genreService.findAllAsListString();
 	}
-	
-	@ModelAttribute(value="recordLabelOptions")
-	public List<String> getRecordLabels() {
-		return  recordLabelService.findAllAsListString();
-	}
+
 	
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {

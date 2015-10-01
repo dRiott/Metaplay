@@ -42,7 +42,7 @@
 				<div class="form-group">
 					<label for="biography">Biography</label>
 					<form:textarea path="biography" cssClass="form-control"
-						id="biography" rows="3" />
+						id="biography" rows="10" cols="30" />
 				</div>
 
 
@@ -87,32 +87,44 @@
 				<!--  Artist Member fields here -->
 				<div class="row">
 					<div class="col-md-4">
-						<label for="member1">Artist Member #1</label>
+						<label for="member1">Member #1 Full Name</label>
 						<form:input path="member1" cssClass="form-control" id="member1" />
+						<label for="member1">Member #1 Stage Name</label>
+						<form:input path="member1StageName" cssClass="form-control" id="member1" />
 					</div>
 					<div class="col-md-4">
-						<label for="member2">Artist Member #2</label>
+						<label for="member2">Member #2 Full Name</label>
 						<form:input path="member2" cssClass="form-control" id="member2" />
+						<label for="member2">Member #2 Stage Name</label>
+						<form:input path="member2StageName" cssClass="form-control" id="member2" />
 					</div>
 					<div class="col-md-4">
-						<label for="member3">Artist Member #3</label>
+						<label for="member3">Member #3 Full Name</label>
 						<form:input path="member3" cssClass="form-control" id="member3" />
+						<label for="member3">Member #3 Stage Name</label>
+						<form:input path="member3StageName" cssClass="form-control" id="member3" />
 					</div>
 					<div class="form-group" style="float:clear;"></div>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 				<div class="row">
 					<div class="col-md-4">
-						<label for="member1">Artist Member #4</label>
+						<label for="member4">Member #4 Full Name</label>
 						<form:input path="member4" cssClass="form-control" id="member4" />
+						<label for="member4">Member #4 Stage Name</label>
+						<form:input path="member4StageName" cssClass="form-control" id="member4" />
 					</div>
 					<div class="col-md-4">
-						<label for="member2">Artist Member #5</label>
+						<label for="member5">Member #5 Full Name</label>
 						<form:input path="member5" cssClass="form-control" id="member5" />
+						<label for="member5">Member #5 Stage Name</label>
+						<form:input path="member5StageName" cssClass="form-control" id="member5" />
 					</div>
 					<div class="col-md-4">
-						<label for="member3">Artist Member #6</label>
+						<label for="member6">Member #6 Full Name</label>
 						<form:input path="member6" cssClass="form-control" id="member6" />
+						<label for="member6">Member #6 Stage Name</label>
+						<form:input path="member6StageName" cssClass="form-control" id="member6" />
 					</div>
 				</div>
 				<div class="form-group" style="float:clear;"></div>

@@ -74,38 +74,68 @@
 		<!--  START Member fields here -->
 				<c:if test="${createArtistWrapper.member1!=''}">
 					<div class="form-group">
-						<label for="member1">Artist Member #1</label> <span>${createArtistWrapper.member1}</span>
+						<label for="member1">Member #1 Full Name</label> <span>${createArtistWrapper.member1}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member1StageName!=''}">
+					<div class="form-group">
+						<label for="member1">Member #1 Stage Name</label> <span>${createArtistWrapper.member1StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member2!=''}">
 					<div class="form-group">
-						<label for="member2">Artist Member #2</label> <span>${createArtistWrapper.member2}</span>
+						<label for="member1">Member #2 Full Name</label> <span>${createArtistWrapper.member2}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member2StageName!=''}">
+					<div class="form-group">
+						<label for="member1">Member #2 Stage Name</label> <span>${createArtistWrapper.member2StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member3!=''}">
 					<div class="form-group">
-						<label for="member3">Artist Member #3</label> <span>${createArtistWrapper.member3}</span>
+						<label for="member1">Member #3 Full Name</label> <span>${createArtistWrapper.member3}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member3StageName!=''}">
+					<div class="form-group">
+						<label for="member1">Member #3 Stage Name</label> <span>${createArtistWrapper.member3StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member4!=''}">
 					<div class="form-group">
-						<label for="member4">Artist Member #4</label> <span>${createArtistWrapper.member4}</span>
-					</div>	
-				</c:if>
-				<c:if test="${createArtistWrapper.member5!=''}">					
-					<div class="form-group">
-						<label for="member5">Artist Member #5</label> <span>${createArtistWrapper.member5}</span>
+						<label for="member1">Member #4 Full Name</label> <span>${createArtistWrapper.member4}</span>
 					</div>
 				</c:if>
-				<c:if test="${createArtistWrapper.member6!=''}">					
+				<c:if test="${createArtistWrapper.member4StageName!=''}">
 					<div class="form-group">
-						<label for="member6">Artist Member #6</label> <span>${createArtistWrapper.member6}</span>
-					</div>						
+						<label for="member1">Member #4 Stage Name</label> <span>${createArtistWrapper.member4StageName}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member5!=''}">
+					<div class="form-group">
+						<label for="member1">Member #5 Full Name</label> <span>${createArtistWrapper.member5}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member5StageName!=''}">
+					<div class="form-group">
+						<label for="member1">Member #5 Stage Name</label> <span>${createArtistWrapper.member5StageName}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member6!=''}">
+					<div class="form-group">
+						<label for="member1">Member #6 Full Name</label> <span>${createArtistWrapper.member6}</span>
+					</div>
+				</c:if>
+				<c:if test="${createArtistWrapper.member6StageName!=''}">
+					<div class="form-group">
+						<label for="member1">Member #6 Stage Name</label> <span>${createArtistWrapper.member6StageName}</span>
+					</div>
 				</c:if>
 				
 		<!--  START Album fields here -->
 				<div class="form-group">
-					<c:if test="${!createArtistWrapper.albumNameFromList.contains('** New Album **')}">
+					<c:if test="${!createArtistWrapper.albumNameFromList.contains('** New Album **') && !createArtistWrapper.albumNameFromList.contains('exist')}">
 						<div class="form-group">
 							<label for="trackArtistName">Album: Name</label>
 							<c:out value="${createArtistWrapper.albumNameFromList}"/>

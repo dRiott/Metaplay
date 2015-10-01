@@ -79,16 +79,22 @@ public class AlbumController {
 		List<Track> tracks = caw.getTracks();
 		Iterator<Track> it = tracks.iterator();
 		int counter=0;
-		while(it.hasNext() && !it.next().getName().equals("")) {
+		while(it.hasNext() && !it.next().getName().isEmpty()) {
 			Track t = it.next();
-
+			System.out.println(t);
 			if(!t.getMinutes().equals("") && !t.getSeconds().equals("")) {
 				t.setLengthFromStringMinSec(t.getMinutes(), t.getSeconds());
 			}
 			counter++;
+			System.out.println("About to setTrackNumber: " + counter);
 			t.setTrackNumber(counter);
+			
+			//perform track add stuff here
+			
 			futureAlbum.addTrack((Track) it.next());
 		}
+		System.out.println("Total tracks: " + counter);
+		futureAlbum.setNumTracks(counter);
 		
 		//		Setting/Creating an Album
 		System.out.println("Setting/Creating an Artist");
@@ -101,7 +107,7 @@ public class AlbumController {
 			futureAlbum.setArtist(artistService.createArtist(a));
 		}
 		
-		futureAlbum.setNumTracks(counter);
+	
 		
 		// 		Setting/Creating a Record Label
 		System.out.println("Setting/Creating a Record Label");
@@ -137,6 +143,12 @@ public class AlbumController {
 	@ModelAttribute(value="artistOptions")
 	public List<String> getArtists() {
 		return  artistService.findAllAsListString();
+	}
+	
+	
+	@ModelAttribute(value="recordLabelOptions")
+	public List<String> getRecordLabels() {
+		return  recordLabelService.findAllAsListString();
 	}
 	
 }

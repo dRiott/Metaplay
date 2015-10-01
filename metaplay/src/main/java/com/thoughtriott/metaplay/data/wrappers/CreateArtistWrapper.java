@@ -26,15 +26,31 @@ public class CreateArtistWrapper {
 	@Size(min = 3, max = 50)
 	String member1;
 	@Size(min = 3, max = 50)
+	String member1StageName;
+	@Size(min = 3, max = 50)
 	String member2;
+	@Size(min = 3, max = 50)
+	String member2StageName;
+
 	@Size(min = 3, max = 50)
 	String member3;
 	@Size(min = 3, max = 50)
+	String member3StageName;
+
+	@Size(min = 3, max = 50)
 	String member4;
+	@Size(min = 3, max = 50)
+	String member4StageName;
+
 	@Size(min = 3, max = 50)
 	String member5;
 	@Size(min = 3, max = 50)
+	String member5StageName;
+	
+	@Size(min = 3, max = 50)
 	String member6;
+	@Size(min = 3, max = 50)
+	String member6StageName;
 	
 	@Size(min = 3, max = 50)
 	String albumNameFromList;
@@ -153,6 +169,54 @@ public class CreateArtistWrapper {
 
 	public void setMember6(String member6) {
 		this.member6 = member6;
+	}
+
+	public String getMember1StageName() {
+		return member1StageName;
+	}
+
+	public void setMember1StageName(String member1StageName) {
+		this.member1StageName = member1StageName;
+	}
+
+	public String getMember2StageName() {
+		return member2StageName;
+	}
+
+	public void setMember2StageName(String member2StageName) {
+		this.member2StageName = member2StageName;
+	}
+
+	public String getMember3StageName() {
+		return member3StageName;
+	}
+
+	public void setMember3StageName(String member3StageName) {
+		this.member3StageName = member3StageName;
+	}
+
+	public String getMember4StageName() {
+		return member4StageName;
+	}
+
+	public void setMember4StageName(String member4StageName) {
+		this.member4StageName = member4StageName;
+	}
+
+	public String getMember5StageName() {
+		return member5StageName;
+	}
+
+	public void setMember5StageName(String member5StageName) {
+		this.member5StageName = member5StageName;
+	}
+
+	public String getMember6StageName() {
+		return member6StageName;
+	}
+
+	public void setMember6StageName(String member6StageName) {
+		this.member6StageName = member6StageName;
 	}
 
 	public String getAlbumNameFromList() {

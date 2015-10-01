@@ -57,7 +57,7 @@ public class AlbumService {
 	public List<Album> findAllAsList() {
 		List<Album> albumList = (List<Album>) em.createQuery("SELECT a FROM Album a ORDER BY a.name", Album.class).getResultList();
 		if(albumList.size()==0) {
-			System.out.println("The results list was empty.");
+			System.out.println("AlbumService.findAllAsList: The results list was empty.");
 			return null;
 		} else {
 			return albumList;
@@ -71,7 +71,7 @@ public class AlbumService {
 		if(albumList.size()==0) {
 			return null;
 		} else if(albumList.size()>1) {
-			System.out.println("The results contained more than one item, the first item was returned.");
+			System.out.println("AlbumService.findAlbumByName(): The results contained more than one item, the first item was returned.");
 			return albumList.get(0);
 		} else {
 			return albumList.get(0);
@@ -86,7 +86,7 @@ public class AlbumService {
 		if(albumList.size()==0) {
 			return null;
 		} else if(albumList.size()>1) {
-			System.out.println("The results contained more than one item, the first item was returned.");
+			System.out.println("AlbumService.findAlbumById(): The results contained more than one item, the first item was returned.");
 			return albumList.get(0);
 		} else {
 			return albumList.get(0);
@@ -106,7 +106,7 @@ public class AlbumService {
 			albumStrList.add(a.getName());
 		}
 		if(albumList.size()==0) {
-			System.out.println("The results list was empty.");
+			System.out.println("AlbumService.findAllAsListString(): The results list was empty.");
 			albumStrList.add("No Albums exist, add one!");
 			albumStrList.add("** New Album **");
 			albumStrList.add("** Do Not Add Album Now **");

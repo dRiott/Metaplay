@@ -79,6 +79,63 @@ public class MemberService {
 		System.out.println("Split successfully");
 		return nameArray;
 	}
+	
+	
+	public Member setNameFromArray(String[] nameArray) {
+		if (nameArray.length != 0) {
+			if (nameArray.length == 1) {
+				String lastName = nameArray[0];
+				if (findMemberByName(lastName) != null) {
+					return (Member) findMemberByName(lastName);
+				} else {
+					System.out.println("About to return new Member With Last Name set");
+					Member newMember = new Member();
+					newMember.setLastName(lastName);
+					System.out.println("New member returned, one did not already exist in database, last name set, not yet persisted.");
+					return newMember;
+				}
+			} else if (nameArray.length == 2) {
+				System.out.println("Inside setNameFromArray method: if(nameArray.length == 2)...");
+				String firstName = nameArray[0];
+				String lastName = nameArray[1];
+
+				if (this.findMemberByName(lastName, firstName) != null) {
+					return (Member) this.findMemberByName(lastName, firstName);
+				} else {
+					System.out.println("About to return new Member With First Name and Last Name set");
+					Member newMember = new Member();
+					newMember.setLastName(lastName);
+					newMember.setFirstName(firstName);
+					System.out.println("New member returned, one did not already exist in database, last name & first name set, not yet persisted.");
+					return newMember;
+				}
+			} else if (nameArray.length == 3) {
+				System.out.println("Inside setNameFromArray method: if(nameArray.length == 3)...");
+				String firstName = nameArray[0];
+				String middleName = nameArray[1];
+				String lastName = nameArray[2];
+
+				if (this.findMemberByName(lastName, firstName, middleName) != null) {
+					return (Member) this.findMemberByName(lastName, firstName, middleName);
+				} else {
+					System.out.println("About to return new Member With First Name, Middle Name, and Last Name set");
+					Member newMember = new Member();
+					newMember.setLastName(lastName);
+					newMember.setFirstName(firstName);
+					newMember.setMiddleName(middleName);
+					System.out.println("New member returned, one did not already exist in database, last name, first name, and middle name set, not yet persisted.");
+					return newMember;
+				}
+			} else {
+				System.out.println("The array argument had more than 3 indexes, and only supports 3 (first name, middle name, last name)..."
+						+ "returning null.");
+				return null;
+			}
+		} else {
+			System.out.println("The array argument was empty, returning null.");
+			return null;
+		}
+	}
 
 	// ------------------------------- Creates ---------------------------------------
 
