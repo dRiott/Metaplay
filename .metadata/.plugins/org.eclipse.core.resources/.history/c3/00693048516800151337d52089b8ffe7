@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+
+alert("HEY!");
+
+function validatePassword () {
+	password1 = document.getElementById("account-password").value;
+	password2 = document.getElementById("account-passwordConfirm").value;
+
+	alert(password1);
+	alert(password2);
+	
+	if(!password1.equals(password2)) {
+		return false;
+		document.write("Passwords must match.");
+
+	} else {
+		return true;
+	}
+	
+	
+}

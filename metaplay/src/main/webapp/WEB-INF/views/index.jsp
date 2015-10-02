@@ -13,35 +13,61 @@
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script>
-/* 	
-	document.write("Good Morning, and Welcome My Friends");
-	document.write("<hr/>");
-	document.write("Welcome To Metaplay"); */
-
+	var dillaSays = ["Yo WTF? This cracka naked", "Just Blaze, B... Everything is coo.", "I'm a God, not a rapper. PFF Drake", "Fools rush in. Naw'm sayin'?", "Paypal david.riott1@gmail.com $5", "Say what? I'm a hustler bitch."];
+	var randomNum = Math.floor(Math.random() * dillaSays.length);
+	function fnSetStatus(){document.getElementById("myStatus").innerHTML="<p>"+dillaSays[randomNum]+"</p>"}
 	
-/* 	function fnSetStatus(status){alert("What does J Dilla say?");document.getElementById("myStatus").innerHTML="J Dilla be liek..."+status;}
- */	
 	
 	</script>	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	
 </head>
 <body>
 	<div id="wrapper">
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 		<div class=text id=mainTest>
 			<h1>W3lcome to the Fr0nt Page</h1>
-			<h2>Naw meen?</h2>
-			<h3>Naw meen?</h3>
-			<h4>Naw meen?</h4>
-			<h5>Naw meen?</h5>
-			<h6>Naw meen?</h6>
+ 			 <button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
+ 			 style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
+ 			 position:absolute; top: 150px; left: 220px; width: 18em; height: 12em; font-size: 30px;">PermaRave</button>
+ 			 
+ 			 <button type="button" id="noMoreParty" class="btn btn-primary btn-lg"
+ 			 style="position:absolute; top: 500px; left: 450px; 
+ 			 width: 10em; height: 2.5em;">(Too Old For This)</button>
+ 			 
 		</div>
 	</div>
 	
-	<div id="myStatus" style="position:fixed; left:56%; bottom:40%; background-color:#FBD475;">Hmmm...</div>	
+	<div class="oval-thought-border" id="myStatus" style="position:fixed; left:45%; bottom:40%;"></div>	
 	
 	<script>
-		fnSetStatus("Daayum");
+	
+	var permaRave = document.getElementById("permaRaveButton");
+	permaRave.onclick = function() {
+	    var currentColor = '#C1E4E0';
+	    intervalId = setInterval(function() {
+	        document.body.style.backgroundColor = currentColor;
+	        currentColor = currentColor === '#C1E4E0' ? 'black' : '#C1E4E0';
+	    }, 200);
+	    
+		
+	};
+
+	var noMoreParty = document.getElementById("noMoreParty");
+	noMoreParty.onclick = function() {
+		clearInterval(intervalId);
+		document.body.style.backgroundColor = '#C1E4E0';
+	}
+	fnSetStatus()
+/* 	
+	$("img").mousedown(function() {
+		document.body.style.backgroundColor='black';
+	})
+	$("img").mouseup(function() {
+		document.body.style.backgroundColor='#C1E4E0';
+	})
+	 */
+	
 	</script>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>

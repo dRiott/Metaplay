@@ -1,0 +1,20 @@
+
+#container.1 {
+	color: snow;
+	background-color: #879F9C;
+	
+}
+
+body {
+	background-image: url(../img/j2.gif);
+	background-color: #C1E4E0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+	
+}
+
+#accountName{
+	
+	background-color: red;
+}

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Context path="/metaplay" reloadable="true" crossContext="true">
-  <Resource name="jdbc/metaplay" 
-    auth="Container" type="javax.sql.DataSource"
-    driverClassName="org.apache.derby.jdbc.ClientDriver"
-    url="jdbc:derby://localhost:1527/metaplay"
-    username="APP" password="APP"/>
-</Context>

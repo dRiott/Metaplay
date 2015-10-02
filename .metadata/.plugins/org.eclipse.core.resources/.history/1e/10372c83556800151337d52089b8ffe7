@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+
+alert("HEY!");
+
+if( window.location.hash == 'redirected' ) {
+	var node = document.getElementById('errorWritingSpace');
+	var newNode = document.createElement('h3');
+	newNode.style["color"]="red";
+	newNode.appendChild(document.createTextNode('(!) The Account/Password combination did not exist.'));
+	node.appendChild(newNode);
+}

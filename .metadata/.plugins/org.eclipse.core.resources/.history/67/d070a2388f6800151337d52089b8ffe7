@@ -1,0 +1,160 @@
+package com.thoughtriott.metaplay.controllers;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
+import com.thoughtriott.metaplay.data.entities.Album;
+import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import com.thoughtriott.metaplay.data.entities.Track;
+import com.thoughtriott.metaplay.data.services.AlbumService;
+import com.thoughtriott.metaplay.data.services.ArtistService;
+import com.thoughtriott.metaplay.data.services.LocationService;
+import com.thoughtriott.metaplay.data.services.RecordLabelService;
+import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
+import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
+import com.thoughtriott.metaplay.utilities.DateFormatter;
+
+@Controller
+@RequestMapping("/album")
+@SessionAttributes("createAlbumWrapper")
+public class AlbumController {
+
+	@PersistenceContext
+	private EntityManager em;
+	
+	@Autowired
+	private AlbumService albumService;
+	@Autowired
+	private ArtistService artistService;
+	@Autowired
+	private RecordLabelService recordLabelService;
+	@Autowired
+	private LocationService locationService;
+	@Autowired
+	private DateFormatter dateFormatter;
+	
+	@RequestMapping("/add")
+	public String addAlbum(){
+		return "album_add";
+	}
+	
+	@RequestMapping("/review")
+	public String review(HttpSession session, @Valid @ModelAttribute CreateAlbumWrapper createAlbumWrapper, Errors errors) {
+		System.out.println("Invoking review() in AlbumController");
+		if(errors.hasErrors()) {
+			return "album_add";
+		}
+		session.setAttribute("createAlbumWrapper", createAlbumWrapper);
+		return "album_review";
+	}
+	
+	@RequestMapping("/save")
+	public String saveAlbum(HttpSession session, SessionStatus status) {
+		System.out.println("Invoking the saveAlbum() from AlbumController.");
+		Album futureAlbum = new Album();
+		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
+
+		String albumName = caw.getName();
+		futureAlbum.setName(albumName);
+		
+		int seconds = caw.getLengthSeconds();
+		int minutes = caw.getLengthMinutes();
+		futureAlbum.setLengthMinSec(minutes, seconds);
+
+		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
+		futureAlbum.setReleaseDate(albumReleaseDate);
+		
+		List<CreateTrackWrapper> createTrackWrappers = caw.getCreateTrackWrappers();
+		Iterator<CreateTrackWrapper> it = createTrackWrappers.iterator();
+		int counter=0;
+		while(it.hasNext() && !it.next().getName().isEmpty()) {
+			CreateTrackWrapper ctw = it.next();
+			System.out.println(ctw);
+			Track newTrack = new Track();
+			if(ctw.getLengthMinutes()!=0 && ctw.getLengthSeconds()!=0) {
+				newTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
+			}
+			counter++;
+			System.out.println("About to setTrackNumber: " + counter);
+			newTrack.setTrackNumber(counter);
+			newTrack.setName(ctw.getName());
+			
+// ~~~~~~~~~~~~~~~~~~~~~~ perform track add stuff here ~~~~~~~~~~~~~~~~~~~~~~ 
+			
+			futureAlbum.addTrack(newTrack);
+		}
+		System.out.println("Total tracks: " + counter);
+		futureAlbum.setNumTracks(counter);
+		
+		//		Setting/Creating an Album
+		System.out.println("Setting/Creating an Artist");
+		if(caw.getArtistFromList()!="** New Album **" && albumService.findAlbumByName(caw.getArtistFromList())!=null) {
+			futureAlbum.setArtist(artistService.findArtistByName(caw.getArtistFromList()));
+		} else {
+			//Creating a new Artist...
+			Artist a = new Artist();
+			a.setName(caw.getTheNewArtist());
+			futureAlbum.setArtist(artistService.createArtist(a));
+		}
+		
+	
+		
+		// 		Setting/Creating a Record Label
+		System.out.println("Setting/Creating a Record Label");
+		String recordLabelName = caw.getRecordLabelFromList();
+		String recordLabelCity = caw.getRecordLabelCity();
+		String recordLabelState = caw.getRecordLabelState();
+		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
+			futureAlbum.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
+		} else if(recordLabelName.equals("** New Record Label **")) {
+			String newRecordLabelName = caw.getTheNewRecordLabel();
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
+			futureAlbum.setRecordLabel(rl);
+		}
+		
+		System.out.println("Creating the Album");
+		albumService.createAlbum(futureAlbum);
+		status.setComplete();
+		return "redirect:/album/add";
+	}
+	
+	@RequestMapping("/find")
+	public String findAlbum(){
+		return "404";
+	}
+	
+	//Model Attributes ----------------------------------------
+	
+	@ModelAttribute("createAlbumWrapper")
+	public CreateAlbumWrapper getCreateAlbumWrapper() {
+		return new CreateAlbumWrapper();
+	}
+	
+	@ModelAttribute(value="artistOptions")
+	public List<String> getArtists() {
+		System.out.println("Adding artistOptions to the model.. :" + artistService.findAllAsListString());
+		return  artistService.findAllAsListString();
+	}
+	
+	
+	@ModelAttribute(value="recordLabelOptions")
+	public List<String> getRecordLabels() {
+		return  recordLabelService.findAllAsListString();
+	}
+	
+}

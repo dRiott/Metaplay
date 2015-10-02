@@ -1,22 +1,4 @@
 			
-
-			function fixOtherValue() {
-				if(selectOther.value == "Other") {
-				selectOther.value="";	
-				}
-			}
-
-			//RecordLabel Options "Other" Box Hide/Unhide
-			var selectOtherRL = document.getElementById("recordLabelName");
-			var inputBoxRL = document.getElementById("newRecordLabelName");
-			selectOtherRL.onchange=function(){
-				if(selectOtherRL.value=="** New Record Label **") {
-					inputBoxRL.style.display="inline";
-				} else {
-					inputBoxRL.style.display="none";	
-				}
-			}
-			
 			//Genre Options "Other" Box Hide/Unhide
 			var selectOtherGR = document.getElementById("genreName");
 			var inputBoxGR = document.getElementById("newGenreName");
@@ -51,4 +33,4 @@
 				}
 			}
 			
-	
+			
