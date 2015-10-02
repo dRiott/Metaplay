@@ -25,12 +25,12 @@
 	<div class="container">
 
 		<div class="row">
-			<h1><a>Artist</a>&nbsp&nbsp<small><small>The * indicates a required field.</small></small></h1>
+			<h1><a>Artist</a><span style="padding-left: 10px;"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
 		<spring:url value="/artist/review" var="thisURL" />
 		<form:form action="${thisURL}" method="POST"
-			modelAttribute="createArtistWrapper" onsubmit="fixOtherValue();">
+			modelAttribute="createArtistWrapper">
 
 			<div class="row">
 
@@ -45,13 +45,8 @@
 						id="biography" rows="10" cols="30" />
 				</div>
 
-
-				<%-- 				<div class="form-group">
-					<label for="artist-image">Artist Image</label> 
-					<form:input  path="artist.artistImage" cssClass="form-control" id="artist-image"/>
-				</div> --%>
-				
 				<div class="form-group" style="float:clear;"></div>
+				
 				<div class="form-group">
 					<label for="genreName">Genre</label>
 					<form:select path="genreName" id="genreName" cssClass="selectpicker">
@@ -127,8 +122,8 @@
 						<form:input path="member6StageName" cssClass="form-control" id="member6" />
 					</div>
 				</div>
-				<div class="form-group" style="float:clear;"></div>
 				
+				<div class="form-group" style="float:clear;"></div>
 				
 				<!--  Album fields here -->
 				<div class="form-group">
@@ -162,17 +157,11 @@
 					<hr/>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
-				
-				
-				
 				<!--  End Album fields -->
 
 				<button type="submit" class="btn btn-default">Submit</button>
-
 			</div>
-
 		</form:form>
-
 	</div>
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>

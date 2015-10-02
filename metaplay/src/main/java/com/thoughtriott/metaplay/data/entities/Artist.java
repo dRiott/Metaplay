@@ -37,7 +37,7 @@ public class Artist {
 	private Genre genre;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "location_id", nullable=false)
 	private Location location;
 	

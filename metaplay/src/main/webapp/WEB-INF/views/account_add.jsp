@@ -15,37 +15,38 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
-<%-- <script src="<spring:url value="/resources/js/validateAccount.js"/>"></script>
- --%>
+
 
 </head>
 <body>
 
 	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
-	<div>
+	<div class="container"  id="1">
 		<h2>Want to make Friendship?</h2>
-		<h3>HonestDad.docx love friends</h3>
-		<h4>Prepare to be account'd.</h4>
+		<h3>HonestDad.docx love friends: &nbsp&nbsp<small>Prepare to be account'd.</small></h3>
 	</div>
 
 	<div class="container">
 
 		<div class="row">
-			<h1>Fill In Your Desired Credentials</h1>
+			<h2>Fill In Your Desired Credentials</h2>
 		</div>
 
 		<spring:url value="/account/review" var="thisFormURL" />                                 
-		<form:form action="${thisFormURL}" method="post" modelAttribute="createAccountWrapper">  
+		<form:form action="${thisFormURL}" method="post" modelAttribute="createAccountWrapper" onsubmit="return validatePassword();">  
 		<form:errors path="*" element="div" cssClass="errors"/>
-                                                                                                 
-			<div class="row">                                                                    
-                                                                                                 
-				<div class="form-group">                                                         
-					<label for="accountname">Account Name</label>                                
-					<form:input type="text" path="accountname" id="accountname" cssErrorClass="has-error"/>          
-					
-				</div>                                                                           
-                                                                                                 
+            
+            <div class="row" id="errorWritingSpace"></div>                                                                                    
+			
+			<div class="row" id="mainRow">                                                                    
+				<div class="row">
+					<div class="col-md-4">                                                         
+						<label for="accountname">Account Name</label>                                
+						<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error"/>          
+	                </div>
+				</div>
+				<div class="form-group" style="float:clear;"></div>
+           	           
 				<div class="form-group">                                                         
 					<label for="account-passwordConfirm">Email Address</label>
 					<form:input type="text" pattern="^\w+.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" path="email"  id="email" cssClass="form-control" cssErrorClass="has-error"/>
@@ -60,7 +61,6 @@
 					<label for="account-passwordConfirm">Confirm Password</label>
 					<form:password path="confirmPassword" id="account-passwordConfirm" cssClass="form-control" cssErrorClass="has-error" />
 				</div>
-
 				
 				<button type="submit" class="btn btn-default">Submit</button>
 			
@@ -69,5 +69,7 @@
 	</div>
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<script src="<spring:url value="/resources/js/validateAccount.js"/>"></script>
+	
 </body>
 </html>

@@ -35,13 +35,14 @@ public class TrackService {
 	}
 	
 	@Transactional
-	public void createTrack(Track t) {
+	public Track createTrack(Track t) {
 		String name = t.getName();
 		em.clear();
 		em.merge(t);
 		Track track = findTrack(name);
-		System.out.println(track);
+		System.out.println(track.toString());
 		em.close();
+		return track;
 	}
 	
 //------------------------------- Queries ---------------------------------------	

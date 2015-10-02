@@ -87,12 +87,12 @@ public class CreateTrackWrapper {
 		this.lengthSeconds = lengthSeconds;
 	}
 
-	public int getLengthMinutes() {
-		return lengthMinutes;
+	public void setLengthMinutes(int lengthMinutes) {
+		this.lengthMinutes = lengthMinutes;
 	}
 
-	public void setLengthMintues(int lengthMinutes) {
-		this.lengthMinutes = lengthMinutes;
+	public int getLengthMinutes() {
+		return lengthMinutes;
 	}
 
 	public String getLyrics() {

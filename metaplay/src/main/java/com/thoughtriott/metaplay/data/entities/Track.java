@@ -40,9 +40,9 @@ public class Track {
 	private String lyrics;
 	
 	private int bpm;
-	private String bpmString;
-	private String minutes;
-	private String seconds;
+//	private String bpmString;
+//	private String minutes;
+//	private String seconds;
 	
 	@Column(name="track_number")
 	private int trackNumber;
@@ -91,21 +91,21 @@ public class Track {
 		this.length = length;
 	}
 
-	public String getMinutes() {
-		return minutes;
-	}
-
-	public void setMinutes(String minutes) {
-		this.minutes = minutes;
-	}
-
-	public String getSeconds() {
-		return seconds;
-	}
-
-	public void setSeconds(String seconds) {
-		this.seconds = seconds;
-	}
+//	public String getMinutes() {
+//		return minutes;
+//	}
+//
+//	public void setMinutes(String minutes) {
+//		this.minutes = minutes;
+//	}
+//
+//	public String getSeconds() {
+//		return seconds;
+//	}
+//
+//	public void setSeconds(String seconds) {
+//		this.seconds = seconds;
+//	}
 
 	public String getLyrics() {
 		return lyrics;
@@ -114,18 +114,22 @@ public class Track {
 	public void setLyrics(String lyrics) {
 		this.lyrics = lyrics;
 	}
+	
+	public int getBpm() {
+		return bpm;
+	}
 
 	public void setBpm(int bpm) {
 		this.bpm = bpm;
 	}
 
-	public String getBpm() {
-		return bpmString;
-	}
-
-	public void setBpm(String bpmString) {
-		this.bpmString = bpmString;
-	}
+//	public String getBpmString() {
+//		return bpmString;
+//	}
+//
+//	public void setBpmString(String bpmString) {
+//		this.bpmString = bpmString;
+//	}
 
 	public int getTrackNumber() {
 		return trackNumber;

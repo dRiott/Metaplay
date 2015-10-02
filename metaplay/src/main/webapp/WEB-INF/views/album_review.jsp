@@ -79,12 +79,19 @@
 				</div>
 				
 				<label for="albumTracks">Tracks</label><br/>
-				<c:forEach var="track" items="${createAlbumWrapper.tracks}">
-					<c:if test="${track.name!=''}">
-							<span>${track.name}</span>
-							<br/>
-					</c:if>
-				</c:forEach>
+				<table width="650" border="1" cellpadding="3" cellspacing="0">
+					<tr><th>Track Name</th><th >Minutes</th><th>Seconds</th><th>BPM</th></tr>
+					<c:forEach var="createTrackWrapper" items="${createAlbumWrapper.createTrackWrappers}">
+						<c:if test="${createTrackWrapper.name!=''}">
+							<tr>
+								<td>${createTrackWrapper.name}</td>
+								<td>${createTrackWrapper.lengthMinutes}</td>
+								<td>${createTrackWrapper.lengthSeconds}</td>
+								<td>${createTrackWrapper.bpm}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				</table>
 				
 					
 				<a href="<spring:url value="/album/add"/>" class="btn btn-default">Edit</a>

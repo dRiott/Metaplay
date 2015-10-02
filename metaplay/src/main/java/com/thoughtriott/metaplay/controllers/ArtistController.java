@@ -2,7 +2,6 @@ package com.thoughtriott.metaplay.controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,6 +74,7 @@ public class ArtistController {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
 		Artist futureArtist = new Artist();
 		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
+		System.out.println("Artist name about to be set: " + caw.getName());
 		futureArtist.setName(caw.getName());
 		futureArtist.setBiography(caw.getBiography());
 		
@@ -83,11 +83,11 @@ public class ArtistController {
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
 		if(locationService.findLocation(city, state)!=null) {
-			Location l = locationService.findLocation(city, state);
-			futureArtist.setLocation(l);
+			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
+			futureArtist.setLocation(locationService.findLocation(city, state));
 		} else {
-			Location l = locationService.createLocation(city, state);
-			futureArtist.setLocation(l);
+			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
+			futureArtist.setLocation(locationService.createLocation(city, state));
 		}
 		
 		
@@ -128,19 +128,22 @@ public class ArtistController {
 		
 	//		Setting/Creating an Album
 		System.out.println("Setting/Creating an Album");
-		if(caw.getAlbumNameFromList()!="** New Album **" && albumService.findAlbumByName(caw.getAlbumNameFromList())!=null) {
-			futureArtist.addAlbum(albumService.findAlbumByName(caw.getAlbumNameFromList()));
-		} else if (caw.getAlbumNameFromList()!="** Do Not Add Album Now **") {
-		} else {
-			int albumNumTracks = Integer.parseInt(caw.getAlbumNumTracks());
-			Date albumReleaseDate = dateFormatter.getDateFromString(caw.getAlbumReleaseDate()); 
-	//			String albumAlbumCover = caw.getAlbumAlbumCover(); //no corresponding field in Album exists yet...
-	//			a.setAlbumCover(albumAlbumCover);
+		
+		if (caw.getAlbumNameFromList().equals("** Do Not Add Album Now **") || caw.getAlbumNameFromList().contains("exist")) {
+			// do nothing, they don't want to add an album.
+			System.out.println("** Do Not Add Album Now ** or No Albums exist, add one!");
+		}  else if (caw.getAlbumNameFromList().equals("** New Album **")) {
+			// they're adding a new album!
+			System.out.println("** New Album ** is about to be created...");
 			Album a = new Album();
-			a.setName(caw.getTheNewAlbumName());
-			a.setNumTracks(albumNumTracks);
-			a.setReleaseDate(albumReleaseDate);
+				a.setName(caw.getTheNewAlbumName());
+				a.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
+				a.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
 			futureArtist.addAlbum(albumService.createAlbum(a));
+		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumService.findAlbumByName(caw.getAlbumNameFromList())!=null) {
+			//they've selected from the dropdown... add from the database to the artist.
+			System.out.println("They've selected the following artist from the dropdown: " + caw.getAlbumNameFromList());
+			futureArtist.addAlbum(albumService.findAlbumByName(caw.getAlbumNameFromList()));
 		}
 		
 		artistService.createArtist(futureArtist);

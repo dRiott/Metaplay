@@ -1,5 +1,8 @@
-h1{
-	color:red;
+
+#container.1 {
+	color: snow;
+	background-color: #879F9C;
+	
 }
 
 body {
@@ -9,9 +12,4 @@ body {
 	background-attachment: fixed;
 	background-position: bottom right;
 	
-}
-
-#accountName{
-	
-	background-color: red;
 }

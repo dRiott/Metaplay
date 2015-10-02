@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Album;
@@ -24,11 +25,14 @@ import com.thoughtriott.metaplay.data.services.AlbumService;
 import com.thoughtriott.metaplay.data.services.ArtistService;
 import com.thoughtriott.metaplay.data.services.LocationService;
 import com.thoughtriott.metaplay.data.services.RecordLabelService;
+import com.thoughtriott.metaplay.data.services.TrackService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
+import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/album")
+@SessionAttributes("createAlbumWrapper")
 public class AlbumController {
 
 	@PersistenceContext
@@ -42,6 +46,8 @@ public class AlbumController {
 	private RecordLabelService recordLabelService;
 	@Autowired
 	private LocationService locationService;
+	@Autowired
+	private TrackService trackService;
 	@Autowired
 	private DateFormatter dateFormatter;
 	
@@ -62,12 +68,12 @@ public class AlbumController {
 	
 	@RequestMapping("/save")
 	public String saveAlbum(HttpSession session, SessionStatus status) {
-		System.out.println("Invoking the saveAlbum() from AlbumController.");
+		System.out.println("\n ************************************ \nInvoking the saveAlbum() from AlbumController.");
 		Album futureAlbum = new Album();
 		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
 
-		String albumName = caw.getName();
-		futureAlbum.setName(albumName);
+		System.out.println("Album name: " + caw.getName());
+		futureAlbum.setName(caw.getName());
 		
 		int seconds = caw.getLengthSeconds();
 		int minutes = caw.getLengthMinutes();
@@ -76,38 +82,51 @@ public class AlbumController {
 		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
 		futureAlbum.setReleaseDate(albumReleaseDate);
 		
-		List<Track> tracks = caw.getTracks();
-		Iterator<Track> it = tracks.iterator();
+		List<CreateTrackWrapper> createTrackWrappers = caw.getCreateTrackWrappers();
+		Iterator<CreateTrackWrapper> it = createTrackWrappers.iterator();
 		int counter=0;
-		while(it.hasNext() && !it.next().getName().isEmpty()) {
-			Track t = it.next();
-			System.out.println(t);
-			if(!t.getMinutes().equals("") && !t.getSeconds().equals("")) {
-				t.setLengthFromStringMinSec(t.getMinutes(), t.getSeconds());
+		while(it.hasNext()) {
+			CreateTrackWrapper ctw = it.next();
+			if(!ctw.getName().isEmpty()){
+				System.out.println("Track name: " + ctw.getName());
+				Track newTrack = new Track();
+				if(ctw.getLengthMinutes()!=0 && ctw.getLengthSeconds()!=0) {
+					newTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
+				}
+				counter++;
+				System.out.println("About to setTrackNumber: " + counter);
+				newTrack.setTrackNumber(counter);
+				newTrack.setName(ctw.getName());
+				newTrack.setBpm(ctw.getBpm());
+				System.out.println("**** Hey, I've got this Track: " + newTrack.toString());
+				
+				System.out.println("About to add the track to the album...");
+				if (trackService.findTrack(ctw.getName()) != null) {
+					System.out.println("Found the track already in the DB: " + ctw.getName());
+					futureAlbum.addTrack(trackService.findTrack(ctw.getName()));
+				} else {
+					System.out.println("No track found in the DB. Creating one...");
+					futureAlbum.addTrack(trackService.createTrack(newTrack));
+				}
+				System.out.println("******** Done with this Track: " + newTrack.getName() + " ********" );
 			}
-			counter++;
-			System.out.println("About to setTrackNumber: " + counter);
-			t.setTrackNumber(counter);
-			
-			//perform track add stuff here
-			
-			futureAlbum.addTrack((Track) it.next());
 		}
+		
 		System.out.println("Total tracks: " + counter);
 		futureAlbum.setNumTracks(counter);
 		
 		//		Setting/Creating an Album
 		System.out.println("Setting/Creating an Artist");
-		if(caw.getArtistFromList()!="** New Album **" && albumService.findAlbumByName(caw.getArtistFromList())!=null) {
+		if(caw.getArtistFromList()!="** New Artist **" && artistService.findArtistByName(caw.getArtistFromList())!=null) {
+			System.out.println("Found the artist already in the DB: " + caw.getArtistFromList());
 			futureAlbum.setArtist(artistService.findArtistByName(caw.getArtistFromList()));
 		} else {
 			//Creating a new Artist...
 			Artist a = new Artist();
 			a.setName(caw.getTheNewArtist());
+			System.out.println("Artist didn't exist in the DB. A new one is about to be created: " + a.toString());
 			futureAlbum.setArtist(artistService.createArtist(a));
 		}
-		
-	
 		
 		// 		Setting/Creating a Record Label
 		System.out.println("Setting/Creating a Record Label");
@@ -123,7 +142,20 @@ public class AlbumController {
 		}
 		
 		System.out.println("Creating the Album");
-		albumService.createAlbum(futureAlbum);
+		Album createdAlbum = albumService.createAlbum(futureAlbum);
+
+		
+		// TRYING TO ADD THE ALBUM ID TO ALL THE TRACKS I JUST ADDED
+//		int album_id = createdAlbum.getId();
+//		
+//		List<CreateTrackWrapper> createTrackWrappers2 = caw.getCreateTrackWrappers();
+//		Iterator<CreateTrackWrapper> it2 = createTrackWrappers.iterator();
+//		while(it2.hasNext()) {
+//			CreateTrackWrapper ctw = it2.next();
+//			if(!ctw.getName().isEmpty()){
+//				Track t = trackService.findTrackByName(ctw.getName());
+//				t.setAlbumId(album_id);
+//			}
 		status.setComplete();
 		return "redirect:/album/add";
 	}
@@ -142,6 +174,7 @@ public class AlbumController {
 	
 	@ModelAttribute(value="artistOptions")
 	public List<String> getArtists() {
+		System.out.println("Adding artistOptions to the model.. :" + artistService.findAllAsListString());
 		return  artistService.findAllAsListString();
 	}
 	

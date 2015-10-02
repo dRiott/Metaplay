@@ -5,8 +5,6 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.thoughtriott.metaplay.data.entities.Track;
-
 public class CreateAlbumWrapper {
 
 // --------------------------Fields--------------------------	
@@ -37,7 +35,7 @@ public class CreateAlbumWrapper {
 	@Size(min = 3, max = 25)
 	private String recordLabelState;
 	
-	private List<Track> tracks;
+	private List<CreateTrackWrapper> createTrackWrappers;
 	
 
 // --------------------------Constructors--------------------------
@@ -110,13 +108,13 @@ public class CreateAlbumWrapper {
 	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-
-	public List<Track> getTracks() {
-		return tracks;
+	
+	public List<CreateTrackWrapper> getCreateTrackWrappers() {
+		return createTrackWrappers;
 	}
 
-	public void setTracks(List<Track> tracks) {
-		this.tracks = tracks;
+	public void setCreateTrackWrappers(List<CreateTrackWrapper> createTrackWrappers) {
+		this.createTrackWrappers = createTrackWrappers;
 	}
 
 	public String getRecordLabelFromList() {

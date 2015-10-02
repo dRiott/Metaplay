@@ -57,19 +57,15 @@ public class ArtistService {
 		em.clear();
 		Artist a = new Artist();
 		a.setName(name);
-		em.persist(a);
+		em.merge(a);
 		em.close();
 		return a;
 	}
 	
 	@Transactional
 	public Artist createArtist(Artist a) {
-		String name = a.getName();
-		String biography = a.getBiography();
 		em.clear();
-		em.persist(a);
-		Artist ar = findArtistByNameAndBiography(name, biography);
-		System.out.println(ar);
+		em.merge(a);
 		em.close();
 		return a;
 	}

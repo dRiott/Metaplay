@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,15 @@
 		<spring:url value="/account/login" var="thisFormURL" />
 		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
 		<form:errors path="*" element="div" cssClass="errors"/>
-		
+
+		<div class="row" id="errorWritingSpace">
+				<c:if test="${loginStatus.equals('fuckedUp')}">
+					<div class="form-group">
+						<label for="loginFailed" style="color:red;">The login failed: <c:out value="${counter}"/> times. Account/Password combination did not exist.</label> 
+					</div>
+				</c:if>
+			</div>       
+			
 			<div class="row">
 				<div class="form-group">
 					<label for="accountname">Account</label>
@@ -55,5 +64,7 @@
 	</form:form>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
+	<script src="<spring:url value="/resources/js/loginAccount.js"/>"></script>
+	
 </body>
 </html>
