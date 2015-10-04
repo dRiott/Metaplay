@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,30 +17,14 @@ public class ArtistService {
 
 	@PersistenceContext
 	private EntityManager em;
-	
-	@Autowired
-	private LocationService locationService;
-	@Autowired
-	private GenreService genreService;
-	
+
 	public ArtistService () {
 		//no-arg constructor
 	}
 	
 //------------------------------- Creates ---------------------------------------		
 	
-	@Transactional
-	public Artist createArtist(String name, int genreId, int locationId, int recordLabelId, String biography) {
-		em.clear();
-		Artist a = new Artist();
-		a.setName(name);
-		a.setBiography(biography);
-		a.setLocation(locationService.findLocationById(locationId));
-		a.setGenre(genreService.findGenreById(genreId));
-		em.persist(a);
-		em.close();
-		return a;
-	}
+
 	
 	@Transactional
 	public Artist createArtist(String name, String biography) {

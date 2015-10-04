@@ -20,11 +20,16 @@ public class Location {
 	public Location() {
 			
 	}
+	
+	public Location (String city, String state) {
+		this.city = city;
+		this.state = state;
+	}
 
 // --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@NotNull
 	@Size(min=3, max=40)
 	private String city;
@@ -47,11 +52,11 @@ public class Location {
 		this.recordLabels = recordLabels;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

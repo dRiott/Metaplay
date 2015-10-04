@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.thoughtriott.metaplay.data.repositories.AccountService;
 import com.thoughtriott.metaplay.data.repositories.AlbumService;
 import com.thoughtriott.metaplay.data.repositories.ArtistService;
-import com.thoughtriott.metaplay.data.repositories.LocationService;
+import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.PlaylistService;
 import com.thoughtriott.metaplay.data.repositories.RecordLabelService;
 import com.thoughtriott.metaplay.data.repositories.TrackService;
@@ -26,7 +26,7 @@ public class BrowseController {
 	@Autowired
 	ArtistService artistService;
 	@Autowired
-	LocationService locationService;
+	LocationRepository locationRepository;
 	@Autowired
 	PlaylistService playlistService;
 	@Autowired
@@ -82,13 +82,13 @@ public class BrowseController {
 //Locations
 	@RequestMapping("/locations")
 	public String findLocations(Model model){
-		model.addAttribute("locations", locationService.findAllAsList()); 
+		model.addAttribute("locations", locationRepository.findAll()); 
 		return "browse_locations";
 	}
 	
 	@RequestMapping(value="location/{locationId}")
 	public String findLocation(Model model, @PathVariable("locationId") int locationId) {
-		model.addAttribute("location", locationService.findLocationById(locationId));
+		model.addAttribute("location", locationRepository.getOne(locationId));
 		return "single_location";
 	}
 	

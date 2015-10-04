@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("com.thoughtriott.metaplay.data.respositories")
+@EnableJpaRepositories("com.thoughtriott.metaplay.data.repositories")
 public class SpringDataJPAConfig {
   
   @Bean

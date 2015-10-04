@@ -25,7 +25,7 @@ public class RecordLabel {
 // --------------------------Fields--------------------------	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String name;
 	private String description;
@@ -38,11 +38,11 @@ public class RecordLabel {
 	private Collection<Album> albums;
 	
 //--------------------------Getters & Setters--------------------------	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Location getLocation() {

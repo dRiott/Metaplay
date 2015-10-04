@@ -27,7 +27,7 @@ import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.repositories.AlbumService;
 import com.thoughtriott.metaplay.data.repositories.ArtistService;
 import com.thoughtriott.metaplay.data.repositories.GenreService;
-import com.thoughtriott.metaplay.data.repositories.LocationService;
+import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.MemberService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
@@ -43,7 +43,7 @@ public class ArtistController {
 	@Autowired
 	private ArtistService artistService;
 	@Autowired
-	private LocationService locationService;
+	private LocationRepository locationRepository;
 	@Autowired
 	private GenreService genreService;
 	@Autowired
@@ -82,12 +82,12 @@ public class ArtistController {
 		System.out.println("Setting/Creating a Location");
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
-		if(locationService.findLocation(city, state)!=null) {
+		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
 			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
-			futureArtist.setLocation(locationService.findLocation(city, state));
+			futureArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
 		} else {
 			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			futureArtist.setLocation(locationService.createLocation(city, state));
+			futureArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state)));
 		}
 		
 		
@@ -193,16 +193,10 @@ public class ArtistController {
 		return new CreateArtistWrapper();
 	}
 	
-	@ModelAttribute(value="locationOptions")
-	public List<String> getLocations() {
-		return locationService.findDistinctStatesToString();
-	}
-	
 	@ModelAttribute(value="genreOptions")
 	public List<String> getGenres() {
 		return  genreService.findAllAsListString();
 	}
-
 	
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {

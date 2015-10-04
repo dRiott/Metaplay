@@ -23,7 +23,7 @@ import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.entities.Track;
 import com.thoughtriott.metaplay.data.repositories.AlbumService;
 import com.thoughtriott.metaplay.data.repositories.ArtistService;
-import com.thoughtriott.metaplay.data.repositories.LocationService;
+import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.RecordLabelService;
 import com.thoughtriott.metaplay.data.repositories.TrackService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
@@ -45,7 +45,7 @@ public class AlbumController {
 	@Autowired
 	private RecordLabelService recordLabelService;
 	@Autowired
-	private LocationService locationService;
+	private LocationRepository locationRepository;
 	@Autowired
 	private TrackService trackService;
 	@Autowired
@@ -137,12 +137,12 @@ public class AlbumController {
 			futureAlbum.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
 		} else if(recordLabelName.equals("** New Record Label **")) {
 			String newRecordLabelName = caw.getTheNewRecordLabel();
-			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationService.findLocation(recordLabelCity, recordLabelState));
+			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState));
 			futureAlbum.setRecordLabel(rl);
 		}
 		
 		System.out.println("Creating the Album");
-		Album createdAlbum = albumService.createAlbum(futureAlbum);
+		albumService.createAlbum(futureAlbum);
 
 		
 		// TRYING TO ADD THE ALBUM ID TO ALL THE TRACKS I JUST ADDED
