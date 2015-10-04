@@ -1,4 +1,4 @@
-package com.thoughtriott.metaplay.data.services;
+package com.thoughtriott.metaplay.data.repositories;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,10 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thoughtriott.metaplay.data.entities.Artist;
 
+@Repository
 public class ArtistService {
 
 	@PersistenceContext

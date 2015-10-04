@@ -1,4 +1,4 @@
-package com.thoughtriott.metaplay.data.services;
+package com.thoughtriott.metaplay.data.repositories;
 
 import java.util.Iterator;
 import java.util.List;
@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Track;
 
+@Repository
 public class TrackService {
 
 	@PersistenceContext

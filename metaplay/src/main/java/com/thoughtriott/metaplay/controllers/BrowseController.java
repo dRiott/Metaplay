@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.thoughtriott.metaplay.data.services.AccountService;
-import com.thoughtriott.metaplay.data.services.AlbumService;
-import com.thoughtriott.metaplay.data.services.ArtistService;
-import com.thoughtriott.metaplay.data.services.LocationService;
-import com.thoughtriott.metaplay.data.services.PlaylistService;
-import com.thoughtriott.metaplay.data.services.RecordLabelService;
-import com.thoughtriott.metaplay.data.services.TrackService;
+import com.thoughtriott.metaplay.data.repositories.AccountService;
+import com.thoughtriott.metaplay.data.repositories.AlbumService;
+import com.thoughtriott.metaplay.data.repositories.ArtistService;
+import com.thoughtriott.metaplay.data.repositories.LocationService;
+import com.thoughtriott.metaplay.data.repositories.PlaylistService;
+import com.thoughtriott.metaplay.data.repositories.RecordLabelService;
+import com.thoughtriott.metaplay.data.repositories.TrackService;
 
 @Controller
 @RequestMapping("/browse")

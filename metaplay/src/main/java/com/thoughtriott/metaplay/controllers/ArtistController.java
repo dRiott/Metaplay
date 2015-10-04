@@ -24,11 +24,11 @@ import com.thoughtriott.metaplay.data.entities.Genre;
 import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
-import com.thoughtriott.metaplay.data.services.AlbumService;
-import com.thoughtriott.metaplay.data.services.ArtistService;
-import com.thoughtriott.metaplay.data.services.GenreService;
-import com.thoughtriott.metaplay.data.services.LocationService;
-import com.thoughtriott.metaplay.data.services.MemberService;
+import com.thoughtriott.metaplay.data.repositories.AlbumService;
+import com.thoughtriott.metaplay.data.repositories.ArtistService;
+import com.thoughtriott.metaplay.data.repositories.GenreService;
+import com.thoughtriott.metaplay.data.repositories.LocationService;
+import com.thoughtriott.metaplay.data.repositories.MemberService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 

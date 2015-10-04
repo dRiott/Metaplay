@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Playlist;
-import com.thoughtriott.metaplay.data.services.PlaylistService;
+import com.thoughtriott.metaplay.data.repositories.PlaylistService;
 
 @Controller
 @RequestMapping("/playlist")

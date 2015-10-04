@@ -19,7 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.services.AccountService;
+import com.thoughtriott.metaplay.data.repositories.AccountService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 
 @Controller

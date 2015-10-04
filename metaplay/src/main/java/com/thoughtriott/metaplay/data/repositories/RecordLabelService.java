@@ -1,4 +1,4 @@
-package com.thoughtriott.metaplay.data.services;
+package com.thoughtriott.metaplay.data.repositories;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,11 +7,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 
+@Repository
 public class RecordLabelService {
 
 	@PersistenceContext

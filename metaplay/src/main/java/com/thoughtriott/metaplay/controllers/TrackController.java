@@ -17,9 +17,9 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.services.AlbumService;
-import com.thoughtriott.metaplay.data.services.ArtistService;
-import com.thoughtriott.metaplay.data.services.TrackService;
+import com.thoughtriott.metaplay.data.repositories.AlbumService;
+import com.thoughtriott.metaplay.data.repositories.ArtistService;
+import com.thoughtriott.metaplay.data.repositories.TrackService;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
