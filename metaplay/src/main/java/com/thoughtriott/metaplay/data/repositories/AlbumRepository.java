@@ -1,21 +1,24 @@
 package com.thoughtriott.metaplay.data.repositories;
-import com.thoughtriott.metaplay.data.entities.Artist;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface ArtistRepository extends JpaRepository<Artist, Integer>, ArtistRepositoryCustom {
-	
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.thoughtriott.metaplay.data.entities.Album;
+
+@Repository
+public interface AlbumRepository extends JpaRepository<Album, Integer>, AlbumRepositoryCustom {
 	
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
-
-	Artist findArtistByName(String name);
-	Artist findArtistByNameAndBiography(String name, String biography);
+	List<Album> findAlbumByName(String name);
+	List<Album> findAlbumByNameOrderByName(String name);
 	
-	boolean findArtistByNameIsNotNull(String name);
-
+	boolean findAlbumByNameIsNotNull(String name);
+	
 }
+	
 
-
-//http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
+// http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 	// By extending JpaRepository, inherits 18 methods for performing common persistence operations
 	// Spring Data implements these for us with the @EnableJpaRepositories("com.thoughtriott.metaplay.data.respositories")
 	// This repository transitively extends Repository interface through JpaRepository... generated at application startup time
@@ -29,3 +32,4 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, Artist
 		//     - save(Iterable<S> entities) 
 		//     - flush(): Flushes all pending changes to the database.
 		//     - deleteAllInBatch() : Deletes all entites in a batch call.
+

@@ -24,11 +24,11 @@ import com.thoughtriott.metaplay.data.entities.Genre;
 import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
-import com.thoughtriott.metaplay.data.repositories.AlbumService;
-import com.thoughtriott.metaplay.data.repositories.ArtistService;
-import com.thoughtriott.metaplay.data.repositories.GenreService;
+import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.GenreRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.MemberService;
+import com.thoughtriott.metaplay.data.repositories.MemberRepository;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 
@@ -41,15 +41,15 @@ public class ArtistController {
 	private EntityManager em;
 	
 	@Autowired
-	private ArtistService artistService;
+	private ArtistRepository artistRepository;
 	@Autowired
 	private LocationRepository locationRepository;
 	@Autowired
-	private GenreService genreService;
+	private GenreRepository genreRepository;
 	@Autowired
-	private MemberService memberService;
+	private MemberRepository memberRepository;
 	@Autowired
-	private AlbumService albumService;
+	private AlbumRepository albumRepository;
 	@Autowired
 	private DateFormatter dateFormatter;
 
@@ -95,10 +95,10 @@ public class ArtistController {
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
 		caw.getNewGenreDescription();
-		if(genreName!="** New Genre **" && genreService.findGenreByName(genreName)!=null) {
-			futureArtist.setGenre(genreService.findGenreByName(genreName));
+		if(genreName!="** New Genre **" && genreRepository.findGenreByNameIsNotNull(genreName)) {
+			futureArtist.setGenre(genreRepository.findGenreByName(genreName).get(0));
 		} else if(genreName.equals("** New Genre **")) {
-			futureArtist.setGenre(genreService.createGenre(caw.getNewGenreName(),caw.getNewGenreDescription()));
+			futureArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
 		}
 		
 
@@ -114,14 +114,13 @@ public class ArtistController {
 		
 		for (String memberFullName : members) {
 			if (!memberFullName.isEmpty()) {
-				String[] nameArray = memberService.splitFullName(memberFullName);
-				Member newMember = (Member) memberService.setNameFromArray(nameArray);
+				String[] nameArray = memberRepository.splitFullName(memberFullName);
+				Member newMember = memberRepository.setNameFromArray(nameArray);
 				newMember.setStageName(caw.getMember1StageName());
-				System.out.println(newMember);
-				if(memberService.findMemberByName(newMember.getLastName())==null) {
-					futureArtist.addMember(memberService.createMember(newMember));				
+				if(memberRepository.findMemberByLastNameIsNotNull(newMember.getLastName())) {
+					futureArtist.addMember(memberRepository.findMemberByLastName(newMember.getLastName()).get(0));
 				} else {
-					futureArtist.addMember(memberService.findMemberByName(newMember.getLastName()));
+					futureArtist.addMember(memberRepository.saveAndFlush(newMember));				
 				}		
 			}
 		}
@@ -131,22 +130,22 @@ public class ArtistController {
 		
 		if (caw.getAlbumNameFromList().equals("** Do Not Add Album Now **") || caw.getAlbumNameFromList().contains("exist")) {
 			// do nothing, they don't want to add an album.
-			System.out.println("** Do Not Add Album Now ** or No Albums exist, add one!");
+			System.out.println("ArtistController: ** Do Not Add Album Now ** or No Albums exist, add one!");
 		}  else if (caw.getAlbumNameFromList().equals("** New Album **")) {
 			// they're adding a new album!
-			System.out.println("** New Album ** is about to be created...");
-			Album a = new Album();
-				a.setName(caw.getTheNewAlbumName());
-				a.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
-				a.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
-			futureArtist.addAlbum(albumService.createAlbum(a));
-		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumService.findAlbumByName(caw.getAlbumNameFromList())!=null) {
+			System.out.println("ArtistController: ** New Album ** is about to be created...");
+			Album newAlbum = new Album();
+				newAlbum.setName(caw.getTheNewAlbumName());
+				newAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
+				newAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
+			futureArtist.addAlbum(albumRepository.saveAndFlush(newAlbum));
+		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumRepository.findAlbumByNameIsNotNull(caw.getAlbumNameFromList())) {
 			//they've selected from the dropdown... add from the database to the artist.
-			System.out.println("They've selected the following artist from the dropdown: " + caw.getAlbumNameFromList());
-			futureArtist.addAlbum(albumService.findAlbumByName(caw.getAlbumNameFromList()));
+			System.out.println("ArtistController: They've selected the following artist from the dropdown: " + caw.getAlbumNameFromList());
+			futureArtist.addAlbum(albumRepository.findAlbumByName(caw.getAlbumNameFromList()).get(0));
 		}
 		
-		artistService.createArtist(futureArtist);
+		artistRepository.saveAndFlush(futureArtist);
 
 		status.setComplete();
 		return "redirect:/artist/add";
@@ -195,12 +194,12 @@ public class ArtistController {
 	
 	@ModelAttribute(value="genreOptions")
 	public List<String> getGenres() {
-		return  genreService.findAllAsListString();
+		return  genreRepository.findAllToFormattedString();
 	}
 	
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {
-		return  albumService.findAllAsListString();
+		return  albumRepository.findAllToListString();
 	}
 	
 	@ModelAttribute("stateOptions")

@@ -66,7 +66,7 @@ public class LocationController {
 		
 
 		//"states" attribute
-		Iterator<String> it = locationRepository.findAllStatesToString().iterator();
+		Iterator<String> it = locationRepository.findAllStatesToListString().iterator();
 		String states = "";
 		while(it.hasNext()) {
 			states = states + " " + it.next();

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Playlist;
-import com.thoughtriott.metaplay.data.repositories.PlaylistService;
+import com.thoughtriott.metaplay.data.repositories.PlaylistRepository;
 
 @Controller
 @RequestMapping("/playlist")
@@ -19,7 +19,7 @@ import com.thoughtriott.metaplay.data.repositories.PlaylistService;
 public class PlaylistController {
 
 	@Autowired
-	private PlaylistService playlistService;
+	private PlaylistRepository playlistRepository;
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addPlaylist(){
@@ -41,13 +41,13 @@ public class PlaylistController {
 	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
 	public String find(Model model) {
-		model.addAttribute("playlists", playlistService.findAllAsList());
+		model.addAttribute("playlists", playlistRepository.findAll());
 		return "playlists";
 	}
 	
 	@RequestMapping(value="/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
-		model.addAttribute("playlist", playlistService.findPlaylistById(playlistId));
+		model.addAttribute("playlist", playlistRepository.getOne(playlistId));
 		return "single_playlist";
 	}
 

@@ -19,7 +19,12 @@ public class Genre {
 				
 	}	
 	
-// --------------------------Fields--------------------------
+	public Genre(String newGenreName, String newGenreDescription) {
+		this.name = newGenreName;
+		this.description = newGenreDescription;
+	}
+
+	// --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

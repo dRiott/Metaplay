@@ -20,7 +20,23 @@ public class Member {
 	
 	}
 
-// --------------------------Fields--------------------------
+	public Member(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public Member(String lastName, String firstName) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+	}
+	
+	public Member(String lastName, String firstName, String middleName) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.middleName = middleName;
+	}
+	
+
+	// --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -89,6 +105,8 @@ public class Member {
 		this.stageName = stageName;
 	}
 
+	
+	
 // --------------------------Collection Adders and Removers--------------------------	
 
 		//adds a Artist to Collection<Artist>

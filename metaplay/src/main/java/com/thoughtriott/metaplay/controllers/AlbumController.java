@@ -1,11 +1,11 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -21,11 +21,11 @@ import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.repositories.AlbumService;
-import com.thoughtriott.metaplay.data.repositories.ArtistService;
+import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.RecordLabelService;
-import com.thoughtriott.metaplay.data.repositories.TrackService;
+import com.thoughtriott.metaplay.data.repositories.RecordLabelRepository;
+import com.thoughtriott.metaplay.data.repositories.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
@@ -35,19 +35,16 @@ import com.thoughtriott.metaplay.utilities.DateFormatter;
 @SessionAttributes("createAlbumWrapper")
 public class AlbumController {
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	@Autowired
-	private AlbumService albumService;
+	private AlbumRepository albumRepository;
 	@Autowired
-	private ArtistService artistService;
+	private ArtistRepository artistRepository;
 	@Autowired
-	private RecordLabelService recordLabelService;
+	private RecordLabelRepository recordLabelRepository;
 	@Autowired
 	private LocationRepository locationRepository;
 	@Autowired
-	private TrackService trackService;
+	private TrackRepository trackRepository;
 	@Autowired
 	private DateFormatter dateFormatter;
 	
@@ -58,7 +55,7 @@ public class AlbumController {
 	
 	@RequestMapping("/review")
 	public String review(HttpSession session, @Valid @ModelAttribute CreateAlbumWrapper createAlbumWrapper, Errors errors) {
-		System.out.println("Invoking review() in AlbumController");
+		System.out.println("AlbumController: invoking review() ");
 		if(errors.hasErrors()) {
 			return "album_add";
 		}
@@ -68,11 +65,12 @@ public class AlbumController {
 	
 	@RequestMapping("/save")
 	public String saveAlbum(HttpSession session, SessionStatus status) {
-		System.out.println("\n ************************************ \nInvoking the saveAlbum() from AlbumController.");
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BEGIN ALBUM PERSISTENCE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		System.out.println("\n ************************************ \nAlbumController: invoking saveAlbum()");
 		Album futureAlbum = new Album();
 		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
 
-		System.out.println("Album name: " + caw.getName());
+		System.out.println("AlbumController: setName() - \"" + caw.getName() + "\"");
 		futureAlbum.setName(caw.getName());
 		
 		int seconds = caw.getLengthSeconds();
@@ -81,6 +79,10 @@ public class AlbumController {
 
 		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
 		futureAlbum.setReleaseDate(albumReleaseDate);
+		
+		
+		// ****************** BEGIN TRACK PERSISTENCE ******************
+		Map<Integer, String> tracksMap = new HashMap<Integer, String>();
 		
 		List<CreateTrackWrapper> createTrackWrappers = caw.getCreateTrackWrappers();
 		Iterator<CreateTrackWrapper> it = createTrackWrappers.iterator();
@@ -94,68 +96,74 @@ public class AlbumController {
 					newTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
 				}
 				counter++;
-				System.out.println("About to setTrackNumber: " + counter);
+				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to setTrackNumber: " + counter);
 				newTrack.setTrackNumber(counter);
 				newTrack.setName(ctw.getName());
 				newTrack.setBpm(ctw.getBpm());
-				System.out.println("**** Hey, I've got this Track: " + newTrack.toString());
+				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) -  **** Hey, I've got this Track: " + newTrack.toString());
 				
-				System.out.println("About to add the track to the album...");
-				if (trackService.findTrack(ctw.getName()) != null) {
-					System.out.println("Found the track already in the DB: " + ctw.getName());
-					futureAlbum.addTrack(trackService.findTrack(ctw.getName()));
+				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to add the track to the album...");
+				if (trackRepository.findTrackByNameIsNotNull(ctw.getName())) {
+					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - Found the track already in the DB: " + ctw.getName());
+					futureAlbum.addTrack(trackRepository.findTrackByName(ctw.getName()).get(0));
 				} else {
-					System.out.println("No track found in the DB. Creating one...");
-					futureAlbum.addTrack(trackService.createTrack(newTrack));
+					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - No track found in the DB. Creating one...");
+					futureAlbum.addTrack(trackRepository.saveAndFlush(newTrack));
 				}
-				System.out.println("******** Done with this Track: " + newTrack.getName() + " ********" );
+				
+				//adding Tracks to Map<Integer, String> tracksMap
+				tracksMap.put(newTrack.getLength(), newTrack.getName());
+				
+				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - ******** Done with this Track: " + newTrack.getName() + " ********" );
 			}
 		}
-		
 		System.out.println("Total tracks: " + counter);
 		futureAlbum.setNumTracks(counter);
+		// ****************** END TRACK PERSISTENCE ******************	
 		
-		//		Setting/Creating an Album
-		System.out.println("Setting/Creating an Artist");
-		if(caw.getArtistFromList()!="** New Artist **" && artistService.findArtistByName(caw.getArtistFromList())!=null) {
-			System.out.println("Found the artist already in the DB: " + caw.getArtistFromList());
-			futureAlbum.setArtist(artistService.findArtistByName(caw.getArtistFromList()));
+		// ****************** BEGIN ARTIST PERSISTENCE ******************	
+		System.out.println("AlbumController: Setting/Creating an Artist");
+		if(caw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByNameIsNotNull(caw.getArtistFromList())) {
+			System.out.println("AlbumController: setting Artist - Found the artist already in the DB: " + caw.getArtistFromList());
+			futureAlbum.setArtist(artistRepository.findArtistByName(caw.getArtistFromList()));
 		} else {
 			//Creating a new Artist...
 			Artist a = new Artist();
 			a.setName(caw.getTheNewArtist());
-			System.out.println("Artist didn't exist in the DB. A new one is about to be created: " + a.toString());
-			futureAlbum.setArtist(artistService.createArtist(a));
+			System.out.println("AlbumController: setting Artist -  Artist didn't exist in the DB. A new one is about to be created: " + a.toString());
+			futureAlbum.setArtist(artistRepository.saveAndFlush(a));
 		}
+		// ****************** END ARTIST PERSISTENCE ******************
 		
-		// 		Setting/Creating a Record Label
-		System.out.println("Setting/Creating a Record Label");
+		// ****************** BEGIN RECORD LABEL PERSISTENCE ******************
+		System.out.println("AlbumController: Setting/Creating a Record Label");
 		String recordLabelName = caw.getRecordLabelFromList();
 		String recordLabelCity = caw.getRecordLabelCity();
 		String recordLabelState = caw.getRecordLabelState();
-		if(recordLabelName!="** New Record Label **" && recordLabelService.findRecordLabelByName(recordLabelName)!=null ) {
-			futureAlbum.setRecordLabel(recordLabelService.findRecordLabelByName(recordLabelName));
+		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByNameIsNotNull(recordLabelName)) {
+			futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 		} else if(recordLabelName.equals("** New Record Label **")) {
 			String newRecordLabelName = caw.getTheNewRecordLabel();
-			RecordLabel rl = (RecordLabel) recordLabelService.createRecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState));
+			RecordLabel rl = (RecordLabel) recordLabelRepository.saveAndFlush(new RecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)));
 			futureAlbum.setRecordLabel(rl);
 		}
+		// ****************** END RECORD LABEL PERSISTENCE ******************
 		
-		System.out.println("Creating the Album");
-		albumService.createAlbum(futureAlbum);
+		System.out.println("AlbumController: final step - Creating the Album");
+		Album persistedAlbum = albumRepository.saveAndFlush(futureAlbum);
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ END ALBUM PERSISTENCE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
 
-		
-		// TRYING TO ADD THE ALBUM ID TO ALL THE TRACKS I JUST ADDED
-//		int album_id = createdAlbum.getId();
-//		
-//		List<CreateTrackWrapper> createTrackWrappers2 = caw.getCreateTrackWrappers();
-//		Iterator<CreateTrackWrapper> it2 = createTrackWrappers.iterator();
-//		while(it2.hasNext()) {
-//			CreateTrackWrapper ctw = it2.next();
-//			if(!ctw.getName().isEmpty()){
-//				Track t = trackService.findTrackByName(ctw.getName());
-//				t.setAlbumId(album_id);
-//			}
+		// ****************** BEGIN TRACK SET ALBUM TO NEW ALBUM ******************
+		Iterator<Map.Entry<Integer, String>> trackEntries = tracksMap.entrySet().iterator();
+		while (trackEntries.hasNext()) {
+		    Map.Entry<Integer, String> trackEntry = trackEntries.next();
+		    Track trackToUpdate = trackRepository.findTrackByNameAndLength(trackEntry.getValue(), trackEntry.getKey()).get(0);
+		    trackToUpdate.setAlbum(persistedAlbum);
+		    trackRepository.saveAndFlush(trackToUpdate);
+		}
+		// ****************** END TRACK SET ALBUM TO NEW ALBUM ******************
+
 		status.setComplete();
 		return "redirect:/album/add";
 	}
@@ -174,14 +182,13 @@ public class AlbumController {
 	
 	@ModelAttribute(value="artistOptions")
 	public List<String> getArtists() {
-		System.out.println("Adding artistOptions to the model.. :" + artistService.findAllAsListString());
-		return  artistService.findAllAsListString();
+		return  artistRepository.findAllToListString();
 	}
 	
 	
 	@ModelAttribute(value="recordLabelOptions")
 	public List<String> getRecordLabels() {
-		return  recordLabelService.findAllAsListString();
+		return  recordLabelRepository.findAllAsListString();
 	}
 	
 }

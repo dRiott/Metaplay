@@ -1,18 +1,21 @@
 package com.thoughtriott.metaplay.data.repositories;
-import com.thoughtriott.metaplay.data.entities.Artist;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ArtistRepository extends JpaRepository<Artist, Integer>, ArtistRepositoryCustom {
-	
-	
+import com.thoughtriott.metaplay.data.entities.Account;
+
+public interface AccountRepository extends JpaRepository<Account, Integer>, AccountRepositoryCustom {
+
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
-
-	Artist findArtistByName(String name);
-	Artist findArtistByNameAndBiography(String name, String biography);
 	
-	boolean findArtistByNameIsNotNull(String name);
-
+	List<Account> findAccountByAccountname(String accountname);
+	boolean findAccountByAccountnameIsNotNull(String accountname);
+	
+	
 }
+
 
 
 //http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
@@ -29,3 +32,4 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, Artist
 		//     - save(Iterable<S> entities) 
 		//     - flush(): Flushes all pending changes to the database.
 		//     - deleteAllInBatch() : Deletes all entites in a batch call.
+

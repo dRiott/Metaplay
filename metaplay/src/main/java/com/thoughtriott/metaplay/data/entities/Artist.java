@@ -27,8 +27,11 @@ public class Artist {
 					
 	}
 
+	public Artist(String artistName) {
+		this.name = artistName;
+	}
 
-// --------------------------Fields--------------------------	
+	// --------------------------Fields--------------------------	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

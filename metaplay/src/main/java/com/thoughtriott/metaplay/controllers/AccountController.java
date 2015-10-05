@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,105 +20,107 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.repositories.AccountService;
-import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
+import com.thoughtriott.metaplay.data.repositories.AccountRepository;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes(value={"createAccountWrapper, loginStatus, counter"})
+@SessionAttributes(value = { "createAccountWrapper, loginStatus, counter" })
 public class AccountController {
-	
-	@Autowired
-	private AccountService accountService;
 
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public String addAccount(){
-		System.out.println("Adding a new CreateAccountWrapper to the model with the @ModelAttribute annotation");
+	@Autowired
+	AccountRepository accountRepository;
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String addAccount() {
+		System.out.println(
+				"AccountController: addAccount() - Adding a new Account to the model with the @ModelAttribute annotation");
 		return "account_add";
 	}
-	
+
 	@RequestMapping("/review")
-	public String review(HttpSession session, @Valid @ModelAttribute CreateAccountWrapper createAccountWrapper, Errors errors) {
-		System.out.println("Invoking review() in AccountController");
-		if(errors.hasErrors()) {
+	public String review(HttpSession session, @Valid @ModelAttribute Account account, Errors errors) {
+		System.out.println("AccountController: review() - invoked");
+		if (errors.hasErrors()) {
 			return "account_add";
 		}
-		session.setAttribute("createAccountWrapper", createAccountWrapper);
+		session.setAttribute("account", account);
 		return "account_review";
 	}
 
-	@RequestMapping(value="/save")
-	public String saveAccount(SessionStatus status, HttpSession session, Model model){
-		System.out.println("invoking saveAcount");
-		CreateAccountWrapper caw = (CreateAccountWrapper) session.getAttribute("createAccountWrapper");
-		Account newAccount = accountService.createAccount(caw);
-		model.addAttribute(newAccount.getAccountname());
+	@RequestMapping(value = "/save")
+	public String saveAccount(SessionStatus status, HttpSession session, Model model) {
+		System.out.println("AccountController: saveAccount() - invoking saveAcount");
+		Account newAccount = (Account) session.getAttribute("account");
+		newAccount.setRegistrationDate(new Date());
+		Account savedAccount = accountRepository.saveAndFlush(newAccount);
+		model.addAttribute("accountId", savedAccount.getId());
 		status.setComplete();
-		//avoiding dangerous string concatenation... SQL injections could have occurred.
-		return "redirect:account/{accountname}";
+		// avoiding dangerous string concatenation... SQL injections could have
+		// occurred.
+		return "redirect:/account/{accountId}";
 	}
-	
-	@RequestMapping(value="/{accountName}")
-	public String showProfile(@PathVariable String accountName, Model model) {
-		Account account = accountService.findAccountByAccountname(accountName);
+
+	@RequestMapping(value = "/{accountId}")
+	public String showProfile(@PathVariable Integer accountId, Model model) {
+		Account account = accountRepository.getOne(accountId);
 		List<Role> rolesList = account.getRoles();
 		model.addAttribute("roles", rolesList);
 		model.addAttribute(account);
 		return "account_profile";
 	}
-	
+
 	// LOGIN STUFF BEGINS HERE
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String getLoginPage(HttpSession session){
-		if(session.getAttribute("loginStatus")==null) {
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String getLoginPage(HttpSession session) {
+		if (session.getAttribute("loginStatus") == null) {
 			int counter = 0;
 			session.setAttribute("counter", counter);
 		}
-		System.out.println(session.getAttribute("loginStatus"));
+		System.out.println("AccountController: getLoginPage() - SessionAttribute \"loginStatus\": "
+				+ session.getAttribute("loginStatus"));
 		return "account_login";
 	}
-	
+
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String performLogin(@ModelAttribute Account account, HttpSession session, WebRequest request, SessionStatus status){
-		System.out.println(account.getAccountname());
-		System.out.println(account.getPassword());
-		if(accountService.authenticate(account)) {
-			status.setComplete();
-			request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
-			String loginStatus = (String) session.getAttribute("loginStatus");
-			session.setAttribute("loginStatus", loginStatus);
-			System.out.println(session.getAttribute("loginStatus"));
-			return "redirect:/account/" + account.getAccountname();
-		} else {
-			System.out.println("login failed...");
-			int counter = (int) session.getAttribute("counter");
-			if(counter >= 3) {
-				return "redirect:404";
-			}
-			counter++;
-			System.out.println(counter);
-			String loginStatus = "fuckedUp";
-			session.setAttribute("loginStatus", loginStatus);
-			session.setAttribute("counter", counter);
-			System.out.println("Counter in session: " + session.getAttribute("counter"));
-			return "redirect:login";
-		}
-	}	
-	
-	//Logout
+	public String performLogin(@ModelAttribute Account accountToLogin, HttpSession session, WebRequest request, SessionStatus status, Model model){
+		String loginAccountname =  accountToLogin.getAccountname();
+		String loginPassword = accountToLogin.getPassword();
+		System.out.println("AccountController: performLogin() - Accountname: " + loginAccountname);
+		System.out.println("AccountController: performLogin() - Password: " + loginPassword);
+		if(accountRepository.findAccountByAccountname(loginAccountname).get(0)!=null) {
+			Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
+			String dbAccountPassword = dbAccount.getPassword();
+			if(loginPassword.equals(dbAccountPassword)) {
+				status.setComplete();
+				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
+				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
+				model.addAttribute("accountId", dbAccount.getId());
+				return "redirect:/account/{accountId}";
+			} else {
+				System.out.println("AccountController: performLogin() - login failed...");
+				int counter = (int) session.getAttribute("counter");
+				if(counter >= 3) 
+					return "404";
+				counter++;
+				System.out.println(counter);
+				String loginStatus = "fuckedUp";
+				session.setAttribute("loginStatus", loginStatus);
+				session.setAttribute("counter", counter);
+				System.out.println("Counter in session: " + session.getAttribute("counter"));
+				return "redirect:login";
+			} 	
+		} else return "redirect:login";
+	}
+
+	// Logout
 	@RequestMapping("/byebye")
-	public String findGroupMembers(){
+	public String findGroupMembers() {
 		return "404";
 	}
-	
-	@ModelAttribute("createAccountWrapper")
-	public CreateAccountWrapper getCreateAccountWrapper() {
-		return new CreateAccountWrapper();
-	}
-	
+
 	@ModelAttribute("account")
 	public Account getAccount() {
 		return new Account();
 	}
-	
+
 }

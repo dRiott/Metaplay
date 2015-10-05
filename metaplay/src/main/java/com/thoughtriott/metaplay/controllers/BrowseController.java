@@ -7,75 +7,78 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.thoughtriott.metaplay.data.repositories.AccountService;
-import com.thoughtriott.metaplay.data.repositories.AlbumService;
-import com.thoughtriott.metaplay.data.repositories.ArtistService;
+import com.thoughtriott.metaplay.data.repositories.AccountRepository;
+import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.PlaylistService;
-import com.thoughtriott.metaplay.data.repositories.RecordLabelService;
-import com.thoughtriott.metaplay.data.repositories.TrackService;
+import com.thoughtriott.metaplay.data.repositories.PlaylistRepository;
+import com.thoughtriott.metaplay.data.repositories.RecordLabelRepository;
+import com.thoughtriott.metaplay.data.repositories.TrackRepository;
 
 @Controller
 @RequestMapping("/browse")
 public class BrowseController {
 	
+//	@Autowired
+//	AccountService accountService;
 	@Autowired
-	AccountService accountService;
+	private AccountRepository accountRepository;
 	@Autowired
-	AlbumService albumService;
+	private AlbumRepository albumRepository;
 	@Autowired
-	ArtistService artistService;
+	private ArtistRepository artistRepository;
 	@Autowired
-	LocationRepository locationRepository;
+	private LocationRepository locationRepository;
 	@Autowired
-	PlaylistService playlistService;
+	private PlaylistRepository playlistRepository;
 	@Autowired
-	RecordLabelService recordLabelService;
+	private RecordLabelRepository recordLabelRepository;
 	@Autowired
-	TrackService trackService;
-	
-	public BrowseController(AlbumService albumService) {
-		this.albumService = albumService;
-	}
+	private TrackRepository trackRepository;
 	
 	public BrowseController() {
 	}
 	
-//Accounts
+	//for testing purposes.. see metaplay.testControllers.BrowseControllerTest
+	public BrowseController(AlbumRepository albumRepository) {
+		this.albumRepository = albumRepository;
+	}
+
+	//Accounts
 	@RequestMapping(value="/accounts", method=RequestMethod.GET)
 	public String findAccounts(Model model){
-		model.addAttribute("accounts", accountService.findAllAsList());
+		model.addAttribute("accounts", accountRepository.findAll());
 		return "browse_accounts";
 	}
 	@RequestMapping(value="account/{accountId}")
 	public String findAccount(Model model, @PathVariable("accountId") int accountId) {
-		model.addAttribute("account", accountService.findAccountById(accountId));
+		model.addAttribute("account", accountRepository.getOne(accountId));
 		return "single_account";
 	}
 	
 //Albums
 	@RequestMapping(value="/albums", method=RequestMethod.GET)
 	public String findAlbums(Model model){
-		model.addAttribute("albums", albumService.findAllAsList());
+		model.addAttribute("albums", albumRepository.findAll());
 		return "browse_albums";
 	}
 	
 	@RequestMapping(value="album/{albumId}")
 	public String findAlbum(Model model, @PathVariable("albumId") int albumId) {
-		model.addAttribute("album", albumService.findAlbumById(albumId));
+		model.addAttribute("album", albumRepository.getOne(albumId));
 		return "single_album";
 	}
 	
 //Artists
 	@RequestMapping(value="/artists", method=RequestMethod.GET)
 	public String findArtists(Model model){
-		model.addAttribute("artists", artistService.findAllAsList());
+		model.addAttribute("artists", artistRepository.findAll());
 		return "browse_artists";
 	}
 	
 	@RequestMapping(value="artist/{artistId}")
 	public String findArtist(Model model, @PathVariable("artistId") int artistId) {
-		model.addAttribute("artist", artistService.findArtistById(artistId));
+		model.addAttribute("artist", artistRepository.getOne(artistId));
 		return "single_artist";
 	}
 	
@@ -95,39 +98,39 @@ public class BrowseController {
 //Playlists
 	@RequestMapping(value="/playlists", method=RequestMethod.GET)
 	public String findPlaylists(Model model){
-		model.addAttribute("playlists", playlistService.findAllAsList());
+		model.addAttribute("playlists", playlistRepository.findAll());
 		return "browse_playlists";
 	}
 	
 	@RequestMapping(value="playlist/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
-		model.addAttribute("playlist", playlistService.findPlaylistById(playlistId));
+		model.addAttribute("playlist", playlistRepository.getOne(playlistId));
 		return "single_playlist";
 	}
 	
 //RecordLabels
 	@RequestMapping("/recordlabels")
 	public String findRecordLabels(Model model){
-		model.addAttribute("recordlabels", recordLabelService.findAllAsList()); 
+		model.addAttribute("recordlabels", recordLabelRepository.findAll()); 
 		return "browse_recordlabels";
 	}
 	
 	@RequestMapping(value="recordlabel/{recordlabelId}")
 	public String findRecordLabel(Model model, @PathVariable("recordlabelId") int recordlabelId) {
-		model.addAttribute("recordlabel", recordLabelService.findRecordLabelById(recordlabelId));
+		model.addAttribute("recordlabel", recordLabelRepository.getOne(recordlabelId));
 		return "single_recordlabel";
 	}
 	
 //Tracks
 	@RequestMapping(value="/tracks", method=RequestMethod.GET)
 	public String findTracks(Model model){
-		model.addAttribute("tracks", trackService.findAllAsList());
+		model.addAttribute("tracks", trackRepository.findAll());
 		return "browse_tracks";
 	}
 	
 	@RequestMapping(value="track/{trackId}")
 	public String findTrack(Model model, @PathVariable("trackId") int trackId) {
-		model.addAttribute("track", trackService.findTrackById(trackId));
+		model.addAttribute("track", trackRepository.getOne(trackId));
 		return "single_track";
 	}
 }

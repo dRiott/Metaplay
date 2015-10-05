@@ -22,7 +22,12 @@ public class RecordLabel {
 				
 	}
 
-// --------------------------Fields--------------------------	
+	public RecordLabel(String recordLabelName, Location location) {
+		this.name = recordLabelName;
+		this.location = location;
+	}
+
+	// --------------------------Fields--------------------------	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

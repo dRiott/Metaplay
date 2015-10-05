@@ -9,10 +9,10 @@ import com.thoughtriott.metaplay.data.entities.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer>, LocationRepositoryCustom {
 
+	//this is where you write Spring Data Queries to be read and interpreted by Spring
+
 	List<Location> findLocationByStateOrderByState(String state);
 	Location findLocationByCityAndState(String city, String state);
-	List<String> findDistinctLocationByStateOrderByCity(String state);
-	
 }
 	
 

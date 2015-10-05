@@ -1,21 +1,26 @@
 package com.thoughtriott.metaplay.data.repositories;
-import com.thoughtriott.metaplay.data.entities.Artist;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ArtistRepository extends JpaRepository<Artist, Integer>, ArtistRepositoryCustom {
-	
-	
+import com.thoughtriott.metaplay.data.entities.Member;
+
+@Repository
+public interface MemberRepository extends JpaRepository<Member, Integer>, MemberRepositoryCustom {
+
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
-
-	Artist findArtistByName(String name);
-	Artist findArtistByNameAndBiography(String name, String biography);
+	List<Member> findMemberByLastName(String lastName);
+	List<Member> findMemberByLastNameAndFirstName(String lastName,String firstName);
+	List<Member> findMemberByLastNameAndFirstNameAndMiddleName(String lastName, String firstName, String middleName);
 	
-	boolean findArtistByNameIsNotNull(String name);
-
+	boolean findMemberByLastNameIsNotNull(String lastName);
+	boolean findMemberByLastNameAndFirstNameIsNotNull(String lastName, String firstName);
+	boolean findMemberByLastNameAndFirstNameAndMiddleNameIsNotNull(String lastName, String firstName, String middleName);
 }
+	
 
-
-//http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
+// http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 	// By extending JpaRepository, inherits 18 methods for performing common persistence operations
 	// Spring Data implements these for us with the @EnableJpaRepositories("com.thoughtriott.metaplay.data.respositories")
 	// This repository transitively extends Repository interface through JpaRepository... generated at application startup time
@@ -29,3 +34,4 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, Artist
 		//     - save(Iterable<S> entities) 
 		//     - flush(): Flushes all pending changes to the database.
 		//     - deleteAllInBatch() : Deletes all entites in a batch call.
+
