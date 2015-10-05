@@ -34,9 +34,6 @@
 				<label for="project-name">Genre</label> <span>${artist.genre}</span>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Record Label</label> <span>${artist.recordlabel}</span>
-			</div>
-			<div class="form-group">
 				<label for="project-name">Location</label> <span>${artist.location}</span>
 			</div>
 			<div class="form-group">

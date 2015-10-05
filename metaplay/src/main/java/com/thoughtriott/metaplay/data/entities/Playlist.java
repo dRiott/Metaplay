@@ -26,7 +26,7 @@ public class Playlist {
 // --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
 	private Collection<Playlist_Track> playlistTracks;
@@ -44,11 +44,11 @@ public class Playlist {
 	private String description;
 
 //--------------------------Getters & Setters--------------------------
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

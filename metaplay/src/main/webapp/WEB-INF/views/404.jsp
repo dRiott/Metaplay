@@ -15,7 +15,7 @@
 </head>
 <body>
 	
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>			
+	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 
 	<div class="container">
 	<h1>This page does not exist yet!</h1>

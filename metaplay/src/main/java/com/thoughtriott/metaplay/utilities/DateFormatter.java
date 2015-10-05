@@ -3,6 +3,9 @@ package com.thoughtriott.metaplay.utilities;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DateFormatter {
 
 	

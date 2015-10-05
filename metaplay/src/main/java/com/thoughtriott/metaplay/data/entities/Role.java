@@ -22,7 +22,7 @@ public class Role {
 // --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@ManyToMany(mappedBy = "roles")
 	private Collection<Account> accounts;
@@ -31,11 +31,11 @@ public class Role {
 	private String description;
 
 //--------------------------Getters & Setters--------------------------
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -29,7 +29,7 @@
 			<h1>W3lcome to the Fr0nt Page</h1>
  			 <button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
  			 style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
- 			 position:absolute; top: 150px; left: 220px; width: 18em; height: 12em; font-size: 30px;">PermaRave</button>
+ 			 position:absolute; top: 150px; left: 220px; width: 15em; height: 9em; font-size: 30px;">PermaRave</button>
  			 
  			 <button type="button" id="noMoreParty" class="btn btn-primary btn-lg"
  			 style="position:absolute; top: 500px; left: 450px; 

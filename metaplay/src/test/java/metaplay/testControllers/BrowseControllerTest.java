@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.thoughtriott.metaplay.controllers.BrowseController;
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.services.AlbumService;
+import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
 
 public class BrowseControllerTest {
 
@@ -29,10 +29,10 @@ public class BrowseControllerTest {
 	@Test
 	public void testViewSingleAlbum() throws Exception {
 		Album expectedAlbum = new Album("Donuts", "J Dilla's last official release.", new Artist(), 7, new Date(), 70);
-		AlbumService albumService = mock(AlbumService.class);
-		when(albumService.findAlbumById(12345)).thenReturn(expectedAlbum);
+		AlbumRepository albumRepository = mock(AlbumRepository.class);
+		when(albumRepository.getOne(12345)).thenReturn(expectedAlbum);
 
-		BrowseController controller = new BrowseController(albumService);
+		BrowseController controller = new BrowseController(albumRepository);
 		MockMvc mockMvc = standaloneSetup(controller).build();
 
 		mockMvc.perform(get("/browse/album/12345")).andExpect(view().name("single_album"))

@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,18 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.services.LocationService;
+import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 
 @Controller
 @RequestMapping("/location")
 public class LocationController {
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	@Autowired
-	private LocationService locationService;
-	
+	private LocationRepository locationRepository;
+
 	@RequestMapping("/add")
 	public String addLocation(Model model){
 		return "location_add";
@@ -51,7 +46,7 @@ public class LocationController {
 	public String saveLocation(HttpSession session, SessionStatus status){
 		System.out.println("invoking saveLocation");
 		Location l = (Location) session.getAttribute("location");
-		locationService.createLocation(l.getCity(), l.getState());
+		locationRepository.saveAndFlush(l);
 		status.setComplete();
 		return "redirect:/location/add";
 	}
@@ -59,16 +54,19 @@ public class LocationController {
 	@RequestMapping("/find")
 	public String findLocation(Model model){
 		
-		//"denver" attribute
-		Location portland = locationService.findLocation("Portland", "Oregon");
+		//"portland" attribute
+		Location portland = locationRepository.findLocationByCityAndState("Portland", "Oregon");
 		model.addAttribute("currentLocation", portland);
 
 		//"all" attribute
-		String all = locationService.findAllAsString();
+		String all = locationRepository.findAllToFormattedString();
 		model.addAttribute("all", all);
+		
+		//test attribute
+		
 
 		//"states" attribute
-		Iterator<String> it = locationService.findDistinctStatesToString().iterator();
+		Iterator<String> it = locationRepository.findAllStatesToListString().iterator();
 		String states = "";
 		while(it.hasNext()) {
 			states = states + " " + it.next();

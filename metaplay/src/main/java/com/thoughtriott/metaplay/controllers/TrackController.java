@@ -2,8 +2,6 @@ package com.thoughtriott.metaplay.controllers;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,10 +14,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Album;
+import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.services.AlbumService;
-import com.thoughtriott.metaplay.data.services.ArtistService;
-import com.thoughtriott.metaplay.data.services.TrackService;
+import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
@@ -27,15 +26,12 @@ import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 @SessionAttributes("createTrackWrapper")
 public class TrackController {
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	@Autowired
-	private AlbumService albumService;
+	private AlbumRepository albumRepository;
 	@Autowired
-	private ArtistService artistService;
+	private ArtistRepository artistRepository;
 	@Autowired
-	private TrackService trackService;
+	private TrackRepository trackRepository;
 
 	@RequestMapping("/add")
 	public String addTrack() {
@@ -75,22 +71,22 @@ public class TrackController {
 		
 		System.out.println("Setting/Creating an Album");
 		
-		if(ctw.getAlbumFromList()!="** New Album **" && albumService.findAlbumByName(ctw.getAlbumFromList())!=null) {
-			futureTrack.setAlbum(albumService.findAlbumByName(ctw.getAlbumFromList()));
+		if(ctw.getAlbumFromList()!="** New Album **" && albumRepository.findAlbumByNameIsNotNull(ctw.getAlbumFromList())) {
+			futureTrack.setAlbum(albumRepository.findAlbumByName(ctw.getAlbumFromList()).get(0));
 		} else {
-				Album a = new Album();
-				a.setName(ctw.getTheNewAlbum());
+				Album newAlbum = new Album();
+				newAlbum.setName(ctw.getTheNewAlbum());
 				//to create a new album, an artist isn't necessary... but if it does exist, add the artist to the album.
-				if(ctw.getArtistFromList()!="** New Artist **" && artistService.findArtistByName(ctw.getArtistFromList())!=null) {
-					a.setArtist(artistService.findArtistByName(ctw.getArtistFromList()));
+				if(ctw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByNameIsNotNull(ctw.getArtistFromList())) {
+					newAlbum.setArtist(artistRepository.findArtistByName(ctw.getArtistFromList()));
 				} else if(ctw.getArtistFromList().equals("** New Artist **")) {
-					a.setArtist(artistService.createArtist(ctw.getTheNewArtist()));
+					newAlbum.setArtist(artistRepository.saveAndFlush(new Artist(ctw.getTheNewArtist())));
 				}
-				futureTrack.setAlbum(albumService.createAlbum(a));
+				futureTrack.setAlbum(albumRepository.saveAndFlush(newAlbum));
 		}
 		
 		System.out.println("Creating the Track");
-		trackService.createTrack(futureTrack);
+		trackRepository.saveAndFlush(futureTrack);
 		status.setComplete();
 		return "redirect:/track/add";
 	}
@@ -118,12 +114,12 @@ public class TrackController {
 	
 	@ModelAttribute(value="artistOptions")
 	public List<String> getArtists() {
-		return  artistService.findAllAsListString();
+		return  artistRepository.findAllToListString();
 	}
 	
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {
-		return  albumService.findAllAsListString();
+		return  albumRepository.findAllToListString();
 	}
 
 }

@@ -2,6 +2,7 @@ package com.thoughtriott.metaplay.data.entities;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,11 +27,14 @@ public class Artist {
 					
 	}
 
+	public Artist(String artistName) {
+		this.name = artistName;
+	}
 
-// --------------------------Fields--------------------------	
+	// --------------------------Fields--------------------------	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "genre_id", nullable=false)
@@ -45,10 +49,10 @@ public class Artist {
 	@JoinTable(name="artist_member", 
 		joinColumns = @JoinColumn(name = "artist_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "member_id", referencedColumnName="id"))
-	private LinkedList<Member> members = new LinkedList<Member>();
+	private List<Member> members = new LinkedList<Member>();
 	
 	@OneToMany(mappedBy="artist", cascade = CascadeType.PERSIST)
-	private LinkedList<Album> albums = new LinkedList<Album>();
+	private List<Album> albums = new LinkedList<Album>();
 	
 	private String name;
 	
@@ -59,11 +63,11 @@ public class Artist {
 	private String artistImage;
 	
 //--------------------------Getters & Setters--------------------------	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -83,19 +87,19 @@ public class Artist {
 		this.location = location;
 	}
 
-	public LinkedList<Member> getMembers() {
+	public List<Member> getMembers() {
 		return members;
 	}
 
-	public void setMembers(LinkedList<Member> members) {
+	public void setMembers(List<Member> members) {
 		this.members = members;
 	}
 	
-	public LinkedList<Album> getAlbums() {
+	public List<Album> getAlbums() {
 		return albums;
 	}
 
-	public void setAlbums(LinkedList<Album> albums) {
+	public void setAlbums(List<Album> albums) {
 		this.albums = albums;
 	}
 
