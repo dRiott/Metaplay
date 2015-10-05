@@ -3,17 +3,11 @@ package com.thoughtriott.metaplay.data.repositories;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 
 public class AccountRepositoryImpl implements AccountRepositoryCustom {
-
-	@PersistenceContext
-	private EntityManager em;
 	
 	@Autowired
 	private AccountRepository accountRepository;

@@ -19,7 +19,6 @@
 
 </head>
 <body>
-
 	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 	<div class="container"  id="1">
 		<h2>Want to make Friendship?</h2>
@@ -70,6 +69,5 @@
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	<script src="<spring:url value="/resources/js/validateAccount.js"/>"></script>
-	
 </body>
 </html>
