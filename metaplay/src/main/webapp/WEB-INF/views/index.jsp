@@ -9,7 +9,7 @@
 
  	<link rel="stylesheet" href="<spring:url value="/resources/css/reset.css"/>" type="text/css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<spring:url value="/resources/css/welcome.css"/>" type="text/css" />
+	<link rel="stylesheet" href="<spring:url value="/resources/css/index.css"/>" type="text/css" />
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script>
@@ -44,10 +44,10 @@
 	
 	var permaRave = document.getElementById("permaRaveButton");
 	permaRave.onclick = function() {
-	    var currentColor = '#C1E4E0';
+	    var currentColor = '#E5E5E5';
 	    intervalId = setInterval(function() {
 	        document.body.style.backgroundColor = currentColor;
-	        currentColor = currentColor === '#C1E4E0' ? 'black' : '#C1E4E0';
+	        currentColor = currentColor === '#E5E5E5' ? 'black' : '#E5E5E5';
 	    }, 200);
 	    
 		
@@ -56,7 +56,7 @@
 	var noMoreParty = document.getElementById("noMoreParty");
 	noMoreParty.onclick = function() {
 		clearInterval(intervalId);
-		document.body.style.backgroundColor = '#C1E4E0';
+		document.body.style.backgroundColor = '#E5E5E5';
 	}
 	fnSetStatus()
 /* 	

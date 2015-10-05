@@ -30,7 +30,7 @@
 				<label for="project-name">Artist</label> <span>${album.artist}</span>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Record Label</label> <span>${album.recordlabel}</span>
+				<label for="project-name">Record Label</label> <span>${album.recordLabel}</span>
 			</div>
 			<div class="form-group">
 				<label for="project-name">Tracks</label> <span>${album.numTracks}</span>
