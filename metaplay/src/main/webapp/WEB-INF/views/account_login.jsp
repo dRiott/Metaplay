@@ -50,15 +50,21 @@
 				</c:if>
 			</div>       
 			
-			<div class="row">
-				<div class="form-group">
-					<label for="accountname">Account</label>
-					<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error"/>
+			<div class="row" id="mainRow">
+				<div class="row">
+					<div class="col-md-6">
+						<label for="accountname">Account</label>
+						<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error"/>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="account-password">Password</label>
-					<form:password path="password" id="password" cssClass="form-control" cssErrorClass="has-error" />
-				</div>
+				<div class="form-group" style="float:clear;"></div>
+				<div class="row">
+					<div class="col-md-6">
+						<label for="account-password">Password</label>
+						<form:password path="password" id="password" cssClass="form-control" cssErrorClass="has-error" />
+					</div>
+				</div>	
+				<div class="form-group" style="float:clear;"></div>
 				<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
 			</div>
 	</form:form>

@@ -41,25 +41,37 @@
 				<div class="row">
 					<div class="col-md-4">                                                         
 						<label for="accountname">Account Name</label>                                
-						<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error"/>          
+						<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error" placeholder="PoorYorick"/>          
 	                </div>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
-           	           
-				<div class="form-group">                                                         
-					<label for="account-passwordConfirm">Email Address</label>
-					<form:input type="text" pattern="^\w+.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" path="email"  id="email" cssClass="form-control" cssErrorClass="has-error"/>
+               
+                <div class="row">     
+					<div class="col-md-6">                                                         
+						<label for="account-passwordConfirm">Email Address</label>
+						<form:input type="text" pattern="^\w+.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" path="email"  id="email" cssClass="form-control" cssErrorClass="has-error" placeholder = "jane.doe@email.com"/>
+					</div>
 				</div>
+				
+				<div class="form-group" style="float:clear;"></div>
 
-				<div class="form-group">
-					<label for="account-password">Password</label>
-					<form:password path="password" id="password" cssClass="form-control" cssErrorClass="has-error" />
+				<div class="row">     
+					<div class="col-md-6">
+						<label for="account-password">Password</label>
+						<form:password path="password" id="password" cssClass="form-control" cssErrorClass="has-error" placeholder = "Password"/>
+					</div>
 				</div>
+	
+				<div class="form-group" style="float:clear;"></div>
 
-				<div class="form-group">
-					<label for="account-passwordConfirm">Confirm Password</label>
-					<form:password path="password" id="confirmPassword" cssClass="form-control" cssErrorClass="has-error" />
+                <div class="row">     
+					<div class="col-md-6">
+						<label for="account-passwordConfirm">Confirm Password</label>
+						<form:password path="password" id="confirmPassword" cssClass="form-control" cssErrorClass="has-error" placeholder = "Confirm Password" />
+					</div>
 				</div>
+					
+				<div class="form-group" style="float:clear;"></div>
 				
 				<button type="submit" class="btn btn-default">Submit</button>
 			
