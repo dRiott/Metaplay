@@ -13,7 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer>, Acco
 	List<Account> findAccountByAccountname(String accountname);
 	boolean findAccountByAccountnameIsNotNull(String accountname);
 	
-	
 }
 
 

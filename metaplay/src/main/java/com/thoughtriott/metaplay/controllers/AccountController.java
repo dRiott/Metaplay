@@ -87,7 +87,7 @@ public class AccountController {
 		String loginPassword = accountToLogin.getPassword();
 		System.out.println("AccountController: performLogin() - Accountname: " + loginAccountname);
 		System.out.println("AccountController: performLogin() - Password: " + loginPassword);
-		if(accountRepository.findAccountByAccountname(loginAccountname).get(0)!=null) {
+		if(accountRepository.findAccountByAccountname(loginAccountname)!=null) {
 			Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
 			String dbAccountPassword = dbAccount.getPassword();
 			if(loginPassword.equals(dbAccountPassword)) {

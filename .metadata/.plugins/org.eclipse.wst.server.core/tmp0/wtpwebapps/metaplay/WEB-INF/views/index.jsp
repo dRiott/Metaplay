@@ -9,39 +9,33 @@
 
  	<link rel="stylesheet" href="<spring:url value="/resources/css/reset.css"/>" type="text/css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<spring:url value="/resources/css/welcome.css"/>" type="text/css" />
+	<link rel="stylesheet" href="<spring:url value="/resources/css/index.css"/>" type="text/css" />
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script>
-/* 	
-	document.write("Good Morning, and Welcome My Friends");
-	document.write("<hr/>");
-	document.write("Welcome To Metaplay"); */
-
-	
-/* 	function fnSetStatus(status){alert("What does J Dilla say?");document.getElementById("myStatus").innerHTML="J Dilla be liek..."+status;}
- */	
-	
-	</script>	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="<spring:url value="/resources/js/index.js"/>"></script>
 </head>
 <body>
-	<div id="wrapper">
+	<div id="container">
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
-		<div class=text id=mainTest>
-			<h1>W3lcome to the Fr0nt Page</h1>
-			<h2>Naw meen?</h2>
-			<h3>Naw meen?</h3>
-			<h4>Naw meen?</h4>
-			<h5>Naw meen?</h5>
-			<h6>Naw meen?</h6>
+		<div class="wrapper" id="mainTest" style="position:relative">
+			<h1 id="main-h1" style="padding-left: -250px; font-size:4em"></h1>
+ 			<button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
+ 				style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
+ 				position:relative; top: 10%; left: 5%; width: 10em; height: 7em; font-size: 30px;">PermaRave</button>
+ 			<button type="button" id="noMoreParty" class="btn btn-primary btn-lg"
+ 				style="position:relative; top: 20%; left: 10%; 
+ 				width: 10em; height: 2.5em;">(Too Old For This)</button>
 		</div>
 	</div>
 	
-	<div id="myStatus" style="position:fixed; left:56%; bottom:40%; background-color:#FBD475;">Hmmm...</div>	
+	<!-- Dilla Thought Bubble. Delete? -->
+	<!-- <div class="oval-thought-border" id="myStatus" style="position:fixed; left:45%; bottom:40%;"></div>	 -->
 	
 	<script>
-		fnSetStatus("Daayum");
+		$(window).load(addEventHandlers());	
+		$(window).load(fnSetStatus());
 	</script>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
 </body>
 </html>
