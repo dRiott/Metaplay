@@ -37,20 +37,22 @@
 					<label for="account-email">Email</label> <br /> <span>${account.email}</span>
 				</div>
 
-				<div class="form-group">
-					<label for="roles">Roles</label><br/>
-					<c:if test="${roles.size()==0 }">
-						<c:out value="There are currently no roles assigned to ${account.accountname }." />
-					</c:if>
-					<c:forEach items="${roles}" var="role">
-						<th>Role Name</th>
-						<th>Role Description></th>
+				<label for="roles">Roles</label>
+				<c:if test="${roles.size()==0 }">
+					<c:out value="There are currently no roles assigned to ${account.accountname }." />
+				</c:if>
+				<c:forEach items="${roles}" var="role">
+					<table style="border: 2px solid">
 						<tr>
-							<td>${role.name}</td>
-							<td>${role.description}</td>
+							<th style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">Role Name</th>
+							<th style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">Role Description</th>
 						</tr>
-					</c:forEach>
-				</div>
+						<tr>
+							<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.name}</td>
+							<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.description}</td>
+						</tr>
+					</table>
+				</c:forEach>
 
 			</div>
 		</div>

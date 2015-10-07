@@ -120,7 +120,7 @@ public class Account {
 		}
 	}
 	
-	// removes a Member from Collection<Member>.
+	// removes a Role from Collection<Role>
 	public void removeRole(Role role) {
 		if (getRoles()!=null && getRoles().contains(role)) {
 			getRoles().remove(role);

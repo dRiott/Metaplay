@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.data.repositories;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,4 +35,27 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom {
 		}
 		return accountsString;
 	}
+	
+	//returns List<String> of each Role
+	@Override	
+	public List<String> findAllToListString() {
+		List<Account> accountList = accountRepository.findAll();
+		Iterator<Account> it = accountList.iterator();
+		List<String> accountStringList = new ArrayList<String>();
+		while (it.hasNext()) {
+			Account account = it.next();
+			accountStringList.add(account.getAccountname());
+		}
+		if (accountList.size() == 0) {
+			System.out.println("The results list was empty.");
+			accountStringList.add("No Accounts exist, add one!");
+			accountStringList.add("** New Account **");
+			return accountStringList;
+		} else {
+			accountStringList.add("** New Account **");
+			return accountStringList;
+		}
+	}
+	
+	
 }
