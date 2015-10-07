@@ -46,6 +46,7 @@ public class Account {
 	private String accountname;
 	private String password;
 	private String email;
+	private boolean enabled;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="registration_date")
@@ -107,6 +108,14 @@ public class Account {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	//--------------------------Collection Adders and Removers--------------------------

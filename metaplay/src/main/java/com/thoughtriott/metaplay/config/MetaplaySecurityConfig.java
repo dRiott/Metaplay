@@ -18,14 +18,17 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select * " +
-				"from account where accountname=?").authoritiesByUsernameQuery("select account.accountname, role.Id from account, role where account.accountname=? ");
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select accountname, password, enabled from account where accountname=?")
+		.authoritiesByUsernameQuery("select account.accountname, role.Id from account, role where account.accountname=? ");
+		//and account.id = account_role.account_id and account_role.role_id = role.id
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.formLogin()
+		.csrf().disable()
+		.formLogin().loginPage("/account/login")
+		.and().logout().logoutSuccessUrl("/").logoutUrl("/account/byebye")
 		.and().authorizeRequests()
 		.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**").authenticated()
 		.antMatchers("/role/add").hasAuthority("God")
@@ -33,5 +36,4 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 //		.and().formLogin().loginPage("/account/login")
 //		.and().httpBasic();
 	}
-	//and account.id = account_role.account_id and account_role.role_id = role.id
 }

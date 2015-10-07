@@ -67,7 +67,7 @@
                 <div class="row">     
 					<div class="col-md-6">
 						<label for="account-passwordConfirm">Confirm Password</label>
-						<form:password path="password" id="confirmPassword" cssClass="form-control" cssErrorClass="has-error" placeholder = "Confirm Password" />
+						<form:password path="" id="confirmPassword" cssClass="form-control" cssErrorClass="has-error" placeholder = "Confirm Password" />
 					</div>
 				</div>
 					

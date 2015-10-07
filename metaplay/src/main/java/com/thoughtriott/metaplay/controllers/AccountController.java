@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
 import com.thoughtriott.metaplay.data.repositories.AccountRepository;
+import com.thoughtriott.metaplay.data.repositories.RoleRepository;
 
 @Controller
 @RequestMapping("/account")
@@ -29,6 +30,8 @@ public class AccountController {
 
 	@Autowired
 	AccountRepository accountRepository;
+	@Autowired
+	RoleRepository roleRepository;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addAccount() {
@@ -52,6 +55,8 @@ public class AccountController {
 		System.out.println("AccountController: saveAccount() - invoking saveAcount");
 		Account newAccount = (Account) session.getAttribute("account");
 		newAccount.setRegistrationDate(new Date());
+		newAccount.setEnabled(true);
+		newAccount.addRole(roleRepository.findRoleOrderByName("Lurker").get(0));
 		Account savedAccount = accountRepository.saveAndFlush(newAccount);
 		model.addAttribute("accountId", savedAccount.getId());
 		status.setComplete();
@@ -91,22 +96,22 @@ public class AccountController {
 			Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
 			String dbAccountPassword = dbAccount.getPassword();
 			if(loginPassword.equals(dbAccountPassword)) {
-				status.setComplete();
-				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
-				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
+//				status.setComplete();
+//				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
+//				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
 				model.addAttribute("accountId", dbAccount.getId());
 				return "redirect:/account/{accountId}";
 			} else {
-				System.out.println("AccountController: performLogin() - login failed...");
-				int counter = (int) session.getAttribute("counter");
-				if(counter >= 3) 
-					return "404";
-				counter++;
-				System.out.println(counter);
-				String loginStatus = "fuckedUp";
-				session.setAttribute("loginStatus", loginStatus);
-				session.setAttribute("counter", counter);
-				System.out.println("Counter in session: " + session.getAttribute("counter"));
+//				System.out.println("AccountController: performLogin() - login failed...");
+//				int counter = (int) session.getAttribute("counter");
+//				if(counter >= 3) 
+//					return "404";
+//				counter++;
+//				System.out.println(counter);
+//				String loginStatus = "fuckedUp";
+//				session.setAttribute("loginStatus", loginStatus);
+//				session.setAttribute("counter", counter);
+//				System.out.println("Counter in session: " + session.getAttribute("counter"));
 				return "redirect:login";
 			} 	
 		} else return "redirect:login";
