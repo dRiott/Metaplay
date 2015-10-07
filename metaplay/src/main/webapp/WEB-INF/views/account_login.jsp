@@ -32,14 +32,32 @@
 </script> -->
 
 </head>
-<body onload="alertSubmitButton();">
+<body onload='document.f.username.focus(); alertSubmitButton();'>
 	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
-	<div class="container">
-		<div class="row">
-			<h1>Login</h1>
-		</div>
-		<spring:url value="/account/login" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
+	
+	<h3>Login with Accountname and Password</h3>
+	<form name='f' action='/metaplay/login' method='POST'>
+		<table>
+			<tr>
+				<td>Account:</td>
+				<td><input type='text' name='username' value='' style="class:form-control;" ></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type='password' name='password' style="class:form-control;"  /></td>
+			</tr>
+			<tr style="display:none;"><td><input name="_csrf" type="hidden" value="7160179f-cd6a-4e50-85bf-d646fba8a60e" /></td></tr>
+			
+		</table>
+		<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
+	</form>
+		<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
+	<script src="<spring:url value="/resources/js/loginAccount.js"/>"></script>
+</body>	
+		
+<%-- 		
+		<spring:url value="/metaplay/login" var="thisFormURL" />
+		<form:form action="${thisFormURL}" method="post">
 		<form:errors path="*" element="div" cssClass="errors"/>
 
 		<div class="row" id="errorWritingSpace">
@@ -65,6 +83,8 @@
 					</div>
 				</div>	
 				<div class="form-group" style="float:clear;"></div>
+				<input name="_csrf" type="hidden" value="7160179f-cd6a-4e50-85bf-d646fba8a60e" />
+				
 				<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
 			</div>
 	</form:form>
@@ -72,5 +92,5 @@
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
 	<script src="<spring:url value="/resources/js/loginAccount.js"/>"></script>
 	
-</body>
+</body> --%>
 </html>

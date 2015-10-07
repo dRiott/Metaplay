@@ -44,6 +44,8 @@
 				data-toggle="dropdown" role="button" aria-expanded="false">More<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
+					<li><a href="<spring:url value="/role/add"/>">Roles</a></li>
+					
 				</ul>
 			</li>
 		
