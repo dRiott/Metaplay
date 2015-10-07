@@ -24,18 +24,18 @@
 	<div class="container">
 	
 		<spring:url value="/account/save" var="thisURL" />
-		<form:form action="${thisURL}" method="post" modelAttribute="createArtistWrapper">
+		<form:form action="${thisURL}" method="post" modelAttribute="account">
 		<form:errors path="*" element="div" cssClass="has-error"/>
 		
 			<div class="row">
 				<h2>Please Review Your Credentials for Accuracy</h2>
 	
 				<div class="form-group">
-					<label for="accountname">Account Name</label> <span>${createAccountWrapper.accountname}</span>
+					<label for="accountname">Account Name</label> <span>${account.accountname}</span>
 				</div>
 				
 				<div class="form-group">
-					<label for="email">Email</label> <span>${createAccountWrapper.email}</span>
+					<label for="email">Email</label> <span>${account.email}</span>
 				</div>
 		
 				<a href="<spring:url value="/account/add"/>" class="btn btn-default">Edit</a>

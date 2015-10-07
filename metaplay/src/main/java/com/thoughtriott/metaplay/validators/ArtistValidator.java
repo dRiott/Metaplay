@@ -9,7 +9,6 @@ public class ArtistValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
 		return Artist.class.equals(clazz);
 	}
 

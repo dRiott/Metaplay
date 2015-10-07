@@ -124,9 +124,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context crossContext="true" docBase="/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/metaplay" path="/metaplay" reloadable="true" source="org.eclipse.jst.jee.server:metaplay">
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" name="jdbc/metaplay" password="B3nchl3y.Sch00led" type="javax.sql.DataSource" url="jdbc:mysql://metaplay.c1nbtf7dwiku.us-west-2.rds.amazonaws.com:3306/metaplay" username="driott"/>
-</Context></Host>
+      <Context docBase="/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/PoorYorick/git/metaplay/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/metaplay" path="/metaplay" reloadable="true" source="org.eclipse.jst.jee.server:metaplay"/></Host>
     </Engine>
   </Service>
 </Server>

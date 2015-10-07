@@ -172,6 +172,11 @@
 				</c:forEach>
 			<!--  END TRACKS -->
 			
+				<div class="row" id="tracksContainer">
+				<!-- I'm going to insert the above divs dynamically -->
+				 </div>
+			
+			
 				<div class="form-group" style="float:clear;"></div>
 				
 				<button type="submit" class="btn btn-default">Submit</button>

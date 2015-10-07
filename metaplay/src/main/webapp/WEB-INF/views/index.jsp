@@ -19,7 +19,7 @@
 	<div id="container">
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 		<div class="wrapper" id="mainTest" style="position:relative">
-			<h1 id="main-h1" style="position:relative; font-size:4em"></h1>
+			<h1 id="main-h1" style="padding-left: -250px; font-size:4em"></h1>
  			<button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
  				style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
  				position:relative; top: 10%; left: 5%; width: 10em; height: 7em; font-size: 30px;">PermaRave</button>
