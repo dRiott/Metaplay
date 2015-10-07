@@ -6,7 +6,20 @@
 	
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<hr/><small style="color: grey;">&copy David Riott, 2015</small><br/><br/>
+	<small style="color: grey;">&copy David Riott, 2015</small>
 	
 	</div>
 </div>
+
+<script>
+$(document).ready(
+		function () {
+			
+		var backgrounds = ["fourtet.gif", "j2.gif", "daedelus.gif", "dilla.gif", "drake.gif", "fatherjohn.gif", "francisdrake.gif", "umo.gif", "toroymoi.gif",
+		                   "kendrick.gif", "rashad.gif", "thomyorke.gif", "tupac.gif", "wiz.gif", "talib.gif", "mosdef.gif", "eminem.gif", "goldpanda.gif"];
+			
+		var randomNum = Math.floor(Math.random() * backgrounds.length);
+			$('body').css('background-image', 'url(http://localhost:8080/metaplay/resources/img/' + backgrounds[randomNum] + ')');
+		}
+);
+</script>

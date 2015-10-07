@@ -14,8 +14,8 @@ body {
 	background-size: contain;
 	font-color:noir;
 }
-
-/* for thought bubble on index page */
+/* 
+for thought bubble on index page
 .oval-thought-border {
     position: absolute;
     padding: 30px 20px;
@@ -32,7 +32,7 @@ body {
     border-radius: 240px / 140px;
 }
 
-/* for thought bubble on index page */
+for thought bubble on index page
 .oval-thought-border:before {
     content: "";
     position: relative;
@@ -49,7 +49,7 @@ body {
     display: block;
 }
 
-/* for thought bubble on index page */
+for thought bubble on index page
 .oval-thought-border:after {
     content: "";
     position: relative;
@@ -64,4 +64,4 @@ body {
     -moz-border-radius: 25px;
     border-radius: 25px;
     display: block;
-}
+} */
