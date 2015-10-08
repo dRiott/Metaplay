@@ -32,7 +32,7 @@
 </script> -->
 
 </head>
-<body onload='document.f.username.focus(); alertSubmitButton();'>
+<body onload='document.f.username.focus();'>
 	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 	<div class="container">
 		<div class="row" id="errorWritingSpace">
@@ -44,13 +44,21 @@
 		</div>    
 		
 		<div class="row" id="mainRow">
-			<form name='f' action='/metaplay/account/login' method='POST'>
+				<c:if test="${param.error != null}">
+					<div class="alert alert-error" role="alert">
+							Failed to login.
+							<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null }">
+							Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+							</c:if>
+					</div>
+				</c:if>
+			<form:form name='f' action='/metaplay/account/login' method='POST'>
 				<div class="row" id="mainRow">
 					<h3>Login with Account and Password</h3>
 					<div class="row">
 						<div class="col-md-6">
 							<label for="accountname">Account</label>
-							<input type='text' name='username' value='' class="form-control" placeholder="Accountname (Not Necessarily An Email)" >
+							<input type='text' name='username' value='' class="form-control" placeholder="Accountname (Not Necessarily An Email)" />
 						</div>
 					</div>
 					<div class="form-group" style="float:clear;"></div>
@@ -63,7 +71,7 @@
 					<div class="form-group" style="float:clear;"></div>
 					<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	

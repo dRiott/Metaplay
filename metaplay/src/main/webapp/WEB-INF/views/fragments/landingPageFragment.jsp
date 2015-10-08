@@ -21,8 +21,6 @@
 							Start here!</a></li>
 					<li><a href="<spring:url value="/account/login"/>">Login
 							Ya Noggin'</a></li>
-					<li><a href="<spring:url value="/account/byebye"/>">I Go
-							Bye Bye</a></li>
 				</ul></li>
 
 <!-- Browse -->

@@ -26,27 +26,32 @@
 		<div class="row" id="rowHeader">
 			<h1>Role</h1>
 		</div>
+	
+		<div class="form-group" style="float:clear;"></div>
 
-		<spring:url value="/role/save" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="role">
-			<div class="row" id="mainRowInsideForm">
-				<div class="col-md-4">
-					<label for="role-name">Name</label>
-					<form:input type="text" path="name" cssClass="form-control" id="role-name" placeholder = "God"/>
+        <div class="row">  
+			<spring:url value="/role/save" var="thisFormURL" />
+			<form:form action="${thisFormURL}" method="post" modelAttribute="role">
+				<div class="row" id="mainRowInsideForm">
+					<div class="col-md-4">
+						<label for="role-name">Name</label>
+						<form:input type="text" path="name" cssClass="form-control" id="role-name" placeholder = "God"/>
+					</div>
 				</div>
-
+		
 				<div class="form-group" style="float:clear;"></div>
-
-				<div class="col-md-4">
-					<label for="role-description">Description</label>
-					<form:input type="text" path="description" cssClass="form-control" id="role-description" placeholder="This role controls the world. Use sparingly." />
+	
+	            <div class="row">  
+					<div class="col-md-4">
+						<label for="role-description">Description</label>
+						<form:input type="text" path="description" cssClass="form-control" id="role-description" placeholder="This role controls the world. Use sparingly." />
+					</div>
 				</div>
-				
 				<div class="form-group" style="float:clear;"></div>
-
+					
 				<button type="submit" class="btn btn-default">Submit</button>
-			</div>
-		</form:form>
+			</form:form>
+		</div>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>

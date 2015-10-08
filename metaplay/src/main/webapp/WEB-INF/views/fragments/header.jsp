@@ -1,10 +1,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<spring:url value="/"/>">Playlist
-				Management</a>
+			<a class="navbar-brand" href="<spring:url value="/"/>">Metaplay</a>
 		</div>
 
 		<ul class="nav navbar-nav">
@@ -83,10 +85,11 @@
 				</ul></li>
 
 			<!-- Login Page -->
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle"
 				data-toggle="dropdown" role="button" aria-expanded="false">Account
 					<span class="caret"></span>
-			</a>
+				</a>
 
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="<spring:url value="/account/add"/>">New User?
@@ -96,8 +99,29 @@
 					<li><a href="<spring:url value="/account/byebye"/>">I Go Bye
 							Bye</a></li>
 				</ul></li>
-
 		</ul>
+		
+		<c:set var="authentication" value="${pageContext.request.userPrincipal}"/>
+		<c:choose>
+			<c:when test="${authentication!=null}">
+				<c:set var="currentUser" value="${authentication.name}"/>
+				<c:url var="logoutUrl" value="/logout"/>
+				<!-- Form MUST BE A POST TO PROTECT AGAINST CROSS-SITE REQUEST FORGERY -->
+				<form:form class="navbar-form pull-right" action="${logoutUrl}" method="post">
+					<input type="submit" class="btn btn-default" value="Logout" />
+				</form:form>
+				<p class="navbar-text pull-right">
+					<c:out value="${currentUser}"/>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<p class="navbar-text pull-right">
+					<c:url value="/account/add" var="accountAddUrl"/>
+					<a href="${accountAddUrl}">Add A New Account</a>
+				</p>
+			</c:otherwise>
+		</c:choose>
 
 	</div>
 </nav>
+

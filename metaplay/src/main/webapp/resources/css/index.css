@@ -6,12 +6,12 @@ h1,h2,h3,h4,h5,h6{
 
 
 body {
-	background-image: url(../img/dilla.gif);
+	background-image: url(../img/umo.gif);
 	background-color: #E5E5E5;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: bottom right;
-	background-size: contain;
+	/* background-size: contain; */
 	font-color:noir;
 }
 /* 

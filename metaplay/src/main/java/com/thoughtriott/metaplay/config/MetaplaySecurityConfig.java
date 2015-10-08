@@ -28,7 +28,7 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.csrf().disable()
 		.formLogin().loginPage("/account/login")
-		.and().logout().logoutSuccessUrl("/").logoutUrl("/account/byebye")
+		.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
 		.and().authorizeRequests()
 		.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**").authenticated()
 		.antMatchers("/role/add").hasAuthority("God")

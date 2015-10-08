@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +21,11 @@
 	<div id="container">
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 		<div class="wrapper" id="mainTest" style="position:relative">
+			<c:if test="${param.logout !=null}">
+				<div class="alert alert-success">
+					<strong>Thank you!</strong> Logged out successfully.
+				</div>
+			</c:if>
 			<h1 id="main-h1" style="padding-left: -250px; font-size:4em"></h1>
  			<button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
  				style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 

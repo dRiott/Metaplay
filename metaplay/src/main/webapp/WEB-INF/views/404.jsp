@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,6 +19,12 @@
 		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
 	
 		<div class="container" id="main">
+			<c:if test="${param.logout !=null}">
+				<div class="alert alert-success">
+					<strong>Thank you!</strong> Logged out successfully.
+				</div>
+			</c:if>
+	
 			<h1 id="main-h1">Your life has taken a strange turn...</h1>
 			<small id="main-small">Be careful what you ask for.</small>
 		</div>
