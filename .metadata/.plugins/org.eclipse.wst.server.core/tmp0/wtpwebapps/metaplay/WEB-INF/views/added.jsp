@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	<div>
 		<h2>Yo Shit</h2>
 		<h3>Done been</h3>

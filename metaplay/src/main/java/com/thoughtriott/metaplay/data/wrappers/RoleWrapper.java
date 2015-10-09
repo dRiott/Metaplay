@@ -10,6 +10,9 @@ public class RoleWrapper {
 	
 	@NotNull
 	private String roleName;
+	
+	@NotNull
+	private String actionOption;
 
 	
 // --------------------------Constructors--------------------------
@@ -40,5 +43,13 @@ public class RoleWrapper {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	
+
+	public String getActionOption() {
+		return actionOption;
+	}
+
+	public void setActionOption(String actionOption) {
+		this.actionOption = actionOption;
+	}
+
 }

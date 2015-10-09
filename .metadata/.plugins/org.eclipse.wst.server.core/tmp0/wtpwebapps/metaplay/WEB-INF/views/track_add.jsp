@@ -20,11 +20,11 @@
 
 <body class="DVBody">
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
-			<h1><a>Track</a>&nbsp&nbsp<small><small>The * indicates a required field.</small></small></h1>
+			<h1><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
 		<spring:url value="/track/review" var="thisURL" />

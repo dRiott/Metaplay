@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,8 +20,9 @@
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
-		<div class="wrapper" id="mainTest" style="position:relative">
+		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
+
+		<div class="wrapper" id="mainTest">
 			<c:if test="${param.logout !=null}">
 				<div class="alert alert-success">
 					<strong>Thank you!</strong> Logged out successfully.
@@ -29,16 +31,13 @@
 			<h1 id="main-h1" style="padding-left: -250px; font-size:4em"></h1>
  			<button type="button" id="permaRaveButton" class="btn btn-primary btn-lg"
  				style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
- 				position:relative; top: 10%; left: 5%; width: 10em; height: 7em; font-size: 30px;">PermaRave</button>
+ 				position:absolute; top: 60%; left: 5%; width: 10em; height: 7em; font-size: 30px;">PermaRave</button>
  			<button type="button" id="noMoreParty" class="btn btn-primary btn-lg"
- 				style="position:relative; top: 20%; left: 10%; 
+ 				style="position:absolute; top: 90%; left: 8%; 
  				width: 10em; height: 2.5em;">(Too Old For This)</button>
 		</div>
 	</div>
-	
-	<!-- Dilla Thought Bubble. Delete? -->
-	<!-- <div class="oval-thought-border" id="myStatus" style="position:fixed; left:45%; bottom:40%;"></div>	 -->
-	
+
 	<script>
 		$(window).load(addEventHandlers());	
 		$(window).load(fnSetStatus());

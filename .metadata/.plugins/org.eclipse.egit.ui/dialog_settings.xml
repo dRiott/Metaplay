@@ -1,43 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<list key="CommitDialog.authorValues">
-		<item value="David Riott &lt;david.riott1@gmail.com&gt;"/>
-	</list>
-	<list key="CommitDialog.committerValues">
-		<item value="David Riott &lt;david.riott1@gmail.com&gt;"/>
-	</list>
-	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
-		<item value="650" key="DIALOG_WIDTH"/>
-		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
-		<item value="440" key="DIALOG_HEIGHT"/>
-		<item value="635" key="DIALOG_X_ORIGIN"/>
-		<item value="244" key="DIALOG_Y_ORIGIN"/>
-		<list key="sashWeights">
-			<item value="600"/>
-			<item value="400"/>
-		</list>
-	</section>
-	<section name="org.eclipse.egit.ui.internal.repository.CreateBranchPage$SourceSelectionDialog.dialogBounds">
-		<item value="525" key="DIALOG_WIDTH"/>
-		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
-		<item value="462" key="DIALOG_HEIGHT"/>
-		<item value="-416" key="DIALOG_X_ORIGIN"/>
-		<item value="-471" key="DIALOG_Y_ORIGIN"/>
+	<item value="0" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<item value="608" key="DIALOG_WIDTH"/>
+	<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
+	<item value="523" key="DIALOG_HEIGHT"/>
+	<item value="-123" key="DIALOG_X_ORIGIN"/>
+	<item value="-240" key="DIALOG_Y_ORIGIN"/>
+	<section name="GitImportWizard">
+		<item value="true" key="GitProjectsImportPage.STORE_NESTED_PROJECTS"/>
 	</section>
 	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
-		<item value="731" key="DIALOG_WIDTH"/>
-		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
-		<item value="389" key="DIALOG_HEIGHT"/>
-		<item value="487" key="DIALOG_X_ORIGIN"/>
-		<item value="382" key="DIALOG_Y_ORIGIN"/>
-	</section>
-	<section name="org.eclipse.egit.ui.internal.merge.MergeResultDialog.dialogBounds">
-		<item value="660" key="DIALOG_WIDTH"/>
-		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
-		<item value="190" key="DIALOG_HEIGHT"/>
-		<item value="510" key="DIALOG_X_ORIGIN"/>
-		<item value="399" key="DIALOG_Y_ORIGIN"/>
-	</section>
-	<section name="GitCommitMessageComponent">
+		<item value="569" key="DIALOG_X_ORIGIN"/>
+		<item value="324" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

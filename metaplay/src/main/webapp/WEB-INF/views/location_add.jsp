@@ -19,7 +19,7 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
 	<div class="container">
 
@@ -43,13 +43,15 @@
 
 
 			<div class="row">
-
-				<div class="form-group">
-					<label for="location-city">City</label>
+				
+				<div class="row">
+					<div class="col-md-4">                                                         
+						<label for="location-city">City</label>
 					<form:input type="text" path="city" cssClass="form-control"
-						id="location-city" />
+						id="location-city" placeholder="Tuscaloosa"/>
+	                </div>
 				</div>
-
+				<div class="form-group" style="float:clear;"></div>
 
 				<div class="form-group">
 					<label for="location-state">State</label>

@@ -33,7 +33,7 @@
 
 </head>
 <body onload='document.f.username.focus();'>
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	<div class="container">
 		<div class="row" id="errorWritingSpace">
 			<c:if test="${loginStatus.equals('fuckedUp')}">

@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,14 @@ public class RoleController {
 	
 	@RequestMapping(value="/assign", method=RequestMethod.POST) 
 	public String saveAssignRole(@ModelAttribute RoleWrapper roleWrapper) {
-		System.out.println("RoleController: saveAssignRole() - invoking...");
-		
 		Account account = accountRepository.findAccountByAccountname(roleWrapper.getAccountname()).get(0);
 		Role role = roleRepository.findRoleOrderByName(roleWrapper.getRoleName()).get(0);
-		
-		account.addRole(role);
-		accountRepository.saveAndFlush(account);
-
+		String action = roleWrapper.getActionOption();
+		if(action.equals("Add")) {
+		accountRepository.saveAndFlush(account.addRole(role));
+		} else if(action.equals("Remove")) {
+			accountRepository.saveAndFlush(account.removeRole(role));
+		}
 		return "redirect:/role/assign";
 	}
 	
@@ -94,6 +95,14 @@ public class RoleController {
 	@ModelAttribute(value="roleOptions")
 	public List<String> getRoles() {
 		return  roleRepository.findAllToListString();
+	}
+	
+	@ModelAttribute(value="actionOptions")
+	public List<String> getActionOptions() {
+		List<String> actionOptions = new ArrayList<>();
+		actionOptions.add("Add");
+		actionOptions.add("Remove");
+		return actionOptions;
 	}
 
 	@ModelAttribute(value="accountOptions")

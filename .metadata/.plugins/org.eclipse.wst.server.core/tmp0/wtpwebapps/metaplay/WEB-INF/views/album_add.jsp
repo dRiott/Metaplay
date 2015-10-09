@@ -20,7 +20,7 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
 	<div class="container">
 
@@ -171,6 +171,11 @@
 					</c:choose>
 				</c:forEach>
 			<!--  END TRACKS -->
+			
+				<div class="row" id="tracksContainer">
+				<!-- I'm going to insert the above divs dynamically -->
+				 </div>
+			
 			
 				<div class="form-group" style="float:clear;"></div>
 				

@@ -27,13 +27,12 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.csrf().disable()
-		.formLogin().loginPage("/account/login")
+		.formLogin().loginPage("/account/login").loginProcessingUrl("/account/login").defaultSuccessUrl("/account/profile")
 		.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
 		.and().authorizeRequests()
-		.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**").authenticated()
+		.antMatchers("/account/login", "/account/add", "/", "/browse/**", "/more/payment").permitAll()
+		.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
 		.antMatchers("/role/add").hasAuthority("God")
 		.anyRequest().permitAll();
-//		.and().formLogin().loginPage("/account/login")
-//		.and().httpBasic();
 	}
 }

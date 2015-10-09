@@ -3,12 +3,12 @@
 	<section name="ShowViewDialog">
 		<item value="304" key="DIALOG_WIDTH"/>
 		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
-		<item value="org.eclipse.team.ui.GenericHistoryView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
+		<item value="org.eclipse.egit.ui.RepositoriesView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
 		<item value="415" key="DIALOG_HEIGHT"/>
-		<item value="813" key="DIALOG_X_ORIGIN"/>
-		<item value="256" key="DIALOG_Y_ORIGIN"/>
+		<item value="568" key="DIALOG_X_ORIGIN"/>
+		<item value="174" key="DIALOG_Y_ORIGIN"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
-			<item value="Team"/>
+			<item value="Git"/>
 		</list>
 	</section>
 </section>

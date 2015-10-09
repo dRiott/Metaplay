@@ -32,45 +32,49 @@
 </script> -->
 
 </head>
-<body onload="alertSubmitButton();">
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+<body onload='document.f.username.focus();'>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	<div class="container">
-		<div class="row">
-			<h1>Login</h1>
-		</div>
-		<spring:url value="/account/login" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="account">
-		<form:errors path="*" element="div" cssClass="errors"/>
-
 		<div class="row" id="errorWritingSpace">
-				<c:if test="${loginStatus.equals('fuckedUp')}">
-					<div class="form-group">
-						<label for="loginFailed" style="color:red;">The login failed: <c:out value="${counter}"/> times. Account/Password combination did not exist.</label> 
+			<c:if test="${loginStatus.equals('fuckedUp')}">
+				<div class="form-group">
+					<label for="loginFailed" style="color:red;">The login failed: <c:out value="${counter}"/> times. Account/Password combination did not exist.</label> 
+				</div>
+			</c:if>
+		</div>    
+		
+		<div class="row" id="mainRow">
+				<c:if test="${param.error != null}">
+					<div class="alert alert-error" role="alert">
+							Failed to login.
+							<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null }">
+							Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+							</c:if>
 					</div>
 				</c:if>
-			</div>       
-			
-			<div class="row" id="mainRow">
-				<div class="row">
-					<div class="col-md-6">
-						<label for="accountname">Account</label>
-						<form:input type="text" path="accountname" id="accountname" cssClass="form-control" cssErrorClass="has-error"/>
+			<form:form name='f' action='/metaplay/account/login' method='POST'>
+				<div class="row" id="mainRow">
+					<h3>Login with Account and Password</h3>
+					<div class="row">
+						<div class="col-md-6">
+							<label for="accountname">Account</label>
+							<input type='text' name='username' value='' class="form-control" placeholder="Accountname (Not Necessarily An Email)" />
+						</div>
 					</div>
+					<div class="form-group" style="float:clear;"></div>
+					<div class="row">
+						<div class="col-md-6">
+							<label for="account-password">Password</label>
+							<input name="password" type="password" id="password" class="form-control" placeholder="Password"/>
+						</div>
+					</div>	
+					<div class="form-group" style="float:clear;"></div>
+					<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
 				</div>
-				<div class="form-group" style="float:clear;"></div>
-				<div class="row">
-					<div class="col-md-6">
-						<label for="account-password">Password</label>
-						<form:password path="password" id="password" cssClass="form-control" cssErrorClass="has-error" />
-					</div>
-				</div>	
-				<div class="form-group" style="float:clear;"></div>
-				<button id="loginButton" type="submit" class="btn btn-default" >Login</button>
-			</div>
-	</form:form>
+			</form:form>
+		</div>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
 	<script src="<spring:url value="/resources/js/loginAccount.js"/>"></script>
-	
-</body>
+</body>	
 </html>

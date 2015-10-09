@@ -65,23 +65,25 @@ public class Role {
 
 //--------------------------Collection Adders and Removers--------------------------
 	//adds an Account to Collection<Account>
-	public void addAccount(Account account) {
+	public Role addAccount(Account account) {
 		if (getAccounts()!=null && !getAccounts().contains(account)) {
 			getAccounts().add(account);
 			if (!account.getRoles().contains(this)) {
 				account.addRole(this);
 			}
 		}
+		return this;
 	}
 			
 	// removes an Account from Collection<Account>.
-	public void removeAccount(Account account) {
+	public Role removeAccount(Account account) {
 		if (getAccounts()!=null && getAccounts().contains(account)) {
 			getAccounts().remove(account);
 			if (account.getRoles().contains(this)) {
 				account.removeRole(this);
 			}
 		}	
+		return this;
 	}
 
 //--------------------------Collection Printers--------------------------
@@ -110,6 +112,5 @@ public class Role {
 	public String toString() {
 		return "Role [id=" + id + ", accounts=" + this.getAccountsToString() + ", name=" + name + ", description=" + description + "]";
 	}
-
 
 }

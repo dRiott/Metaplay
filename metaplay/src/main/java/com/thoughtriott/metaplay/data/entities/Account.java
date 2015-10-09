@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Account {
 	@JoinTable(name="playlist_account", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
-	private Collection<Playlist> playlists;
+	private List<Playlist> playlists;
 	
 	private String accountname;
 	private String password;
@@ -70,11 +69,11 @@ public class Account {
 		this.roles = roles;
 	}
 
-	public Collection<Playlist> getPlaylists() {
+	public List<Playlist> getPlaylists() {
 		return playlists;
 	}
 
-	public void setPlaylists(Collection<Playlist> playlists) {
+	public void setPlaylists(List<Playlist> playlists) {
 		this.playlists = playlists;
 	}
 
@@ -119,44 +118,53 @@ public class Account {
 	}
 
 	//--------------------------Collection Adders and Removers--------------------------
-	//adds a Role to Collection<Role>
-	public void addRole(Role role) {
+	public Account addRole(Role role) {
 		if (getRoles()!=null && !getRoles().contains(role)) {
 			getRoles().add(role);
-//			if (!role.getAccounts().contains(this)) {
-//				role.addAccount(this);
-//			}
 		}
+		return this;
 	}
 	
-	// removes a Role from Collection<Role>
-	public void removeRole(Role role) {
-		if (getRoles()!=null && getRoles().contains(role)) {
-			getRoles().remove(role);
-			if (role.getAccounts().contains(this)) {
-				role.removeAccount(this);
+	public Account removeRole(Role role) {
+		List<Role> roles = getRoles();
+		Iterator<Role> it = roles.iterator();
+		Role targetedRole = null;
+		while(it.hasNext()){
+			Role nextRole = it.next();
+			if(nextRole.getName().equals(role.getName())) {
+				targetedRole = nextRole;
 			}
 		}
+		if(targetedRole!=null){
+			roles.remove(targetedRole);
+		}
+		return this;
 	}
 	
-	//adds a Role to Collection<Role>
-	public void addPlaylist(Playlist playlist) {
+	public Account addPlaylist(Playlist playlist) {
 		if (getPlaylists()!=null && !getPlaylists().contains(playlist)) {
 			getPlaylists().add(playlist);
 			if (!playlist.getAccounts().contains(this)) {
 				playlist.addAccount(this);
 			}
 		}
+		return this;
 	}
 	
-	// removes a Playlist from Collection<Playlist>.
-	public void removePlaylist(Playlist playlist) {
-		if (getPlaylists()!=null && getPlaylists().contains(playlist)) {
-			getPlaylists().remove(playlist);
-			if (playlist.getAccounts().contains(this)) {
-				playlist.removeAccount(this);
+	public Account removePlaylist(Playlist playlist)  {
+		List<Playlist> playlists = getPlaylists();
+		Iterator<Playlist> it = playlists.iterator();
+		Playlist targetedPlaylist = null;
+		while(it.hasNext()){
+			Playlist nextPlaylist = it.next();
+			if(nextPlaylist.getName().equals(playlist.getName())) {
+				targetedPlaylist = nextPlaylist;
 			}
 		}
+		if(targetedPlaylist!=null){
+			playlists.remove(targetedPlaylist);
+		}
+		return this;
 	}
 	
 //--------------------------Collection Printers--------------------------

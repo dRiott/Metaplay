@@ -16,24 +16,27 @@
 		<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
 	</head>
 	<body>
-		<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	
-		<div class="container" id="main">
+		<div class="container" id="errors">
 			<c:if test="${param.logout !=null}">
 				<div class="alert alert-success">
 					<strong>Thank you!</strong> Logged out successfully.
 				</div>
 			</c:if>
-	
+		</div>
+
+		<div class="container" id="main" style="position:absolute; top: 90px; left: 250px">
 			<h1 id="main-h1">Your life has taken a strange turn...</h1>
 			<small id="main-small">Be careful what you ask for.</small>
 		</div>
 
 		<div id = "drakeButtonDiv">
-			<button type="button" id="noMoreDrake" class="btn btn-primary btn-lg">Bye Bye Drake</button>
+			<button type="button" id="noMoreDrake" class="btn btn-primary btn-lg"
+			style="position:absolute; top: 235px; left: 37px">Bye Bye Drake</button>
 		</div>
 
-		<div id="drakeStatus" style="position:relative; left:15%; bottom:50%;"></div>	
+		<div id="drakeStatus" style="position:absolute; top: 90px; left: 250px"></div>	
 
 		<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	

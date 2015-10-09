@@ -16,7 +16,7 @@
 </head>
 <body>
 	
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>			
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
 	<div class="container">
 		

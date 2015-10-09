@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<jsp:include page="../views/fragments/landingPageFragment.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	<div class="container"  id="1">
 		<h2>Want to make Friendship?</h2>
 		<h3>HonestDad.docx love friends: <span style="padding-left: 10px"></span><small>Prepare to be account'd.</small></h3>

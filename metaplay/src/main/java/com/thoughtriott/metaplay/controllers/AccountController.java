@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -56,13 +58,15 @@ public class AccountController {
 		Account newAccount = (Account) session.getAttribute("account");
 		newAccount.setRegistrationDate(new Date());
 		newAccount.setEnabled(true);
-		newAccount.addRole(roleRepository.findRoleOrderByName("Lurker").get(0));
 		Account savedAccount = accountRepository.saveAndFlush(newAccount);
-		model.addAttribute("accountId", savedAccount.getId());
+		Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
+		savedAccount.addRole(role);
+		//for some reason, needed to save the account first, then add the role and save again.
+		accountRepository.saveAndFlush(savedAccount);
+//		model.addAttribute("accountId", savedAccount.getId());
+//		return "redirect:/account/{accountId}";
 		status.setComplete();
-		// avoiding dangerous string concatenation... SQL injections could have
-		// occurred.
-		return "redirect:/account/{accountId}";
+		return "redirect:/account/login";
 	}
 
 	@RequestMapping(value = "/{accountId}")
@@ -96,22 +100,22 @@ public class AccountController {
 			Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
 			String dbAccountPassword = dbAccount.getPassword();
 			if(loginPassword.equals(dbAccountPassword)) {
-//				status.setComplete();
-//				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
-//				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
+				status.setComplete();
+				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
+				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
 				model.addAttribute("accountId", dbAccount.getId());
 				return "redirect:/account/{accountId}";
 			} else {
-//				System.out.println("AccountController: performLogin() - login failed...");
-//				int counter = (int) session.getAttribute("counter");
-//				if(counter >= 3) 
-//					return "404";
-//				counter++;
-//				System.out.println(counter);
-//				String loginStatus = "fuckedUp";
-//				session.setAttribute("loginStatus", loginStatus);
-//				session.setAttribute("counter", counter);
-//				System.out.println("Counter in session: " + session.getAttribute("counter"));
+				System.out.println("AccountController: performLogin() - login failed...");
+				int counter = (int) session.getAttribute("counter");
+				if(counter >= 3) 
+					return "404";
+				counter++;
+				System.out.println(counter);
+				String loginStatus = "fuckedUp";
+				session.setAttribute("loginStatus", loginStatus);
+				session.setAttribute("counter", counter);
+				System.out.println("Counter in session: " + session.getAttribute("counter"));
 				return "redirect:login";
 			} 	
 		} else return "redirect:login";
@@ -121,6 +125,13 @@ public class AccountController {
 	@RequestMapping("/byebye")
 	public String findGroupMembers() {
 		return "404";
+	}
+	
+	@RequestMapping("/profile")
+	public String getUserAndRedirect(@AuthenticationPrincipal User activeUser, Model model) {
+		Account activeAccount = accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0);
+		model.addAttribute("accountId", activeAccount.getId());
+		return "redirect:/account/{accountId}";
 	}
 
 	@ModelAttribute("account")
