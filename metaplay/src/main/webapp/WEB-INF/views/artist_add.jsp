@@ -147,7 +147,7 @@
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 				<div class="form-group" id="newAlbumReleaseDate" style="display:none;">
-					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label><span><small>Please use format: 04-01-2012</small></span>
+					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label><span><small>(e.g. 04-31-1990 or 4/22/1990)</small></span>
 					<form:input path="albumReleaseDate" cssClass="form-control"
 						id="newAlbumReleaseDate" />
 				</div>

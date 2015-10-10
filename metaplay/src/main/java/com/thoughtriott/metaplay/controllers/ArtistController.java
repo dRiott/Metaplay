@@ -160,12 +160,7 @@ public class ArtistController {
 		}
 		
 		System.out.println("About to saveAndFlush futureArtist");
-		
-		//
-		Artist returnedArtist = artistRepository.saveAndFlush(futureArtist);
-		
-		
-		
+		artistRepository.saveAndFlush(futureArtist);
 		status.setComplete();
 		return "redirect:/artist/add";
 	}

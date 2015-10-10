@@ -28,17 +28,10 @@
 		</div>
 
 		<spring:url value="/playlist/review" var="thisFormURL" />
-		<form:form action="${thisFormURL}" method="post" modelAttribute="playlist">
+		<form:form action="${thisFormURL}" method="post" modelAttribute="createPlaylistWrapper">
 
 			<div class="row">
 
-				<div class="form-group">
-					<label for="playlist-id">Playlist ID</label>
-					<form:input type="text" path="id" cssClass="form-control"
-						id="playlist-id" />
-				</div>
-				
-				
 				<div class="form-group">
 					<label for="playlist-name">Name</label>
 					<form:input path="name" cssClass="form-control" id="playlist-name" />

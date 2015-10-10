@@ -24,9 +24,7 @@
 
 	<div class="container">
 
-		<div class="row">
-			<h1>Create an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
-		</div>
+		<h1>Create an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/album/review" var="thisFormURL" />                                 
 		<form:form action="${thisFormURL}" method="post" modelAttribute="createAlbumWrapper" onsubmit="fixNumberFormatException();">  
@@ -69,21 +67,23 @@
 					</form:select>
 					<div class="form-group" id="newRecordLabelName" style="display:none;">
 						<hr/>
-						<div class=form-group>
-						<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
-						<form:input cssClass="form-control" type="text" path="theNewRecordLabel" id="newRecordLabelNameInput" cssErrorClass="has-error" />
+						<div class="row">
+							<div class="col-md-4">
+								<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
+								<form:input cssClass="form-control" type="text" path="theNewRecordLabel" id="newRecordLabelNameInput" cssErrorClass="has-error" />
+							</div>
 						</div>
 						
 						<div class="form-group" style="float:clear;"></div>
 						<div class="row">
 							<div class="col-md-4">
-							<label for="recordLabelCity"><em>Record Label: City</em></label>
-							<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
+								<label for="recordLabelCity"><em>Record Label: City</em></label>
+								<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
 							</div>
 							<div class="col-md-4">
 								<label for="recordLabelState"><em>Record Label: State</em></label>
 								<div class="form-group">
-								<form:select path="recordLabelState" cssClass="selectpicker" items="${stateOptions}"
+								<form:select path="recordLabelState" cssClass="selectpicker" items="${recordLabelStateOptions}"
 									id="recordLabelState" />
 								</div>
 							</div>
@@ -94,13 +94,11 @@
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 			<!-- END RECORDLABEL -->
-	
 				
-				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
-						<label for="albumReleaseDate">Release Date<span style="padding-left: 10px"></span><small>(e.g. 04-31-1990)</small></label>
+						<label for="albumReleaseDate">Release Date<span style="padding-left: 10px"></span><small>(e.g. 04-31-1990 or 4/22/1990)</small></label>
 						<form:input path="releaseDate" cssClass="form-control"
 							id="albumReleaseDate" />
 					</div>
@@ -124,7 +122,8 @@
 					<div class="col-md-8">
 						<label for="albumTrack">Tracks: </label>
 					</div>
-				</div>	
+				
+				<div class="form-group" style="float:clear;"></div>
 				
 				<c:forEach begin="0" end="29" var="val" varStatus="valStatus">
 					<c:choose>
@@ -171,6 +170,7 @@
 					</c:choose>
 				</c:forEach>
 			<!--  END TRACKS -->
+				</div>	
 			
 				<div class="row" id="tracksContainer">
 				<!-- I'm going to insert the above divs dynamically -->

@@ -1,4 +1,6 @@
 			//Artist Options "Other" Box Hide/Unhide
+			//having to use .onchange= instead of an addEventListener method because of how the page is rendered
+			//by Spring form... It's altering the form:form to be a button - I can no longer select the right element.
 			var selectOtherAR = document.getElementById("albumArtistName");
 			var inputBoxAR = document.getElementById("newAlbumArtistName");
 			selectOtherAR.onchange=function(){
@@ -8,11 +10,18 @@
 					inputBoxAR.style.display="none";	
 				}
 			}
-//
-//			var box30 = document.getElementById("30");
-//			box30.ondblclick=function(){
-//				alert("Sorry, but only 30 tracks are currently supported. Try separating into multiple albums.");
-//			}
+			
+			//having to use .onchange= instead of an addEventListener method because of how the page is rendered
+			//by Spring form... It's altering the form:form to be a button - I can no longer select the right element.
+			var selectOtherRL = document.getElementById("recordLabelName");
+			var inputBoxRL = document.getElementById("newRecordLabelName");
+			selectOtherRL.onchange=function(){
+				if(selectOtherRL.value=="** New Record Label **") {
+					inputBoxRL.style.display="inline";
+				} else {
+					inputBoxRL.style.display="none";	
+				}
+			}
 			
 			function reveal(id) {
 				id += 1;
@@ -22,13 +31,6 @@
 					window.scrollTo(0,document.body.scrollHeight);
 				}
 			}
-			
-//			function revealAndScroll(id) {
-//				id += 1;
-//				element = document.getElementById(id);
-//				element.style.display="inline";
-//				window.scrollTo(0,document.body.scrollHeight);
-//			}
 
 			function getRidOfZeroes() {
 				for(var i = 1; i<31; i++){
@@ -48,7 +50,6 @@
 				albumSeconds.value="";
 			}
 			
-			alert("YO!");
 			function fixNumberFormatException() {
 				for(var i = 1; i<31; i++){
 					var minutesId = "minutes" + i;

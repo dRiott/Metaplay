@@ -1,7 +1,7 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,7 +20,6 @@ public class Playlist {
 	
 // --------------------------Constructors--------------------------
 	public Playlist() {
-				
 	}
 
 // --------------------------Fields--------------------------
@@ -29,16 +28,16 @@ public class Playlist {
 	private Integer id;
 
 	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-	private Collection<Playlist_Track> playlistTracks;
+	private List<Playlist_Track> playlistTracks;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="track_playlist", 
 	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
-	private Collection<Track> tracks;
+	private List<Track> tracks;
 	
 	@ManyToMany(mappedBy = "playlists")
-	private Collection<Account> accounts;
+	private List<Account> accounts;
 	
 	private String name;
 	private String description;
@@ -52,19 +51,19 @@ public class Playlist {
 		this.id = id;
 	}
 
-	public Collection<Playlist_Track> getPlaylistTracks() {
+	public List<Playlist_Track> getPlaylistTracks() {
 		return playlistTracks;
 	}
 
-	public void setPlaylistTracks(Collection<Playlist_Track> playlistTracks) {
+	public void setPlaylistTracks(List<Playlist_Track> playlistTracks) {
 		this.playlistTracks = playlistTracks;
 	}
 	
-	public Collection<Track> getTracks() {
+	public List<Track> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Collection<Track> tracks) {
+	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
 	}
 	
@@ -84,18 +83,18 @@ public class Playlist {
 		this.description = description;
 	}
 	
-	public Collection<Account> getAccounts() {
+	public List<Account> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(Collection<Account> accounts) {
+	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
 	
 
 //--------------------------Collection Adders and Removers--------------------------
 	
-	//adds a Track to Collection<Playlist_Track>
+	//adds a Track to List<Playlist_Track>
 	public void addTrackToPlaylistTrack(Track track, int trackNumber) {
 		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(track)) {
 			getPlaylistTracks().add(new Playlist_Track(track, this, trackNumber));
@@ -105,7 +104,7 @@ public class Playlist {
 		}
 	}
 	
-	// removes a Track from Collection<Playlist_Track>
+	// removes a Track from List<Playlist_Track>
 	public void removeTrackToPlaylistTrack(Track track) {
 		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(track)) {
 			getPlaylistTracks().remove(track);
@@ -115,7 +114,7 @@ public class Playlist {
 		}
 	}
 	
-	//adds a Track to Collection<Tracks>
+	//adds a Track to List<Tracks>
 	public void addTrack(Track track, int trackNumber) {
 		if (getTracks()!=null && !getTracks().contains(track)) {
 			getTracks().add(track);
@@ -125,7 +124,7 @@ public class Playlist {
 		}
 	}
 	
-	// removes a Track from Collection<Tracks>
+	// removes a Track from List<Tracks>
 	public void removeTrack(Track track) {
 		if (getTracks()!=null && getTracks().contains(track)) {
 			getTracks().remove(track);
@@ -135,7 +134,7 @@ public class Playlist {
 		}
 	}
 	
-	//adds a User to Collection<User>
+	//adds a User to List<User>
 	public void addAccount(Account account) {
 		if (getAccounts()!=null && !getAccounts().contains(account)) {
 			getAccounts().add(account);
@@ -145,7 +144,7 @@ public class Playlist {
 		}
 	}
 			
-	// removes a Member from Collection<Member>, setting its Artist_Member to null.
+	// removes a Member from List<Member>, setting its Artist_Member to null.
 	public void removeAccount(Account account) {
 		if (getAccounts()!=null && getAccounts().contains(account)) {
 			getAccounts().remove(account);

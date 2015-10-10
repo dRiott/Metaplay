@@ -3,6 +3,9 @@
 			var selectOtherGR = document.getElementById("genreName");
 			var inputBoxGR = document.getElementById("newGenreName");
 			var inputBoxGRdescription = document.getElementById("newGenreDescription");
+			
+			//having to use .onchange= instead of an addEventListener method because of how the page is rendered
+			//by Spring form... It's altering the form:form to be a button - I can no longer select the right element.
 			selectOtherGR.onchange=function(){
 				if(selectOtherGR.value=="** New Genre **") {
 					inputBoxGR.style.display="inline";
@@ -19,6 +22,9 @@
 			var inputBoxALnumtracks = document.getElementById("newAlbumNumTracks");
 			var inputBoxALdate = document.getElementById("newAlbumReleaseDate");
 			var inputBoxALcover = document.getElementById("newAlbumAlbumCover");
+		
+			//having to use .onchange= instead of an addEventListener method because of how the page is rendered
+			//by Spring form... It's altering the form:form to be a button - I can no longer select the right element.
 			selectOtherAL.onchange=function(){
 				if(selectOtherAL.value=="** New Album **") {
 					inputBoxAL.style.display="inline";
