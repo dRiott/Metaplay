@@ -13,7 +13,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, AlbumRep
 	List<Album> findAlbumByName(String name);
 	List<Album> findAlbumByNameOrderByName(String name);
 	
-	boolean findAlbumByNameIsNotNull(String name);
 	
 }
 	

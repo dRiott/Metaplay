@@ -14,53 +14,55 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 	
 	@Override
 	public Member setNameFromArray(String[] nameArray) {
-		if (nameArray.length != 0) {
+		if (nameArray!=null && nameArray.length != 0) {
 			if (nameArray.length == 1) {
-				String lastName = nameArray[0];
-				if (memberRepository.findMemberByLastNameIsNotNull(lastName)) {
-					if(memberRepository.findMemberByLastName(lastName).size()>1)
+				List<Member> members = memberRepository.findMemberByLastName(nameArray[0]);
+				if (members!=null) {
+					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
-					return memberRepository.findMemberByLastName(lastName).get(0);
+						return members.get(0);
+					} else {
+						return members.get(0);
+					}
 				} else {
 					System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastName was null, returning new Member with lastname set, not yet persisted.");
-					return new Member(lastName);
+					return new Member(nameArray[0]);
 				}
 			} else if (nameArray.length == 2) {
 				System.out.println("Inside setNameFromArray method: if(nameArray.length == 2)...");
-				String firstName = nameArray[0];
-				String lastName = nameArray[1];
-
-				if (memberRepository.findMemberByLastNameAndFirstNameIsNotNull(lastName, firstName)) {
-					if(memberRepository.findMemberByLastNameAndFirstName(lastName, firstName).size()>1)
+				List<Member> members = memberRepository.findMemberByLastNameAndFirstName(nameArray[1], nameArray[0]);
+				if (members!=null) {
+					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
-					return memberRepository.findMemberByLastNameAndFirstName(lastName, firstName).get(0);
-				} else {
-					System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstName was null, returning new Member with firstName and lastName set, not yet persisted.");
-					return new Member(lastName, firstName);
+						return members.get(0);
+					} else {
+						System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstName was null, returning new Member with firstName and lastName set, not yet persisted.");
+						return new Member(nameArray[1], nameArray[0]);
+					}
 				}
 			} else if (nameArray.length == 3) {
 				System.out.println("Inside setNameFromArray method: if(nameArray.length == 3)...");
-				String firstName = nameArray[0];
-				String middleName = nameArray[1];
-				String lastName = nameArray[2];
-
-				if (memberRepository.findMemberByLastNameAndFirstNameAndMiddleNameIsNotNull(lastName, firstName, middleName)) {
-					if(memberRepository.findMemberByLastNameAndFirstNameAndMiddleName(lastName, firstName, middleName).size()>1)
+				List<Member> members = memberRepository.findMemberByLastNameAndFirstNameAndMiddleName(nameArray[2], nameArray[0], nameArray[1]);
+				if (members!=null) {
+					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
-					return memberRepository.findMemberByLastNameAndFirstNameAndMiddleName(lastName, firstName, middleName).get(0);
+						return members.get(0);
+					} else {
+						return members.get(0);
+					}
 				} else {
 					System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstNameAndMiddleName was null, returning new Member with firstName, middleName and lastName set, not yet persisted.");
-					return new Member(lastName, firstName, middleName);
+					return new Member(nameArray[2], nameArray[0], nameArray[1]);
 				}
 			} else {
-				System.out.println("The nameArray argument had more than 3 indexes, and only supports 3 (first name, middle name, last name)..."
-						+ "returning null.");
-				return null;
+				System.out.println("The nameArray argument had more than 3 indexes, using first two as First and Middle, and the final item in the Array as the Last.");
+				return new Member(nameArray[nameArray.length-1], nameArray[0], nameArray[1]);
 			}
-		} else {
-			System.out.println("The nameArray argument was empty, returning null.");
-			return null;
 		}
+
+	System.out.println("Something went wrong, and no other returns happened... returning null.");
+	return null;
+
 	}
 	
 	@Override

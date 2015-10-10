@@ -14,9 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer>, Member
 	List<Member> findMemberByLastNameAndFirstName(String lastName,String firstName);
 	List<Member> findMemberByLastNameAndFirstNameAndMiddleName(String lastName, String firstName, String middleName);
 	
-	boolean findMemberByLastNameIsNotNull(String lastName);
-	boolean findMemberByLastNameAndFirstNameIsNotNull(String lastName, String firstName);
-	boolean findMemberByLastNameAndFirstNameAndMiddleNameIsNotNull(String lastName, String firstName, String middleName);
 }
 	
 

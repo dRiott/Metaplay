@@ -103,7 +103,7 @@ public class AlbumController {
 				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) -  **** Hey, I've got this Track: " + newTrack.toString());
 				
 				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to add the track to the album...");
-				if (trackRepository.findTrackByNameIsNotNull(ctw.getName())) {
+				if (trackRepository.findTrackByName(ctw.getName())!=null) {
 					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - Found the track already in the DB: " + ctw.getName());
 					futureAlbum.addTrack(trackRepository.findTrackByName(ctw.getName()).get(0));
 				} else {
@@ -123,7 +123,7 @@ public class AlbumController {
 		
 		// ****************** BEGIN ARTIST PERSISTENCE ******************	
 		System.out.println("AlbumController: Setting/Creating an Artist");
-		if(caw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByNameIsNotNull(caw.getArtistFromList())) {
+		if(caw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByName(caw.getArtistFromList())!=null) {
 			System.out.println("AlbumController: setting Artist - Found the artist already in the DB: " + caw.getArtistFromList());
 			futureAlbum.setArtist(artistRepository.findArtistByName(caw.getArtistFromList()));
 		} else {
@@ -140,7 +140,7 @@ public class AlbumController {
 		String recordLabelName = caw.getRecordLabelFromList();
 		String recordLabelCity = caw.getRecordLabelCity();
 		String recordLabelState = caw.getRecordLabelState();
-		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByNameIsNotNull(recordLabelName)) {
+		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName)!=null) {
 			futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 		} else if(recordLabelName.equals("** New Record Label **")) {
 			String newRecordLabelName = caw.getTheNewRecordLabel();

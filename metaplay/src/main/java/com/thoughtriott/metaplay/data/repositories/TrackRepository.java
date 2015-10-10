@@ -14,9 +14,6 @@ public interface TrackRepository extends JpaRepository<Track, Integer>, TrackRep
 	List<Track> findTrackByNameOrderByName(String name);
 	List<Track> findTrackByNameAndLength(String name, Integer length);
 	
-	boolean findTrackByNameIsNotNull(String name);
-	
-	
 }
 	
 

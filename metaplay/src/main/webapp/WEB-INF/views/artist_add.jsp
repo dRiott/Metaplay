@@ -15,6 +15,7 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
 
+
 </head>
 
 
@@ -50,7 +51,7 @@
 				<div class="form-group">
 					<label for="genreName">Genre</label>
 					<form:select path="genreName" id="genreName" cssClass="selectpicker">
-						<form:options items="${genreOptions}" />
+						<form:options items="${genreOptions}" id="genreOptions"/>
 					</form:select>
 					<div class="form-group" id="newGenreName" style="display:none;">
 						<hr/>
@@ -166,7 +167,7 @@
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	
-	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
-	
-</body>
+		<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
+<!-- 		<script>$(window).load(addEventHandlers());</script>
+ -->	</body>
 </html>

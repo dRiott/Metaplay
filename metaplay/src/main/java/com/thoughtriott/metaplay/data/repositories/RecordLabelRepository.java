@@ -14,7 +14,6 @@ public interface RecordLabelRepository extends JpaRepository<RecordLabel, Intege
 	List<RecordLabel> findRecordLabelByNameOrderByName(String name);
 	List<RecordLabel> findRecordLabelByNameOrderByLocation(String name);
 	
-	boolean findRecordLabelByNameIsNotNull(String name);
 	
 }
 	

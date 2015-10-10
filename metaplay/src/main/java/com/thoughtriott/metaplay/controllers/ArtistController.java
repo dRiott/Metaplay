@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,7 +94,7 @@ public class ArtistController {
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
 		caw.getNewGenreDescription();
-		if(genreName!="** New Genre **" && genreRepository.findGenreByNameIsNotNull(genreName)) {
+		if(genreName!="** New Genre **" && genreRepository.findGenreByName(genreName)!=null) {
 			futureArtist.setGenre(genreRepository.findGenreByName(genreName).get(0));
 		} else if(genreName.equals("** New Genre **")) {
 			futureArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
@@ -104,20 +103,30 @@ public class ArtistController {
 
 	// 		adding members to the artist
 		System.out.println("Going to add members to the artist");
-		ArrayList<String> members = new ArrayList<String>();
-		members.add(caw.getMember1());
-		members.add(caw.getMember2());
-		members.add(caw.getMember3());
-		members.add(caw.getMember4());
-		members.add(caw.getMember5());
-		members.add(caw.getMember6());
-		
-		for (String memberFullName : members) {
-			if (!memberFullName.isEmpty()) {
-				String[] nameArray = memberRepository.splitFullName(memberFullName);
+		String[][] members = new String[][]{
+				{caw.getMember1(), caw.getMember1StageName()},
+				{caw.getMember2(), caw.getMember2StageName()},
+				{caw.getMember3(), caw.getMember3StageName()},
+				{caw.getMember4(), caw.getMember4StageName()},
+				{caw.getMember5(), caw.getMember5StageName()},
+				{caw.getMember6(), caw.getMember6StageName()}
+		};
+				
+		for (int i = 0; i<members.length; i++) {
+			if (!members[i][0].equals("")) {
+				System.out.println("members[i][0] wasn't .equals(\"\"), (Full Name) : " + members[i][0]);
+				String[] nameArray = memberRepository.splitFullName(members[i][0]);
 				Member newMember = memberRepository.setNameFromArray(nameArray);
-				newMember.setStageName(caw.getMember1StageName());
-				if(memberRepository.findMemberByLastNameIsNotNull(newMember.getLastName())) {
+				
+				if(!members[i][1].equals("")){
+					System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
+					newMember.setStageName(members[i][1]);
+				}
+				
+				System.out.println("The returned member's last name: " + newMember.getLastName());
+				
+				if(!memberRepository.findMemberByLastName(newMember.getLastName()).isEmpty()) {
+					System.out.println("The returned member's last name: " + memberRepository.findMemberByLastName(newMember.getLastName()));
 					futureArtist.addMember(memberRepository.findMemberByLastName(newMember.getLastName()).get(0));
 				} else {
 					futureArtist.addMember(memberRepository.saveAndFlush(newMember));				
@@ -127,7 +136,6 @@ public class ArtistController {
 		
 	//		Setting/Creating an Album
 		System.out.println("Setting/Creating an Album");
-		
 		if (caw.getAlbumNameFromList().equals("** Do Not Add Album Now **") || caw.getAlbumNameFromList().contains("exist")) {
 			// do nothing, they don't want to add an album.
 			System.out.println("ArtistController: ** Do Not Add Album Now ** or No Albums exist, add one!");
@@ -137,16 +145,27 @@ public class ArtistController {
 			Album newAlbum = new Album();
 				newAlbum.setName(caw.getTheNewAlbumName());
 				newAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
+				System.out.println("Date about to be set: " + dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
 				newAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
-			futureArtist.addAlbum(albumRepository.saveAndFlush(newAlbum));
-		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumRepository.findAlbumByNameIsNotNull(caw.getAlbumNameFromList())) {
+			System.out.println("ArtistController: Album setting successful.");
+			System.out.println("About to flush album");
+			System.out.println("Album returned : " + albumRepository.saveAndFlush(newAlbum));
+			Album returnedAlbum = albumRepository.saveAndFlush(newAlbum);
+			System.out.println("futureArtist.addAlbum() - About to add the persisted album to the artist.");
+			futureArtist.addAlbum(returnedAlbum);
+		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumRepository.findAlbumByName(caw.getAlbumNameFromList())!=null) {
 			//they've selected from the dropdown... add from the database to the artist.
 			System.out.println("ArtistController: They've selected the following artist from the dropdown: " + caw.getAlbumNameFromList());
 			futureArtist.addAlbum(albumRepository.findAlbumByName(caw.getAlbumNameFromList()).get(0));
 		}
 		
-		artistRepository.saveAndFlush(futureArtist);
-
+		System.out.println("About to saveAndFlush futureArtist");
+		
+		//
+		Artist returnedArtist = artistRepository.saveAndFlush(futureArtist);
+		
+		
+		
 		status.setComplete();
 		return "redirect:/artist/add";
 	}

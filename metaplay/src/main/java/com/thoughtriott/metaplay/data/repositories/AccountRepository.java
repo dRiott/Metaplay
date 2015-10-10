@@ -11,7 +11,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer>, Acco
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
 	
 	List<Account> findAccountByAccountname(String accountname);
-	boolean findAccountByAccountnameIsNotNull(String accountname);
 	
 }
 

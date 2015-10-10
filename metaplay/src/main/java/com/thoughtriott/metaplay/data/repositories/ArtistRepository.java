@@ -10,7 +10,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, Artist
 	Artist findArtistByName(String name);
 	Artist findArtistByNameAndBiography(String name, String biography);
 	
-	boolean findArtistByNameIsNotNull(String name);
 
 }
 

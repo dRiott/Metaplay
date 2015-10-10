@@ -12,7 +12,7 @@ public interface GenreRepository extends JpaRepository<Genre, Integer>, GenreRep
 	
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
 	List<Genre> findGenreByName(String name);
-	boolean findGenreByNameIsNotNull(String name);
+	boolean findGenreByNameNotNull(String name);
 }
 	
 
