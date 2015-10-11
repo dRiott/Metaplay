@@ -20,16 +20,45 @@
 
 	<div class="container">
 		
-		<h2>Albums</h2>
+		<h1>Albums</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Description</th>
+					<th>Name</th><th>Artist</th><th>Record Label</th><th>Description</th>
 				</tr>
 				<c:forEach items="${albums}" var="album">
 					<tr>
 						<td><a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a></td>
-						<td>${album.description}</td>
+						<td><c:choose>
+								<c:when test="${album.artist!=null}">
+									<a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a>
+								</c:when>
+								<c:otherwise>
+									No artist listed for this album.
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${album.recordLabel!=null}">
+									<a href="<spring:url value="/browse/recordlabel/${album.recordLabel.id}"/>">${album.recordLabel.name}</a>
+								</c:when>
+								<c:otherwise>
+									No record label assigned.
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${album.description!=null && !album.description.isEmpty()}">
+									<span>${album.description}</span>
+								</c:when>
+								<c:otherwise>
+									No description given.
+								</c:otherwise>
+							</c:choose>
+						</td>
+						
 					</tr>	
 				</c:forEach>
 			</tbody>

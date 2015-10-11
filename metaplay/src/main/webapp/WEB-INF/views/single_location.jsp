@@ -23,41 +23,41 @@
 
 	<div class="container">
 		<div class="row">
-
-			<div class="form-group">
-				<label for="project-name">City</label> <span>${location.city}</span>
-			</div>
-
-			<div class="form-group">
-				<label for="project-name">State</label> <span>${location.state}</span>
-			</div>
+			<h1 style="font-family: Times, serif;"><em>Location: ${location.city}, ${location.state}</em></h1>
 			
 			<div class="form-group">
 				<label for="project-name">Record Labels</label> 
 				<div>
-					<c:if test="${location.recordLabels.size()==0 }">
-						<c:out value="This location has no record labels." />
-					</c:if>
-					<ul>
-						<c:forEach items="${location.recordLabels}" var="recordLabel">
-							<li>${recordLabel}</li>
-						</c:forEach>
-					</ul>
+					<c:choose>
+						<c:when test="${location.recordLabels.size()==0 }">
+							<c:out value="This location has no record labels. Hmm..." />
+						</c:when>
+						<c:otherwise>
+							<ul>
+								<c:forEach items="${location.recordLabels}" var="recordLabel" varStatus="count">
+									<li><a href="<spring:url value="/browse/recordlabel/${recordLabel.id}"/>">${recordLabel.name}</a></li>
+								</c:forEach>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label for="project-name">Artists</label>
-				<div>
-					<c:if test="${location.artists.size()==0 }">
-						<c:out value="This location has no artists." />
-					</c:if>
-					<ul>
-						<c:forEach items="${location.artists}" var="artist">
-							<li>${artist}</li>
-						</c:forEach>
-					</ul>
-				</div>
+				<c:choose>
+					<c:when test="${location.artists.size()==0 }">
+						<c:out value="This location has no artist. Hmm..." /><span style="padding-left: 6px;"></span>
+						<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
+					</c:when>
+					<c:otherwise>
+						<ul>
+							<c:forEach items="${location.artists}" var="artist">
+								<li><a href="<spring:url value="/browse/artist/${artist.id}"/>">${artist.name}</a></li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 		<a href="<spring:url value="/browse/locations"/>" class="btn btn-default">Back To Browse</a>

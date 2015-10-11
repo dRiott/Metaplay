@@ -20,7 +20,7 @@
 
 	<div class="container">
 		
-		<h2>Playlists</h2>
+		<h1>Playlists</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>

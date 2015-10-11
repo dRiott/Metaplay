@@ -218,12 +218,13 @@ public class Track {
 		String playlistsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Playlist currentPlaylist = it.next();
 			if(playlistsString.length() > 1) {
-			playlistsString = playlistsString + ", " + it.next().getName();
+			playlistsString = playlistsString + ", " + currentPlaylist.getName();
 			} else if (!it.hasNext()) {
-				playlistsString = playlistsString + ", " + it.next().getName() + "}";
+				playlistsString = playlistsString + ", " + currentPlaylist.getName() + "}";
 			} else {
-				playlistsString = "Playlists: {" + it.next().getName();
+				playlistsString = "Playlists: {" + currentPlaylist.getName();
 			}
 		}
 		return playlistsString;
@@ -241,18 +242,19 @@ public class Track {
 		String playlistTracksString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Playlist_Track currentPlaylistTrack = it.next();
 			if(playlistTracksString.length() > 1) {
-			playlistTracksString = playlistTracksString + ", " + "Playlist: " + it.next().getPlaylist().getName()
-					+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-					it.next().getTrackNumber();
+			playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+					+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+					currentPlaylistTrack.getTrackNumber();
 			} else if (!it.hasNext()) {
-				playlistTracksString = playlistTracksString + ", " + "Playlist: " + it.next().getPlaylist().getName()
-						+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-						it.next().getTrackNumber() + "}";
+				playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+						currentPlaylistTrack.getTrackNumber() + "}";
 			} else {
-				playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + it.next().getPlaylist().getName()
-						+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-						it.next().getTrackNumber();
+				playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+						currentPlaylistTrack.getTrackNumber();
 			}
 		}
 		return playlistTracksString;

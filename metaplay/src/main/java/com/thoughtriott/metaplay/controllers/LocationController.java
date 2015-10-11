@@ -46,8 +46,18 @@ public class LocationController {
 	public String saveLocation(HttpSession session, SessionStatus status){
 		System.out.println("invoking saveLocation");
 		Location l = (Location) session.getAttribute("location");
-		locationRepository.saveAndFlush(l);
-		status.setComplete();
+		String city = l.getCity();
+		String state = l.getState();
+		
+		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
+			System.out.println("Location Controller: locationService.findLocation() exists... returning to Location/add.");
+			status.setComplete();
+			return "redirect:/location/add";
+		} else {
+			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
+			locationRepository.saveAndFlush(l);
+			status.setComplete();
+		}
 		return "redirect:/location/add";
 	}
 	

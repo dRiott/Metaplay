@@ -84,6 +84,9 @@
 				<div class="form-group" id="newTrackAlbumCover" style="display:none;">
 					<label for="newTrackAlbumCover"><em>New Album Cover:</em></label>
 					<form:input path="albumCover" id="newTrackAlbumCover" cssClass="form-control" cssErrorClass="has-error" />
+					<div class="form-group" style="float:clear;"></div>
+					<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
+					<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
 					<hr/>
 				</div>
 				<div class="form-group" style="float:clear;"></div>

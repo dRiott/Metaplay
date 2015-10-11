@@ -94,12 +94,13 @@ public class Role {
 		String accountsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Account currentAccount = it.next();
 			if(accountsString.length() > 1) {
-			accountsString = accountsString + ", " + it.next().getAccountname();
+			accountsString = accountsString + ", " + currentAccount.getAccountname();
 			} else if (!it.hasNext()) {
-				accountsString = accountsString + ", " + it.next().getAccountname() + "}";
+				accountsString = accountsString + ", " + currentAccount.getAccountname() + "}";
 			} else {
-				accountsString = "Accounts: {" + it.next().getAccountname();
+				accountsString = "Accounts: {" + currentAccount.getAccountname();
 			}
 		}
 		return accountsString;

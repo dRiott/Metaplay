@@ -20,8 +20,8 @@
 
 	<div class="container">
 		
-		<h2>Location</h2>
-		<table class="table table-hover">
+		<h1>Locations</h1>
+		<table class="table table-hover" style="width:40%">
 			<tbody>
 				<tr>
 					<th>City</th><th>State</th>

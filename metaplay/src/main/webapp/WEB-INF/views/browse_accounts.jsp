@@ -20,8 +20,8 @@
 
 	<div class="container">
 		
-		<h2>Accounts</h2>
-		<table class="table table-hover">
+		<h1>Accounts</h1>
+		<table class="table table-hover" style="width:60%;">
 			<tbody>
 				<tr>
 					<th>Account</th><th>Playlists</th>

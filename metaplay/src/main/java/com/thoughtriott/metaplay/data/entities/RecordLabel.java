@@ -110,12 +110,13 @@ public class RecordLabel {
 		String artistsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Album currentAlbum = it.next();
 			if(artistsString.length() > 1) {
-			artistsString = artistsString + ", " + it.next().getName();
+			artistsString = artistsString + ", " + currentAlbum.getName();
 			} else if (!it.hasNext()) {
-				artistsString = artistsString + ", " + it.next().getName() + "}";
+				artistsString = artistsString + ", " + currentAlbum.getName() + "}";
 			} else {
-				artistsString = "Artists: {" + it.next().getName();
+				artistsString = "Artists: {" + currentAlbum.getName();
 			}
 		}
 		return artistsString;

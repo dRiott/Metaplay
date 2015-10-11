@@ -38,21 +38,25 @@
 				</div>
 
 				<label for="roles">Roles</label>
-				<c:if test="${roles.size()==0 }">
-					<c:out value="There are currently no roles assigned to ${account.accountname }." />
-				</c:if>
-				<c:forEach items="${roles}" var="role">
+				<c:choose>
+				<c:when test="${roles.size()==0 }">
+					<c:out value="There are currently no roles assigned to ${account.accountname}." />
+				</c:when>
+				<c:otherwise>
 					<table style="border: 2px solid">
 						<tr>
 							<th style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">Role Name</th>
 							<th style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">Role Description</th>
 						</tr>
-						<tr>
-							<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.name}</td>
-							<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.description}</td>
-						</tr>
+						<c:forEach items="${roles}" var="role">
+							<tr>
+								<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.name}</td>
+								<td style="padding: 5px; border-left: 2px solid; border-top: 2px solid;">${role.description}</td>
+							</tr>
+						</c:forEach>
 					</table>
-				</c:forEach>
+				</c:otherwise>
+				</c:choose>
 
 			</div>
 		</div>

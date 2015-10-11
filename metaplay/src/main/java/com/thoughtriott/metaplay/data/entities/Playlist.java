@@ -163,18 +163,19 @@ public class Playlist {
 		String playlistTracksString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Playlist_Track currentPlaylistTrack = it.next();
 			if(playlistTracksString.length() > 1) {
-			playlistTracksString = playlistTracksString + ", " + "Playlist: " + it.next().getPlaylist().getName()
-					+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-					it.next().getTrackNumber();
+			playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+					+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+					currentPlaylistTrack.getTrackNumber();
 			} else if (!it.hasNext()) {
-				playlistTracksString = playlistTracksString + ", " + "Playlist: " + it.next().getPlaylist().getName()
-						+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-						it.next().getTrackNumber() + "}";
+				playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+						currentPlaylistTrack.getTrackNumber() + "}";
 			} else {
-				playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + it.next().getPlaylist().getName()
-						+ ", Track: " + it.next().getTrack().getName() + ", Track Number In Playlist: " +
-						it.next().getTrackNumber();
+				playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+						currentPlaylistTrack.getTrackNumber();
 			}
 		}
 		return playlistTracksString;
@@ -187,12 +188,13 @@ public class Playlist {
 		String tracksString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Track currentTrack = it.next();
 			if(tracksString.length() > 1) {
-			tracksString = tracksString + ", " + it.next().getName();
+			tracksString = tracksString + ", " + currentTrack.getName();
 			} else if (!it.hasNext()) {
-				tracksString = tracksString + ", " + it.next().getName() + "}";
+				tracksString = tracksString + ", " + currentTrack.getName() + "}";
 			} else {
-				tracksString = "Tracks: {" + it.next().getName();
+				tracksString = "Tracks: {" + currentTrack.getName();
 			}
 		}
 		return tracksString;
@@ -205,12 +207,13 @@ public class Playlist {
 		String accountsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Account currentAccount = it.next();
 			if(accountsString.length() > 1) {
-			accountsString = accountsString + ", " + it.next().getAccountname();
+			accountsString = accountsString + ", " + currentAccount.getAccountname();
 			} else if (!it.hasNext()) {
-				accountsString = accountsString + ", " + it.next().getAccountname() + "}";
+				accountsString = accountsString + ", " + currentAccount.getAccountname() + "}";
 			} else {
-				accountsString = "Accounts: {" + it.next().getAccountname();
+				accountsString = "Accounts: {" + currentAccount.getAccountname();
 			}
 		}
 		return accountsString;

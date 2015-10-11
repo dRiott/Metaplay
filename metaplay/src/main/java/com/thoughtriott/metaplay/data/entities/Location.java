@@ -132,12 +132,13 @@ public class Location {
 		String artistsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Artist currentArtist = it.next();
 			if(artistsString.length() > 1) {
-			artistsString = artistsString + ", " + it.next().getName();
+			artistsString = artistsString + ", " + currentArtist.getName();
 			} else if (!it.hasNext()) {
-				artistsString = artistsString + ", " + it.next().getName() + "}";
+				artistsString = artistsString + ", " + currentArtist.getName() + "}";
 			} else {
-				artistsString = "Artists: {" + it.next().getName();
+				artistsString = "Artists: {" + currentArtist.getName();
 			}
 		}
 		return artistsString;
@@ -151,12 +152,13 @@ public class Location {
 		String recordLabelsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			RecordLabel currentRecordLabel = it.next();
 			if(recordLabelsString.length() > 1) {
-				recordLabelsString = recordLabelsString + ", " + it.next().getName();
+				recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName();
 			} else if (!it.hasNext()) {
-				recordLabelsString = recordLabelsString + ", " + it.next().getName() + "}";
+				recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName() + "}";
 			} else {
-				recordLabelsString = "Record Labels: {" + it.next().getName();
+				recordLabelsString = "Record Labels: {" + currentRecordLabel.getName();
 			}
 		}
 		return recordLabelsString;

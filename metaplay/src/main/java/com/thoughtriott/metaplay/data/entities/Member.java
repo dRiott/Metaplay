@@ -138,12 +138,13 @@ public class Member {
 			String artistsString = "";
 			while(it.hasNext()) {
 				//if-else prevents ", " from being appended the first time, appends } on the final time.
+				Artist currentArtist = it.next();
 				if(artistsString.length() > 1) {
-				artistsString = artistsString + ", " + it.next().getName();
+				artistsString = artistsString + ", " + currentArtist.getName();
 				} else if (!it.hasNext()) {
-					artistsString = artistsString + ", " + it.next().getName() + "}";
+					artistsString = artistsString + ", " + currentArtist.getName() + "}";
 				} else {
-					artistsString = "Artists: {" + it.next().getName();
+					artistsString = "Artists: {" + currentArtist.getName();
 				}
 			} return artistsString;
 		} return "No artists.";

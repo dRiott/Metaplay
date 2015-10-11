@@ -192,14 +192,14 @@ public class Album {
 			Iterator<Track> it = getTracks().iterator();
 			String tracksString = "";
 			while (it.hasNext()) {
-				// if-else prevents ", " from being appended the first time,
-				// appends } on the final time.
+				// if-else prevents ", " from being appended the first time, appends } on the final time.
+				Track currentTrack = it.next();
 				if (tracksString.length() > 1) {
-					tracksString = tracksString + ", " + it.next().getName();
+					tracksString = tracksString + ", " + currentTrack.getName();
 				} else if (!it.hasNext()) {
-					tracksString = tracksString + ", " + it.next().getName() + "}";
+					tracksString = tracksString + ", " + currentTrack.getName() + "}";
 				} else {
-					tracksString = "Tracks: {" + it.next().getName();
+					tracksString = "Tracks: {" + currentTrack.getName();
 				}
 			}
 			return tracksString;

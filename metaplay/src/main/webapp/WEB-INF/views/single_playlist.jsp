@@ -21,10 +21,7 @@
 
 	<div class="container">
 		<div class="row">
-
-			<div class="form-group">
-				<label for="project-name">Name</label> <span>${playlist.name}</span>
-			</div>
+			<h1 style="font-family: Times, serif;"><em>Playlist: ${playlist.name}</em></h1>
 
 			<div class="form-group">
 				<label for="project-name">Description</label> <span>${playlist.description}</span>

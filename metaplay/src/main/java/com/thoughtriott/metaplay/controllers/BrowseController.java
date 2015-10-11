@@ -1,5 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,10 +52,16 @@ public class BrowseController {
 		model.addAttribute("accounts", accountRepository.findAll());
 		return "browse_accounts";
 	}
+	
 	@RequestMapping(value="account/{accountId}")
 	public String findAccount(Model model, @PathVariable("accountId") int accountId) {
-		model.addAttribute("account", accountRepository.getOne(accountId));
-		return "single_account";
+		try {
+			model.addAttribute("account", accountRepository.getOne(accountId));
+			return "single_account";
+		} catch (EntityNotFoundException e) {
+			System.out.println(e.getMessage());
+			return "redirect:/browse/accounts";
+		}
 	}
 	
 //Albums

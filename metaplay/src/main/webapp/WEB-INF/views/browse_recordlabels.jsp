@@ -20,7 +20,7 @@
 
 	<div class="container">
 		
-		<h2>Record Labels</h2>
+		<h1>Record Labels</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
@@ -29,8 +29,25 @@
 				<c:forEach items="${recordlabels}" var="recordlabel">
 					<tr>
 						<td><a href="<spring:url value="/browse/recordlabel/${recordlabel.id}"/>">${recordlabel.name}</a></td>
-						<td>${recordlabel.description}</td>
-						<td>${recordlabel.location}</td>
+						<td><c:choose>
+								<c:when test="${recordlabel.description!=null && !recordlabel.description.isEmpty()}">
+									<span>${recordlabel.description}</span>
+								</c:when>
+								<c:otherwise>
+									No description given yet.
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${recordlabel.location!=null}">
+									<span><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
+								</c:when>
+								<c:otherwise>
+									<td>No location assigned yet.</td>
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>	
 				</c:forEach>
 			</tbody>

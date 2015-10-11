@@ -81,6 +81,7 @@ public class ArtistController {
 		System.out.println("Setting/Creating a Location");
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
+		
 		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
 			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
 			futureArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));

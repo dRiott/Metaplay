@@ -190,12 +190,13 @@ public class Artist {
 		String membersString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Member currentMember = it.next();
 			if(membersString.length() > 1) {
-			membersString = membersString + ", " + it.next().getFirstName() + " " + it.next().getLastName();
+			membersString = membersString + ", " + currentMember.getFirstName() + " " + currentMember.getLastName();
 			} else if (!it.hasNext()) {
-				membersString = membersString + ", " + it.next().getFirstName() + " " + it.next().getLastName() + "}";
+				membersString = membersString + ", " + currentMember.getFirstName() + " " + currentMember.getLastName() + "}";
 			} else {
-				membersString = "Members: {" + it.next().getFirstName() + " " + it.next().getLastName();
+				membersString = "Members: {" + currentMember.getFirstName() + " " + currentMember.getLastName();
 			}
 		}
 		return membersString;
@@ -208,12 +209,13 @@ public class Artist {
 		String albumsString = "";
 		while(it.hasNext()) {
 			//if-else prevents ", " from being appended the first time, appends } on the final time.
+			Album currentAlbum = it.next();
 			if(albumsString.length() > 1) {
-				albumsString = albumsString + ", " + it.next().getName();
+				albumsString = albumsString + ", " + currentAlbum.getName();
 			} else if (!it.hasNext()) {
-				albumsString = albumsString + ", " + it.next().getName() + "}";
+				albumsString = albumsString + ", " + currentAlbum.getName() + "}";
 			} else {
-				albumsString = "Albums: {" + it.next().getName();
+				albumsString = "Albums: {" + currentAlbum.getName();
 			}
 		}
 		return albumsString; 
