@@ -183,6 +183,9 @@
 			</div>
 		</form:form>
 	</div>
+
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
+	
 	<script src="<spring:url value="/resources/js/albumAddShowHide.js"/>"></script>
 	<script type="text/javascript">getRidOfZeroes();</script>
 	

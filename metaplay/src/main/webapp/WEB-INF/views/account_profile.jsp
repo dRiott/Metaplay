@@ -32,6 +32,10 @@
 				<div class="form-group">
 					<label for="account-name">Account Name</label> <br /> <span>${account.accountname}</span>
 				</div>
+				
+				<div class="form-group">
+						<img src="/metaplay/account/imageDisplay?accountId=${account.id}"/>
+				</div>
 
 				<div class="form-group">
 					<label for="account-email">Email</label> <br /> <span>${account.email}</span>

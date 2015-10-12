@@ -31,8 +31,8 @@
 			<h2>Fill In Your Desired Credentials</h2>
 		</div>
 
-		<spring:url value="/account/review" var="thisFormURL" />                                 
-		<form:form action="${thisFormURL}" method="post" modelAttribute="account" onsubmit="return validatePassword();">  
+		<spring:url value="/account/save" var="thisFormURL" />                                 
+		<form:form  name='f' action="${thisFormURL}" method="post" enctype="multipart/form-data" modelAttribute="createAccountWrapper"  onsubmit="return validatePassword();">  
 		<form:errors path="*" element="div" cssClass="errors"/>
             
             <div class="row" id="errorWritingSpace"></div>                                                                                    
@@ -68,6 +68,15 @@
 					<div class="col-md-6">
 						<label for="account-passwordConfirm">Confirm Password</label>
 						<form:password path="" id="confirmPassword" cssClass="form-control" cssErrorClass="has-error" placeholder = "Confirm Password" />
+					</div>
+				</div>
+				
+				<div class="form-group" style="float:clear;"></div>
+				
+				 <div class="row">     
+					<div class="col-md-6">
+						<label for="account-profilePicture">Profile Picture</label><span style="padding-left: 10px;"></span><small>jpeg, png, or gif</small>
+							<form:input type="file" accept="image/jpeg, image/png, image/gif" path="profilePicture" id="confirmPassword" cssClass="btn btn-default btn-file" />
 					</div>
 				</div>
 					

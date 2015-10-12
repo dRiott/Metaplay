@@ -1,5 +1,8 @@
 package com.thoughtriott.metaplay.config;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class MetaplayWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -19,7 +22,11 @@ public class MetaplayWebAppInitializer extends AbstractAnnotationConfigDispatche
 		return new Class<?>[] { WebConfig.class };
 	}
 
+	//limit parts to be no more than 1mb, and the entire request no more than 2mb
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(
+        new MultipartConfigElement("/tmp/uploads", 1097152, 2097152, 0));
+	}
 
-	
-	
 }

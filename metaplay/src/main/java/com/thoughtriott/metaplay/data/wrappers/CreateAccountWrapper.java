@@ -3,6 +3,8 @@ package com.thoughtriott.metaplay.data.wrappers;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CreateAccountWrapper {
 
 // --------------------------Fields--------------------------	
@@ -21,18 +23,11 @@ public class CreateAccountWrapper {
 	@NotNull
 	@Size(min=5, max=50)
 	private String email;
+	
+	private MultipartFile profilePicture;
 
 	
 // --------------------------Constructors--------------------------
-
-	public CreateAccountWrapper(String accountname, String password, String confirmPassword, String email) {
-		super();
-		this.accountname = accountname;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.email = email;
-	}
-	
 	public CreateAccountWrapper() {
 	}
 	
@@ -63,4 +58,14 @@ public class CreateAccountWrapper {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public MultipartFile getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(MultipartFile profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	
 }

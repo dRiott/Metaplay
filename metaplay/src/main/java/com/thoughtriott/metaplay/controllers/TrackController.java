@@ -71,9 +71,10 @@ public class TrackController {
 		
 		System.out.println("Setting/Creating an Album");
 		
-		if(ctw.getAlbumFromList()!="** New Album **" && albumRepository.findAlbumByName(ctw.getAlbumFromList())!=null) {
+		if(!ctw.getAlbumFromList().equals("** New Album **") && !ctw.getAlbumFromList().equals("** Do Not Add Album Now **") && albumRepository.findAlbumByName(ctw.getAlbumFromList())!=null) {
+			System.out.println("Hmm, inside the first if");
 			futureTrack.setAlbum(albumRepository.findAlbumByName(ctw.getAlbumFromList()).get(0));
-		} else {
+		} else if (ctw.getAlbumFromList().equals("** New Album **")){
 				Album newAlbum = new Album();
 				newAlbum.setName(ctw.getTheNewAlbum());
 				//to create a new album, an artist isn't necessary... but if it does exist, add the artist to the album.

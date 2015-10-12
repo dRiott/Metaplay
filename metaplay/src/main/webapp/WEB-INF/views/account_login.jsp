@@ -32,7 +32,7 @@
 </script> -->
 
 </head>
-<body onload='document.f.username.focus();'>
+<body>
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	<div class="container">
 		<div class="row" id="errorWritingSpace">
@@ -66,6 +66,12 @@
 						<div class="col-md-6">
 							<label for="account-password">Password</label>
 							<input name="password" type="password" id="password" class="form-control" placeholder="Password"/>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-4">
+							<input id="remember_me" name="remember_me" type="checkbox"  />
+							<label for="remember_me" class="inline" >Remember Me</label>
 						</div>
 					</div>	
 					<div class="form-group" style="float:clear;"></div>
