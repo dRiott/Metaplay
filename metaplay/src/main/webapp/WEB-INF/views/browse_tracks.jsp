@@ -32,7 +32,9 @@
 				</tr>
 				<c:forEach items="${tracks}" var="track">
 					<tr>
-						<td><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a></td>
+						<td><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
+						<span style="padding-left: 10px;"></span>						
+						<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}" type="audio/mpeg" /></audio></td>
 						<c:choose>
 							<c:when test="${track.trackNumber!=null }">
 								<td><c:out value="${track.trackNumber}" /></td>

@@ -86,7 +86,6 @@ public class Track {
 	public void setLengthFromStringMinSec(String minutes, String seconds) {
 		int min = Integer.parseInt(minutes);
 		int sec = Integer.parseInt(seconds);
-		
 		int length = (min*60) + sec;
 		this.length = length;
 	}

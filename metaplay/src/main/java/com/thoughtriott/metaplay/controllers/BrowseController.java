@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.thoughtriott.metaplay.data.repositories.AccountRepository;
-import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.GenreRepository;
-import com.thoughtriott.metaplay.data.repositories.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.PlaylistRepository;
-import com.thoughtriott.metaplay.data.repositories.RecordLabelRepository;
-import com.thoughtriott.metaplay.data.repositories.TrackRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 
 @Controller
 @RequestMapping("/browse")

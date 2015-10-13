@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.repositories.LocationRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
 
 @Controller
 @RequestMapping("/location")

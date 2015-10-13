@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.repositories.AccountRepository;
-import com.thoughtriott.metaplay.data.repositories.RoleRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 

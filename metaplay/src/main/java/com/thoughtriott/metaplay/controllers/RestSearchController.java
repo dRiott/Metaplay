@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
 import com.thoughtriott.metaplay.errors.MetaplayNotFoundException;
 
 @RestController

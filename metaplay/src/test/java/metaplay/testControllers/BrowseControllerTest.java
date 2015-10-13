@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.thoughtriott.metaplay.controllers.BrowseController;
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
 
 public class BrowseControllerTest {
 

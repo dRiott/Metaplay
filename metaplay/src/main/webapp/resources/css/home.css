@@ -46,3 +46,7 @@ body {
 	 clear: both;
    	height:auto; 
 }
+
+audio {
+	background-color: #EEEEEE;
+}

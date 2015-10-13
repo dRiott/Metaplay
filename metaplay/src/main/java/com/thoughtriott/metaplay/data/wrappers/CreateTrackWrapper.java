@@ -3,6 +3,8 @@ package com.thoughtriott.metaplay.data.wrappers;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CreateTrackWrapper {
 
 	
@@ -44,6 +46,8 @@ public class CreateTrackWrapper {
 
 	@Size(min = 0, max = 30)
 	private String albumCover;
+	
+	private MultipartFile mp3;
 	
 // --------------------------Constructors--------------------------
 	public CreateTrackWrapper () {
@@ -138,5 +142,12 @@ public class CreateTrackWrapper {
 	public void setAlbumCover(String albumCover) {
 		this.albumCover = albumCover;
 	}
+
+	public void setMp3(MultipartFile mp3) {
+		this.mp3 = mp3;
+	}
 	
+	public MultipartFile getMp3() {
+		return mp3;
+	}
 }

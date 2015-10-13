@@ -28,6 +28,10 @@
 			<h1 style="font-family: Times, serif;"><em>Track: ${track.name}</em></h1>
 
 			<div class="form-group">
+				<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}" type="audio/mpeg" /></audio>
+			</div>
+
+			<div class="form-group">
 				<label for="project-name">Number</label> <span>${track.trackNumber}</span>
 			</div>
 

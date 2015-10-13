@@ -10,20 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.thoughtriott.metaplay.data.documents.AudioFile;
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.TrackRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
 @RequestMapping("/track")
-@SessionAttributes("createTrackWrapper")
 public class TrackController {
 
 	@Autowired
@@ -38,31 +39,14 @@ public class TrackController {
 		return "track_add";
 	}
 	
-	@RequestMapping("/review")
-	public String review(HttpSession session, @Valid @ModelAttribute CreateTrackWrapper createTrackWrapper, Errors errors) {
-		System.out.println("Invoking review() in TrackController");
-		if(errors.hasErrors()) {
-			return "track_add";
-		}
-		session.setAttribute("createTrackWrapper", createTrackWrapper);
-		return "track_review";
-	}
-	
-	@RequestMapping("/save")
-	public String saveTrack(HttpSession session, SessionStatus status) {
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String saveTrack(@ModelAttribute CreateTrackWrapper ctw) {
 		System.out.println("Invoking the saveTrack() from TrackController.");
 		Track futureTrack = new Track();
-		CreateTrackWrapper ctw = (CreateTrackWrapper) session.getAttribute("createTrackWrapper");
-
-		String trackName = ctw.getName();
-		futureTrack.setName(trackName);
-		
-		int seconds = ctw.getLengthSeconds();
-		int minutes = ctw.getLengthMinutes();
-		futureTrack.setLengthMinSec(minutes, seconds);
-		
-		String lyrics = ctw.getLyrics();
-		futureTrack.setLyrics(lyrics);
+		AudioFile audio = new AudioFile();
+		futureTrack.setName(ctw.getName());
+		futureTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
+		futureTrack.setLyrics(ctw.getLyrics());
 		
 		int trackBpm = ctw.getBpm();
 		futureTrack.setBpm(trackBpm);
@@ -88,7 +72,6 @@ public class TrackController {
 		
 		System.out.println("Creating the Track");
 		trackRepository.saveAndFlush(futureTrack);
-		status.setComplete();
 		return "redirect:/track/add";
 	}
 	
