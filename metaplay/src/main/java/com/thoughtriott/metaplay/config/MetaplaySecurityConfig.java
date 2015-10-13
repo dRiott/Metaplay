@@ -26,15 +26,16 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		//.csrf().disable()
-		.formLogin().loginPage("/account/login").loginProcessingUrl("/account/login").defaultSuccessUrl("/account/profile")
-		.and().rememberMe().key("metaplayKey")
-		.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
-		.and().authorizeRequests()
-		.antMatchers("/account/login", "/account/review", "/account/save", "/account/add", "/", "/browse/**", "/more/payment", "/more/image").permitAll()
-		.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
-		.antMatchers("/role/add", "role/assign").hasAuthority("God")
-		.anyRequest().permitAll();
+			.csrf().disable()
+			.formLogin().loginPage("/account/login").loginProcessingUrl("/account/login").defaultSuccessUrl("/account/profile")
+				.and().rememberMe().key("metaplayKey")
+				.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
+				.and().exceptionHandling().accessDeniedPage("/account/accessDenied")
+				.and().authorizeRequests()
+					.antMatchers("/account/login", "/account/review", "/account/save", "/account/add", "/", "/browse/**", "/more/payment", "/more/image").permitAll()
+					.antMatchers("/role/add", "/role/assign").hasRole("God")
+					.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
+					.anyRequest().permitAll();
 		//.and().requiresChannel().antMatchers("/account/save", "/album/save", "/artist/save", "/location/save", "/playlist/save", "/track/save").requiresSecure();
 	}
 }

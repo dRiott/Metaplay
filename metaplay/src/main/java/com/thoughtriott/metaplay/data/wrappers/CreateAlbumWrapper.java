@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CreateAlbumWrapper {
 
 // --------------------------Fields--------------------------	
@@ -37,6 +39,8 @@ public class CreateAlbumWrapper {
 	
 	private List<CreateTrackWrapper> createTrackWrappers;
 	
+	private MultipartFile albumCover;
+
 
 // --------------------------Constructors--------------------------
 	
@@ -147,6 +151,14 @@ public class CreateAlbumWrapper {
 
 	public void setRecordLabelState(String recordLabelState) {
 		this.recordLabelState = recordLabelState;
+	}
+
+	public MultipartFile getAlbumCover() {
+		return albumCover;
+	}
+
+	public void setAlbumCover(MultipartFile albumCover) {
+		this.albumCover = albumCover;
 	}
 	
 }

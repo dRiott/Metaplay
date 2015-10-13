@@ -23,7 +23,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
 			<h1 style="font-family: Times, serif;"><em>Album: ${album.name}</em></h1>
 
@@ -49,6 +49,12 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			
+			<div class="form-group" >
+				<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 350px;height:auto;"
+				alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+			</div>
+				
 			<div class="form-group">
 				<label for="project-name">Tracks</label>
 				 <c:if test="${album.numTracks!=null}">

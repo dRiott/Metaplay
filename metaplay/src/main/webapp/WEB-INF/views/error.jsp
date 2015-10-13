@@ -17,7 +17,7 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 	<h1>We dun Goof'd</h1>
 	
 	<p>Something went wrong. As much as we'd like to skirt blame... Let's be realistic.</p>

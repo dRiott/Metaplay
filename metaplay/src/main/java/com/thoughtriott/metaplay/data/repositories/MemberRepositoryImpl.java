@@ -14,14 +14,19 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 	
 	@Override
 	public Member setNameFromArray(String[] nameArray) {
+		System.out.println("inside setNameFromArray");
 		if (nameArray!=null && nameArray.length != 0) {
+			System.out.println("Inside nameArray!=null && nameArray.length != 0");
 			if (nameArray.length == 1) {
 				List<Member> members = memberRepository.findMemberByLastName(nameArray[0]);
-				if (members!=null) {
+				System.out.println("Inside nameArray.length ==1");
+				if (members!=null && members.size()>0) {
+					System.out.println("members!=null");
 					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
 						return members.get(0);
 					} else {
+						System.out.println("inside else");
 						return members.get(0);
 					}
 				} else {
@@ -31,19 +36,22 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 			} else if (nameArray.length == 2) {
 				System.out.println("Inside setNameFromArray method: if(nameArray.length == 2)...");
 				List<Member> members = memberRepository.findMemberByLastNameAndFirstName(nameArray[1], nameArray[0]);
-				if (members!=null) {
+				if (members!=null && members.size()>0) {
 					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
 						return members.get(0);
 					} else {
-						System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstName was null, returning new Member with firstName and lastName set, not yet persisted.");
-						return new Member(nameArray[1], nameArray[0]);
+						System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstName: MATCH FOUND, RETURNING THE MATCH");
+						return members.get(0);
 					}
+				} else {
+					System.out.println("MemberRepositoryImpl:setNameFromArray - findMemberByLastNameAndFirstName was null, returning new Member with firstName and lastName set, not yet persisted.");
+					return new Member(nameArray[1], nameArray[0]);
 				}
 			} else if (nameArray.length == 3) {
 				System.out.println("Inside setNameFromArray method: if(nameArray.length == 3)...");
 				List<Member> members = memberRepository.findMemberByLastNameAndFirstNameAndMiddleName(nameArray[2], nameArray[0], nameArray[1]);
-				if (members!=null) {
+				if (members!=null && members.size()>0) {
 					if(members.size()>1) {
 						System.out.println("List<Member> contained more than one result. Returning the first one.");
 						return members.get(0);

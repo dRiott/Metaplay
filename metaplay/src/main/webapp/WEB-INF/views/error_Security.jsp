@@ -34,7 +34,7 @@
 		</ul>
 	</div> -->
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<h1>Security Issue</h1>
 		<p>Something went wrong. The token submitted did not match the expectation. Please try again!</p>
 	

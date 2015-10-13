@@ -23,7 +23,7 @@ body {
 
 .imageLogo {
 	width:15%;
-	max-width:200px;
+	max-width:180px;
 	 position: absolute;
 	 clear: both;
     /* top: 30%; */
@@ -41,7 +41,7 @@ body {
 .imageLogoLayer {
 	width:15%;
 	opacity: .4;
-	max-width:200px;
+	max-width:180px;
 	 position: absolute;
 	 clear: both;
    	height:auto; 

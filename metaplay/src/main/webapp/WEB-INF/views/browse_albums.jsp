@@ -18,17 +18,20 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		
 		<h1>Albums</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Artist</th><th>Record Label</th><th>Description</th>
+					<th>Name</th><th>Album Cover</th><th>Artist</th><th>Record Label</th><th>Description</th>
 				</tr>
 				<c:forEach items="${albums}" var="album">
 					<tr>
 						<td><a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a></td>
+						<td>
+						<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px; height:auto;" alt="Image not found" 
+						onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/></td>
 						<td><c:choose>
 								<c:when test="${album.artist!=null}">
 									<a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a>

@@ -164,13 +164,15 @@ public class Artist {
 	}
 	
 	// adds an Album to Collection<Album>, removing it's Artist, and setting to this.
-	public void addAlbum(Album artist) {
-		if (getAlbums()!=null && !getAlbums().contains(artist)) {
-			getAlbums().add(artist);
-			if (artist.getArtist() != null) {
-				artist.getArtist().getAlbums().remove(artist);
+	public void addAlbum(Album album) {
+		if (getAlbums()!=null && !getAlbums().contains(album)) {
+			getAlbums().add(album);
+			if (album.getArtist() != null) {
+				//cleanup: remove this album from it's old artist's list of albums
+				album.getArtist().getAlbums().remove(album);
 			}
-			artist.setArtist(this);
+			album.setArtist(this);
+			System.out.println("Artist.addAlbum(): after calling album.setArtist(this), album.getArtist() is: " + album.getArtist());
 		}
 	}
 

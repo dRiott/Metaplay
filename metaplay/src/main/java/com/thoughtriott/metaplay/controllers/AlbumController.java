@@ -28,6 +28,7 @@ import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.RecordLabelRepository;
 import com.thoughtriott.metaplay.data.repositories.TrackRepository;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
@@ -35,7 +36,7 @@ import com.thoughtriott.metaplay.utilities.DateFormatter;
 @Controller
 @RequestMapping("/album")
 @SessionAttributes("createAlbumWrapper")
-public class AlbumController {
+public class AlbumController extends AmazonService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
@@ -74,6 +75,8 @@ public class AlbumController {
 
 		System.out.println("AlbumController: setName() - \"" + caw.getName() + "\"");
 		futureAlbum.setName(caw.getName());
+		
+		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getName());
 		
 		int seconds = caw.getLengthSeconds();
 		int minutes = caw.getLengthMinutes();
@@ -175,6 +178,7 @@ public class AlbumController {
 		return "404";
 	}
 	
+
 	//Model Attributes ----------------------------------------
 	
 	@ModelAttribute("createAlbumWrapper")

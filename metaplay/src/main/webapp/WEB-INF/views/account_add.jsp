@@ -20,12 +20,12 @@
 </head>
 <body>
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-	<div class="container"  id="1">
+	<div class="container" style="padding-left: 7%"  id="1">
 		<h2>Want to make Friendship?</h2>
 		<h3>HonestDad.docx love friends: <span style="padding-left: 10px"></span><small>Prepare to be account'd.</small></h3>
 	</div>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 
 		<div class="row">
 			<h2>Fill In Your Desired Credentials</h2>
@@ -75,8 +75,8 @@
 				
 				 <div class="row">     
 					<div class="col-md-6">
-						<label for="account-profilePicture">Profile Picture</label><span style="padding-left: 10px;"></span><small>jpeg, png, or gif</small>
-							<form:input type="file" accept="image/jpeg, image/png, image/gif" path="profilePicture" id="confirmPassword" cssClass="btn btn-default btn-file" />
+						<label for="account-profilePicture">Profile Picture</label><span style="padding-left: 10px;"></span><small>jpeg, jpg, png, or gif</small>
+							<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="profilePicture" id="confirmPassword" cssClass="btn btn-default btn-file" />
 					</div>
 				</div>
 					

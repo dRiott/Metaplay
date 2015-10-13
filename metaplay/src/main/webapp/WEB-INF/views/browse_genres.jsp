@@ -2,11 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Metaplay &copy Tracks</title>
+<title>Metaplay &copy Genres</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
@@ -20,33 +22,21 @@
 
 	<div class="container" style="padding-left: 7%">
 		
-		<h1>Record Labels</h1>
-		<table class="table table-hover">
+		<h1>Genres</h1>
+		<table class="table table-hover" id="genresTable">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Description</th><th>Location</th>
+					<th>Name</th><th>Description</th>
 				</tr>
-				<c:forEach items="${recordlabels}" var="recordlabel">
+				<c:forEach items="${genres}" var="genre" varStatus="count">
+					<c:set var="index" value="${count.index+1}"/>
 					<tr>
-						<td><a href="<spring:url value="/browse/recordlabel/${recordlabel.id}"/>">${recordlabel.name}</a></td>
-						<td><c:choose>
-								<c:when test="${recordlabel.description!=null && !recordlabel.description.isEmpty()}">
-									<span>${recordlabel.description}</span>
-								</c:when>
-								<c:otherwise>
-									No description given yet.
-								</c:otherwise>
-							</c:choose>
-						</td>
+						<c:set var="bioLength" value="${genre.description.length()}"/>
+						<td><a href="<spring:url value="/browse/genre/${genre.id}"/>">${genre.name}</a></td>
+						<td>${fn:substring(genre.description, 0, 300)}<span style="display:none;" id="moreLessBiography${index}">${fn:substring(genre.description, 300, bioLength)}</span></td>
 						<td>
-							<c:choose>
-								<c:when test="${recordlabel.location!=null}">
-									<span><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
-								</c:when>
-								<c:otherwise>
-									<td>No location assigned yet.</td>
-								</c:otherwise>
-							</c:choose>
+							<button id="showButton${index}" class="btn btn-default">More</button>
+							<button id="hideButton${index}" class="btn btn-default" style="display:none">Less</button>
 						</td>
 					</tr>	
 				</c:forEach>
@@ -55,5 +45,8 @@
 		
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<script src="<spring:url value="/resources/js/browseGenreDescriptionShowHide.js"/>"></script>
+	<script> $(window).load(showHideDescription()); </script>
+	<script> $(window).load(fixFinalRow()); </script>
 </body>
 </html>

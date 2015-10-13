@@ -22,7 +22,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
 			<h1><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>

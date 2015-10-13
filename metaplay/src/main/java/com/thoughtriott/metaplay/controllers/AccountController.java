@@ -3,20 +3,8 @@ package com.thoughtriott.metaplay.controllers;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
-import org.jets3t.service.S3Service;
-import org.jets3t.service.acl.AccessControlList;
-import org.jets3t.service.acl.GroupGrantee;
-import org.jets3t.service.acl.Permission;
-import org.jets3t.service.impl.rest.httpclient.RestS3Service;
-import org.jets3t.service.model.S3Bucket;
-import org.jets3t.service.model.S3Object;
-import org.jets3t.service.security.AWSCredentials;
-import org.jets3t.service.security.ProviderCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -26,31 +14,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
 import com.thoughtriott.metaplay.data.repositories.AccountRepository;
 import com.thoughtriott.metaplay.data.repositories.RoleRepository;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 
 @Controller
 @RequestMapping("/account")
 @SessionAttributes(value = { "createAccountWrapper, loginStatus, counter" })
-public class AccountController {
+public class AccountController extends AmazonService {
 
 	@Autowired
 	AccountRepository accountRepository;
 	@Autowired
 	RoleRepository roleRepository;
 	
-	private static final String BUCKETNAME = "metaplaypictures";
-	private static final String AWS_KEY = "AKIAIBWGLPRG2FMCGDKA";
-	private static final String AWS_SECRET_KEY = "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";
-
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addAccount() {
 		return "account_add";
@@ -65,7 +47,7 @@ public class AccountController {
 		newAccount.setAccountname(caw.getAccountname());
 		newAccount.setEmail(caw.getEmail());
 		newAccount.setPassword(caw.getPassword());
-		saveImage(caw.getProfilePicture(), caw.getAccountname());
+		super.saveImage(caw.getProfilePicture(), PROFILEPICS, caw.getAccountname());
 		Account savedAccount = accountRepository.saveAndFlush(newAccount);
 		Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
 		savedAccount.addRole(role);
@@ -106,50 +88,12 @@ public class AccountController {
 		return "account_profile";
 		}
 	}
-	
-	//Utility method for uploading an image to S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
-	@RequestMapping(value = "/saveimage")
-	private void saveImage(MultipartFile image, String accountname) {
-		try {
-			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);	
-			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
-			S3Bucket bucket = s3.getBucket(BUCKETNAME);
-			
-			S3Object imageObject = new S3Object(accountname);
-			imageObject.setDataInputStream(image.getInputStream());
-			imageObject.setContentLength(image.getSize());
-			imageObject.setContentType(image.getContentType());
-			System.out.println("Content type: " + image.getContentType());
-			AccessControlList acl = new AccessControlList();
-			acl.setOwner(bucket.getOwner());
-			acl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ);
-			imageObject.setAcl(acl);
-			s3.putObject(bucket, imageObject);
-	
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			throw new AmazonS3Exception(e.getMessage());
-		}
+
+	@RequestMapping("/accessDenied")
+	public String getDeniedRedirect() {
+		return "error_accessdenied";
 	}
 	
-	//Utility method for getting an image from S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
-	@RequestMapping(value = "/imageDisplay", method = RequestMethod.GET)
-	private void getImage(@RequestParam("accountId") Integer accountId, HttpServletResponse response, HttpServletRequest request) {
-		try {
-			String accountname = accountRepository.findOne(accountId).getAccountname();
-			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);	
-			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
-			S3Object objectComplete = s3.getObject(BUCKETNAME, accountname);
-
-		    response.setContentType("image/jpeg, image/png, image/gif");
-		    byte[] bytes = IOUtils.toByteArray(objectComplete.getDataInputStream());
-			response.getOutputStream().write(bytes);
-			response.getOutputStream().close();
-		} catch (Exception e) {
-			throw new AmazonS3Exception(e.getMessage());
-		}
-	}
-
 	@ModelAttribute("createAccountWrapper")
 	public CreateAccountWrapper getCAW() {
 		return new CreateAccountWrapper();

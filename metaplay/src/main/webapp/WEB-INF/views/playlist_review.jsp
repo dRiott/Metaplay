@@ -20,7 +20,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
 			<h2>Please Review the Playlist for Accuracy</h2>
 

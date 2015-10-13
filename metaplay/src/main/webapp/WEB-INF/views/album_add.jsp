@@ -22,12 +22,12 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 
 		<h1>Create an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/album/review" var="thisFormURL" />                                 
-		<form:form action="${thisFormURL}" method="post" modelAttribute="createAlbumWrapper" onsubmit="fixNumberFormatException();">  
+		<form:form action="${thisFormURL}" method="post" enctype="multipart/form-data" modelAttribute="createAlbumWrapper" onsubmit="fixNumberFormatException();">  
 		<form:errors path="*" element="div" cssClass="errors"/>
         	<div class="form-group">
 				<div class="row">                                                                    
@@ -95,6 +95,16 @@
 				<div class="form-group" style="float:clear;"></div>
 			<!-- END RECORDLABEL -->
 				
+			<!-- ALBUM COVER -->	
+				 <div class="row">     
+					<div class="col-md-6">
+						<label for="albumCover">Album Cover</label><span style="padding-left: 10px;"></span><small>jpeg, jpg, png, or gif</small>
+							<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
+					</div>
+				</div>
+			<!-- END ALBUM COVER -->	
+			
+				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">

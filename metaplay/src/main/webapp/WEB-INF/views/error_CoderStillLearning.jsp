@@ -26,6 +26,8 @@
 		
 		<h4>Message:</h4>
 		<p>${exception.message }</p>
+		<pre>${exception.stackTrace}</pre>
+		<br/>
 		
 		<ul>
 			<c:forEach items="${exception.stackTrace}" var="stackTraceItem">
@@ -34,7 +36,7 @@
 		</ul>
 	</div> -->
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 	
 	
 	<h1>Oops</h1>

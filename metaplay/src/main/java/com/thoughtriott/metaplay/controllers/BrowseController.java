@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.thoughtriott.metaplay.data.repositories.AccountRepository;
 import com.thoughtriott.metaplay.data.repositories.AlbumRepository;
 import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.GenreRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.PlaylistRepository;
 import com.thoughtriott.metaplay.data.repositories.RecordLabelRepository;
@@ -29,6 +30,8 @@ public class BrowseController {
 	private AlbumRepository albumRepository;
 	@Autowired
 	private ArtistRepository artistRepository;
+	@Autowired
+	private GenreRepository genreRepository;
 	@Autowired
 	private LocationRepository locationRepository;
 	@Autowired
@@ -88,6 +91,19 @@ public class BrowseController {
 	public String findArtist(Model model, @PathVariable("artistId") int artistId) {
 		model.addAttribute("artist", artistRepository.getOne(artistId));
 		return "single_artist";
+	}
+	
+//Genres
+	@RequestMapping(value="/genres", method=RequestMethod.GET)
+	public String findGenres(Model model){
+		model.addAttribute("genres", genreRepository.findAll());
+		return "browse_genres";
+	}
+	
+	@RequestMapping(value="genre/{genreId}")
+	public String findGenre(Model model, @PathVariable("genreId") int genreId) {
+		model.addAttribute("artist", genreRepository.getOne(genreId));
+		return "single_genre";
 	}
 	
 //Locations

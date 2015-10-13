@@ -19,11 +19,11 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 	<h1>An error has occurred.</h1>
-	<p> An account by that name already exists. Please choose a different one!</p>
+	<p> An entity (Artist, Album, Account...) by that name already exists. Please add a unique one!</p>
+	
 	<br/>
-	<a href="<spring:url value="/account/add"/>" class="btn btn-default">Create An Account</a>
 	
 	<!-- <div style="display:hidden">
 		<h3>Failed URL:</h3>

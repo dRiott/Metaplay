@@ -7,4 +7,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Resource Not Found")
 public class MetaplayNotFoundException extends RuntimeException {
 
+	private int id;
+
+	public MetaplayNotFoundException(int id) {
+		super();
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
 }

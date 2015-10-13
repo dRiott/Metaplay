@@ -25,10 +25,12 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
 
 			<h1 style="font-family: Times, serif;"><em>Artist: ${artist.name}</em></h1>
+			
+			<div class="form-group" style="float:clear;"></div>
 			
 			<div class="row">
 				<div class="col-md-8">
@@ -40,6 +42,9 @@
 					<button id="hideButton" class="btn btn-default" style="display:none">Less</button>
 				</div>
 			</div>
+		
+			<div class="form-group" style="float:clear;"></div>
+			
 			<div class="form-group">
 				<label for="singleArtistGenre">Genre</label>
 				<c:choose>
@@ -93,6 +98,10 @@
 						<ul>
 							<c:forEach items="${artist.albums}" var="album">
 								<li>
+									<div class="form-group" >
+										<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px;height:auto;"
+										alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+									</div>
 									<a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a>
 									<c:choose>
 										<c:when test="${album.releaseDate!=null}">
@@ -110,14 +119,10 @@
 			</div>
 			<div class="form-group">
 				<label for="singleArtistImage">Image</label>
-				<c:choose>
-					<c:when test="${artist.artistImage!=null}">
-						<span>${artist.artistImage}</span>
-					</c:when>
-					<c:otherwise>
-						<td>No image uploaded yet.</td>
-					</c:otherwise>
-				</c:choose> 
+				<div class="form-group" >
+					<img src="/metaplay/image/retrieve?foldername=artist&filename=${artist.name}" style="max-width: 500px;height:auto;"
+					alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+				</div>
 			</div>
 		
 		<a href="<spring:url value="/browse/artists"/>" class="btn btn-default">Back To Browse</a>

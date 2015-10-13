@@ -18,7 +18,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-		<div class="container" style="border: 2px dashed;">
+		<div class="container" style="padding-left: 7%" style="border: 2px dashed;">
 			<h1 >Credit Card Processing</h1>
 			<h2>Pen Your CC Info, Playa</h2>
 			<spring:url value="/payment/process" var="thisFormURL" />

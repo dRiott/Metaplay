@@ -7,11 +7,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,13 +26,14 @@ import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
 import com.thoughtriott.metaplay.data.repositories.GenreRepository;
 import com.thoughtriott.metaplay.data.repositories.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.MemberRepository;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/artist")
 @SessionAttributes("createArtistWrapper")
-public class ArtistController {
+public class ArtistController extends AmazonService {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -58,47 +57,58 @@ public class ArtistController {
 		return "artist_add";
 	}
 	
-	@RequestMapping("/review")
-	public String review(HttpSession session, @Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Errors errors) {
-		System.out.println("Invoking review() in ArtistController");
-		if(errors.hasErrors()) {
-			return "artist_add";
-		}
-		session.setAttribute("createArtistWrapper", createArtistWrapper);
-		return "artist_review";
-	}
+//	@RequestMapping("/review")
+//	public String review(HttpSession session, @Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Model model, Errors errors) {
+//		System.out.println("Invoking review() in ArtistController");
+//		if(errors.hasErrors()) {
+//			return "artist_add";
+//		}
+//		//      Save the Artist Image and Album Cover	
+//		super.saveImage(createArtistWrapper.getArtistImage(), ARTIST, createArtistWrapper.getName());
+//		super.saveImage(createArtistWrapper.getAlbumCover(), ALBUM, createArtistWrapper.getTheNewAlbumName());
+//		model.addAttribute("createArtistWrapper", createArtistWrapper);
+//		return "artist_review";
+//	}
 	
 	@RequestMapping("/save")
-	public String saveArtist(HttpSession session, SessionStatus status) {
+	public String saveArtist(@ModelAttribute CreateArtistWrapper caw, HttpSession session, SessionStatus status) {
 		System.out.println("Invoking the saveArtist() from ArtistController.");
 		Artist futureArtist = new Artist();
-		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
+//		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
 		System.out.println("Artist name about to be set: " + caw.getName());
 		futureArtist.setName(caw.getName());
 		futureArtist.setBiography(caw.getBiography());
+		Artist savedArtist = artistRepository.saveAndFlush(futureArtist);
+
+		
+		super.saveImage(caw.getArtistImage(), ARTIST, caw.getName());
+		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getTheNewAlbumName());
+		
+		
 		
 	// 		Setting/Creating a Location
 		System.out.println("Setting/Creating a Location");
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
-		
+		System.out.println(city + ", " + state);
 		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
 			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
-			futureArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
+			savedArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
 		} else {
 			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			futureArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state)));
+			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state)));
 		}
+		
 		
 		
 	//		Setting/Creating a Genre
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
 		caw.getNewGenreDescription();
-		if(genreName!="** New Genre **" && genreRepository.findGenreByName(genreName)!=null) {
-			futureArtist.setGenre(genreRepository.findGenreByName(genreName).get(0));
+		if(!genreName.equals("** New Genre **") && genreRepository.findGenreByName(genreName).size()!=0) {
+			savedArtist.setGenre(genreRepository.findGenreByName(genreName).get(0));
 		} else if(genreName.equals("** New Genre **")) {
-			futureArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
+			savedArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
 		}
 		
 
@@ -117,21 +127,22 @@ public class ArtistController {
 			if (!members[i][0].equals("")) {
 				System.out.println("members[i][0] wasn't .equals(\"\"), (Full Name) : " + members[i][0]);
 				String[] nameArray = memberRepository.splitFullName(members[i][0]);
-				Member newMember = memberRepository.setNameFromArray(nameArray);
 				
-				if(!members[i][1].equals("")){
-					System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
-					newMember.setStageName(members[i][1]);
-				}
-				
-				System.out.println("The returned member's last name: " + newMember.getLastName());
-				
-				if(!memberRepository.findMemberByLastName(newMember.getLastName()).isEmpty()) {
-					System.out.println("The returned member's last name: " + memberRepository.findMemberByLastName(newMember.getLastName()));
-					futureArtist.addMember(memberRepository.findMemberByLastName(newMember.getLastName()).get(0));
+				String lastName = nameArray[nameArray.length-1];
+				System.out.println("The returned member's last name: " + lastName);
+				if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
+					Member newMember = memberRepository.setNameFromArray(nameArray);
+					//add stage name if it exists
+					if(!members[i][1].equals("")){
+						System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
+						newMember.setStageName(members[i][1]);
+						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+					} else {
+						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+					}
 				} else {
-					futureArtist.addMember(memberRepository.saveAndFlush(newMember));				
-				}		
+					savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
+				}
 			}
 		}
 		
@@ -153,16 +164,20 @@ public class ArtistController {
 			System.out.println("Album returned : " + albumRepository.saveAndFlush(newAlbum));
 			Album returnedAlbum = albumRepository.saveAndFlush(newAlbum);
 			System.out.println("futureArtist.addAlbum() - About to add the persisted album to the artist.");
-			futureArtist.addAlbum(returnedAlbum);
+			savedArtist.addAlbum(returnedAlbum);
+			albumRepository.saveAndFlush(returnedAlbum);
 		} else if (caw.getAlbumNameFromList()!="** New Album **" && albumRepository.findAlbumByName(caw.getAlbumNameFromList())!=null) {
 			//they've selected from the dropdown... add from the database to the artist.
 			System.out.println("ArtistController: They've selected the following artist from the dropdown: " + caw.getAlbumNameFromList());
-			futureArtist.addAlbum(albumRepository.findAlbumByName(caw.getAlbumNameFromList()).get(0));
+			Album album = albumRepository.findAlbumByName(caw.getAlbumNameFromList()).get(0);
+			savedArtist.addAlbum(album);
+			albumRepository.saveAndFlush(album);
 		}
 		
-		System.out.println("About to saveAndFlush futureArtist");
-		artistRepository.saveAndFlush(futureArtist);
+		System.out.println("About to saveAndFlush savedArtist");
+		artistRepository.saveAndFlush(savedArtist);
 		status.setComplete();
+		
 		return "redirect:/artist/add";
 	}
 	

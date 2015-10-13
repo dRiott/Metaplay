@@ -23,18 +23,16 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
-		<h1>Your Profile</h1>
+	<div class="container" style="padding-left: 7%">
 
-		<div class="container">
-			<div class="row">
-
-				<div class="form-group">
-					<label for="account-name">Account Name</label> <br /> <span>${account.accountname}</span>
-				</div>
+		<div class="container" style="padding-left: 7%">
+			<div class="row" style="padding-left: 10%;">
+				<h1 style="font-family: Times, serif;"><em>${account.accountname}</em></h1>
 				
-				<div class="form-group">
-						<img src="/metaplay/account/imageDisplay?accountId=${account.id}"/>
+				<div class="form-group" >
+					<c:set var="profilePictures" value="profilePictures"/>
+					<img src="/metaplay/image/retrieve?foldername=profilePictures&filename=${account.accountname}" style="max-width: 300px; height:auto;"
+						alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'" width="144" height="103"/>
 				</div>
 
 				<div class="form-group">

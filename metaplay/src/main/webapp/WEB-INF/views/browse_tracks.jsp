@@ -22,7 +22,7 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		
 		<h1>Tracks</h1>
 		<table class="table table-hover">

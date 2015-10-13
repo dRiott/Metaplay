@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Playlist Manager</title>
+<title>Metaplay &copy Artists</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
@@ -19,7 +19,7 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		
 		<h1>Artists</h1>
 		<table class="table table-hover" id="artistsTable">

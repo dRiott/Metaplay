@@ -18,7 +18,7 @@
 	<body>
 		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 	
-		<div class="container" id="errors">
+		<div class="container" style="padding-left: 7%" id="errors">
 			<c:if test="${param.logout !=null}">
 				<div class="alert alert-success">
 					<strong>Thank you!</strong> Logged out successfully.
@@ -26,7 +26,7 @@
 			</c:if>
 		</div>
 
-		<div class="container" id="main" style="position:absolute; top: 90px; left: 250px">
+		<div class="container" style="padding-left: 7%" id="main" style="position:absolute; top: 90px; left: 250px">
 			<h1 id="main-h1">Your life has taken a strange turn...</h1>
 			<small id="main-small">Be careful what you ask for.</small>
 		</div>

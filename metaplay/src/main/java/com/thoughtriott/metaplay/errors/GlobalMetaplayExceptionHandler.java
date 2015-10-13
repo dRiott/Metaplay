@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.security.web.csrf.CsrfException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,6 +43,22 @@ public class GlobalMetaplayExceptionHandler {
 	
 	@ExceptionHandler({NestedServletException.class})
 	public String servletException(HttpServletRequest req, Exception exception, HttpSession session) {
+		logger.error("Request: " + req.getRequestURL() + " raised " + exception);
+		session.setAttribute("url", req.getRequestURL());
+		session.setAttribute("exception", exception);
+		return "error_CoderStillLearning";
+	}
+	
+	@ExceptionHandler({BeanCreationException.class})
+	public String servletExceptionBeanCreation(HttpServletRequest req, Exception exception, HttpSession session) {
+		logger.error("Request: " + req.getRequestURL() + " raised " + exception);
+		session.setAttribute("url", req.getRequestURL());
+		session.setAttribute("exception", exception);
+		return "error_CoderStillLearning";
+	}
+	
+	@ExceptionHandler({IllegalArgumentException.class})
+	public String servletExceptionIllegalArgument(HttpServletRequest req, Exception exception, HttpSession session) {
 		logger.error("Request: " + req.getRequestURL() + " raised " + exception);
 		session.setAttribute("url", req.getRequestURL());
 		session.setAttribute("exception", exception);

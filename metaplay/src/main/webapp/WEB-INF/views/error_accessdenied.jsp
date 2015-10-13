@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Playlist Manager</title>
+<title>Something went wrong.</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
@@ -18,24 +17,32 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
+
+	<!-- <div style="display:hidden">
+		<h3>Failed URL:</h3>
+		<p>${url}</p>
+		
+		<br/>	
+		
+		<h4>Message:</h4>
+		<p>${exception.message }</p>
+		
+		<ul>
+			<c:forEach items="${exception.stackTrace}" var="stackTraceItem">
+				<li>${stackTraceItem}</li> 
+	   		</c:forEach>
+		</ul>
+	</div> -->
+
 	<div class="container" style="padding-left: 7%">
-		
-		<h1>Playlists</h1>
-		<table class="table table-hover">
-			<tbody>
-				<tr>
-					<th>Name</th><th>Type</th><th>Description</th>
-				</tr>
-				<c:forEach items="${playlists}" var="playlist">
-					<tr>
-						<td><a href="<spring:url value="/browse/playlist/${playlist.id}"/>">${playlist.name}</a></td>
-						<td>${playlist.description}</td>
-					</tr>	
-				</c:forEach>
-			</tbody>
-		</table>
-		
+		<h1>Security Issue</h1>
+		<p>You're not supposed to go there! Unfortunately, you don't have the right credentials. </p>
+	
+		<br>
+		<form><input class="btn btn-default" type="button" value="Go Back" onClick="history.go(-1); return true;"></form>
+		<hr/>
 	</div>
-		<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	
+	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>
 </html>
