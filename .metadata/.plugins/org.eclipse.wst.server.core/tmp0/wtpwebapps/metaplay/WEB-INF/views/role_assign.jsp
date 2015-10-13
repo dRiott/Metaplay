@@ -18,7 +18,7 @@
 </head>
 <body>
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-	<div class="container" id="mainContainer">
+	<div class="container" style="padding-left: 7%" id="mainContainer">
 
 		<div class="row" id="rowHeader">
 			<h1>Assign A Role To An Account</h1>

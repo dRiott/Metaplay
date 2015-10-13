@@ -21,7 +21,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 	
 		<spring:url value="/account/save" var="thisURL" />
 		<form:form action="${thisURL}" method="post" modelAttribute="account">

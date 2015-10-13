@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,17 +22,34 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
+			<h1 style="font-family: Times, serif;"><em>Record Label: ${recordlabel.name}</em></h1>
 
 			<div class="form-group">
-				<label for="project-name">Name</label> <span>${recordlabel.name}</span>
-			</div>
-
-			<div class="form-group">
-				<label for="project-name">Description</label> <span>${recordlabel.description}</span>
+				<label for="singleRecordLabelDescription">Description</label>
+				<c:choose>
+					<c:when test="${recordlabel.description!=null && !recordlabel.description.isEmpty()}">
+						<span>${recordlabel.description}</span>
+					</c:when>
+					<c:otherwise>
+						No description given yet.
+					</c:otherwise>
+				</c:choose>
 			</div>
 	
+			<div class="form-group">
+				<label for="singleRecordLabelLocation">Location</label>
+				<c:choose>
+					<c:when test="${recordlabel.location!=null}">
+						<span><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
+					</c:when>
+					<c:otherwise>
+						<td>No location assigned yet.</td>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 		<a href="<spring:url value="/browse/recordlabels"/>" class="btn btn-default">Back To Browse</a>
 
 		</div>

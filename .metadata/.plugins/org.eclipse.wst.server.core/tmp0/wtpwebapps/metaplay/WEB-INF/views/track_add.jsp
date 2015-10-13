@@ -22,7 +22,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		<div class="row">
 			<h1><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
@@ -84,6 +84,9 @@
 				<div class="form-group" id="newTrackAlbumCover" style="display:none;">
 					<label for="newTrackAlbumCover"><em>New Album Cover:</em></label>
 					<form:input path="albumCover" id="newTrackAlbumCover" cssClass="form-control" cssErrorClass="has-error" />
+					<div class="form-group" style="float:clear;"></div>
+					<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
+					<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
 					<hr/>
 				</div>
 				<div class="form-group" style="float:clear;"></div>

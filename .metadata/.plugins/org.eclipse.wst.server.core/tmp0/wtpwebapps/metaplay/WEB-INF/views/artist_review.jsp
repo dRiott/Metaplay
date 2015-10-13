@@ -21,7 +21,7 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 	
 		<spring:url value="/artist/save" var="thisURL" />
 		<form:form action="${thisURL}" method="post" modelAttribute="createArtistWrapper">
@@ -61,7 +61,6 @@
 						</div>
 					</c:if>
 				</div>
-				
 				
 		<!-- START Location fields here -->	
 				<div class="form-group">
@@ -152,12 +151,8 @@
 						<div class="form-group">
 							<label for="album-releaseDate"><em>New Album: Release Date</em></label><span>${createArtistWrapper.albumReleaseDate }</span>
 						</div>
-						<div class="form-group">
-							<label for="album-albumCover"><em>New Album: Album Cover</em></label><span>${createArtistWrapper.albumAlbumCover }</span>
-						</div>
 					</c:if>
 				</div>
-				
 				
 				
 		<!--  START Member ForEach -->

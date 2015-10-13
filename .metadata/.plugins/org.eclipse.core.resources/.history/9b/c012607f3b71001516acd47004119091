@@ -1,0 +1,30 @@
+package com.thoughtriott.metaplay.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.repositories.ArtistRepository;
+
+@Controller
+@RequestMapping("/search")
+public class RestSearchController {
+
+	private static final String DEFAULT_ARTIST = "Animal Collective";
+
+	@Autowired
+	ArtistRepository artistRepository;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public Artist artists(@RequestParam(value="artist", defaultValue=DEFAULT_ARTIST) String artist) {
+		
+		return artistRepository.findArtistByName(artist);
+		
+	}
+
+}

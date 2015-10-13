@@ -7,9 +7,9 @@
 
 		<div class="navbar-header">
 			<a class="navbar-brand" href="<spring:url value="/"/>">
-			<img class="image" src="<spring:url value="/resources/img/vinylDark2.gif" />" id="logo"
+			<img class="imageLogo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"
  				alt="logoDark.gif" style=""></img>
- 				<img class="imageLayer" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer"
+ 				<img class="imageLogoLayer" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer"
  				alt="logoLight.gif" style=""></img>
 			</a>
 		</div>
@@ -24,6 +24,7 @@
 					<li><a href="<spring:url value="/browse/accounts"/>">Accounts</a></li>
 					<li><a href="<spring:url value="/browse/albums"/>">Albums</a></li>
 					<li><a href="<spring:url value="/browse/artists"/>">Artists</a></li>
+					<li><a href="<spring:url value="/browse/genres"/>">Genres</a></li>
 					<li><a href="<spring:url value="/browse/locations"/>">Locations</a></li>
 					<li><a href="<spring:url value="/browse/playlists"/>">Playlists</a></li>
 					<li><a href="<spring:url value="/browse/recordlabels"/>">Record Labels</a></li>

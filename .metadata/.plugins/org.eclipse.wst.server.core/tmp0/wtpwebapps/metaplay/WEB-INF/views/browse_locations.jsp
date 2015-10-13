@@ -18,10 +18,10 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		
-		<h2>Location</h2>
-		<table class="table table-hover">
+		<h1>Locations</h1>
+		<table class="table table-hover" style="width:40%">
 			<tbody>
 				<tr>
 					<th>City</th><th>State</th>

@@ -2,6 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> --%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +22,9 @@
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%">
 		
-		<h2>Tracks</h2>
+		<h1>Tracks</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
@@ -29,9 +33,33 @@
 				<c:forEach items="${tracks}" var="track">
 					<tr>
 						<td><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a></td>
-						<td>${track.trackNumber}</td>
-						<td>${track.album}</td>
-						<td>${track.length}</td>
+						<c:choose>
+							<c:when test="${track.trackNumber!=null }">
+								<td><c:out value="${track.trackNumber}" /></td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${track.album!=null}">
+								<td><a href="<spring:url value="/browse/album/${track.album.id}"/>">${track.album.name}</a></td>
+							</c:when>
+							<c:otherwise>
+								<td>Not yet assigned to an album.</td>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${track.length!=null }">
+								<%-- Formatting the minutes from track.length --%>
+								<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
+								<td><c:out value="${minutes}"/>:<c:out value="${track.length%60}"/></td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>	
 				</c:forEach>
 			</tbody>

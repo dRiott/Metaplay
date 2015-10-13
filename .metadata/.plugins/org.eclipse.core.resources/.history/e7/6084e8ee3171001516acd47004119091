@@ -1,0 +1,5 @@
+package com.thoughtriott.metaplay.config;
+
+public class MimeMapper {
+
+}

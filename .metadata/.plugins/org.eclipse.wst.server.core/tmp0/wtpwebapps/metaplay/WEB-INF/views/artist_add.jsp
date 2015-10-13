@@ -15,6 +15,7 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
 
+
 </head>
 
 
@@ -22,14 +23,14 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" style="padding-left: 7%" style="padding-left: 8%">
 
 		<div class="row">
 			<h1><a>Artist</a><span style="padding-left: 10px;"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
-		<spring:url value="/artist/review" var="thisURL" />
-		<form:form action="${thisURL}" method="POST"
+		<spring:url value="/artist/save" var="thisURL" />
+		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data"
 			modelAttribute="createArtistWrapper">
 
 			<div class="row">
@@ -44,13 +45,22 @@
 					<form:textarea path="biography" cssClass="form-control"
 						id="biography" rows="10" cols="30" />
 				</div>
+				
+				<div class="form-group" style="float:clear;"></div>
+				
+				 <div class="row">     
+					<div class="col-md-6">
+						<label for="artistImage">Artist Image<small><small><span style="padding-left: 8px">jpeg, jpg, png, or gif</span></small></small></label>
+						<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="artistImage" id="artistImageInput" cssClass="btn btn-default btn-file" />
+					</div>
+				</div>
 
 				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="form-group">
 					<label for="genreName">Genre</label>
 					<form:select path="genreName" id="genreName" cssClass="selectpicker">
-						<form:options items="${genreOptions}" />
+						<form:options items="${genreOptions}" id="genreOptions"/>
 					</form:select>
 					<div class="form-group" id="newGenreName" style="display:none;">
 						<hr/>
@@ -146,14 +156,18 @@
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 				<div class="form-group" id="newAlbumReleaseDate" style="display:none;">
-					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date</label><span><small>Please use format: 04-01-2012</small></span>
+					<label for="newAlbumReleaseDate" style="font-style:italic;">New Album: Release Date <small><small>(e.g. 04-31-1990 or 4/22/1990)</small></small></label>
 					<form:input path="albumReleaseDate" cssClass="form-control"
 						id="newAlbumReleaseDate" />
 				</div>
 				<div class="form-group" style="float:clear;"></div>
 				<div class="form-group" id="newAlbumAlbumCover" style="display:none;">
-					<label for="newAlbumAlbumCover" style="font-style:italic;"><em>New Album: Cover</em></label>
-					<form:input path="albumAlbumCover" cssClass="form-control" id="newAlbumAlbumCover" cssErrorClass="has-error" />
+					<label for="newAlbumAlbumCover" style="font-style:italic;"><em>New Album: Cover</em>
+					<small><small><span style="padding-left: 5px">jpeg, jpg, png, or gif</span></small></small></label>
+					<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
+					<div class="form-group" style="float:clear;"></div>
+					<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
+					<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
 					<hr/>
 				</div>
 				<div class="form-group" style="float:clear;"></div>
@@ -166,7 +180,7 @@
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	
-	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
-	
-</body>
+		<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
+<!-- 		<script>$(window).load(addEventHandlers());</script>
+ -->	</body>
 </html>
