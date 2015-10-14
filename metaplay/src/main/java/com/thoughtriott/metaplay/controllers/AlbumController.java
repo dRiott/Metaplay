@@ -73,57 +73,67 @@ public class AlbumController extends AmazonService {
 		Album futureAlbum = new Album();
 		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
 
-		System.out.println("AlbumController: setName() - \"" + caw.getName() + "\"");
-		futureAlbum.setName(caw.getName());
+		if(caw.getName().isEmpty()) {
+			futureAlbum = (albumRepository.findAlbumByName(caw.getAlbumFromList()).get(0));
+			System.out.println("AlbumController: setName() - \"" + caw.getAlbumFromList() + "\"");
+		} else {
+			futureAlbum.setName(caw.getName());
+			System.out.println("AlbumController: setName() - \"" + caw.getName() + "\"");
+		}
 		
-		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getName());
+		if(caw.getAlbumCover()!=null) {
+			super.saveImage(caw.getAlbumCover(), ALBUM, caw.getName());
+		}
 		
-		int seconds = caw.getLengthSeconds();
-		int minutes = caw.getLengthMinutes();
-		futureAlbum.setLengthMinSec(minutes, seconds);
-
-		Date albumReleaseDate = dateFormatter.getDateFromString(caw.getReleaseDate()); 
-		futureAlbum.setReleaseDate(albumReleaseDate);
-		
+		futureAlbum.setLengthMinSec(caw.getLengthMinutes(), caw.getLengthSeconds());
+		futureAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getReleaseDate()));
 		
 		// ****************** BEGIN TRACK PERSISTENCE ******************
 		Map<Integer, String> tracksMap = new HashMap<Integer, String>();
 		
 		List<CreateTrackWrapper> createTrackWrappers = caw.getCreateTrackWrappers();
 		Iterator<CreateTrackWrapper> it = createTrackWrappers.iterator();
-		int counter=0;
+		int numTracksCounter=0;
 		while(it.hasNext()) {
 			CreateTrackWrapper ctw = it.next();
 			if(!ctw.getName().isEmpty()){
 				System.out.println("Track name: " + ctw.getName());
-				Track newTrack = new Track();
-				if(ctw.getLengthMinutes()!=0 && ctw.getLengthSeconds()!=0) {
-					newTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
-				}
-				counter++;
-				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to setTrackNumber: " + counter);
-				newTrack.setTrackNumber(counter);
-				newTrack.setName(ctw.getName());
-				newTrack.setBpm(ctw.getBpm());
-				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) -  **** Hey, I've got this Track: " + newTrack.toString());
-				
 				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to add the track to the album...");
 				if (trackRepository.findTrackByName(ctw.getName())!=null) {
 					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - Found the track already in the DB: " + ctw.getName());
-					futureAlbum.addTrack(trackRepository.findTrackByName(ctw.getName()).get(0));
+					Track foundTrack = trackRepository.findTrackByName(ctw.getName()).get(0);
+					if(ctw.getLengthMinutes()!=0 & ctw.getLengthSeconds()!=0) {
+						foundTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
+					}
+					if(ctw.getBpm()!=0) {
+						foundTrack.setBpm(ctw.getBpm());
+					}
+					saveAudioFile(ctw.getMp3(), ""+foundTrack.getId(), foundTrack.getName());
+					futureAlbum.addTrack(foundTrack);
 				} else {
 					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - No track found in the DB. Creating one...");
-					futureAlbum.addTrack(trackRepository.saveAndFlush(newTrack));
+					Track newTrack = new Track();
+					if(ctw.getLengthMinutes()!=0 & ctw.getLengthSeconds()!=0) {
+						newTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
+					}
+					numTracksCounter++;
+					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to setTrackNumber: " + numTracksCounter);
+					newTrack.setTrackNumber(numTracksCounter);
+					newTrack.setName(ctw.getName());
+					newTrack.setBpm(ctw.getBpm());
+					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) -  **** Hey, I've got this Track: " + newTrack.toString());
+					
+					Track persistedTrack = trackRepository.saveAndFlush(newTrack);
+					saveAudioFile(ctw.getMp3(), ""+persistedTrack.getId(), persistedTrack.getName());
+					futureAlbum.addTrack(persistedTrack);
+					//adding Tracks to Map<Integer, String> tracksMap
+					tracksMap.put(newTrack.getLength(), newTrack.getName());
+					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - ******** Done with this Track: " + newTrack.getName() + " ********" );
 				}
-				
-				//adding Tracks to Map<Integer, String> tracksMap
-				tracksMap.put(newTrack.getLength(), newTrack.getName());
-				
-				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - ******** Done with this Track: " + newTrack.getName() + " ********" );
 			}
 		}
-		System.out.println("Total tracks: " + counter);
-		futureAlbum.setNumTracks(counter);
+		System.out.println("Total tracks: " + numTracksCounter);
+		futureAlbum.setNumTracks(numTracksCounter);
 		// ****************** END TRACK PERSISTENCE ******************	
 		
 		// ****************** BEGIN ARTIST PERSISTENCE ******************	
@@ -191,6 +201,10 @@ public class AlbumController extends AmazonService {
 		return  artistRepository.findAllToListString();
 	}
 	
+	@ModelAttribute(value="albumOptions")
+	public List<String> getAlbums() {
+		return  albumRepository.findAllToListString();
+	}
 	
 	@ModelAttribute(value="recordLabelOptions")
 	public List<String> getRecordLabels() {

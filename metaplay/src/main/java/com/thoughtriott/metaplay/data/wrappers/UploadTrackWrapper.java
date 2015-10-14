@@ -6,8 +6,7 @@ public class UploadTrackWrapper {
 
 	private String id;
 	private MultipartFile mp3;
-	
-	
+	private String filename;
 	
 	public String getId() {
 		return id;
@@ -21,6 +20,12 @@ public class UploadTrackWrapper {
 	}
 	public void setMp3(MultipartFile mp3) {
 		this.mp3 = mp3;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	
 	

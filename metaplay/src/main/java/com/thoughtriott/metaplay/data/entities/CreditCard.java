@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class CreditCard {
 
+// --------------------------Fields--------------------------
+		String nameOnCard;
+		String cardNumber;
+		String cardType;
+		Date cardExpDate;
+		double amount;
 	
 // --------------------------Constructors--------------------------
 	public CreditCard() {
@@ -18,16 +24,6 @@ public class CreditCard {
 		this.cardExpDate = cardExpDate;
 		this.amount = amount;
 	}
-
-
-
-// --------------------------Fields--------------------------
-	String nameOnCard;
-	String cardNumber;
-	String cardType;
-	Date cardExpDate;
-	double amount;
-	
 	
 //--------------------------Getters & Setters--------------------------	
 	public String getNameOnCard() {
@@ -76,6 +72,4 @@ public class CreditCard {
 		return "CreditCard [nameOnCard=" + nameOnCard + ", cardNumber=" + cardNumber + ", cardType=" + cardType
 				+ ", cardExpDate=" + cardExpDate + ", amount=" + amount + "]";
 	}
-
-	
 }

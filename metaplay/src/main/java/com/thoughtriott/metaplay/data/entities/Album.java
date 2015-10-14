@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "album")
 public class Album {
@@ -31,13 +34,16 @@ public class Album {
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id", nullable = false)
+	@JsonBackReference
 	private Artist artist;
 
 	@OneToMany(mappedBy = "album")
+	@JsonManagedReference
 	private List<Track> tracks;
 	
 	@ManyToOne
 	@JoinColumn(name = "recordlabel_id", nullable=false)
+	@JsonBackReference
 	private RecordLabel recordLabel;
 
 	@Column(name = "num_tracks")
@@ -54,7 +60,6 @@ public class Album {
 	
 	// --------------------------Constructors--------------------------
 		public Album() {
-
 		}
 
 		public Album(String name, String description) {
@@ -62,20 +67,7 @@ public class Album {
 			this.description = description;
 		}
 
-		public Album(String name, String description, Artist artist, List<Track> tracks, int numTracks,
-				Date releaseDate, int length) {
-			super();
-
-			this.name = name;
-			this.description = description;
-			this.artist = artist;
-			this.tracks = tracks;
-			this.numTracks = numTracks;
-			this.releaseDate = releaseDate;
-			this.length = length;
-		}
-
-		// omits the Collection<Tracks>
+		// used in testControllers --> BrowseControllerTest
 		public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
 			super();
 			this.name = name;

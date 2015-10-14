@@ -32,7 +32,8 @@ public class AmazonService {
 		protected static final String PROFILEPICS = "profilePictures";
 		protected static final String ALBUM = "album";
 		protected static final String ARTIST = "artist";
-		static final String BUCKETNAME = "metaplaypictures";
+		static final String BUCKETIMAGE = "metaplaypictures";
+		static final String BUCKETAUDIO = "metaplayaudio";
 		static final String AWS_KEY = "AKIAIBWGLPRG2FMCGDKA";
 		static final String AWS_SECRET_KEY = "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";
 	
@@ -43,7 +44,7 @@ public class AmazonService {
 			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);	
 			
 			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
-			S3Bucket bucket = s3.getBucket(BUCKETNAME);
+			S3Bucket bucket = s3.getBucket(BUCKETIMAGE);
 			System.out.println("Got the bucket: " + bucket);
 			
 			S3Object imageObject = new S3Object(foldername + SUFFIX + filename);
@@ -60,13 +61,13 @@ public class AmazonService {
 			throw new AmazonS3Exception(e.getMessage());
 		}
 	}
+	
 	//Utility method for getting an image from S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
-
 	protected HttpServletResponse getImage(String folderName, String fileName, HttpServletResponse response) {
 		try {
 			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);
 			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
-			S3Object objectComplete = s3.getObject(BUCKETNAME, folderName+SUFFIX+fileName);
+			S3Object objectComplete = s3.getObject(BUCKETIMAGE, folderName+SUFFIX+fileName);
 			    response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 			    byte[] bytes = IOUtils.toByteArray(objectComplete.getDataInputStream());
 				response.getOutputStream().write(bytes);
@@ -77,17 +78,60 @@ public class AmazonService {
 		}
 	}
 	
+	
+	
+	//Utility method for uploading an image to S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
+	@RequestMapping(value = "/saveaduio")
+	protected void saveAudioFile(MultipartFile audio, String id, String filename) {
+		try {
+			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);	
+			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
+			S3Bucket bucket = s3.getBucket(BUCKETAUDIO);
+			System.out.println("Got the bucket: " + bucket);
+			S3Object imageObject = new S3Object(id+"_"+filename);
+				imageObject.setDataInputStream(audio.getInputStream());
+				imageObject.setContentLength(audio.getSize());
+				imageObject.setContentType(audio.getContentType());
+			AccessControlList acl = new AccessControlList();
+			acl.setOwner(bucket.getOwner());
+			acl.grantPermission(GroupGrantee.ALL_USERS, Permission.PERMISSION_READ);
+				imageObject.setAcl(acl);
+			s3.putObject(bucket, imageObject);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			throw new AmazonS3Exception(e.getMessage());
+		}
+	}
+	
+	//To encourage the browser to download the mp3 rather then streaming, do
+	//Content-Disposition: filename="music.mp3"'
+	//Utility method for getting an image from S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
+	protected HttpServletResponse getAudioFile(String id, String fileName, HttpServletResponse response) {
+		try {
+			AWSCredentials awsCredentials = new AWSCredentials(AWS_KEY, AWS_SECRET_KEY);
+			S3Service s3 = new RestS3Service((ProviderCredentials) awsCredentials);
+			S3Object objectComplete = s3.getObject(BUCKETAUDIO, id+"_"+fileName);
+				response.setContentType("audio/mpeg");
+			byte[] bytes = IOUtils.toByteArray(objectComplete.getDataInputStream());
+				response.getOutputStream().write(bytes);
+				response.getOutputStream().close();
+			return response;
+		} catch (Exception e) {
+			throw new AmazonS3Exception(e.getMessage());
+		}
+	}
+	
 	//creating an S3 folder to store pictures
 	public static void createFolder(String folderName) {
 		try {	
 			com.amazonaws.auth.AWSCredentials awsCred = new BasicAWSCredentials(AWS_KEY, AWS_SECRET_KEY);
 			AmazonS3Client s3client = new AmazonS3Client(awsCred);	
-			com.amazonaws.services.s3.model.S3Object objectComplete = s3client.getObject(BUCKETNAME, folderName+SUFFIX);
+			com.amazonaws.services.s3.model.S3Object objectComplete = s3client.getObject(BUCKETIMAGE, folderName+SUFFIX);
 			if(objectComplete==null) {
 				ObjectMetadata metadata = new ObjectMetadata();
 				metadata.setContentLength(0);
 				InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
-				PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKETNAME, folderName + SUFFIX, emptyContent, metadata);
+				PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKETIMAGE, folderName + SUFFIX, emptyContent, metadata);
 				s3client.putObject(putObjectRequest);
 				emptyContent.close();
 			} else {

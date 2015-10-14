@@ -1,0 +1,48 @@
+
+#container.1 {
+	color: snow;
+	background-color: #E5E5E5;
+	
+}
+
+body {
+	background-color: #E5E5E5;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+}
+
+.DRnavBarDiv{
+	padding-left: 11.5%;
+}
+
+.imageLogoDiv{
+	display:block;
+	clear:right;
+}
+
+.imageLogo {
+	width:15%;
+	max-width:180px;
+	 position: absolute;
+	 clear: both;
+    /* top: 30%; */
+   /*  left: 5%; */
+   	height:auto; 
+   
+	-webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.imageLogoLayer {
+	width:15%;
+	opacity: .4;
+	max-width:180px;
+	 position: absolute;
+	 clear: both;
+   	height:auto; 
+}

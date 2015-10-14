@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "account")
 public class Account {
@@ -34,12 +36,14 @@ public class Account {
 	@JoinTable(name="account_role", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
+	@JsonManagedReference
 	private List<Role> roles;
 
 	@ManyToMany
 	@JoinTable(name="playlist_account", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
+	@JsonManagedReference
 	private List<Playlist> playlists;
 	
 	private String accountname;

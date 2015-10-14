@@ -18,6 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "artist")
 public class Artist {
@@ -38,20 +41,24 @@ public class Artist {
 
 	@ManyToOne
 	@JoinColumn(name = "genre_id", nullable=false)
+    @JsonBackReference
 	private Genre genre;
 	
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "location_id", nullable=false)
+    @JsonBackReference
 	private Location location;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name="artist_member", 
 		joinColumns = @JoinColumn(name = "artist_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "member_id", referencedColumnName="id"))
+    @JsonManagedReference
 	private List<Member> members = new LinkedList<Member>();
 	
 	@OneToMany(mappedBy="artist", cascade = CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Album> albums = new LinkedList<Album>();
 	
 	private String name;

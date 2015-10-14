@@ -1,0 +1,32 @@
+package com.thoughtriott.metaplay.data.documents;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public class AudioFile {
+
+	@Id
+	private int id;
+	private byte[] mp3;
+	private String name;
+	private int length;
+	private String lyrics;
+	private int bpm;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public byte[] getMp3() {
+		return mp3;
+	}
+
+	public void setMp3(byte[] mp3) {
+		this.mp3 = mp3;
+	}
+}

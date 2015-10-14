@@ -11,37 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "member")
 public class Member {
 	
-// --------------------------Constructors--------------------------
-	public Member() {
-	
-	}
-
-	public Member(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public Member(String lastName, String firstName) {
-		this.lastName = lastName;
-		this.firstName = firstName;
-	}
-	
-	public Member(String lastName, String firstName, String middleName) {
-		this.lastName = lastName;
-		this.firstName = firstName;
-		this.middleName = middleName;
-	}
-	
-
 	// --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToMany(mappedBy="members")
+    @JsonBackReference
 	private Collection<Artist> artists;
 
 	@Column(name="first_name")
@@ -55,6 +37,25 @@ public class Member {
 	
 	@Column(name="stage_name")
 	private String stageName;
+	
+// --------------------------Constructors--------------------------
+		public Member() {
+		}
+
+		public Member(String lastName) {
+			this.lastName = lastName;
+		}
+		
+		public Member(String lastName, String firstName) {
+			this.lastName = lastName;
+			this.firstName = firstName;
+		}
+		
+		public Member(String lastName, String firstName, String middleName) {
+			this.lastName = lastName;
+			this.firstName = firstName;
+			this.middleName = middleName;
+		}
 
 //--------------------------Getters & Setters--------------------------
 	public Integer getId() {

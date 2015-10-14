@@ -2,30 +2,24 @@ package com.thoughtriott.metaplay.controllers;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.documents.AudioFile;
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Track;
 import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
 @RequestMapping("/track")
-public class TrackController {
+public class TrackController extends AmazonService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
@@ -43,7 +37,6 @@ public class TrackController {
 	public String saveTrack(@ModelAttribute CreateTrackWrapper ctw) {
 		System.out.println("Invoking the saveTrack() from TrackController.");
 		Track futureTrack = new Track();
-		AudioFile audio = new AudioFile();
 		futureTrack.setName(ctw.getName());
 		futureTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
 		futureTrack.setLyrics(ctw.getLyrics());
@@ -71,7 +64,9 @@ public class TrackController {
 		}
 		
 		System.out.println("Creating the Track");
-		trackRepository.saveAndFlush(futureTrack);
+		Track persistedTrack = trackRepository.saveAndFlush(futureTrack);
+		String id = ""+persistedTrack.getId();
+		saveAudioFile(ctw.getMp3(), id, persistedTrack.getName());
 		return "redirect:/track/add";
 	}
 	
@@ -83,7 +78,6 @@ public class TrackController {
 	}
 	
 // ------------------------------ Validator ------------------------------
-
 	//registering the ArtistValidator with this controller using a WebDataBinder object.
 //	@InitBinder
 //	public void initBinder(WebDataBinder binder) {
@@ -105,5 +99,4 @@ public class TrackController {
 	public List<String> getAlbums() {
 		return  albumRepository.findAllToListString();
 	}
-
 }

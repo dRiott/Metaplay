@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "track_playlist")
 @IdClass(Playlist_TrackPK.class)
@@ -41,11 +43,13 @@ public class  Playlist_Track {
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="track_id", referencedColumnName="id")
+	@JsonBackReference
 	private Track track;
 
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="playlist_id", referencedColumnName="id")
+	@JsonBackReference
 	private Playlist playlist;
 
 	@Column(name="track_number")

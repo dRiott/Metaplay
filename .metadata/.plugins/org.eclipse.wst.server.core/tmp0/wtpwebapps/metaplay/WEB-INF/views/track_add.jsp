@@ -27,21 +27,33 @@
 			<h1><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
-		<spring:url value="/track/review" var="thisURL" />
+		<spring:url value="/track/save" var="thisURL" />
 		<form:form action="${thisURL}" method="POST" modelAttribute="createTrackWrapper" onsubmit="return validate(this);">
 
 			<div class="row">
 				<div class="row">
 					<div class="col-md-1">
-						<label for="trackNumber">* Number</label>
+						<label for="trackNumber"><small>* Number</small></label>
 						<form:input path="trackNumber" cssClass="form-control" id="trackNumber" />
 					</div>
 				
 					<div class="col-md-4">
-						<label for="trackName">* Name</label>
+						<label for="trackName"><small>* Name</small></label>
 						<form:input path="name" cssClass="form-control" id="trackName" />
 					</div>
 				</div>
+				<div class="form-group" style="float:clear;"></div>
+				
+		<!-- AUDIO FILE -->	
+			<!-- accept="image/jpeg, image/png, image/gif, image/jpg"  -->
+				 <div class="row">     
+					<div class="col-md-6">
+						<label for="audioFile">Audio File</label><span style="padding-left: 10px;"></span><small>mp3, wav, m4p, flac</small>
+							<form:input type="file" path="mp3" id="audioFileInput" cssClass="btn btn-default btn-file" />
+					</div>
+				</div>
+		<!-- END AUDIO FILE -->	
+			
 				<div class="form-group" style="float:clear;"></div>
 			
 			<!-- START ARTIST -->	
@@ -94,12 +106,12 @@
 
 				<div class="row">
 					<div class="col-md-1">
-						<label for="trackLengthMinutes">* Minutes</label>
+						<label for="trackLengthMinutes"><small>* Minutes</small></label>
 						<form:input path="lengthMinutes" id="trackLengthMinutes"  cssClass="form-control"/>
 					</div>
 	
 					<div class="col-md-1">
-						<label for="trackLengthSeconds">* Seconds</label>
+						<label for="trackLengthSeconds"><small>* Seconds</small></label>
 						<form:input path="lengthSeconds" id="trackLengthSeconds" cssClass="form-control"/>
 					</div>
 					<div class="col-md-1">

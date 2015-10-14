@@ -13,6 +13,7 @@ public class CreateAlbumWrapper {
 	@NotNull
 	@Size(min=3, max=16)
 	private String name;
+	private String albumFromList;
 	private String description;
 	private int lengthMinutes;
 	private int lengthSeconds;
@@ -55,6 +56,14 @@ public class CreateAlbumWrapper {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAlbumFromList() {
+		return albumFromList;
+	}
+
+	public void setAlbumFromList(String albumFromList) {
+		this.albumFromList = albumFromList;
 	}
 
 	public String getArtistFromList() {

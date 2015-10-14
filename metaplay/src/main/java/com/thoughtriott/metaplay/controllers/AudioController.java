@@ -1,55 +1,58 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.List;
-import java.util.ListIterator;
-
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.thoughtriott.metaplay.data.documents.AudioFile;
-import com.thoughtriott.metaplay.data.repositories.mongo.AudioFileRepository;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import com.thoughtriott.metaplay.data.wrappers.UploadTrackWrapper;
 
 @Controller
 @RequestMapping("/audio")
-public class AudioController {
-	
-	@Autowired
-	AudioFileRepository afrepo;
+public class AudioController extends AmazonService {
 
-	//Utility method for getting an image from S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
-	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
-	private HttpServletResponse getAudioFromMongo(@RequestParam("id") String id, HttpServletResponse response) {
+	
+	@RequestMapping(value="/upload", method=RequestMethod.GET)
+	public String getUploadPage(){
+		return "upload_mp3";
+	}
+	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public String saveAudioFile(@ModelAttribute UploadTrackWrapper utw) {
+		System.out.println("Invoking the saveTrack() from MongoController.");
 		try {
-			//afrepo findOne wasn't working, using findAll() and iterating through...
-			AudioFile audioFile = null;
-			List<AudioFile> laf = afrepo.findAll();
-			if(laf!=null) {
-				ListIterator<AudioFile> audioIt = laf.listIterator();
-				while(audioIt.hasNext()) {
-					AudioFile listAudioFile = audioIt.next();
-					if(id.equals(listAudioFile.getId())) {
-						audioFile = listAudioFile;
-					}
-				}
-			}
-			if(audioFile!=null) {
-				System.out.println("AudioFile found, id: " + audioFile.getId());
-				byte[] bytes = audioFile.getMp3();
-				response.setContentType("audio/mpeg");
-				response.getOutputStream().write(bytes);
-				Thread.sleep(1000);
-				response.getOutputStream().close();
-			}
-			return response;
+			saveAudioFile(utw.getMp3(), utw.getId(), utw.getFilename());
+		} catch (AmazonS3Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/mongo/upload";
+	}
+	
+	//for viewing that one that works... for now only!
+	@RequestMapping(value="/S3audio", method=RequestMethod.GET)
+	public String getAudio(){
+		return "audio";
+	}
+	
+	//Utility method for getting an audio file from S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
+	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
+	private void getAudioFromService(@RequestParam("id") String id, @RequestParam("filename") String filename, HttpServletResponse response) {
+		try {
+			getAudioFile(id, filename, response);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
+			throw new AmazonS3Exception(e.getMessage());
 		}
 	}
+	
+	// ------------------------------ Model Attributes ------------------------------
+			@ModelAttribute("uploadTrackWrapper")
+			public UploadTrackWrapper getUploadTrackWrapper() {
+				return new UploadTrackWrapper();
+			}	
 	
 }

@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "track")
 public class Track {
@@ -30,6 +33,7 @@ public class Track {
 	private Integer id;
 
 	@OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Collection<Playlist_Track> playlistTracks;
 
 	private String name;
@@ -49,9 +53,11 @@ public class Track {
 	
 	@ManyToOne
 	@JoinColumn(name = "album_id", nullable=false)
+	@JsonBackReference
 	private Album album;
 	
 	@ManyToMany(mappedBy="tracks", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Collection<Playlist> playlists;
 	
 //--------------------------Getters & Setters--------------------------

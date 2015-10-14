@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 
 <!DOCTYPE html>
@@ -28,7 +30,9 @@
 			<h1 style="font-family: Times, serif;"><em>Track: ${track.name}</em></h1>
 
 			<div class="form-group">
-				<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}" type="audio/mpeg" /></audio>
+				<sec:authorize access="isAuthenticated()">				
+					<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}&filename=${track.name}" type="audio/mpeg" /></audio>
+				</sec:authorize>
 			</div>
 
 			<div class="form-group">

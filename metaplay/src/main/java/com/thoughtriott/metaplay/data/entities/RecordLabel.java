@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "recordlabel")
 public class RecordLabel {
@@ -37,9 +40,11 @@ public class RecordLabel {
 	
 	@ManyToOne
 	@JoinColumn(name = "location_id", nullable=false)
+	@JsonBackReference
 	private Location location;
 
 	@OneToMany(mappedBy = "recordLabel")
+	@JsonManagedReference
 	private Collection<Album> albums;
 	
 //--------------------------Getters & Setters--------------------------	

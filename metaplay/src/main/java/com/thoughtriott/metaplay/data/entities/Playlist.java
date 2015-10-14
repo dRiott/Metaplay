@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "playlist")
 public class Playlist {
@@ -22,21 +25,28 @@ public class Playlist {
 	public Playlist() {
 	}
 
-// --------------------------Fields--------------------------
+	public Playlist(String name) {
+		this.name = name;
+	}
+
+	// --------------------------Fields--------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Playlist_Track> playlistTracks;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="track_playlist", 
 	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
+	@JsonManagedReference
 	private List<Track> tracks;
 	
 	@ManyToMany(mappedBy = "playlists")
+	@JsonBackReference
 	private List<Account> accounts;
 	
 	private String name;

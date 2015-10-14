@@ -1,0 +1,22 @@
+package com.thoughtriott.metaplay.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.thoughtriott.metaplay.data.repositories.mongo.AudioFileRepository;
+
+@Controller
+@RequestMapping("/mongo")
+public class MongoController {
+
+	@Autowired
+	AudioFileRepository afrepo;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String addAlbum(){
+		System.out.println(afrepo.count());
+		return "upload_mp3";
+	}
+}

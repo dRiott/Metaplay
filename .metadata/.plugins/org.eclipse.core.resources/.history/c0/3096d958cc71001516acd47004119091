@@ -1,0 +1,5 @@
+package com.thoughtriott.metaplay.data.documents;
+
+public class AudioFile {
+
+}

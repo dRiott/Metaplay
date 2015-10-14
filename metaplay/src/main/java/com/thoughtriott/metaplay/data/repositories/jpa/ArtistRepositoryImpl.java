@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.thoughtriott.metaplay.data.entities.Artist;
 
 public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
-
-
+	
 	@Autowired
 	private ArtistRepository artistRepository;
 	
@@ -58,5 +57,4 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
 		}
 		return artistString;
 	}
-	
 }

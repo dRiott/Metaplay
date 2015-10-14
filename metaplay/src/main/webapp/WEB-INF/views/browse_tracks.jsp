@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> --%>
 
 
@@ -28,13 +30,10 @@
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th><th>Number</th><th>Album</th><th>Length</th>
+					<th>Number</th><th>Name</th><th>Album</th><th>Length</th>
 				</tr>
 				<c:forEach items="${tracks}" var="track">
 					<tr>
-						<td><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
-						<span style="padding-left: 10px;"></span>						
-						<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}" type="audio/mpeg" /></audio></td>
 						<c:choose>
 							<c:when test="${track.trackNumber!=null }">
 								<td><c:out value="${track.trackNumber}" /></td>
@@ -43,6 +42,16 @@
 								<td>-</td>
 							</c:otherwise>
 						</c:choose>
+
+						<td>
+							<a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
+							<span style="padding-left: 10px;"></span>		
+							<sec:authorize access="isAuthenticated()">				
+								<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}&filename=${track.name}" type="audio/mpeg" /></audio>
+							</sec:authorize>
+						</td>
+						
+
 						<c:choose>
 							<c:when test="${track.album!=null}">
 								<td><a href="<spring:url value="/browse/album/${track.album.id}"/>">${track.album.name}</a></td>

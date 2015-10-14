@@ -1,0 +1,36 @@
+package com.thoughtriott.metaplay.config;
+
+import java.util.Arrays;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import com.mongodb.DB;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+
+@Configuration
+@EnableMongoRepositories(basePackages="com.thoughtriott.metaplay.data.repositories.mongo")
+public class MongoConfig extends AbstractMongoConfiguration {
+
+	@Override
+	protected String getDatabaseName() {
+		return "metaplay";
+	}
+	
+	private char[] pw = {'r', 'e', 'n', 'e', 'g', 'a', 'd', 'e', 's'};
+	
+	@Override
+	public Mongo mongo() throws Exception {
+		MongoCredential credential = MongoCredential.createMongoCRCredential("driott", "metaplay", pw);
+		MongoClient mongo = new MongoClient(new ServerAddress("ec2-52-10-48-29.compute-1.amazonaws.com", 27017), Arrays.asList(credential));
+		DB db = mongo.getDB("metaplay");
+		System.out.println(db);
+		
+		return mongo;
+	}
+
+}

@@ -36,6 +36,16 @@
 						<form:input type="text" path="name" id="albumName" cssClass="form-control" cssErrorClass="has-error"/>          
 					</div>       
 				</div>		
+				
+				<div class="form-group" style="float:clear;"></div>
+				
+				<div class="row">                                                                    
+					<div class="col-md-4">                                                         
+						<label for="albumName">Or Update An Existing One</label>                                
+						<form:select path="albumFromList" cssClass="selectpicker" id="albumListName" >
+							<form:options items="${albumOptions}" />
+						</form:select>					</div>       
+				</div>		
 				<div class="form-group" style="float:clear;"></div>
 					
 			<!-- BEGIN Artist -->
@@ -155,6 +165,10 @@
 									<label for="trackBpm">BPM</label>
 									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" cssClass="form-control"/>
 								</div>
+								<div class="col-md-3">
+									<label for="trackBpm">MP3</label>
+									<form:input type="file" path="createTrackWrappers[${val}].mp3" id="mp3${val+1}" cssClass="form-control"/>
+								</div>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -174,6 +188,10 @@
 								<div class="col-md-1">
 									<label for="trackBpm">BPM</label>
 									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" cssClass="form-control"/>
+								</div>
+								<div class="col-md-3">
+									<label for="trackBpm">MP3</label>
+									<form:input type="file" path="createTrackWrappers[${val}].mp3" id="mp3${val+1}" cssClass="form-control"/>
 								</div>
 							</div>
 						</c:otherwise>

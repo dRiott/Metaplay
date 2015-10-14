@@ -10,6 +10,7 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: bottom right;
+	background-size: 500px Auto;
 }
 
 .DRnavBarDiv{

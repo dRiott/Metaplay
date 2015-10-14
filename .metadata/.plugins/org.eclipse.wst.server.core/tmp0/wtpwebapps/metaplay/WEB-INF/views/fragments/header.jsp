@@ -84,6 +84,7 @@
 					<li><a href="<spring:url value="/location/add"/>">Add Location</a></li>
 					<li><a href="<spring:url value="/role/assign"/>">Assign Roles</a></li>
 					<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
+					<li><a href="<spring:url value="/mongo/upload"/>">Upload Mp3</a></li>
 				</ul>
 			</li>
 

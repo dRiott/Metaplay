@@ -1,5 +1,8 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 import com.thoughtriott.metaplay.data.entities.Artist;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer>, ArtistRepositoryCustom {
@@ -9,7 +12,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, Artist
 
 	Artist findArtistByName(String name);
 	Artist findArtistByNameAndBiography(String name, String biography);
-	
+	List<Artist> findArtistByNameLike(String name);
 
 }
 

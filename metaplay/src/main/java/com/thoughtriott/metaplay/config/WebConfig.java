@@ -30,6 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		//configure static content handling
 		configurer.enable();
 	}
 
@@ -37,6 +38,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	    // equivalent to <mvc:resources>
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
 	}
 
 	@Override
