@@ -2,45 +2,18 @@ package com.thoughtriott.metaplay.controllers;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/browse")
 public class BrowseController extends RepositoryKeeper {
-	
-//	@Autowired
-//	AccountService accountService;
-//	@Autowired
-//	private AccountRepository accountRepository;
-//	@Autowired
-//	private AlbumRepository albumRepository;
-//	@Autowired
-//	private ArtistRepository artistRepository;
-//	@Autowired
-//	private GenreRepository genreRepository;
-//	@Autowired
-//	private LocationRepository locationRepository;
-//	@Autowired
-//	private PlaylistRepository playlistRepository;
-//	@Autowired
-//	private RecordLabelRepository recordLabelRepository;
-//	@Autowired
-//	private TrackRepository trackRepository;
 	
 	public BrowseController() {
 	}
@@ -68,7 +41,7 @@ public class BrowseController extends RepositoryKeeper {
 		}
 	}
 	
-//Albums
+	//Albums
 	@RequestMapping(value="/albums", method=RequestMethod.GET)
 	public String findAlbums(Model model){
 		model.addAttribute("albums", albumRepository.findAll());
@@ -81,7 +54,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_album";
 	}
 	
-//Artists
+	//Artists
 	@RequestMapping(value="/artists", method=RequestMethod.GET)
 	public String findArtists(Model model){
 		model.addAttribute("artists", artistRepository.findAll());
@@ -94,7 +67,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_artist";
 	}
 	
-//Genres
+	//Genres
 	@RequestMapping(value="/genres", method=RequestMethod.GET)
 	public String findGenres(Model model){
 		model.addAttribute("genres", genreRepository.findAll());
@@ -107,7 +80,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_genre";
 	}
 	
-//Locations
+	//Locations
 	@RequestMapping("/locations")
 	public String findLocations(Model model){
 		model.addAttribute("locations", locationRepository.findAll()); 
@@ -120,7 +93,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_location";
 	}
 	
-//Playlists
+	//Playlists
 	@RequestMapping(value="/playlists", method=RequestMethod.GET)
 	public String findPlaylists(Model model){
 		model.addAttribute("playlists", playlistRepository.findAll());
@@ -133,7 +106,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_playlist";
 	}
 	
-//RecordLabels
+	//RecordLabels
 	@RequestMapping("/recordlabels")
 	public String findRecordLabels(Model model){
 		model.addAttribute("recordlabels", recordLabelRepository.findAll()); 
@@ -146,7 +119,7 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_recordlabel";
 	}
 	
-//Tracks
+	//Tracks
 	@RequestMapping(value="/tracks", method=RequestMethod.GET)
 	public String findTracks(Model model){
 		model.addAttribute("tracks", trackRepository.findAll());

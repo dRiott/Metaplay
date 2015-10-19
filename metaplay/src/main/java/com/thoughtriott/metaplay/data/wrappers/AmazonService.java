@@ -28,7 +28,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 @Controller
 public abstract class AmazonService extends RepositoryKeeper {
 //extends RepositoryKeeper so that controllers that need to use AmazonService and extend it can still 
-	// have access to RepositoryKeeper's fields.
+// have access to RepositoryKeeper's fields.
 	
 		static final String SUFFIX = "/";
 		protected static final String PROFILEPICS = "profilePictures";
@@ -79,8 +79,6 @@ public abstract class AmazonService extends RepositoryKeeper {
 			throw new AmazonS3Exception(e.getMessage());
 		}
 	}
-	
-	
 	
 	//Utility method for uploading an image to S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
 	@RequestMapping(value = "/saveaduio")

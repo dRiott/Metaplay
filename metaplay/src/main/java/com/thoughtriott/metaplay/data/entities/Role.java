@@ -5,9 +5,6 @@ import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -23,10 +20,6 @@ public class Role extends MetaplayEntity {
 	}	
 	
 // --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
 	@ManyToMany(mappedBy = "roles")
 	@JsonBackReference
 	private Collection<Account> accounts;
@@ -38,14 +31,6 @@ public class Role extends MetaplayEntity {
 	private String entityType = "role";
 
 //--------------------------Getters & Setters--------------------------
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
 	public Collection<Account> getAccounts() {
 		return accounts;
 	}
@@ -53,14 +38,6 @@ public class Role extends MetaplayEntity {
 	public void setAccounts(Collection<Account> accounts) {
 		this.accounts = accounts;
 	}
-
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
 
 	public String getDescription() {
 		return description;
@@ -70,7 +47,7 @@ public class Role extends MetaplayEntity {
 		this.description = description;
 	}
 
-public String getEntityType() {
+	public String getEntityType() {
 		return entityType;
 	}
 
@@ -122,8 +99,6 @@ public String getEntityType() {
 		} return "No accounts.";
 	}
 //--------------------------toString()--------------------------
-
-	//In Account, roles.size();
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", accounts=" + this.getAccountsToString() + ", name=" + name + ", description=" + description + "]";

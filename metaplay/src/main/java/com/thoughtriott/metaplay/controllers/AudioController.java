@@ -50,9 +50,9 @@ public class AudioController extends AmazonService {
 	}
 	
 	// ------------------------------ Model Attributes ------------------------------
-			@ModelAttribute("uploadTrackWrapper")
-			public UploadTrackWrapper getUploadTrackWrapper() {
-				return new UploadTrackWrapper();
-			}	
+	@ModelAttribute("uploadTrackWrapper")
+	public UploadTrackWrapper getUploadTrackWrapper() {
+		return new UploadTrackWrapper();
+	}	
 	
 }

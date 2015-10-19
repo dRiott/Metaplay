@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,15 +20,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "account")
 public class Account extends MetaplayEntity {
 
-// --------------------------Constructors--------------------------
+	// --------------------------Constructors--------------------------
 	public Account() {
 	}	
 	
-// --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
+	// --------------------------Fields--------------------------
 	@ManyToMany
 	@JoinTable(name="account_role", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
@@ -57,16 +51,11 @@ public class Account extends MetaplayEntity {
 	@Column(name="registration_date")
 	private Date registrationDate;
 	
-//--------------------------Getters & Setters--------------------------
+	@Lob
+	@Column(name="profile_picture")
+	private byte[] profilePicture;
 	
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
+	//--------------------------Getters & Setters--------------------------
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -131,6 +120,14 @@ public class Account extends MetaplayEntity {
 		this.enabled = enabled;
 	}
 
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
 	//--------------------------Collection Adders and Removers--------------------------
 	public Account addRole(Role role) {
 		if (getRoles()!=null && !getRoles().contains(role)) {
@@ -181,8 +178,7 @@ public class Account extends MetaplayEntity {
 		return this;
 	}
 	
-//--------------------------Collection Printers--------------------------
-	
+	//--------------------------Collection Printers--------------------------
 	public String getRolesToString () {
 		if(getRoles()!=null) {
 		Iterator<Role> it = getRoles().iterator();
@@ -219,8 +215,7 @@ public class Account extends MetaplayEntity {
 		}return "No roles";
 	}
 	
-//--------------------------toString()--------------------------
-
+	//--------------------------toString()--------------------------
 	//Roles and Accounts: @ManyToMany. B/c StackOverflowError --> Altered toString(): roles, playlists
 	@Override
 	public String toString() {

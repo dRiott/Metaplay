@@ -18,11 +18,6 @@ import com.thoughtriott.metaplay.data.wrappers.RoleWrapper;
 @RequestMapping("/role")
 public class RoleController extends RepositoryKeeper {
 
-//	@Autowired
-//	private RoleRepository roleRepository;
-//	@Autowired
-//	private AccountRepository accountRepository;
-
 	@RequestMapping("/add")
 	public String addRole(){
 		return "role_add";
@@ -54,32 +49,7 @@ public class RoleController extends RepositoryKeeper {
 		return "redirect:/role/assign";
 	}
 	
-	
-	
-//	@RequestMapping("/find")
-//	public String findLocation(Model model){
-//		
-//		//"portland" attribute
-//		Location portland = locationRepository.findLocationByCityAndState("Portland", "Oregon");
-//		model.addAttribute("currentLocation", portland);
-//
-//		//"all" attribute
-//		String all = locationRepository.findAllToFormattedString();
-//		model.addAttribute("all", all);
-//		
-//		//test attribute
-	
-//		//"states" attribute
-//		Iterator<String> it = locationRepository.findAllStatesToListString().iterator();
-//		String states = "";
-//		while(it.hasNext()) {
-//			states = states + " " + it.next();
-//		}
-//		model.addAttribute("states", states);
-//	
-//		return "location_find";
-//	}
-	
+	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("role")
 	public Role getRole() {
 		return new Role();
@@ -109,12 +79,10 @@ public class RoleController extends RepositoryKeeper {
 	}
 	
 	// ------------------------------ Validator ------------------------------
+	/*registering the LocationValidator with this controller using a WebDataBinder object.
+		@InitBinder
+		public void initBinder(WebDataBinder binder) {
+			binder.addValidators(new LocationValidator());
+		}*/
 
-		//registering the LocationValidator with this controller using a WebDataBinder object.
-//		@InitBinder
-//		public void initBinder(WebDataBinder binder) {
-//			binder.addValidators(new LocationValidator());
-//		}
-
-	
 }

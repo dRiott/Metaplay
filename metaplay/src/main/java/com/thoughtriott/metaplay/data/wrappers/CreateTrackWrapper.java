@@ -54,7 +54,6 @@ public class CreateTrackWrapper {
 	}
 	
 //--------------------------Getters & Setters--------------------------	
-	
 	public String getAlbumCover() {
 		return albumCover;
 	}
@@ -150,4 +149,5 @@ public class CreateTrackWrapper {
 	public MultipartFile getMp3() {
 		return mp3;
 	}
+
 }

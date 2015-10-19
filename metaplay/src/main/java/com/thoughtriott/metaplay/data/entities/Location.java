@@ -5,9 +5,6 @@ import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "location")
 public class Location extends MetaplayEntity {
 	
-// --------------------------Constructors--------------------------
+	// --------------------------Constructors--------------------------
 	public Location() {
 			
 	}
@@ -29,10 +26,7 @@ public class Location extends MetaplayEntity {
 		this.state = state;
 	}
 
-// --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
+	// --------------------------Fields--------------------------
 	@NotNull
 	@Size(min=3, max=40)
 	private String city;
@@ -51,7 +45,7 @@ public class Location extends MetaplayEntity {
 	@Column(name="entity_type")
 	private String entityType = "location";
 
-// --------------------------Getters & Setters--------------------------
+	// --------------------------Getters & Setters--------------------------
 	public Collection<RecordLabel> getRecordLabels() {
 		return recordLabels;
 	}
@@ -59,14 +53,6 @@ public class Location extends MetaplayEntity {
 	public void setRecordLabels(Collection<RecordLabel> recordLabels) {
 		this.recordLabels = recordLabels;
 	}
-
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
 
 	public String getCity() {
 		return city;
@@ -138,10 +124,8 @@ public class Location extends MetaplayEntity {
 			artist.setLocation(null);
 		}
 	}
-
 	
-//--------------------------Collection Printers--------------------------
-
+	//--------------------------Collection Printers--------------------------
 	public String getArtistsToString () {
 		if(getArtists()!=null) {
 		Iterator<Artist> it = getArtists().iterator();
@@ -182,13 +166,11 @@ public class Location extends MetaplayEntity {
 		return "No record labels.";
 	}	
 	
-// --------------------------toString()--------------------------
-	
-	//In RecordLabel: location.getCity(), In Artist: location.getCity()
+	// --------------------------toString()--------------------------
 	@Override
 	public String toString() {
 		return "Location [id=" + id + ", city=" + city + ", state=" + state + ", recordLabels=" + getRecordLabelsToString()
 				+ ", artists=" + getArtistsToString() + "]";
 	}
-
+	
 }

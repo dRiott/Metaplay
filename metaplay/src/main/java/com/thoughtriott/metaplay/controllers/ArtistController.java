@@ -31,36 +31,26 @@ public class ArtistController extends AmazonService {
 		return "artist_add";
 	}
 	
-//	@RequestMapping("/review")
-//	public String review(HttpSession session, @Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Model model, Errors errors) {
-//		System.out.println("Invoking review() in ArtistController");
-//		if(errors.hasErrors()) {
-//			return "artist_add";
-//		}
-//		//      Save the Artist Image and Album Cover	
-//		super.saveImage(createArtistWrapper.getArtistImage(), ARTIST, createArtistWrapper.getName());
-//		super.saveImage(createArtistWrapper.getAlbumCover(), ALBUM, createArtistWrapper.getTheNewAlbumName());
-//		model.addAttribute("createArtistWrapper", createArtistWrapper);
-//		return "artist_review";
-//	}
-	
 	@RequestMapping("/save")
 	public String saveArtist(@ModelAttribute CreateArtistWrapper caw, HttpSession session, SessionStatus status) {
-		System.out.println("Invoking the saveArtist() from ArtistController.");
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BEGIN ARTIST PERSISTENCE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		System.out.println("ArtistController - saveArtist(): invoking");
 		Artist futureArtist = new Artist();
-//		CreateArtistWrapper caw = (CreateArtistWrapper) session.getAttribute("createArtistWrapper");
-		System.out.println("Artist name about to be set: " + caw.getName());
 		futureArtist.setName(caw.getName());
 		futureArtist.setBiography(caw.getBiography());
 		Artist savedArtist = artistRepository.saveAndFlush(futureArtist);
 
+		/*savedArtist.setArtistImage(caw.getArtistImage());
+		try {
+			caw.getArtistImage().getInputStream().read(artistImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
 		
 		super.saveImage(caw.getArtistImage(), ARTIST, caw.getName());
 		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getTheNewAlbumName());
 		
-		
-		
-	// 		Setting/Creating a Location
+		// ****************** BEGIN LOCATION PERSISTENCE ******************
 		System.out.println("Setting/Creating a Location");
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
@@ -75,7 +65,7 @@ public class ArtistController extends AmazonService {
 		
 		
 		
-	//		Setting/Creating a Genre
+		// ****************** BEGIN GENRE PERSISTENCE ******************
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
 		caw.getNewGenreDescription();
@@ -86,7 +76,7 @@ public class ArtistController extends AmazonService {
 		}
 		
 
-	// 		adding members to the artist
+		// ****************** BEGIN MEMBER PERSISTENCE ******************
 		System.out.println("Going to add members to the artist");
 		String[][] members = new String[][]{
 				{caw.getMember1(), caw.getMember1StageName()},
@@ -120,23 +110,21 @@ public class ArtistController extends AmazonService {
 			}
 		}
 		
-	//		Setting/Creating an Album
+		// ****************** BEGIN ALBUM PERSISTENCE ******************
 		System.out.println("Setting/Creating an Album");
 		if (caw.getAlbumNameFromList().equals("** Do Not Add Album Now **") || caw.getAlbumNameFromList().contains("exist")) {
 			// do nothing, they don't want to add an album.
-			System.out.println("ArtistController: ** Do Not Add Album Now ** or No Albums exist, add one!");
+			System.out.println("ArtistController: ** Do Not Add Album Now ** or \"No Albums exist, add one!\"");
 		}  else if (caw.getAlbumNameFromList().equals("** New Album **")) {
 			// they're adding a new album!
 			System.out.println("ArtistController: ** New Album ** is about to be created...");
 			Album newAlbum = new Album();
-				newAlbum.setName(caw.getTheNewAlbumName());
-				newAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
-				System.out.println("Date about to be set: " + dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
-				newAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
-			System.out.println("ArtistController: Album setting successful.");
-			System.out.println("About to flush album");
-			System.out.println("Album returned : " + albumRepository.saveAndFlush(newAlbum));
+			newAlbum.setName(caw.getTheNewAlbumName());
+			newAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
+			newAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
+			System.out.println("ArtistController: Album setting successful. About to flush album.");
 			Album returnedAlbum = albumRepository.saveAndFlush(newAlbum);
+			System.out.println("Album returned : " + returnedAlbum);
 			System.out.println("futureArtist.addAlbum() - About to add the persisted album to the artist.");
 			savedArtist.addAlbum(returnedAlbum);
 			albumRepository.saveAndFlush(returnedAlbum);
@@ -155,22 +143,7 @@ public class ArtistController extends AmazonService {
 		return "redirect:/artist/add";
 	}
 	
-	@RequestMapping("/find")
-	public String findArtist() {
-		//implement findArtist method
-		// return "artists"
-		return "404";
-	}
-	
-// ------------------------------ Validator ------------------------------
-
-	//registering the ArtistValidator with this controller using a WebDataBinder object.
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.addValidators(new CreateArtistWrapperValidator());
-//	}
-	
-// ------------------------------ Model Attributes ------------------------------
+	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("artist")
 	public Artist getArtist() {
 		return new Artist();
@@ -217,4 +190,27 @@ public class ArtistController extends AmazonService {
 		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
 		}));
 	}	
-}
+
+}	
+
+// ------------------------------ Validator ------------------------------
+	/*//registering the ArtistValidator with this controller using a WebDataBinder object.
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new CreateArtistWrapperValidator());
+	}*/
+	
+	// ------------------------------ Notes / Old Code ------------------------------
+	/*	@RequestMapping("/review")
+		public String review(HttpSession session, @Valid @ModelAttribute CreateArtistWrapper createArtistWrapper, Model model, Errors errors) {
+			System.out.println("Invoking review() in ArtistController");
+			if(errors.hasErrors()) {
+				return "artist_add";
+			}
+			//      Save the Artist Image and Album Cover	
+			super.saveImage(createArtistWrapper.getArtistImage(), ARTIST, createArtistWrapper.getName());
+			super.saveImage(createArtistWrapper.getAlbumCover(), ALBUM, createArtistWrapper.getTheNewAlbumName());
+			model.addAttribute("createArtistWrapper", createArtistWrapper);
+			return "artist_review";
+		}*/
+

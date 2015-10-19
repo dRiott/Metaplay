@@ -13,10 +13,8 @@ public class RoleWrapper {
 	
 	@NotNull
 	private String actionOption;
-
 	
 // --------------------------Constructors--------------------------
-
 	public RoleWrapper() {
 	}
 	
@@ -27,7 +25,6 @@ public class RoleWrapper {
 	}
 
 //--------------------------Getters & Setters--------------------------	
-	
 	public String getAccountname() {
 		return accountname;
 	}

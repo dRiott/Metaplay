@@ -5,11 +5,11 @@ import java.util.Date;
 public class CreditCard {
 
 // --------------------------Fields--------------------------
-		String nameOnCard;
-		String cardNumber;
-		String cardType;
-		Date cardExpDate;
-		double amount;
+	String nameOnCard;
+	String cardNumber;
+	String cardType;
+	Date cardExpDate;
+	double amount;
 	
 // --------------------------Constructors--------------------------
 	public CreditCard() {

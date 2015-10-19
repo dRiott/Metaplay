@@ -50,6 +50,23 @@
 				</c:choose>
 			</div>
 			
+			<div class="form-group">
+				<label for="recordLabel-album">Albums</label>
+				<c:choose>
+					<c:when test="${recordlabel.albums.size()==0 }">
+						<c:out value="This record label has no albums. Hmm..." /><span style="padding-left: 6px;"></span>
+						<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
+					</c:when>
+					<c:otherwise>
+						<ul>
+							<c:forEach items="${recordlabel.albums}" var="album">
+								<li><a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a></li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 		<a href="<spring:url value="/browse/recordlabels"/>" class="btn btn-default">Back To Browse</a>
 
 		</div>

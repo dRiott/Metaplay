@@ -22,7 +22,6 @@ public class CreatePlaylistWrapper {
 	private List<Track> tracks;
 	
 // --------------------------Constructors--------------------------
-
 	public CreatePlaylistWrapper() {
 	}
 

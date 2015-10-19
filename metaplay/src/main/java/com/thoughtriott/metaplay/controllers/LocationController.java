@@ -1,14 +1,12 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
 import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/location")
 public class LocationController extends RepositoryKeeper {
-
-//	@Autowired
-//	private LocationRepository locationRepository;
 
 	@RequestMapping("/add")
 	public String addLocation(Model model){
@@ -34,7 +28,7 @@ public class LocationController extends RepositoryKeeper {
 	
 	@RequestMapping("/review")
 	public String reviewLocation(@Valid @ModelAttribute Location location, Errors errors, Model model, HttpSession session) {
-		System.out.println("Invoking reviewLocation() in LocationController");
+		System.out.println("LocationController - reviewLocation(): invoking");
 		if(errors.hasErrors()) {
 			return "location_add";
 		}
@@ -45,48 +39,21 @@ public class LocationController extends RepositoryKeeper {
 	
 	@RequestMapping(value="/save")
 	public String saveLocation(HttpSession session, SessionStatus status){
-		System.out.println("invoking saveLocation");
-		Location l = (Location) session.getAttribute("location");
-		String city = l.getCity();
-		String state = l.getState();
-		
-		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
+		System.out.println("LocationController - saveLocation(): invoking");
+		Location location = (Location) session.getAttribute("location");
+		if(locationRepository.findLocationByCityAndState(location.getCity(), location.getState())!=null) {
 			System.out.println("Location Controller: locationService.findLocation() exists... returning to Location/add.");
 			status.setComplete();
 			return "redirect:/location/add";
 		} else {
 			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			locationRepository.saveAndFlush(l);
+			locationRepository.saveAndFlush(location);
 			status.setComplete();
 		}
 		return "redirect:/location/add";
 	}
 	
-	@RequestMapping("/find")
-	public String findLocation(Model model){
-		
-		//"portland" attribute
-		Location portland = locationRepository.findLocationByCityAndState("Portland", "Oregon");
-		model.addAttribute("currentLocation", portland);
-
-		//"all" attribute
-		String all = locationRepository.findAllToFormattedString();
-		model.addAttribute("all", all);
-		
-		//test attribute
-		
-
-		//"states" attribute
-		Iterator<String> it = locationRepository.findAllStatesToListString().iterator();
-		String states = "";
-		while(it.hasNext()) {
-			states = states + " " + it.next();
-		}
-		model.addAttribute("states", states);
-	
-		return "location_find";
-	}
-
+	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("stateOptions")
 	public List<String> getTypes () {
 		return new LinkedList<>(Arrays.asList(new String[] { 
@@ -104,14 +71,11 @@ public class LocationController extends RepositoryKeeper {
 		return new Location();
 	}
 	
-	
 	// ------------------------------ Validator ------------------------------
+	/*//registering the LocationValidator with this controller using a WebDataBinder object.
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new LocationValidator());
+	}*/
 
-		//registering the LocationValidator with this controller using a WebDataBinder object.
-//		@InitBinder
-//		public void initBinder(WebDataBinder binder) {
-//			binder.addValidators(new LocationValidator());
-//		}
-
-	
 }

@@ -18,16 +18,14 @@ public class CreateAlbumWrapper {
 	private int lengthMinutes;
 	private int lengthSeconds;
 	private int numTracks;
+	private String releaseDate;
 
 	@NotNull
 	@Size(min = 3, max = 50)
 	private String artistFromList;
-	
 	@NotNull
 	@Size(min = 3, max = 50)
 	private String theNewArtist;
-	
-	private String releaseDate;
 	
 	@Size(min = 3, max = 30)
 	private String recordLabelFromList;
@@ -42,14 +40,11 @@ public class CreateAlbumWrapper {
 	
 	private MultipartFile albumCover;
 
-
 // --------------------------Constructors--------------------------
-	
 	public CreateAlbumWrapper() {
 	}
 
 //--------------------------Getters & Setters--------------------------	
-
 	public String getName() {
 		return name;
 	}

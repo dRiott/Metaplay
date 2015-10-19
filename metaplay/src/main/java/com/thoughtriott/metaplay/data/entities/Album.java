@@ -57,24 +57,24 @@ public class Album extends MetaplayEntity {
 	
 	
 	// --------------------------Constructors--------------------------
-		public Album() {
-		}
+	public Album() {
+	}
 
-		public Album(String name, String description) {
-			this.name = name;
-			this.description = description;
-		}
+	public Album(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 
-		// used in testControllers --> BrowseControllerTest
-		public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
-			super();
-			this.name = name;
-			this.description = description;
-			this.artist = artist;
-			this.numTracks = numTracks;
-			this.releaseDate = releaseDate;
-			this.length = length;
-		}
+	// used in testControllers --> BrowseControllerTest
+	public Album(String name, String description, Artist artist, int numTracks, Date releaseDate, int length) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.artist = artist;
+		this.numTracks = numTracks;
+		this.releaseDate = releaseDate;
+		this.length = length;
+	}
 
 	// --------------------------Getters & Setters--------------------------
 	public String getDescription() {
@@ -154,8 +154,7 @@ public class Album extends MetaplayEntity {
 		this.albumCover = albumCover;
 	}
 
-// --------------Collection Adders and Removers-------------
-
+	// --------------Collection Adders and Removers-------------
 	// adds an Track to Collection<Track>, removing it's Album, setting to this.
 	public void addTrack(Track track) {
 		if (getTracks() != null && !getTracks().contains(track)) {
@@ -175,8 +174,7 @@ public class Album extends MetaplayEntity {
 		}
 	}
 
-// ----------------Collection Printers----------------
-
+	// ----------------Collection Printers----------------
 	public String getTracksToString() {
 		if (getTracks() != null) {
 			Iterator<Track> it = getTracks().iterator();
@@ -211,9 +209,7 @@ public class Album extends MetaplayEntity {
 		return "recordLabel is null.";
 	}
 
-// --------------------------toString()--------------------------
-
-	// In Tracks: album.getName()
+	// --------------------------toString()--------------------------
 	// B/c StackOverflowError, altered this toString(): artist.getName()
 	@Override
 	public String toString() {

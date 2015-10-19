@@ -117,7 +117,6 @@ class Playlist_TrackPK implements Serializable {
 	private int playlistId;
 
 	public Playlist_TrackPK () {
-		// no-arg constructor
 	}
 	
 	public Playlist_TrackPK(int trackId, int playlistId) {

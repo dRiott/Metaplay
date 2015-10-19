@@ -22,30 +22,14 @@ import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 @RequestMapping("/rest")
 public class RestSearchController extends RepositoryKeeper {
 
-	List<MetaplayEntity> allEntitiesList = new ArrayList<>();
-	private Map<String, JpaRepository<?, Integer>> repoMap;
-	
-//	private Object noparams[] = new Object[] {};
-
-	public static final String[] QUALIFIED_TYPES = {"com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository", 
-			"com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository", "com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository",
-			"com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository", "com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository",
-			"com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository", "com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository",
-			"com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository", "com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository",
-			"com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository"};
-
 	//counts to see if the repoMap has been initialized yet. if == 0, hasn't.
 	int globalCounter = 0;
-	
-	Object[] repos = {accountRepository, albumRepository, artistRepository, genreRepository, locationRepository,
-			memberRepository, playlistRepository, recordLabelRepository, roleRepository, trackRepository};
-	//initialize the map FOR USE IN /singleresult HANDLER METHOD
 
-	//populate allEntitiesList with EVERY entity.. what a bad idea!
-
+	List<MetaplayEntity> allEntitiesList = new ArrayList<>();
 	
-//**************************** BEGIN Request Handling Methods **************************** \\
+	private Map<String, JpaRepository<?, Integer>> repoMap;
 	
+	//**************************** BEGIN Request Handling Methods **************************** \\
 	//gets the account id for the profile link in fragment: header.jsp (shows on every page if user is logged in)
 	@RequestMapping(value="/account", method=RequestMethod.POST, consumes="application/json")
 	public Account findAccount(@RequestParam("query") String query) {
@@ -65,14 +49,16 @@ public class RestSearchController extends RepositoryKeeper {
 	@RequestMapping(value="/singlerandom", method=RequestMethod.GET, consumes="application/json")
 	public Object findSingleRandom() {
 		Collections.shuffle(allEntitiesList);
-		return allEntitiesList.get(0);
+		if(allEntitiesList.size()>0){
+			return allEntitiesList.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	//for searching every single entity with a PROVIDED QUERY - AJAX POST METHOD.
 	@RequestMapping(value="/allentities", method=RequestMethod.POST, consumes="application/json")
 	public List<Object> findFromAllEntitiesLike(@RequestParam("query") String query) {
-		//System.out.println("Inside the findFromAllEntitiesLike controller method");
-		//System.out.println("Got this query: " + query);
 		List<Object> matchingEntities = new ArrayList<>();
 		for(MetaplayEntity me : allEntitiesList) {
 			if (me.name.contains(query)) {
@@ -94,10 +80,10 @@ public class RestSearchController extends RepositoryKeeper {
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository", recordLabelRepository);
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository", roleRepository);
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository", trackRepository);
-//	 	globalCounter++;
 	 	return repoMap;
 	}
 	
+	//populate allEntitiesList with EVERY entity.. what a bad idea!
 	@RequestMapping(value="/loadAllEntities", method=RequestMethod.GET, consumes="application/json")
 	public void loadAllEntities() {
 		//want this to only run once, so setting up a counter to ensure it won't run twice.
@@ -105,8 +91,10 @@ public class RestSearchController extends RepositoryKeeper {
 			initializeMap();
 			for (String key : repoMap.keySet()) {
 				JpaRepository<?, Integer> repository = repoMap.get(key);
+
 				@SuppressWarnings("unchecked")
 				List<MetaplayEntity> entityList = (List<MetaplayEntity>) repository.findAll();
+				
 				Iterator<MetaplayEntity> it = entityList.iterator();
 				while(it.hasNext()) {
 					allEntitiesList.add(it.next());
@@ -118,32 +106,10 @@ public class RestSearchController extends RepositoryKeeper {
 		}
 		System.out.println("THE SIZE OF THE ALL ENTITIES LIST: " + allEntitiesList.size());
 	}
-	
-//**************************** END Request Handling Methods **************************** \\
-	
-	//Alternative to the above findSingleRandom method in case allEntitiesList idea doesn't work.
-	/*@RequestMapping(value="/random", method=RequestMethod.GET, consumes="application/json")
-	public Object findRandomLikeUsingMap() {
-		System.out.println("RestSearchController: In the findRandomLikeUsingMap() method!!");
-			String randomRepository = QUALIFIED_TYPES[(int) Math.floor(Math.random() * 10)];
-			if(globalCounter == 0) {
-				initializeMap();
-			}
-				JpaRepository<?, Integer> repository = repoMap.get(randomRepository);
-				if(repository!=null) {
-				@SuppressWarnings("unchecked")
-				List<MetaplayEntity> resultList = (List<MetaplayEntity>) repository.findAll();
-				int randomEntityInResultsList = (int) Math.floor(Math.random()*resultList.size());
-				MetaplayEntity singleResult = resultList.get(randomEntityInResultsList);
-				System.out.println("Objects list came back: objects.get(0).toString(): " + singleResult.toString());
-				return singleResult;
-				} else{
-					System.out.println("Repository was null");
-					return null;
-				}
-		}*/
-	
-	
+
+}
+
+// ------------------------------ Notes / Old Code ------------------------------
 	/*@RequestMapping(value="/artist/{id}", method=RequestMethod.GET)
 		public @ResponseBody Artist artistById(@PathVariable Integer id) {
 			Artist artist = artistRepository.getOne(id);
@@ -160,5 +126,5 @@ public class RestSearchController extends RepositoryKeeper {
 			HttpStatus status = artist != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 			return new ResponseEntity<Artist> (artist, status);
 		}*/
-}	
+	
 

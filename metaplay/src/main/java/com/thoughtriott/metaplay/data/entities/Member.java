@@ -5,9 +5,6 @@ import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -18,10 +15,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Member extends MetaplayEntity {
 	
 // --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
 	@ManyToMany(mappedBy="members")
     @JsonBackReference
 	private Collection<Artist> artists;
@@ -42,34 +35,26 @@ public class Member extends MetaplayEntity {
 	private String entityType = "member";
 
 	
-// --------------------------Constructors--------------------------
-		public Member() {
-		}
+	// --------------------------Constructors--------------------------
+	public Member() {
+	}
 
-		public Member(String lastName) {
-			this.lastName = lastName;
-		}
-		
-		public Member(String lastName, String firstName) {
-			this.lastName = lastName;
-			this.firstName = firstName;
-		}
-		
-		public Member(String lastName, String firstName, String middleName) {
-			this.lastName = lastName;
-			this.firstName = firstName;
-			this.middleName = middleName;
-		}
+	public Member(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public Member(String lastName, String firstName) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+	}
+	
+	public Member(String lastName, String firstName, String middleName) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.middleName = middleName;
+	}
 
-//--------------------------Getters & Setters--------------------------
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
+	//--------------------------Getters & Setters--------------------------
 	public Collection<Artist> getArtists() {
 		return artists;
 	}
@@ -119,30 +104,26 @@ public class Member extends MetaplayEntity {
 	}
 	
 	
-// --------------------------Collection Adders and Removers--------------------------	
-
-	
-
-		//adds a Artist to Collection<Artist>
-		public void addArtist(Artist artist) {
-			if (getArtists()!=null && !getArtists().contains(artist)) {
-				getArtists().add(artist);
-				if (!artist.getMembers().contains(this)) {
-					artist.addMember(this);
-				}
+	// --------------------------Collection Adders and Removers--------------------------	
+	//adds a Artist to Collection<Artist>
+	public void addArtist(Artist artist) {
+		if (getArtists()!=null && !getArtists().contains(artist)) {
+			getArtists().add(artist);
+			if (!artist.getMembers().contains(this)) {
+				artist.addMember(this);
 			}
 		}
-		
-		// removes a Artist from Collection<Artist>.
-		public void removeArtist(Artist artist) {
-			if (getArtists()!=null && getArtists().contains(artist)) {
-				getArtists().remove(artist);
-				if (artist.getMembers().contains(this)) {
-					artist.removeMember(this);
-				}
+	}
+	
+	// removes a Artist from Collection<Artist>.
+	public void removeArtist(Artist artist) {
+		if (getArtists()!=null && getArtists().contains(artist)) {
+			getArtists().remove(artist);
+			if (artist.getMembers().contains(this)) {
+				artist.removeMember(this);
 			}
 		}
-	
+	}
 
 //--------------------------Collection Printers--------------------------
 
@@ -162,7 +143,8 @@ public class Member extends MetaplayEntity {
 				}
 			} return artistsString;
 		} return "No artists.";
-	}			
+	}	
+	
 //--------------------------toString()--------------------------
 	
 	//Members and Artists: @ManyToMany. B/c StackOverflowError --> Altered toString(): artists

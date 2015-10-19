@@ -12,20 +12,12 @@ import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 @Controller
 public class SearchController extends AmazonService {
 
-//	@Autowired
-//	private AlbumRepository albumRepository;
-//	@Autowired
-//	private ArtistRepository artistRepository;
-
-	//	@Autowired
-	//	private TrackRepository trackRepository;
-
 	@RequestMapping("/search")
 	public String getRestPage() {
 		return "search";
 	}
 	
-// ------------------------------ Model Attributes ------------------------------
+	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("createTrackWrapper")
 	public CreateTrackWrapper getCreateTrackWrapper() {
 		return new CreateTrackWrapper();

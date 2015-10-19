@@ -17,13 +17,6 @@ import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 @RequestMapping("/track")
 public class TrackController extends AmazonService {
 
-//	@Autowired
-//	private AlbumRepository albumRepository;
-//	@Autowired
-//	private ArtistRepository artistRepository;
-//	@Autowired
-//	private TrackRepository trackRepository;
-
 	@RequestMapping("/add")
 	public String addTrack() {
 		return "track_add";
@@ -32,20 +25,17 @@ public class TrackController extends AmazonService {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String saveTrack(@ModelAttribute CreateTrackWrapper ctw) {
 		System.out.println("Invoking the saveTrack() from TrackController.");
+		
 		Track futureTrack = new Track();
 		futureTrack.setName(ctw.getName());
 		futureTrack.setLengthMinSec(ctw.getLengthMinutes(), ctw.getLengthSeconds());
 		futureTrack.setLyrics(ctw.getLyrics());
+		futureTrack.setBpm(ctw.getBpm());
+		futureTrack.setTrackNumber(ctw.getTrackNumber());
 		
-		int trackBpm = ctw.getBpm();
-		futureTrack.setBpm(trackBpm);
-		int trackNumber = ctw.getTrackNumber();
-		futureTrack.setTrackNumber(trackNumber);
-		
+		// ****************** BEGIN ALBUM PERSISTENCE ******************
 		System.out.println("Setting/Creating an Album");
-		
-		if(!ctw.getAlbumFromList().equals("** New Album **") && !ctw.getAlbumFromList().equals("** Do Not Add Album Now **") && albumRepository.findAlbumByName(ctw.getAlbumFromList())!=null) {
-			System.out.println("Hmm, inside the first if");
+		if(!ctw.getAlbumFromList().equals("** New Album **") && !ctw.getAlbumFromList().equals("** Do Not Add Album Now **") && albumRepository.findAlbumByName(ctw.getAlbumFromList()).size()>0) {
 			futureTrack.setAlbum(albumRepository.findAlbumByName(ctw.getAlbumFromList()).get(0));
 		} else if (ctw.getAlbumFromList().equals("** New Album **")){
 				Album newAlbum = new Album();
@@ -68,21 +58,12 @@ public class TrackController extends AmazonService {
 		return "redirect:/track/add";
 	}
 	
-	@RequestMapping("/find")
-	public String findTrack() {
-		//implement findArtist method
-		// return "artists"
+	@RequestMapping("/404")
+	public String get404() {
 		return "404";
 	}
 	
-// ------------------------------ Validator ------------------------------
-	//registering the ArtistValidator with this controller using a WebDataBinder object.
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.addValidators(new CreateArtistWrapperValidator());
-//	}
-	
-// ------------------------------ Model Attributes ------------------------------
+	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("createTrackWrapper")
 	public CreateTrackWrapper getCreateTrackWrapper() {
 		return new CreateTrackWrapper();
@@ -97,4 +78,12 @@ public class TrackController extends AmazonService {
 	public List<String> getAlbums() {
 		return  albumRepository.findAllToListString();
 	}
+	
+	// ------------------------------ Validator ------------------------------
+	/*	//registering the ArtistValidator with this controller using a WebDataBinder object.
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new CreateArtistWrapperValidator());
+	}*/
+	
 }

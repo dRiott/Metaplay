@@ -97,84 +97,83 @@ public class AccountController extends AmazonService {
 
 }
 
-////////////////////////////////////////////////////
-
-//verifying object has been completely downloaded
-		/*S3Object downloadedObject = s3.getObject(testBucket, "helloWorld.txt");
-		String textData = ServiceUtils.readInputStreamToString(
-		downloadedObject.getDataInputStream(), "UTF-8");
-		boolean valid = downloadedObject.verifyData(textData.getBytes("UTF-8"));
-		System.out.println("Object verified? " + valid);*/
-
-//alternative amazonS3 business
-		/*AmazonS3Client s3client = new AmazonS3Client(awsCredentials);	
-		String folderName = accountname;
-		// upload file to folder and set it to public
-		String fileName = folderName + SUFFIX + image.getOriginalFilename();
-		S3Bucket bucket =s3client.getBucketLocation(BUCKETNAME);
-		s3client.putObject(new PutObjectRequest(bucketName, fileName, 
-				new File("C:\\Users\\user\\Desktop\\testvideo.mp4"))
-				.withCannedAcl(CannedAccessControlList.PublicRead));
-		*/
-
-//creating an S3 folder to store pictures
-	/*private static final String SUFFIX = "/";
-	public static void createFolder(String bucketName, String folderName, AmazonS3 client) {
-		// create meta-data for your folder and set content-length to 0
-		ObjectMetadata metadata = new ObjectMetadata();
-		metadata.setContentLength(0);
-		// create empty content
-		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
-		// create a PutObjectRequest passing the folder name suffixed by /
-		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,
-					folderName + SUFFIX, emptyContent, metadata);
-		// send request to S3 to create folder
-		client.putObject(putObjectRequest);
+// ------------------------------ Notes / Old Code ------------------------------
+	//verifying object has been completely downloaded
+			/*S3Object downloadedObject = s3.getObject(testBucket, "helloWorld.txt");
+			String textData = ServiceUtils.readInputStreamToString(
+			downloadedObject.getDataInputStream(), "UTF-8");
+			boolean valid = downloadedObject.verifyData(textData.getBytes("UTF-8"));
+			System.out.println("Object verified? " + valid);*/
+	
+	//alternative amazonS3 business
+			/*AmazonS3Client s3client = new AmazonS3Client(awsCredentials);	
+			String folderName = accountname;
+			// upload file to folder and set it to public
+			String fileName = folderName + SUFFIX + image.getOriginalFilename();
+			S3Bucket bucket =s3client.getBucketLocation(BUCKETNAME);
+			s3client.putObject(new PutObjectRequest(bucketName, fileName, 
+					new File("C:\\Users\\user\\Desktop\\testvideo.mp4"))
+					.withCannedAcl(CannedAccessControlList.PublicRead));
+			*/
+	
+	//creating an S3 folder to store pictures
+		/*private static final String SUFFIX = "/";
+		public static void createFolder(String bucketName, String folderName, AmazonS3 client) {
+			// create meta-data for your folder and set content-length to 0
+			ObjectMetadata metadata = new ObjectMetadata();
+			metadata.setContentLength(0);
+			// create empty content
+			InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+			// create a PutObjectRequest passing the folder name suffixed by /
+			PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,
+						folderName + SUFFIX, emptyContent, metadata);
+			// send request to S3 to create folder
+			client.putObject(putObjectRequest);
+		}*/
+	
+	/*@RequestMapping(value = "/save")
+	public String saveAccount(@ModelAttribute CreateAccountWrapper caw, SessionStatus status, HttpSession session, Model model) {
+		System.out.println("AccountController: saveAccount() - invoking saveAcount");
+		Account newAccount = (Account) session.getAttribute("account");
+		newAccount.setRegistrationDate(new Date());
+		newAccount.setEnabled(true);
+		Account savedAccount = accountRepository.saveAndFlush(newAccount);
+		Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
+		savedAccount.addRole(role);
+	
+		Account activeAccount = accountRepository.saveAndFlush(savedAccount);
+		status.setComplete();
+		model.addAttribute("accountId", activeAccount.getId());
+		return "redirect:/account/{accountId}";
 	}*/
-
-/*@RequestMapping(value = "/save")
-public String saveAccount(@ModelAttribute CreateAccountWrapper caw, SessionStatus status, HttpSession session, Model model) {
-	System.out.println("AccountController: saveAccount() - invoking saveAcount");
-	Account newAccount = (Account) session.getAttribute("account");
-	newAccount.setRegistrationDate(new Date());
-	newAccount.setEnabled(true);
-	Account savedAccount = accountRepository.saveAndFlush(newAccount);
-	Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
-	savedAccount.addRole(role);
-
-	Account activeAccount = accountRepository.saveAndFlush(savedAccount);
-	status.setComplete();
-	model.addAttribute("accountId", activeAccount.getId());
-	return "redirect:/account/{accountId}";
-}*/
-
-/*@RequestMapping(value="/login", method=RequestMethod.POST)
-public String performLogin(@ModelAttribute Account accountToLogin, HttpSession session, WebRequest request, SessionStatus status, Model model){
-	String loginAccountname =  accountToLogin.getAccountname();
-	String loginPassword = accountToLogin.getPassword();
-	System.out.println("AccountController: performLogin() - Accountname: " + loginAccountname);
-	System.out.println("AccountController: performLogin() - Password: " + loginPassword);
-	if(accountRepository.findAccountByAccountname(loginAccountname)!=null) {
-		Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
-		String dbAccountPassword = dbAccount.getPassword();
-		if(loginPassword.equals(dbAccountPassword)) {
-			status.setComplete();
-			request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
-			System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
-			model.addAttribute("accountId", dbAccount.getId());
-			return "redirect:/account/{accountId}";
-		} else {
-			System.out.println("AccountController: performLogin() - login failed...");
-			int counter = (int) session.getAttribute("counter");
-			if(counter >= 3) 
-				return "404";
-			counter++;
-			System.out.println(counter);
-			String loginStatus = "fuckedUp";
-			session.setAttribute("loginStatus", loginStatus);
-			session.setAttribute("counter", counter);
-			System.out.println("Counter in session: " + session.getAttribute("counter"));
-			return "redirect:login";
-		} 	
-	} else return "redirect:login";
-}*/
+	
+	/*@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String performLogin(@ModelAttribute Account accountToLogin, HttpSession session, WebRequest request, SessionStatus status, Model model){
+		String loginAccountname =  accountToLogin.getAccountname();
+		String loginPassword = accountToLogin.getPassword();
+		System.out.println("AccountController: performLogin() - Accountname: " + loginAccountname);
+		System.out.println("AccountController: performLogin() - Password: " + loginPassword);
+		if(accountRepository.findAccountByAccountname(loginAccountname)!=null) {
+			Account dbAccount = accountRepository.findAccountByAccountname(loginAccountname).get(0);
+			String dbAccountPassword = dbAccount.getPassword();
+			if(loginPassword.equals(dbAccountPassword)) {
+				status.setComplete();
+				request.removeAttribute("loginStatus", WebRequest.SCOPE_SESSION);
+				System.out.println("AccountController: performLogin() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
+				model.addAttribute("accountId", dbAccount.getId());
+				return "redirect:/account/{accountId}";
+			} else {
+				System.out.println("AccountController: performLogin() - login failed...");
+				int counter = (int) session.getAttribute("counter");
+				if(counter >= 3) 
+					return "404";
+				counter++;
+				System.out.println(counter);
+				String loginStatus = "fuckedUp";
+				session.setAttribute("loginStatus", loginStatus);
+				session.setAttribute("counter", counter);
+				System.out.println("Counter in session: " + session.getAttribute("counter"));
+				return "redirect:login";
+			} 	
+		} else return "redirect:login";
+	}*/

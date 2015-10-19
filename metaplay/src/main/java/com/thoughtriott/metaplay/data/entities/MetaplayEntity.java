@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-
 public abstract class MetaplayEntity {
 	
 // --------------------------Fields--------------------------
@@ -16,8 +15,6 @@ public abstract class MetaplayEntity {
 	
 	public String name;
 	
-	
-
 //--------------------------Getters & Setters--------------------------
 	public Integer getId() {
 		return id;
@@ -34,7 +31,5 @@ public abstract class MetaplayEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 	
 }

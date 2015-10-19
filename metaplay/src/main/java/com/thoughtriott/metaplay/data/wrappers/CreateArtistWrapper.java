@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CreateArtistWrapper {
 
-	
 // --------------------------Fields--------------------------	
 	@NotNull
 	@Size(min = 3, max = 50)
@@ -65,7 +64,6 @@ public class CreateArtistWrapper {
 	private MultipartFile albumCover;
 	private MultipartFile artistImage;
 
-	
 // --------------------------Constructors--------------------------
 	public CreateArtistWrapper () {
 	}
@@ -270,4 +268,5 @@ public class CreateArtistWrapper {
 	public void setArtistImage(MultipartFile artistImage) {
 		this.artistImage = artistImage;
 	}
+
 }

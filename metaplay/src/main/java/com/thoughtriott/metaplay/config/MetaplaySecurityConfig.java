@@ -20,7 +20,6 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select accountname, password, enabled from account where accountname=?")
 		.authoritiesByUsernameQuery("select account.accountname, role.Id from account, role where account.accountname=? ");
-		//and account.id = account_role.account_id and account_role.role_id = role.id
 	}
 	
 	@Override
@@ -36,6 +35,7 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/role/add", "/role/assign").hasRole("God")
 					.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
 					.anyRequest().permitAll();
+		//for https
 		//.and().requiresChannel().antMatchers("/account/save", "/album/save", "/artist/save", "/location/save", "/playlist/save", "/track/save").requiresSecure();
 	}
 }

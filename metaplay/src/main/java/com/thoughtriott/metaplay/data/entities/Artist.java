@@ -22,9 +22,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "artist")
 public class Artist extends MetaplayEntity {
 	
-// --------------------------Constructors--------------------------
+	// --------------------------Constructors--------------------------
 	public Artist() {
-					
 	}
 
 	public Artist(String artistName) {
@@ -32,10 +31,6 @@ public class Artist extends MetaplayEntity {
 	}
 
 	// --------------------------Fields--------------------------	
-//	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
 	@ManyToOne
 	@JoinColumn(name = "genre_id", nullable=false)
     @JsonBackReference
@@ -57,8 +52,6 @@ public class Artist extends MetaplayEntity {
 	@JsonManagedReference
 	private List<Album> albums = new LinkedList<Album>();
 	
-//	private String name;
-	
 	@Column(name="entity_type")
 	private String entityType = "artist";
 	
@@ -68,8 +61,7 @@ public class Artist extends MetaplayEntity {
 	@Column(name="artist_image")
 	private byte[] artistImage;
 
-//--------------------------Getters & Setters--------------------------	
-
+	//--------------------------Getters & Setters--------------------------	
 	public String getEntityType() {
 		return entityType;
 	}
@@ -126,8 +118,7 @@ public class Artist extends MetaplayEntity {
 		this.artistImage = artistImage;
 	}
 	
-// --------------------------Collection Adders and Removers--------------------------	
-
+	// --------------------------Collection Adders and Removers--------------------------	
 	//adds a Member to Collection<Member>
 	public void addMember(Member member) {
 		System.out.println("In Arist addMember()");
@@ -183,8 +174,7 @@ public class Artist extends MetaplayEntity {
 		}
 	}
 	
-//--------------------------Collection Printers--------------------------
-
+	//--------------------------Collection Printers--------------------------
 	public String getMembersToString () {
 		if(getMembers()!=null) {
 		Iterator<Member> it = getMembers().iterator();
@@ -237,8 +227,7 @@ public class Artist extends MetaplayEntity {
 		return "Location is null.";
 	}
 
-//--------------------------toString()--------------------------
-	
+	//--------------------------toString()--------------------------
 	@Override
 	public String toString() {
 		return "Artist [id=" + id + ", genre=" + getGenreToString() + ", location=" + getLocationToString() + ", members=" 

@@ -5,9 +5,6 @@ import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,7 +16,6 @@ public class Genre extends MetaplayEntity {
 
 // --------------------------Constructors--------------------------
 	public Genre() {
-				
 	}	
 	
 	public Genre(String newGenreName, String newGenreDescription) {
@@ -28,15 +24,10 @@ public class Genre extends MetaplayEntity {
 	}
 
 	// --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
 	@OneToMany(mappedBy = "genre")
     @JsonManagedReference
 	private Collection<Artist> artists;
 
-//	private String name;
 	private String description;
 	
 	@Column(name="entity_type")
@@ -44,22 +35,6 @@ public class Genre extends MetaplayEntity {
 
 
 //--------------------------Getters & Setters--------------------------
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -103,7 +78,6 @@ public class Genre extends MetaplayEntity {
 			artist.setGenre(null);
 		}
 	}
-	
 	
 //--------------------------Collection Printers--------------------------
 
