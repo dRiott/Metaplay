@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 
@@ -27,11 +24,6 @@ import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
 @RequestMapping("/account")
 @SessionAttributes(value = { "createAccountWrapper, loginStatus, counter" })
 public class AccountController extends AmazonService {
-
-	@Autowired
-	AccountRepository accountRepository;
-	@Autowired
-	RoleRepository roleRepository;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addAccount() {
@@ -47,11 +39,15 @@ public class AccountController extends AmazonService {
 		newAccount.setAccountname(caw.getAccountname());
 		newAccount.setEmail(caw.getEmail());
 		newAccount.setPassword(caw.getPassword());
-		super.saveImage(caw.getProfilePicture(), PROFILEPICS, caw.getAccountname());
-		Account savedAccount = accountRepository.saveAndFlush(newAccount);
+		if(caw.getProfilePicture()!=null) {
+			super.saveImage(caw.getProfilePicture(), PROFILEPICS, caw.getAccountname());
+		}
+		Account savedAccount = accountRepository.save(newAccount);
 		Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
 		savedAccount.addRole(role);
+		System.out.println("About to save the account again");
 		accountRepository.saveAndFlush(savedAccount);
+		System.out.println("updated successfully");
 		return "redirect:/account/login";
 	}
 

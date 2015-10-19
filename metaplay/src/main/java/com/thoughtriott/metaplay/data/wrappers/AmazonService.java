@@ -26,8 +26,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Controller
-public class AmazonService {
-
+public abstract class AmazonService extends RepositoryKeeper {
+//extends RepositoryKeeper so that controllers that need to use AmazonService and extend it can still 
+	// have access to RepositoryKeeper's fields.
+	
 		static final String SUFFIX = "/";
 		protected static final String PROFILEPICS = "profilePictures";
 		protected static final String ALBUM = "album";

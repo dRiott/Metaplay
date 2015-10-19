@@ -18,13 +18,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/location")
-public class LocationController {
+public class LocationController extends RepositoryKeeper {
 
-	@Autowired
-	private LocationRepository locationRepository;
+//	@Autowired
+//	private LocationRepository locationRepository;
 
 	@RequestMapping("/add")
 	public String addLocation(Model model){

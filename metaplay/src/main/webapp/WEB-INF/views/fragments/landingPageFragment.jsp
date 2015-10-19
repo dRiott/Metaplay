@@ -4,18 +4,22 @@
 
 
 <nav class="navbar navbar-default">
-<!-- Logo -->		
-	<div class="imageLogoDiv" >
-		<a class="navbar-brand" href="<spring:url value="/"/>">
-		<img class="imageLogo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
-				<img class="imageLogoLayer" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
-		</a>
-	</div>
-
 	<div class="container-fluid">
-		<div class="DRnavBarDiv">
-			<ul class="nav navbar-nav">
 	
+<!-- Logo -->		
+		<div class="imageLogoDiv" >
+			<a class="navbar-brand" href="<spring:url value="/"/>">
+			<img class="imageLogo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
+					<img class="imageLogoLayer" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
+			</a>
+		</div>
+
+		<div class="DRnavBarDiv">
+			<ul class="nav navbar-nav" style="padding-top: 5px;">
+	
+	<!-- Search -->
+				<li><a href="<spring:url value="/search"/>">Search</a></li>
+				
 	<!-- Login -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">Account

@@ -15,12 +15,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "member")
-public class Member {
+public class Member extends MetaplayEntity {
 	
-	// --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+// --------------------------Fields--------------------------
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@ManyToMany(mappedBy="members")
     @JsonBackReference
@@ -37,6 +37,10 @@ public class Member {
 	
 	@Column(name="stage_name")
 	private String stageName;
+	
+	@Column(name="entity_type")
+	private String entityType = "member";
+
 	
 // --------------------------Constructors--------------------------
 		public Member() {
@@ -58,13 +62,13 @@ public class Member {
 		}
 
 //--------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public Collection<Artist> getArtists() {
 		return artists;
@@ -105,10 +109,19 @@ public class Member {
 	public void setStageName(String stageName) {
 		this.stageName = stageName;
 	}
+	
+	public String getEntityType() {
+		return entityType;
+	}
 
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
 	
 	
 // --------------------------Collection Adders and Removers--------------------------	
+
+	
 
 		//adds a Artist to Collection<Artist>
 		public void addArtist(Artist artist) {

@@ -34,7 +34,7 @@
  				style="background: url(<spring:url value="/resources/img/raveGuy.jpg" />); 
  				position:absolute; top: 60%; left: 5%; width: 10em; height: 7em; font-size: 30px;">PermaRave</button>
  			<button type="button" id="noMoreParty" class="btn btn-primary btn-lg"
- 				style="position:absolute; top: 90%; left: 8%; 
+ 				style="position:absolute; top: 90%; left: 8%;
  				width: 10em; height: 2.5em;">(Too Old For This)</button>
 		</div>
 	</div>

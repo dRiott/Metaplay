@@ -3,7 +3,6 @@ package com.thoughtriott.metaplay.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,18 +11,17 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 import com.thoughtriott.metaplay.data.wrappers.RoleWrapper;
 
 @Controller
 @RequestMapping("/role")
-public class RoleController {
+public class RoleController extends RepositoryKeeper {
 
-	@Autowired
-	private RoleRepository roleRepository;
-	@Autowired
-	private AccountRepository accountRepository;
+//	@Autowired
+//	private RoleRepository roleRepository;
+//	@Autowired
+//	private AccountRepository accountRepository;
 
 	@RequestMapping("/add")
 	public String addRole(){

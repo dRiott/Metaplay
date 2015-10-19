@@ -1,7 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,34 +21,15 @@ import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
-import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/album")
 @SessionAttributes("createAlbumWrapper")
 public class AlbumController extends AmazonService {
 
-	@Autowired
-	private AlbumRepository albumRepository;
-	@Autowired
-	private ArtistRepository artistRepository;
-	@Autowired
-	private RecordLabelRepository recordLabelRepository;
-	@Autowired
-	private LocationRepository locationRepository;
-	@Autowired
-	private TrackRepository trackRepository;
-	@Autowired
-	private DateFormatter dateFormatter;
-	
 	@RequestMapping("/add")
 	public String addAlbum(){
 		return "album_add";
@@ -67,11 +46,10 @@ public class AlbumController extends AmazonService {
 	}
 	
 	@RequestMapping("/save")
-	public String saveAlbum(HttpSession session, SessionStatus status) {
+	public String saveAlbum(@Valid @ModelAttribute CreateAlbumWrapper caw, Errors errors, SessionStatus status) {
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BEGIN ALBUM PERSISTENCE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		System.out.println("\n ************************************ \nAlbumController: invoking saveAlbum()");
 		Album futureAlbum = new Album();
-		CreateAlbumWrapper caw = (CreateAlbumWrapper) session.getAttribute("createAlbumWrapper");
 
 		if(caw.getName().isEmpty()) {
 			futureAlbum = (albumRepository.findAlbumByName(caw.getAlbumFromList()).get(0));
@@ -99,7 +77,7 @@ public class AlbumController extends AmazonService {
 			if(!ctw.getName().isEmpty()){
 				System.out.println("Track name: " + ctw.getName());
 				System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - About to add the track to the album...");
-				if (trackRepository.findTrackByName(ctw.getName())!=null) {
+				if (trackRepository.findTrackByName(ctw.getName()).size()>0) {
 					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) - Found the track already in the DB: " + ctw.getName());
 					Track foundTrack = trackRepository.findTrackByName(ctw.getName()).get(0);
 					if(ctw.getLengthMinutes()!=0 & ctw.getLengthSeconds()!=0) {
@@ -124,7 +102,9 @@ public class AlbumController extends AmazonService {
 					System.out.println("AlbumController: while(createTrackWrappersList.hasNext()) -  **** Hey, I've got this Track: " + newTrack.toString());
 					
 					Track persistedTrack = trackRepository.saveAndFlush(newTrack);
-					saveAudioFile(ctw.getMp3(), ""+persistedTrack.getId(), persistedTrack.getName());
+					if(ctw.getMp3()!=null) {
+						saveAudioFile(ctw.getMp3(), ""+persistedTrack.getId(), persistedTrack.getName());
+					}
 					futureAlbum.addTrack(persistedTrack);
 					//adding Tracks to Map<Integer, String> tracksMap
 					tracksMap.put(newTrack.getLength(), newTrack.getName());
@@ -155,7 +135,7 @@ public class AlbumController extends AmazonService {
 		String recordLabelName = caw.getRecordLabelFromList();
 		String recordLabelCity = caw.getRecordLabelCity();
 		String recordLabelState = caw.getRecordLabelState();
-		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName)!=null) {
+		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName).size()>0) {
 			futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 		} else if(recordLabelName.equals("** New Record Label **")) {
 			String newRecordLabelName = caw.getTheNewRecordLabel();
@@ -178,7 +158,6 @@ public class AlbumController extends AmazonService {
 		    trackRepository.saveAndFlush(trackToUpdate);
 		}
 		// ****************** END TRACK SET ALBUM TO NEW ALBUM ******************
-
 		status.setComplete();
 		return "redirect:/album/add";
 	}

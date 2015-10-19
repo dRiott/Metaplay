@@ -67,7 +67,8 @@ public class GlobalMetaplayExceptionHandler {
 	
 	@ExceptionHandler({AmazonS3Exception.class})
 	public String amazonException(HttpServletRequest req, Exception exception, HttpSession session) {
-		logger.error("Request: " + req.getRequestURL() + " raised " + exception);
+		logger.error("Request: " + req.getRequestURL() + " raised " + exception
+				+ "\n QUERY STRING: " + req.getQueryString());
 		session.setAttribute("url", req.getRequestURL());
 		session.setAttribute("exception", exception);
 		return "error_CoderStillLearning";

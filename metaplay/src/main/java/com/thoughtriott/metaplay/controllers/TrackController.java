@@ -2,7 +2,6 @@ package com.thoughtriott.metaplay.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
@@ -21,12 +17,12 @@ import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 @RequestMapping("/track")
 public class TrackController extends AmazonService {
 
-	@Autowired
-	private AlbumRepository albumRepository;
-	@Autowired
-	private ArtistRepository artistRepository;
-	@Autowired
-	private TrackRepository trackRepository;
+//	@Autowired
+//	private AlbumRepository albumRepository;
+//	@Autowired
+//	private ArtistRepository artistRepository;
+//	@Autowired
+//	private TrackRepository trackRepository;
 
 	@RequestMapping("/add")
 	public String addTrack() {
@@ -66,7 +62,9 @@ public class TrackController extends AmazonService {
 		System.out.println("Creating the Track");
 		Track persistedTrack = trackRepository.saveAndFlush(futureTrack);
 		String id = ""+persistedTrack.getId();
-		saveAudioFile(ctw.getMp3(), id, persistedTrack.getName());
+		if(ctw.getMp3()!=null) {
+			saveAudioFile(ctw.getMp3(), id, persistedTrack.getName());
+		}
 		return "redirect:/track/add";
 	}
 	

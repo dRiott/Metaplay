@@ -20,17 +20,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account extends MetaplayEntity {
 
 // --------------------------Constructors--------------------------
 	public Account() {
-				
 	}	
 	
 // --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@ManyToMany
 	@JoinTable(name="account_role", 
@@ -50,20 +49,23 @@ public class Account {
 	private String password;
 	private String email;
 	private boolean enabled;
+
+	@Column(name="entity_type")
+	private String entityType = "account";
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="registration_date")
 	private Date registrationDate;
-
+	
 //--------------------------Getters & Setters--------------------------
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public List<Role> getRoles() {
 		return roles;
@@ -103,6 +105,14 @@ public class Account {
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+	
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
 	}
 	
 	public String getEmail() {

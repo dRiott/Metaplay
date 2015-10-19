@@ -4,11 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,37 +18,14 @@ import com.thoughtriott.metaplay.data.entities.Genre;
 import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
-import com.thoughtriott.metaplay.utilities.DateFormatter;
 
 @Controller
 @RequestMapping("/artist")
 @SessionAttributes("createArtistWrapper")
 public class ArtistController extends AmazonService {
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	@Autowired
-	private ArtistRepository artistRepository;
-	@Autowired
-	private LocationRepository locationRepository;
-	@Autowired
-	private GenreRepository genreRepository;
-	@Autowired
-	private MemberRepository memberRepository;
-	@Autowired
-	private AlbumRepository albumRepository;
-	@Autowired
-	private DateFormatter dateFormatter;
-
-	
 	@RequestMapping("/add")
 	public String addArtist() {
 		return "artist_add";

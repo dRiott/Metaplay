@@ -25,8 +25,8 @@
 
 	<div class="container" style="padding-left: 7%">
 
-		<div class="container" style="padding-left: 7%">
-			<div class="row" style="padding-left: 10%;">
+		<div class="container">
+			<div class="row" style="padding-left: 5%;">
 				<h1 style="font-family: Times, serif;"><em>${account.accountname}</em></h1>
 				
 				<div class="form-group" >

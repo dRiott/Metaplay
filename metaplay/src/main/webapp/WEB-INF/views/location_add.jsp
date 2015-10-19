@@ -41,9 +41,7 @@
 
 
 
-
 			<div class="row">
-				
 				<div class="row">
 					<div class="col-md-4">                                                         
 						<label for="location-city">City</label>
@@ -51,6 +49,7 @@
 						id="location-city" placeholder="Tuscaloosa"/>
 	                </div>
 				</div>
+				
 				<div class="form-group" style="float:clear;"></div>
 
 				<div class="form-group">
@@ -61,7 +60,6 @@
 
 				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
-
 		</form:form>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>

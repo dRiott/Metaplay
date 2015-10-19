@@ -3,6 +3,7 @@ package com.thoughtriott.metaplay.data.entities;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "location")
-public class Location {
+public class Location extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
 	public Location() {
@@ -29,9 +30,9 @@ public class Location {
 	}
 
 // --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 	@NotNull
 	@Size(min=3, max=40)
 	private String city;
@@ -46,6 +47,9 @@ public class Location {
 	@OneToMany(mappedBy = "location")
 	@JsonManagedReference
 	private Collection<Artist> artists;
+	
+	@Column(name="entity_type")
+	private String entityType = "location";
 
 // --------------------------Getters & Setters--------------------------
 	public Collection<RecordLabel> getRecordLabels() {
@@ -56,13 +60,13 @@ public class Location {
 		this.recordLabels = recordLabels;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public String getCity() {
 		return city;
@@ -88,7 +92,15 @@ public class Location {
 		this.artists = artists;
 	}
 
-// --------------------------Collection Adders and Removers--------------------------
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
+	// --------------------------Collection Adders and Removers--------------------------
 	// adds a RecordLabel to Collection<RecordLabel>, removing it's Location, and setting to this.
 	public void addRecordLabel(RecordLabel recordLabel) {
 		if (getRecordLabels()!=null && !getRecordLabels().contains(recordLabel)) {

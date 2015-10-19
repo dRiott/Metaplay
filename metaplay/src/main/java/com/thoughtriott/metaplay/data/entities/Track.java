@@ -6,10 +6,8 @@ import java.util.Iterator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,33 +18,23 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "track")
-public class Track {
+public class Track extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
-
 	public Track() {			
 	}
 	
 // --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
 	@OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Collection<Playlist_Track> playlistTracks;
 
-	private String name;
-	
 	@Column(name="length_seconds")
 	private int length;
 	
 	private String lyrics;
 	
 	private int bpm;
-//	private String bpmString;
-//	private String minutes;
-//	private String seconds;
 	
 	@Column(name="track_number")
 	private int trackNumber;
@@ -60,23 +48,14 @@ public class Track {
 	@JsonBackReference
 	private Collection<Playlist> playlists;
 	
+	@Column(name="entity_type")
+	private String entityType = "track";
+	
+	@Lob
+	@Column(name="audio_file")
+	private byte[] audioFile;
+	
 //--------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public int getLength() {
 		return length;
 	}
@@ -96,22 +75,6 @@ public class Track {
 		this.length = length;
 	}
 
-//	public String getMinutes() {
-//		return minutes;
-//	}
-//
-//	public void setMinutes(String minutes) {
-//		this.minutes = minutes;
-//	}
-//
-//	public String getSeconds() {
-//		return seconds;
-//	}
-//
-//	public void setSeconds(String seconds) {
-//		this.seconds = seconds;
-//	}
-
 	public String getLyrics() {
 		return lyrics;
 	}
@@ -120,6 +83,14 @@ public class Track {
 		this.lyrics = lyrics;
 	}
 	
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
 	public int getBpm() {
 		return bpm;
 	}
@@ -127,14 +98,6 @@ public class Track {
 	public void setBpm(int bpm) {
 		this.bpm = bpm;
 	}
-
-//	public String getBpmString() {
-//		return bpmString;
-//	}
-//
-//	public void setBpmString(String bpmString) {
-//		this.bpmString = bpmString;
-//	}
 
 	public int getTrackNumber() {
 		return trackNumber;
@@ -164,8 +127,15 @@ public class Track {
 		return playlists;
 	}
 	
-//--------------------------Non-G&S Methods--------------------------
+	public byte[] getAudioFile() {
+		return audioFile;
+	}
+
+	public void setAudioFile(byte[] audioFile) {
+		this.audioFile = audioFile;
+	}
 	
+//--------------------------Non-G&S Methods--------------------------
 	//change the order of a track in a given playlist
 	public void setTrackOrderInPlaylist(Playlist playlist, int trackNumber) {
 		
@@ -272,10 +242,8 @@ public class Track {
 		}
 		return "Album is null.";
 	}
-		
 	
 //--------------------------toString()--------------------------
-
 
 	//Tracks and Playlists: @ManyToMany. B/c StackOverflowError --> Altered toString(): playlists, playlistTracks, album.getName()
 	@Override

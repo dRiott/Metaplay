@@ -3,6 +3,7 @@ package com.thoughtriott.metaplay.data.entities;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "genre")
-public class Genre {
+public class Genre extends MetaplayEntity {
 
 // --------------------------Constructors--------------------------
 	public Genre() {
@@ -27,33 +28,37 @@ public class Genre {
 	}
 
 	// --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@OneToMany(mappedBy = "genre")
     @JsonManagedReference
 	private Collection<Artist> artists;
 
-	private String name;
+//	private String name;
 	private String description;
+	
+	@Column(name="entity_type")
+	private String entityType = "genre";
+
 
 //--------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -71,7 +76,15 @@ public class Genre {
 		this.artists = artists;
 	}
 
-//--------------------------Collection Adders and Removers--------------------------
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
+	//--------------------------Collection Adders and Removers--------------------------
 	//adds an Artist to Collection<Artist>, removing it's Genre, and setting to this.
 	public void addArtist(Artist artist) {
 		if (getArtists()!=null && !getArtists().contains(artist)) {

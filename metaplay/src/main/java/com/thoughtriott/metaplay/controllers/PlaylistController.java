@@ -1,6 +1,5 @@
 package com.thoughtriott.metaplay.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,16 +10,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Playlist;
-import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
+import com.thoughtriott.metaplay.data.wrappers.CreatePlaylistWrapper;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/playlist")
 @SessionAttributes("playlist")
-public class PlaylistController {
+public class PlaylistController extends RepositoryKeeper {
 
-	@Autowired
-	private PlaylistRepository playlistRepository;
-	
+//	@Autowired
+//	private PlaylistRepository playlistRepository;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addPlaylist(){
 		return "playlist_add";
@@ -51,11 +51,11 @@ public class PlaylistController {
 		return "single_playlist";
 	}
 
-	
-	//adds a new Playlist() to the model
-	@ModelAttribute("playlist")
-	public Playlist getPlaylist() {
-		return new Playlist();
+
+	//Model Attributes ----------------------------------------
+	@ModelAttribute("createPlaylistWrapper")
+	public CreatePlaylistWrapper getCreatePlaylistWrapper() {
+		return new CreatePlaylistWrapper();
 	}
 
 

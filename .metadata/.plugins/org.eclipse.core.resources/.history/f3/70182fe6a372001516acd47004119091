@@ -1,0 +1,52 @@
+package com.thoughtriott.metaplay.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.thoughtriott.metaplay.data.entities.Album;
+import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.entities.Track;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
+
+@Controller
+public class SearchController extends AmazonService {
+
+	@Autowired
+	private AlbumRepository albumRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
+	@Autowired
+	private TrackRepository trackRepository;
+
+	
+	@RequestMapping("/search")
+	public String getRestPage() {
+		return "helloWorld";
+	}
+	
+	
+// ------------------------------ Model Attributes ------------------------------
+	@ModelAttribute("createTrackWrapper")
+	public CreateTrackWrapper getCreateTrackWrapper() {
+		return new CreateTrackWrapper();
+	}
+	
+	@ModelAttribute(value="artistOptions")
+	public List<String> getArtists() {
+		return  artistRepository.findAllToListString();
+	}
+	
+	@ModelAttribute(value="albumOptions")
+	public List<String> getAlbums() {
+		return  albumRepository.findAllToListString();
+	}
+}

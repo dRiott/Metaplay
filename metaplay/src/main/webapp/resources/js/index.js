@@ -10,8 +10,12 @@
 	}
 	
 	function stopRave() {
-		clearInterval(intervalId);
+		for (var i = 1; i < 999; i++) {
+			window.clearInterval(i);
+		}
 		document.body.style.backgroundColor = '#E5E5E5';
+//	    $('permaRaveButton').prop('disabled', false);
+//	    $('noMoreParty').prop('disabled', true);
 	}	
 	
 	function startRave() {
@@ -20,6 +24,8 @@
 	        document.body.style.backgroundColor = currentColor;
 	        currentColor = currentColor === '#E5E5E5' ? 'black' : '#E5E5E5';
 	    }, 200);
+//	    $('permaRaveButton').prop('disabled', true);
+//	    $('noMoreParty').prop('disabled', false);
 	};
 	
 	function addEventHandlers() {

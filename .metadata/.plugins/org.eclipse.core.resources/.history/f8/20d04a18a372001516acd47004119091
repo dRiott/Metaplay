@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Log In</title>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">		
+
+		$(document).ready(function(){
+			var countTEXT = 0;
+			var countJSON = 0;
+			var json;
+			
+			//get JSON data
+			$.ajax({
+		        url: "/metaplay/AJAX2",
+		        method: "get",
+		        dataType: "json",
+		        success: successfulJSON
+			}).fail(function(data) {
+	            console.log("AJAX JSON load failed");
+	        });
+			
+			//text return
+			function getMyName() {
+		        console.log("in getMYName");					//for debugging
+				$.ajax({
+			        url: "/metaplay/AJAX?counter="+countTEXT, 
+			        method: "get", 
+			        dataType: "text",
+			        success: successfulAJAX
+				}).fail(function(data) {
+		            console.log("AJAX load failed");
+		        });
+		        countTEXT++;
+			}
+		
+			//TEXT functions
+			function successfulAJAX(returnedData, status) {
+				console.log("in success TEXT");						//for debugging
+				$('#hello').html("I am " + returnedData);
+			}
+			$('#button').click(function() {
+		        console.log("in button");							//for debugging
+				getMyName();
+		    });
+			
+
+			
+			//JSON functions
+			function successfulJSON(returnedData, status) {
+				console.log("in success JSON");						//for debugging
+				console.log(returnedData);
+				json = returnedData;								//set global variable to access on click
+			}
+			
+			$('#button2').click(function() {
+		        console.log("in button2");							//for debugging
+		        console.log(json);
+ 				$('#hello2').html("Hello my name is " + json[countJSON].name + " " + json[countJSON].id);	//fill hello2 html with new name each time
+ 	   			countJSON++;
+			
+			});	
+		});
+		
+</script>
+</head>
+<body>
+	<form name="testPage">
+ 	 <div id="hello">I am </div></br>
+ 	 <input id="button" type="button" value= "Add name Text return"/>
+ 	 </br></br>
+ 	 <div id="hello2">Hello my name is </div></br>
+ 	 <input id="button2" type="button" value= "Add name JSON return"/>
+	</form>
+</body>
+</html>

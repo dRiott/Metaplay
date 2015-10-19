@@ -1,64 +1,164 @@
 package com.thoughtriott.metaplay.controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
-import com.thoughtriott.metaplay.errors.MetaplayNotFoundException;
+import com.thoughtriott.metaplay.data.entities.MetaplayEntity;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @RestController
 @RequestMapping("/rest")
-public class RestSearchController {
+public class RestSearchController extends RepositoryKeeper {
 
-	//private static final String DEFAULT_ARTIST = "Animal Collective";
+	List<MetaplayEntity> allEntitiesList = new ArrayList<>();
+	private Map<String, JpaRepository<?, Integer>> repoMap;
 	
-	@Autowired
-	ArtistRepository artistRepository;
+//	private Object noparams[] = new Object[] {};
+
+	public static final String[] QUALIFIED_TYPES = {"com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository", 
+			"com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository", "com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository",
+			"com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository", "com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository",
+			"com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository", "com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository",
+			"com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository", "com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository",
+			"com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository"};
+
+	//counts to see if the repoMap has been initialized yet. if == 0, hasn't.
+	int globalCounter = 0;
 	
-	@Autowired
-	AlbumRepository albumRepository;
+	Object[] repos = {accountRepository, albumRepository, artistRepository, genreRepository, locationRepository,
+			memberRepository, playlistRepository, recordLabelRepository, roleRepository, trackRepository};
+	//initialize the map FOR USE IN /singleresult HANDLER METHOD
+
+	//populate allEntitiesList with EVERY entity.. what a bad idea!
+
 	
-	@RequestMapping(value="/artist", method=RequestMethod.GET)
-	public Artist artists() {
-		return artistRepository.findAll().get(0);
+//**************************** BEGIN Request Handling Methods **************************** \\
+	
+	//gets the account id for the profile link in fragment: header.jsp (shows on every page if user is logged in)
+	@RequestMapping(value="/account", method=RequestMethod.POST, consumes="application/json")
+	public Account findAccount(@RequestParam("query") String query) {
+		Account account = accountRepository.findAccountByAccountname(query).get(0);
+		return account;
 	}
 	
+	//for search for artists input box
 	@RequestMapping(value="/artist", method=RequestMethod.POST, consumes="application/json")
 	public List<Artist> findArtistLike(@RequestParam("query") String query) {
-		System.out.println("query is : " + query);
 		String dbQuery = query+"%";
 		List<Artist> artists = artistRepository.findArtistByNameLike(dbQuery);
-		if(artists!=null) {
-			System.out.println("Hard-coded album's name: " + artists.get(0).getName());
-		} else {
-			System.out.println("came back null");
-		}
 		return artists;
 	}
+	
+	//random result button
+	@RequestMapping(value="/singlerandom", method=RequestMethod.GET, consumes="application/json")
+	public Object findSingleRandom() {
+		Collections.shuffle(allEntitiesList);
+		return allEntitiesList.get(0);
+	}
 
-	@RequestMapping(value="/artist/{id}", method=RequestMethod.GET)
-	public @ResponseBody Artist artistById(@PathVariable Integer id) {
-		Artist artist = artistRepository.getOne(id);
-		if(artist == null) {
-			throw new MetaplayNotFoundException(id);
+	//for searching every single entity with a PROVIDED QUERY - AJAX POST METHOD.
+	@RequestMapping(value="/allentities", method=RequestMethod.POST, consumes="application/json")
+	public List<Object> findFromAllEntitiesLike(@RequestParam("query") String query) {
+		//System.out.println("Inside the findFromAllEntitiesLike controller method");
+		//System.out.println("Got this query: " + query);
+		List<Object> matchingEntities = new ArrayList<>();
+		for(MetaplayEntity me : allEntitiesList) {
+			if (me.name.contains(query)) {
+				matchingEntities.add(me);
+			}
 		}
-		return artist;
+		return matchingEntities;
+	}	
+	
+	private Map<String, JpaRepository<?, Integer>> initializeMap() {
+		repoMap = new HashMap<String, JpaRepository<?, Integer>>();
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository", accountRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository", albumRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository", artistRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository", genreRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository", locationRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository", memberRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository", playlistRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository", recordLabelRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository", roleRepository);
+	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository", trackRepository);
+//	 	globalCounter++;
+	 	return repoMap;
 	}
 	
+	@RequestMapping(value="/loadAllEntities", method=RequestMethod.GET, consumes="application/json")
+	public void loadAllEntities() {
+		//want this to only run once, so setting up a counter to ensure it won't run twice.
+		if(globalCounter == 0) {
+			initializeMap();
+			for (String key : repoMap.keySet()) {
+				JpaRepository<?, Integer> repository = repoMap.get(key);
+				@SuppressWarnings("unchecked")
+				List<MetaplayEntity> entityList = (List<MetaplayEntity>) repository.findAll();
+				Iterator<MetaplayEntity> it = entityList.iterator();
+				while(it.hasNext()) {
+					allEntitiesList.add(it.next());
+				}
+			}
+			globalCounter++;
+		} else {
+			System.out.println("Hmm, global counter was 0.");
+		}
+		System.out.println("THE SIZE OF THE ALL ENTITIES LIST: " + allEntitiesList.size());
+	}
+	
+//**************************** END Request Handling Methods **************************** \\
+	
+	//Alternative to the above findSingleRandom method in case allEntitiesList idea doesn't work.
+	/*@RequestMapping(value="/random", method=RequestMethod.GET, consumes="application/json")
+	public Object findRandomLikeUsingMap() {
+		System.out.println("RestSearchController: In the findRandomLikeUsingMap() method!!");
+			String randomRepository = QUALIFIED_TYPES[(int) Math.floor(Math.random() * 10)];
+			if(globalCounter == 0) {
+				initializeMap();
+			}
+				JpaRepository<?, Integer> repository = repoMap.get(randomRepository);
+				if(repository!=null) {
+				@SuppressWarnings("unchecked")
+				List<MetaplayEntity> resultList = (List<MetaplayEntity>) repository.findAll();
+				int randomEntityInResultsList = (int) Math.floor(Math.random()*resultList.size());
+				MetaplayEntity singleResult = resultList.get(randomEntityInResultsList);
+				System.out.println("Objects list came back: objects.get(0).toString(): " + singleResult.toString());
+				return singleResult;
+				} else{
+					System.out.println("Repository was null");
+					return null;
+				}
+		}*/
+	
+	
+	/*@RequestMapping(value="/artist/{id}", method=RequestMethod.GET)
+		public @ResponseBody Artist artistById(@PathVariable Integer id) {
+			Artist artist = artistRepository.getOne(id);
+			if(artist == null) {
+				throw new MetaplayNotFoundException(id);
+			}
+			return artist;
+	}*/
+	
 	//working with ResponseEntity to carry metadata in addition to the object
-		/*@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	/*@RequestMapping(value="/{id}", method=RequestMethod.GET)
 		public ResponseEntity<Artist> artistByIdWithMetadata(@PathVariable Integer id) {
 			Artist artist = artistRepository.getOne(id);
 			HttpStatus status = artist != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 			return new ResponseEntity<Artist> (artist, status);
 		}*/
-}
+}	
+

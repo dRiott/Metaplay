@@ -1,7 +1,0 @@
-package com.thoughtriott.metaplay.data.wrappers;
-
-public class AmazonService implements AmazonCredentials {
-
-	
-	
-}

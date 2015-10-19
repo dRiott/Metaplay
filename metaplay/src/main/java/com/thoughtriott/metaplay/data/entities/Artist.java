@@ -7,9 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -23,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "artist")
-public class Artist {
+public class Artist extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
 	public Artist() {
@@ -35,15 +32,14 @@ public class Artist {
 	}
 
 	// --------------------------Fields--------------------------	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "genre_id", nullable=false)
     @JsonBackReference
 	private Genre genre;
-	
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "location_id", nullable=false)
@@ -61,21 +57,25 @@ public class Artist {
 	@JsonManagedReference
 	private List<Album> albums = new LinkedList<Album>();
 	
-	private String name;
+//	private String name;
+	
+	@Column(name="entity_type")
+	private String entityType = "artist";
 	
 	private String biography;
 	
 	@Lob
 	@Column(name="artist_image")
-	private String artistImage;
-	
+	private byte[] artistImage;
+
 //--------------------------Getters & Setters--------------------------	
-	public Integer getId() {
-		return id;
+
+	public String getEntityType() {
+		return entityType;
 	}
-	
-	public void setId(Integer id) {
-		this.id = id;
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
 	}
 
 	public Genre getGenre() {
@@ -110,14 +110,6 @@ public class Artist {
 		this.albums = albums;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getBiography() {
 		return biography;
 	}
@@ -126,11 +118,11 @@ public class Artist {
 		this.biography = biography;
 	}
 
-	public String getArtistImage() {
+	public byte[] getArtistImage() {
 		return artistImage;
 	}
 
-	public void setArtistImage(String artistImage) {
+	public void setArtistImage(byte[] artistImage) {
 		this.artistImage = artistImage;
 	}
 	
@@ -238,25 +230,18 @@ public class Artist {
 		return "Genre is null.";
 	}
 	
-	
 	public String getLocationToString () {
 		if(location!=null) {
 			return location.toString();
 		}
 		return "Location is null.";
 	}
-	
-	
 
 //--------------------------toString()--------------------------
 	
-	//In Member: artists.size(), In Album: artist.getName()
-	//Altered toString(): recordLabel, location
 	@Override
 	public String toString() {
-		
-		return "Artist [id=" + id + ", genre=" + getGenreToString() + ", location=" + getLocationToString()
-				+ ", members=" + getMembersToString() + ", albums=" + getAlbumsToString() + ", name=" + name + ", biography=" + biography
-				+ ", artistImage=" + artistImage + "]";
-		}
+		return "Artist [id=" + id + ", genre=" + getGenreToString() + ", location=" + getLocationToString() + ", members=" 
+			+ getMembersToString() + ", albums=" + getAlbumsToString() + ", name=" + name + ", biography=" + biography + "]";
 	}
+}

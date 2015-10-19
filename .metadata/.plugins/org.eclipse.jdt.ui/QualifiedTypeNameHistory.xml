@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.springframework.security.core.userdetails.User"/>
+<fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.s3.model.ObjectMetadata"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.s3.model.PutObjectRequest"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.s3.AmazonS3"/>
+<fullyQualifiedTypeName name="com.amazonaws.auth.BasicAWSCredentials"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.wrappers.AmazonCredentials"/>
+<fullyQualifiedTypeName name="com.sun.media.jfxmedia.logging.Logger"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+<fullyQualifiedTypeName name="com.mongodb.ServerAddress"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.mapping.Document"/>
+<fullyQualifiedTypeName name="org.springframework.data.annotation.Id"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoCredential"/>
+<fullyQualifiedTypeName name="org.springframework.core.env.Environment"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="com.mongodb.DB"/>
+<fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
+<fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
+<fullyQualifiedTypeName name="org.springframework.ui.ModelMap"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpEntity"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletException"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.documents.AudioFile"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="java.util.ListIterator"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.elastictranscoder.model.Playlist"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Playlist"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonManagedReference"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+</qualifiedTypeNameHistroy>

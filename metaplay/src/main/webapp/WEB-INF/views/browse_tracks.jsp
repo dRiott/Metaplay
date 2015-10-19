@@ -47,7 +47,9 @@
 							<a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
 							<span style="padding-left: 10px;"></span>		
 							<sec:authorize access="isAuthenticated()">				
-								<audio controls><source src="/metaplay/audio/retrieve?id=${track.id}&filename=${track.name}" type="audio/mpeg" /></audio>
+								<audio controls>
+									<source src="/metaplay/audio/retrieve?id=${track.id}&filename=${track.name}" type="audio/mpeg" />
+								</audio>
 							</sec:authorize>
 						</td>
 						
@@ -65,7 +67,11 @@
 							<c:when test="${track.length!=null }">
 								<%-- Formatting the minutes from track.length --%>
 								<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
-								<td><c:out value="${minutes}"/>:<c:out value="${track.length%60}"/></td>
+								<td><c:out value="${minutes}"/>:<!-- 
+								 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
+								 		   --><c:out value="${track.length%60}"/></c:otherwise>
+									</c:choose>
+								</td>
 							</c:when>
 							<c:otherwise>
 								<td>-</td>

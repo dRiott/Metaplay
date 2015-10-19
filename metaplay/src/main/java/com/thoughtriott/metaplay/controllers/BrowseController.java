@@ -17,29 +17,30 @@ import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/browse")
-public class BrowseController {
+public class BrowseController extends RepositoryKeeper {
 	
 //	@Autowired
 //	AccountService accountService;
-	@Autowired
-	private AccountRepository accountRepository;
-	@Autowired
-	private AlbumRepository albumRepository;
-	@Autowired
-	private ArtistRepository artistRepository;
-	@Autowired
-	private GenreRepository genreRepository;
-	@Autowired
-	private LocationRepository locationRepository;
-	@Autowired
-	private PlaylistRepository playlistRepository;
-	@Autowired
-	private RecordLabelRepository recordLabelRepository;
-	@Autowired
-	private TrackRepository trackRepository;
+//	@Autowired
+//	private AccountRepository accountRepository;
+//	@Autowired
+//	private AlbumRepository albumRepository;
+//	@Autowired
+//	private ArtistRepository artistRepository;
+//	@Autowired
+//	private GenreRepository genreRepository;
+//	@Autowired
+//	private LocationRepository locationRepository;
+//	@Autowired
+//	private PlaylistRepository playlistRepository;
+//	@Autowired
+//	private RecordLabelRepository recordLabelRepository;
+//	@Autowired
+//	private TrackRepository trackRepository;
 	
 	public BrowseController() {
 	}
@@ -102,7 +103,7 @@ public class BrowseController {
 	
 	@RequestMapping(value="genre/{genreId}")
 	public String findGenre(Model model, @PathVariable("genreId") int genreId) {
-		model.addAttribute("artist", genreRepository.getOne(genreId));
+		model.addAttribute("genre", genreRepository.getOne(genreId));
 		return "single_genre";
 	}
 	

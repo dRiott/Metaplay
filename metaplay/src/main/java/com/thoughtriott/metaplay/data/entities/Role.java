@@ -3,6 +3,7 @@ package com.thoughtriott.metaplay.data.entities;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role extends MetaplayEntity {
 
 // --------------------------Constructors--------------------------
 	public Role() {
@@ -22,25 +23,28 @@ public class Role {
 	}	
 	
 // --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@ManyToMany(mappedBy = "roles")
 	@JsonBackReference
 	private Collection<Account> accounts;
 
-	private String name;
+//	private String name;
 	private String description;
+	
+	@Column(name="entity_type")
+	private String entityType = "role";
 
 //--------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public Collection<Account> getAccounts() {
 		return accounts;
@@ -50,13 +54,13 @@ public class Role {
 		this.accounts = accounts;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -66,7 +70,15 @@ public class Role {
 		this.description = description;
 	}
 
-//--------------------------Collection Adders and Removers--------------------------
+public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
+	//--------------------------Collection Adders and Removers--------------------------
 	//adds an Account to Collection<Account>
 	public Role addAccount(Account account) {
 		if (getAccounts()!=null && !getAccounts().contains(account)) {

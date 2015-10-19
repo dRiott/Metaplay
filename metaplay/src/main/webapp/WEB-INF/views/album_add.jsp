@@ -26,7 +26,7 @@
 
 		<h1>Create an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
-		<spring:url value="/album/review" var="thisFormURL" />                                 
+		<spring:url value="/album/save" var="thisFormURL" />                                 
 		<form:form action="${thisFormURL}" method="post" enctype="multipart/form-data" modelAttribute="createAlbumWrapper" onsubmit="fixNumberFormatException();">  
 		<form:errors path="*" element="div" cssClass="errors"/>
         	<div class="form-group">

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "playlist")
-public class Playlist {
+public class Playlist extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
 	public Playlist() {
@@ -30,9 +31,9 @@ public class Playlist {
 	}
 
 	// --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
 	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
 	@JsonManagedReference
@@ -49,17 +50,20 @@ public class Playlist {
 	@JsonBackReference
 	private List<Account> accounts;
 	
-	private String name;
+//	private String name;
 	private String description;
 
-//--------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
+	@Column(name="entity_type")
+	private String entityType = "playlist";
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//--------------------------Getters & Setters--------------------------
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public List<Playlist_Track> getPlaylistTracks() {
 		return playlistTracks;
@@ -77,13 +81,13 @@ public class Playlist {
 		this.tracks = tracks;
 	}
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -93,6 +97,14 @@ public class Playlist {
 		this.description = description;
 	}
 	
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
 	public List<Account> getAccounts() {
 		return accounts;
 	}

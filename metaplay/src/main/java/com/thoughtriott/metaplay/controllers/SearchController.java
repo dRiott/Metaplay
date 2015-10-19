@@ -2,23 +2,20 @@ package com.thoughtriott.metaplay.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
 public class SearchController extends AmazonService {
 
-	@Autowired
-	private AlbumRepository albumRepository;
-	@Autowired
-	private ArtistRepository artistRepository;
+//	@Autowired
+//	private AlbumRepository albumRepository;
+//	@Autowired
+//	private ArtistRepository artistRepository;
 
 	//	@Autowired
 	//	private TrackRepository trackRepository;

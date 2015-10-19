@@ -31,7 +31,8 @@ public class  Playlist_Track {
 	}
 
 // --------------------------Fields--------------------------
-	
+	public static final String TYPE = "playlist_track";
+
 	@Id
 	@Column(name="track_id", insertable=false, updatable=false)
 	private int trackId;

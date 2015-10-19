@@ -6,10 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,15 +19,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "album")
-public class Album {
-
+public class Album extends MetaplayEntity {
 
 	// --------------------------Fields--------------------------
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 
-	private String name;
+//	private String name;
 	private String description;
 
 	@ManyToOne
@@ -49,14 +46,20 @@ public class Album {
 	@Column(name = "num_tracks")
 	private int numTracks;
 
-	// album_cover BLOB!!
-
 	@Column(name = "release_date")
 	@Temporal(TemporalType.DATE)
 	private java.util.Date releaseDate;
 
+	@Column(name="entity_type")
+	private String entityType = "album";
+	
 	@Column(name = "length_seconds")
 	private int length;
+	
+	@Lob
+	@Column(name = "album_cover")
+	private byte[] albumCover;
+	
 	
 	// --------------------------Constructors--------------------------
 		public Album() {
@@ -79,28 +82,20 @@ public class Album {
 		}
 
 	// --------------------------Getters & Setters--------------------------
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
 	}
 
 	public Artist getArtist() {
@@ -154,6 +149,14 @@ public class Album {
 
 	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
+	}
+	
+	public byte[] getAlbumCover() {
+		return albumCover;
+	}
+
+	public void setAlbumCover(byte[] albumCover) {
+		this.albumCover = albumCover;
 	}
 
 // --------------Collection Adders and Removers-------------
