@@ -6,9 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -31,10 +28,6 @@ public class Playlist extends MetaplayEntity {
 	}
 
 	// --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
 	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<Playlist_Track> playlistTracks;
@@ -50,21 +43,12 @@ public class Playlist extends MetaplayEntity {
 	@JsonBackReference
 	private List<Account> accounts;
 	
-//	private String name;
 	private String description;
 
 	@Column(name="entity_type")
 	private String entityType = "playlist";
 
 //--------------------------Getters & Setters--------------------------
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
 	public List<Playlist_Track> getPlaylistTracks() {
 		return playlistTracks;
 	}
@@ -81,14 +65,6 @@ public class Playlist extends MetaplayEntity {
 		this.tracks = tracks;
 	}
 	
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -112,7 +88,6 @@ public class Playlist extends MetaplayEntity {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
-	
 
 //--------------------------Collection Adders and Removers--------------------------
 	

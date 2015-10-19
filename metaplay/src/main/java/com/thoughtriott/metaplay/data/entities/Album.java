@@ -22,11 +22,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Album extends MetaplayEntity {
 
 	// --------------------------Fields--------------------------
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
-//	private String name;
 	private String description;
 
 	@ManyToOne

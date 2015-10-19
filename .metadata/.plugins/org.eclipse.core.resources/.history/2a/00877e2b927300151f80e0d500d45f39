@@ -1,0 +1,39 @@
+package com.thoughtriott.metaplay.data.wrappers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
+
+public abstract class RepositoryKeeper {
+
+	@Autowired
+	AccountRepository accountRepository;
+	@Autowired
+	AlbumRepository albumRepository;
+	@Autowired
+	ArtistRepository artistRepository;
+	@Autowired
+	GenreRepository genreRepository;
+	@Autowired
+	LocationRepository locationRepository;
+	@Autowired
+	MemberRepository memberRepository;
+	@Autowired
+	PlaylistRepository playlistRepository;
+	@Autowired
+	RecordLabelRepository recordLabelRepository;
+	@Autowired
+	RoleRepository roleRepository;
+	@Autowired
+	TrackRepository trackRepository;
+	
+}

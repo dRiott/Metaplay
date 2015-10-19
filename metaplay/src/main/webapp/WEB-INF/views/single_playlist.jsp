@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +27,41 @@
 
 			<div class="form-group">
 				<label for="project-name">Description</label> <span>${playlist.description}</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="playlist-accounts">Accounts</label>
+				<c:choose>
+					<c:when test="${playlist.accounts.size()==0 }">
+						<c:out value="This playlist has no accounts associated with it. Hmm..." /><span style="padding-left: 6px;"></span>
+						<a href="<spring:url value="/account/add"/>" class="btn btn-default">Create A New Account</a>
+						<a href="<spring:url value="/playlist/add"/>" class="btn btn-default">Go To Add Playlist Page</a>
+					</c:when>
+					<c:otherwise>
+						<ul>
+							<c:forEach items="${playlist.accounts}" var="account">
+								<li><a href="<spring:url value="/browse/account/${account.id}"/>">${account.name}</a></li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
+			<div class="form-group">
+				<label for="playlist-tracks">Tracks</label>
+				<c:choose>
+					<c:when test="${playlist.tracks.size()==0 }">
+						<c:out value="This playlist has no trackss associated with it. Hmm..." /><span style="padding-left: 6px;"></span>
+						<a href="<spring:url value="/track/add"/>" class="btn btn-default">Add Track</a>
+					</c:when>
+					<c:otherwise>
+						<ol>
+							<c:forEach items="${playlist.tracks}" var="track">
+								<li><a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a></li>
+							</c:forEach>
+						</ol>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 		<a href="<spring:url value="/browse/playlists"/>" class="btn btn-default">Back To Browse</a>

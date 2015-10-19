@@ -32,11 +32,6 @@ public class RecordLabel extends MetaplayEntity {
 	}
 
 	// --------------------------Fields--------------------------	
-//	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-	
-//	private String name;
 	private String description;
 	
 	@ManyToOne
@@ -52,13 +47,6 @@ public class RecordLabel extends MetaplayEntity {
 	private String entityType = "recordlabel";
 	
 //--------------------------Getters & Setters--------------------------	
-//	public Integer getId() {
-//		return id;
-//	}
-//	
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
 	public Location getLocation() {
 		return location;
 	}
@@ -67,13 +55,6 @@ public class RecordLabel extends MetaplayEntity {
 		this.location = location;
 	}
 
-//	public String getName() {
-//		return name;
-//	}
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-	
 	public Collection<Album> getAlbums() {
 		return albums;
 	}
@@ -117,7 +98,6 @@ public class RecordLabel extends MetaplayEntity {
 			album.setRecordLabel(null);
 		}
 	}	
-
 	
 //--------------------------Collection Printers--------------------------
 
