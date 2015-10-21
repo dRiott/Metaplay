@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -34,6 +35,9 @@ public class Member extends MetaplayEntity {
 	@Column(name="entity_type")
 	private String entityType = "member";
 
+	@Transient
+	private String unparsedName;
+	
 	
 	// --------------------------Constructors--------------------------
 	public Member() {
@@ -103,7 +107,14 @@ public class Member extends MetaplayEntity {
 		this.entityType = entityType;
 	}
 	
-	
+	public String getUnparsedName() {
+		return unparsedName;
+	}
+
+	public void setUnparsedName(String unparsedName) {
+		this.unparsedName = unparsedName;
+	}
+
 	// --------------------------Collection Adders and Removers--------------------------	
 	//adds a Artist to Collection<Artist>
 	public void addArtist(Artist artist) {

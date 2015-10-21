@@ -42,6 +42,7 @@
 						<li><a href="<spring:url value="/browse/artists"/>">Artists</a></li>
 						<li><a href="<spring:url value="/browse/genres"/>">Genres</a></li>
 						<li><a href="<spring:url value="/browse/locations"/>">Locations</a></li>
+						<li><a href="<spring:url value="/browse/members"/>">Members</a></li>
 						<li><a href="<spring:url value="/browse/playlists"/>">Playlists</a></li>
 						<li><a href="<spring:url value="/browse/recordlabels"/>">Record Labels</a></li>
 						<li><a href="<spring:url value="/browse/tracks"/>">Tracks</a></li>

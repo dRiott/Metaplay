@@ -1,9 +1,13 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.thoughtriott.metaplay.data.entities.Member;
 
 public class CreateArtistWrapper {
 
@@ -60,9 +64,20 @@ public class CreateArtistWrapper {
 	@Size(min = 1, max = 5)
 	String albumNumTracks;
 	String albumReleaseDate;
+	
+	@Size(min = 3, max = 30)
+	private String recordLabelFromList;
+	@Size(min = 3, max = 30)
+	private String theNewRecordLabel;
+	@Size(min = 3, max = 40)
+	private String recordLabelCity;
+	@Size(min = 3, max = 25)
+	private String recordLabelState;
 
 	private MultipartFile albumCover;
 	private MultipartFile artistImage;
+	
+	private List<Member> members;
 
 // --------------------------Constructors--------------------------
 	public CreateArtistWrapper () {
@@ -257,6 +272,38 @@ public class CreateArtistWrapper {
 		return albumCover;
 	}
 
+	public String getRecordLabelFromList() {
+		return recordLabelFromList;
+	}
+
+	public void setRecordLabelFromList(String recordLabelFromList) {
+		this.recordLabelFromList = recordLabelFromList;
+	}
+
+	public String getTheNewRecordLabel() {
+		return theNewRecordLabel;
+	}
+
+	public void setTheNewRecordLabel(String theNewRecordLabel) {
+		this.theNewRecordLabel = theNewRecordLabel;
+	}
+
+	public String getRecordLabelCity() {
+		return recordLabelCity;
+	}
+
+	public void setRecordLabelCity(String recordLabelCity) {
+		this.recordLabelCity = recordLabelCity;
+	}
+
+	public String getRecordLabelState() {
+		return recordLabelState;
+	}
+
+	public void setRecordLabelState(String recordLabelState) {
+		this.recordLabelState = recordLabelState;
+	}
+
 	public void setAlbumCover(MultipartFile albumCover) {
 		this.albumCover = albumCover;
 	}
@@ -267,6 +314,14 @@ public class CreateArtistWrapper {
 
 	public void setArtistImage(MultipartFile artistImage) {
 		this.artistImage = artistImage;
+	}
+
+	public List<Member> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 
 }

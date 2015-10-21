@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+
 @Configuration
 @EnableWebSecurity
 public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,12 +30,12 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin().loginPage("/account/login").loginProcessingUrl("/account/login").defaultSuccessUrl("/account/profile")
 				.and().rememberMe().key("metaplayKey")
 				.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
-				.and().exceptionHandling().accessDeniedPage("/account/accessDenied")
 				.and().authorizeRequests()
 					.antMatchers("/account/login", "/account/review", "/account/save", "/account/add", "/", "/browse/**", "/more/payment", "/more/image").permitAll()
-					.antMatchers("/role/add", "/role/assign").hasRole("God")
+					.antMatchers("/role/add", "/role/assign").hasRole("GOD")
 					.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
-					.anyRequest().permitAll();
+					.anyRequest().permitAll()
+				.and().exceptionHandling().accessDeniedPage("/account/accessDenied");
 		//for https
 		//.and().requiresChannel().antMatchers("/account/save", "/album/save", "/artist/save", "/location/save", "/playlist/save", "/track/save").requiresSecure();
 	}

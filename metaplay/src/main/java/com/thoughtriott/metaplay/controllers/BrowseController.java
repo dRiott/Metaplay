@@ -93,6 +93,19 @@ public class BrowseController extends RepositoryKeeper {
 		return "single_location";
 	}
 	
+	//Locations
+	@RequestMapping("/members")
+	public String findMembers(Model model){
+		model.addAttribute("members", memberRepository.findAll()); 
+		return "browse_members";
+	}
+	
+	@RequestMapping(value="member/{memberId}")
+	public String findMember(Model model, @PathVariable("memberId") int memberId) {
+		model.addAttribute("member", memberRepository.getOne(memberId));
+		return "single_member";
+	}
+	
 	//Playlists
 	@RequestMapping(value="/playlists", method=RequestMethod.GET)
 	public String findPlaylists(Model model){

@@ -1,6 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
+import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
 @RequestMapping("/artist")
@@ -75,6 +77,30 @@ public class ArtistController extends AmazonService {
 			savedArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
 		}
 		
+//		// ****************** NEW MEMBER PERSISTENCE ******************
+//		List<Member> realMembers = caw.getMembers();
+//		Iterator<Member> it = realMembers.iterator();
+//		while(it.hasNext()) {
+//			Member currentMember = it.next();
+//			String[] cMNameArray = memberRepository.splitFullName(currentMember.getUnparsedName());
+//			
+//			String lastName = cMNameArray[cMNameArray.length-1];
+//			System.out.println("The returned member's last name: " + lastName);
+//			if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
+//				Member newMember = memberRepository.setNameFromArray(cMNameArray);
+//				//add stage name if it exists
+//				if(!currentMember.getStageName().equals("")){
+//					System.out.println("The Stage Name :" + currentMember.getStageName());
+//					newMember.setStageName(currentMember.getStageName());
+//					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+//				} else {
+//					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+//				}
+//			} else {
+//				savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
+//			}
+//		}
+		
 
 		// ****************** BEGIN MEMBER PERSISTENCE ******************
 		System.out.println("Going to add members to the artist");
@@ -118,12 +144,27 @@ public class ArtistController extends AmazonService {
 		}  else if (caw.getAlbumNameFromList().equals("** New Album **")) {
 			// they're adding a new album!
 			System.out.println("ArtistController: ** New Album ** is about to be created...");
-			Album newAlbum = new Album();
-			newAlbum.setName(caw.getTheNewAlbumName());
-			newAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
-			newAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
+			Album futureAlbum = new Album();
+			futureAlbum.setName(caw.getTheNewAlbumName());
+			futureAlbum.setNumTracks(Integer.parseInt(caw.getAlbumNumTracks()));
+			futureAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getAlbumReleaseDate()));
 			System.out.println("ArtistController: Album setting successful. About to flush album.");
-			Album returnedAlbum = albumRepository.saveAndFlush(newAlbum);
+			
+			// ****************** BEGIN RECORD LABEL PERSISTENCE ******************
+			System.out.println("AlbumController: Setting/Creating a Record Label");
+			String recordLabelName = caw.getRecordLabelFromList();
+			String recordLabelCity = caw.getRecordLabelCity();
+			String recordLabelState = caw.getRecordLabelState();
+			if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName).size()>0) {
+				futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
+			} else if(recordLabelName.equals("** New Record Label **")) {
+				String newRecordLabelName = caw.getTheNewRecordLabel();
+				RecordLabel rl = (RecordLabel) recordLabelRepository.saveAndFlush(
+					new RecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)));
+				futureAlbum.setRecordLabel(rl);
+			}
+			
+			Album returnedAlbum = albumRepository.saveAndFlush(futureAlbum);
 			System.out.println("Album returned : " + returnedAlbum);
 			System.out.println("futureArtist.addAlbum() - About to add the persisted album to the artist.");
 			savedArtist.addAlbum(returnedAlbum);
@@ -179,8 +220,13 @@ public class ArtistController extends AmazonService {
 		return  albumRepository.findAllToListString();
 	}
 	
+	@ModelAttribute(value="recordLabelOptions")
+	public List<String> getRecordLabels() {
+		return  recordLabelRepository.findAllAsListString();
+	}
+	
 	@ModelAttribute("stateOptions")
-	public List<String> getTypes () {
+	public List<String> getStatesArtistLocation () {
 		return new LinkedList<>(Arrays.asList(new String[] { 
 		"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut", 
 		"Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
@@ -190,7 +236,18 @@ public class ArtistController extends AmazonService {
 		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
 		}));
 	}	
-
+	
+	@ModelAttribute("recordLabelStateOptions")
+	public List<String> getStatesRecordLabelLocation () {
+		return new LinkedList<>(Arrays.asList(new String[] { 
+		"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut", 
+		"Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+		"Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+		"Mississippi", "Missouri", "Montana Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+		"North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island","South Carolina",
+		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
+		}));
+	}
 }	
 
 // ------------------------------ Validator ------------------------------

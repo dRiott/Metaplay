@@ -57,12 +57,16 @@
 						</form:select>
 					</div>
 				</div>
+				
 				<div class="form-group" style="float:clear;"></div>
+				
 				<div class="form-group" id="newAlbumArtistName" style="display:none;">
 					<hr/>
 					<label for="newAlbumArtistName" style="font-style:italic;">New Artist:</label>
 					<form:input cssClass="form-control" type="text" path="theNewArtist" id="newAlbumArtistNameInput" cssErrorClass="has-error" />
+				
 				<div class="form-group" style="float:clear;"></div>
+				
 					<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
 					<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
 					<hr/>
@@ -102,8 +106,9 @@
 						<div class="form-group" style="float:clear;"></div>
 					</div>
 				</div>
-				<div class="form-group" style="float:clear;"></div>
 			<!-- END RECORDLABEL -->
+				
+				<div class="form-group" style="float:clear;"></div>
 				
 			<!-- ALBUM COVER -->	
 				 <div class="row">     

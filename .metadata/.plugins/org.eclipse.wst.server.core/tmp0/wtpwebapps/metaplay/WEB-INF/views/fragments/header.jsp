@@ -30,6 +30,7 @@
 						<li><a href="<spring:url value="/browse/artists"/>">Artists</a></li>
 						<li><a href="<spring:url value="/browse/genres"/>">Genres</a></li>
 						<li><a href="<spring:url value="/browse/locations"/>">Locations</a></li>
+						<li><a href="<spring:url value="/browse/members"/>">Members</a></li>
 						<li><a href="<spring:url value="/browse/playlists"/>">Playlists</a></li>
 						<li><a href="<spring:url value="/browse/recordlabels"/>">Record Labels</a></li>
 						<li><a href="<spring:url value="/browse/tracks"/>">Tracks</a></li>
@@ -47,6 +48,7 @@
 						<li><a href="<spring:url value="/album/add"/>">Album</a></li>
 						<li><a href="<spring:url value="/location/add"/>">Location</a></li>
 						<li><a href="<spring:url value="/playlist/add"/>">Playlist</a></li>					
+						<li><a href="<spring:url value="/role/add"/>">Role</a></li>					
 						<li><a href="<spring:url value="/track/add"/>">Track</a></li>
 					</ul></li>
 	
@@ -90,7 +92,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<spring:url value="/role/assign"/>">Assign Roles</a></li>
 						<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
-						<li><a href="<spring:url value="/mongo/upload"/>">Upload Mp3</a></li>
+						<li><a href="<spring:url value="/track/404"/>">4 Tha Drake Fanz</a></li>
 					</ul>
 				</li>
 	
@@ -126,16 +128,15 @@
 					<form:form class="navbar-form pull-right" action="${logoutUrl}" method="post">
 						<input type="submit" class="btn btn-default" value="Logout" />
 					</form:form>
-				<!-- 	<p class="navbar-text pull-right"> -->
 						<li class="dropdown"><a href="#" class="dropdown-toggle" id="accountnameOut"
 						data-toggle="dropdown" role="button" aria-expanded="false"><c:out value="${currentUser}"/>
 						<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
+								<!-- THIS A HREF IS SET MY JAVASCRIPT AJAX CALL -->
 								<li id="profileLI"><a id="targetLink" href="#">Profile</a></li>	
 								<li><a href="<spring:url value="/logout"/>">I Go Bye Bye</a></li>	
 							</ul>		
 						</li>
-				<!-- 	</p> -->
 				</c:when>
 				<c:otherwise>
 					<p class="navbar-text pull-right">
