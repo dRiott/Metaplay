@@ -56,7 +56,7 @@
 			clearInterval(moveDrakesIntervals[d]);
 			var drake = document.getElementById("Drake404 " + d);
 			if(d === 0) {
-			drake.src = '../resources/img/deadDrake.gif';
+			drake.src = '../resources/img/cryingDrake.gif'; //used to be deadDrake.gif
 			} else {
 				drake.src = '../resources/img/cryingDrake.gif';
 			}

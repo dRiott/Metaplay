@@ -1,9 +1,0 @@
-package com.thoughtriott.metaplay.data.wrappers;
-
-public interface AmazonCredentials {
-	static final String SUFFIX = "/";
-	static final String PROFILEPICS = "profilePictures";
-	static final String BUCKETNAME = "metaplaypictures";
-	static final String AWS_KEY = "AKIAIBWGLPRG2FMCGDKA";
-	static final String AWS_SECRET_KEY = "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";
-}

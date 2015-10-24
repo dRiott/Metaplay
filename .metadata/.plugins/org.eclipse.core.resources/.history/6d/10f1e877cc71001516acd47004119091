@@ -1,5 +1,0 @@
-package com.thoughtriott.metaplay.data.repositories.mongo;
-
-public class AudioFileRepository {
-
-}

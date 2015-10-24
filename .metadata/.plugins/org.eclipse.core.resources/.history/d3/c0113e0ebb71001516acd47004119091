@@ -1,5 +1,0 @@
-package com.thoughtriott.metaplay.config;
-
-public class MongoConfig {
-
-}

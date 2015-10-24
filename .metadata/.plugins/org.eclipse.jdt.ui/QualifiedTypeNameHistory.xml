@@ -11,7 +11,6 @@
 <fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.wrappers.AmazonCredentials"/>
 <fullyQualifiedTypeName name="com.sun.media.jfxmedia.logging.Logger"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-<fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
 <fullyQualifiedTypeName name="com.mongodb.ServerAddress"/>
 <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.mapping.Document"/>
 <fullyQualifiedTypeName name="org.springframework.data.annotation.Id"/>
@@ -30,8 +29,25 @@
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
 <fullyQualifiedTypeName name="java.util.ListIterator"/>
 <fullyQualifiedTypeName name="com.amazonaws.services.elastictranscoder.model.Playlist"/>
-<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Playlist"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonManagedReference"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Playlist"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Location"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Role"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Track"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+<fullyQualifiedTypeName name="java.lang.reflect.InvocationTargetException"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.thoughtriott.metaplay.data.entities.Member"/>
+<fullyQualifiedTypeName name="java.beans.Transient"/>
+<fullyQualifiedTypeName name="javax.persistence.Transient"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

@@ -1,7 +1,0 @@
-package com.thoughtriott.metaplay.config;
-
-@Configuration
-@EnableMongoRepositories(basePackages="com.thoughtriott.metaplay.data.repositories.mongo")
-public class MongoConfig {
-
-}

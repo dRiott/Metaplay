@@ -1,5 +1,0 @@
-package com.thoughtriott.metaplay.data.wrappers;
-
-public interface RepositoryKeeper {
-
-}
