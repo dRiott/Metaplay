@@ -10,12 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Artist Manager</title>
 
-<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 <link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
+<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
+
+<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
+<script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script>
 
 
 </head>
@@ -99,7 +100,8 @@
 
 			<div class="form-group" style="float:clear;"></div>
 
-<%-- 			<div class="row" id="${val}">
+			<!--  Artist Member fields here -->
+			<div class="row" id="${val}">
 				<c:forEach begin="0" end="2" var="val" varStatus="valStatus">
 						<div class="col-md-4">
 							<label for="memberUnparsedName" >Member #${val+1} Full Name</label>
@@ -123,11 +125,11 @@
 				</c:forEach>	
 			</div>
 
-			<div class="form-group" style="float:clear;"></div> --%>
+			<div class="form-group" style="float:clear;"></div>
 
 
 			<!--  Artist Member fields here -->
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col-md-4">
 					<label for="member1">Member #1 Full Name</label>
 					<form:input path="member1" cssClass="form-control" id="member1" />
@@ -168,7 +170,7 @@
 					<label for="member6">Member #6 Stage Name</label>
 					<form:input path="member6StageName" cssClass="form-control" id="member6" />
 				</div>
-			</div>
+			</div> --%>
 			
 			<div class="form-group" style="float:clear;"></div>
 			

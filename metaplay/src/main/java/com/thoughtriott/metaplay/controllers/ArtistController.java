@@ -77,64 +77,64 @@ public class ArtistController extends AmazonService {
 			savedArtist.setGenre(genreRepository.saveAndFlush(new Genre(caw.getNewGenreName(),caw.getNewGenreDescription())));
 		}
 		
-//		// ****************** NEW MEMBER PERSISTENCE ******************
-//		List<Member> realMembers = caw.getMembers();
-//		Iterator<Member> it = realMembers.iterator();
-//		while(it.hasNext()) {
-//			Member currentMember = it.next();
-//			String[] cMNameArray = memberRepository.splitFullName(currentMember.getUnparsedName());
-//			
-//			String lastName = cMNameArray[cMNameArray.length-1];
-//			System.out.println("The returned member's last name: " + lastName);
-//			if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
-//				Member newMember = memberRepository.setNameFromArray(cMNameArray);
-//				//add stage name if it exists
-//				if(!currentMember.getStageName().equals("")){
-//					System.out.println("The Stage Name :" + currentMember.getStageName());
-//					newMember.setStageName(currentMember.getStageName());
-//					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-//				} else {
-//					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-//				}
-//			} else {
-//				savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
-//			}
-//		}
+		// ****************** NEW MEMBER PERSISTENCE ******************
+		List<Member> realMembers = caw.getMembers();
+		Iterator<Member> it = realMembers.iterator();
+		while(it.hasNext()) {
+			Member currentMember = it.next();
+			String[] cMNameArray = memberRepository.splitFullName(currentMember.getUnparsedName());
+			
+			String lastName = cMNameArray[cMNameArray.length-1];
+			System.out.println("The returned member's last name: " + lastName);
+			if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
+				Member newMember = memberRepository.setNameFromArray(cMNameArray);
+				//add stage name if it exists
+				if(!currentMember.getStageName().equals("")){
+					System.out.println("The Stage Name :" + currentMember.getStageName());
+					newMember.setStageName(currentMember.getStageName());
+					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+				} else {
+					savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+				}
+			} else {
+				savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
+			}
+		}
 		
 
 		// ****************** BEGIN MEMBER PERSISTENCE ******************
-		System.out.println("Going to add members to the artist");
-		String[][] members = new String[][]{
-				{caw.getMember1(), caw.getMember1StageName()},
-				{caw.getMember2(), caw.getMember2StageName()},
-				{caw.getMember3(), caw.getMember3StageName()},
-				{caw.getMember4(), caw.getMember4StageName()},
-				{caw.getMember5(), caw.getMember5StageName()},
-				{caw.getMember6(), caw.getMember6StageName()}
-		};
-				
-		for (int i = 0; i<members.length; i++) {
-			if (!members[i][0].equals("")) {
-				System.out.println("members[i][0] wasn't .equals(\"\"), (Full Name) : " + members[i][0]);
-				String[] nameArray = memberRepository.splitFullName(members[i][0]);
-				
-				String lastName = nameArray[nameArray.length-1];
-				System.out.println("The returned member's last name: " + lastName);
-				if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
-					Member newMember = memberRepository.setNameFromArray(nameArray);
-					//add stage name if it exists
-					if(!members[i][1].equals("")){
-						System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
-						newMember.setStageName(members[i][1]);
-						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-					} else {
-						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-					}
-				} else {
-					savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
-				}
-			}
-		}
+//		System.out.println("Going to add members to the artist");
+//		String[][] members = new String[][]{
+//				{caw.getMember1(), caw.getMember1StageName()},
+//				{caw.getMember2(), caw.getMember2StageName()},
+//				{caw.getMember3(), caw.getMember3StageName()},
+//				{caw.getMember4(), caw.getMember4StageName()},
+//				{caw.getMember5(), caw.getMember5StageName()},
+//				{caw.getMember6(), caw.getMember6StageName()}
+//		};
+//				
+//		for (int i = 0; i<members.length; i++) {
+//			if (!members[i][0].equals("")) {
+//				System.out.println("members[i][0] wasn't .equals(\"\"), (Full Name) : " + members[i][0]);
+//				String[] nameArray = memberRepository.splitFullName(members[i][0]);
+//				
+//				String lastName = nameArray[nameArray.length-1];
+//				System.out.println("The returned member's last name: " + lastName);
+//				if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
+//					Member newMember = memberRepository.setNameFromArray(nameArray);
+//					//add stage name if it exists
+//					if(!members[i][1].equals("")){
+//						System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
+//						newMember.setStageName(members[i][1]);
+//						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+//					} else {
+//						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
+//					}
+//				} else {
+//					savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
+//				}
+//			}
+//		}
 		
 		// ****************** BEGIN ALBUM PERSISTENCE ******************
 		System.out.println("Setting/Creating an Album");

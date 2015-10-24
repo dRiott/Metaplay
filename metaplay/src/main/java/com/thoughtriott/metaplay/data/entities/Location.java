@@ -18,7 +18,6 @@ public class Location extends MetaplayEntity {
 	
 	// --------------------------Constructors--------------------------
 	public Location() {
-			
 	}
 	
 	public Location (String city, String state) {
@@ -44,6 +43,8 @@ public class Location extends MetaplayEntity {
 	
 	@Column(name="entity_type")
 	private String entityType = "location";
+	
+	private String country;
 
 	// --------------------------Getters & Setters--------------------------
 	public Collection<RecordLabel> getRecordLabels() {
@@ -84,6 +85,14 @@ public class Location extends MetaplayEntity {
 
 	public void setEntityType(String entityType) {
 		this.entityType = entityType;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	// --------------------------Collection Adders and Removers--------------------------

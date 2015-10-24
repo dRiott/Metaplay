@@ -1,31 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
-<div class="containter">
-	<div class="container-fluid">
-	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<small style="color: grey;">&copy David Riott, 2015</small>
-	
-	</div>
+<div class="container-fluid">
+	<div class="navbar-fixed-bottom">
+		<footer class="nav navbar-footer" style="padding-left:10px; padding-bottom: 3px;">&copy David Riott, 2015</footer>
+	</div>	
 </div>
 
-<script>
-$(document).ready(
-		function () {
-			var backgrounds = ["fourtet.gif", "melloncollie.gif", "daedelus.gif", "dilla.gif", "drake.gif", "fatherjohn.gif", "francisdrake.gif", "umo.gif", "toroymoi.gif",
-			                   "kendrick.gif", "rashad.gif", "thomyorke.gif", "tupac.gif", "wiz.gif", "talib.gif", "mosdef.gif", "eminem.gif", "goldpanda.gif",
-			                  "kurtcobain.gif", "earlsweatshirt.gif", "burial.gif", "aphex.gif", "chancetherapper.gif", "deadmau5.gif", 
-			                   "davidbowie.gif", "goldpanda.gif", "yoshimi.gif", "youthlagoon.gif", "xxyyxx.gif", "actress.gif", "tuneyards.gif", "flyinglotus.gif",
-			                   "unicorns.gif", "tallestman.gif", "dandeacon.gif", "slowmagic.gif", "sbtrkt.gif"
-							   ];
-			
-			var randomNum = Math.floor(Math.random() * backgrounds.length);
-			$('body').css('background-image', 'url(http://localhost:8080/metaplay/resources/img/' + backgrounds[randomNum] + ')');
-		}
-);
-
-var input = $('form').find('input[type=text],textarea,select').filter(':visible:first');
-if(input!=null) {$(document).onload(input.focus());}
-</script>
+<script src="<spring:url value="/resources/js/footer.js"/>"></script>

@@ -6,7 +6,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 	
-<!-- Logo -->		
+		<!-- Logo -->		
 		<div class="imageLogoDiv" >
 			<a class="navbar-brand" href="<spring:url value="/"/>">
 			<img class="imageLogo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
@@ -14,26 +14,15 @@
 			</a>
 		</div>
 
+		<!-- BEGIN HEADER LINKS -->
 		<div class="DRnavBarDiv">
 			<ul class="nav navbar-nav" style="padding-top: 5px;">
 	
-	<!-- Search -->
+				<!-- Search -->
 				<li><a href="<spring:url value="/search"/>">Search</a></li>
-				
-	<!-- Login -->
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Account
-						<span class="caret"></span>
-				</a>
+
 	
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="<spring:url value="/account/add"/>">New User?
-								Start here!</a></li>
-						<li><a href="<spring:url value="/account/login"/>">Login
-								Ya Noggin'</a></li>
-					</ul></li>
-	
-	<!-- Browse -->
+				<!-- Browse -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">Browse <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
@@ -49,19 +38,19 @@
 					</ul>
 				</li>
 	
-	<!-- More -->
+				<!-- More -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">More<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
 						<li><a href="<spring:url value="/role/add"/>">Roles</a></li>
-						<li><a href="<spring:url value="/mongo/upload"/>">Upload Mp3</a></li>
+						<li><a href="<spring:url value="/audio/upload"/>">Upload Mp3</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		
-	<!-- Accountname / New Accoutn, Logout -->
+		<!-- Accountname / New Account, Logout -->
 		<c:set var="authentication" value="${pageContext.request.userPrincipal}"/>
 		<c:choose>
 			<c:when test="${authentication!=null}">
