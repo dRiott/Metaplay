@@ -10,7 +10,7 @@
 		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="TextSearchPage">
-		<item value="11" key="HISTORY_SIZE"/>
+		<item value="12" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="WHOLE_WORD"/>
@@ -19,7 +19,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="table class=" key="textPattern"/>
+			<item value="/resources/js/bootstrap-min.js" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -31,7 +31,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&quot;/resources/img/default.jpg&quot;" key="textPattern"/>
+			<item value="/resources/css/bootstrap3-3-4.css" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -43,7 +43,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value=" style=&quot;padding-left: 7%&quot; style=&quot;padding-left: 7%&quot;" key="textPattern"/>
+			<item value="/resources/js/jquery.js" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -55,7 +55,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&lt;jsp:include page=&quot;../views/fragments/landingPageFrag" key="textPattern"/>
+			<item value="/resources/js/bootstrap-select.min.js" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -67,7 +67,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&lt;div class=&quot;container&quot;" key="textPattern"/>
+			<item value="resources/css/bootstrap-select.min.css" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -78,11 +78,23 @@
 		<section name="EXTENSIONS">
 			<item value="*" key="0"/>
 		</section>
+		<section name="HISTORY11">
+			<item value="true" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="&lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css&quot;&gt;" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
 		<section name="HISTORY8">
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="img src" key="textPattern"/>
+			<item value="&lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -94,7 +106,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&lt;jsp:include page=&quot;../views/fragments/header.jsp" key="textPattern"/>
+			<item value="&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js&quot;&gt;&lt;/script&gt;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -106,7 +118,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="setComplete" key="textPattern"/>
+			<item value="&lt;script&#x09;src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -118,7 +130,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&lt;span&gt;" key="textPattern"/>
+			<item value="&lt;script&#x09;src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js&quot;&gt;&lt;/script&gt;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -130,7 +142,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/image/retrieve" key="textPattern"/>
+			<item value="** New Album **" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -142,7 +154,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="getImageFromService" key="textPattern"/>
+			<item value="cssClass" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -180,9 +192,12 @@
 	</section>
 	<section name="ReplaceDialog2">
 		<list key="replace_with">
-			<item value=" style=&quot;padding-left: 7%&quot;"/>
-			<item value="&lt;div class=&quot;container&quot; style=&quot;padding-left: 7%&quot;"/>
-			<item value="&quot;this.src=/resources/img/default.jpg&quot;"/>
+			<item value="&lt;script src=&quot;&lt;spring:url value=&quot;/resources/lib/bootstrap-min.js&quot;/&gt;&quot;&gt;&lt;/script&gt;"/>
+			<item value="&lt;script src=&quot;&lt;spring:url value=&quot;/resources/lib/jquery.js&quot;/&gt;&quot;&gt;&lt;/script&gt;"/>
+			<item value="resources/lib/bootstrap-select.min.css"/>
+			<item value="/resources/lib/bootstrap-select.min.js"/>
+			<item value="/resources/lib/bootstrap3-3-4.css"/>
+			<item value="&lt;link rel=&quot;stylesheet&quot;&#x09;href=&quot;&lt;spring:url value=&quot;/resources/css/bootstrap3-3-4.css&quot;/&gt;&quot; type=&quot;text/css&quot; /&gt;"/>
 		</list>
 	</section>
 	<section name="SearchDialog">
@@ -192,7 +207,7 @@
 		<item value="1135" key="DIALOG_WIDTH"/>
 		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
 		<item value="442" key="DIALOG_HEIGHT"/>
-		<item value="153" key="DIALOG_X_ORIGIN"/>
-		<item value="173" key="DIALOG_Y_ORIGIN"/>
+		<item value="149" key="DIALOG_X_ORIGIN"/>
+		<item value="188" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

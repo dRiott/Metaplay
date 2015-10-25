@@ -7,19 +7,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Artist Manager</title>
-
-<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
-
-
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Artist Manager</title>
+	
+	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
+	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
+	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
+	
+	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
+	<script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script>
 </head>
-
 
 <body class="DVBody">
 
@@ -38,7 +36,7 @@
 			<div class="row" id="artistNameAndImage">
 				<div class="col-md-6">
 					<label for="artist-name">* Name</label>
-					<form:input path="name" cssClass="form-control" id="artist-name" />
+					<form:input path="name" cssClass="form-control" id="artist-name" placeholder="Michael Jackson" />
 				</div>
 				
 				<div class="col-md-4">
@@ -52,14 +50,24 @@
 			<div class="row" id="artistLocation">
 				<div class="col-md-4">
 					<label for="location-city">City</label>
-					<form:input path="locationCity" cssClass="form-control"	id="location-city" />
+					<form:input path="locationCity" cssClass="form-control"	id="location-city" placeholder="Birmingham"/>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2" id="location-state-div" style="display:inline;">
 					<label for="location-state">State</label>
 					<div class="form-group">
 					<form:select path="locationState" cssClass="selectpicker" items="${stateOptions}"
 						id="location-state" />
 					</div>
+				</div>
+				<div class="col-md-2">
+					<label for="location-country">Country</label>
+					<div class="form-group">
+					<form:select path="locationCountry" cssClass="selectpicker" items="${countryOptions}" id="countries" />
+					</div>
+				</div>
+				<div class="col-md-6" id="newCountryName" style="display:none;">
+					<label for="newCountry"><em>* New Country:</em></label>
+					<form:input cssClass="form-control" path="newLocationCountry" id="newCountryInput" cssErrorClass="has-error" />
 				</div>
 			</div>
 			
@@ -67,8 +75,7 @@
 			
 			<div class="form-group">
 				<label for="biography">Biography</label>
-				<form:textarea path="biography" cssClass="form-control"
-					id="biography" rows="10" cols="30" />
+				<form:textarea path="biography" cssClass="form-control" id="biography" rows="10" cols="30" />
 			</div>
 			
 			<div class="form-group" style="float:clear;"></div>
@@ -99,13 +106,17 @@
 
 			<div class="form-group" style="float:clear;"></div>
 
-<%-- 			<div class="row" id="${val}">
+			<!--  Artist Member fields here -->
+			<div class="row" id="${val}">
 				<c:forEach begin="0" end="2" var="val" varStatus="valStatus">
 						<div class="col-md-4">
-							<label for="memberUnparsedName" >Member #${val+1} Full Name</label>
-							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control"/>
-							<label for="memberStage">Member #${val+1} Stage Name</label>
-							<form:input path="members[${val}].stageName" id="memberStageName${val}" cssClass="form-control"/>
+							<label for="memberUnparsedName" >Member #${val+1}</label>
+							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control" 
+							placeholder="Full Name"/>
+							<label><input type="checkbox" class="stageNameCheckbox" id="stageNameCheck${val+1}"> Stage Name?</label>
+							<div id="stageNameDiv${val+1}" class="stageNameDiv" style="display:none;">
+								<form:input path="members[${val}].stageName" id="memberStageName${val}" cssClass="form-control" placeholder="Stage Name"/>
+							</div>
 						</div>	
 				</c:forEach>
 			</div>
@@ -115,19 +126,21 @@
 			<div class="row" id="${val}">
 				<c:forEach begin="3" end="5" var="val" varStatus="valStatus">
 						<div class="col-md-4">
-							<label for="memberUnparsedName" >Member #${val+1} Full Name</label>
-							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control"/>
-							<label for="memberStage">Member #${val+1} Stage Name</label>
-							<form:input path="members[${val}].stageName" id="memberStageName${val}" cssClass="form-control"/>
+							<label for="memberUnparsedName" >Member #${val+1}</label>
+							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control" placeholder="Full Name"/>
+							<label><input type="checkbox" class="stageNameCheckbox" id="stageNameCheck${val+1}"> Stage Name?</label>
+							<div id="stageNameDiv${val+1}" class="stageNameDiv" style="display:none;">
+								<form:input path="members[${val}].stageName" id="memberStageName${val}" cssClass="form-control" placeholder="Stage Name"/>
+							</div>
 						</div>	
 				</c:forEach>	
 			</div>
 
-			<div class="form-group" style="float:clear;"></div> --%>
+			<div class="form-group" style="float:clear;"></div>
 
 
 			<!--  Artist Member fields here -->
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col-md-4">
 					<label for="member1">Member #1 Full Name</label>
 					<form:input path="member1" cssClass="form-control" id="member1" />
@@ -168,7 +181,7 @@
 					<label for="member6">Member #6 Stage Name</label>
 					<form:input path="member6StageName" cssClass="form-control" id="member6" />
 				</div>
-			</div>
+			</div> --%>
 			
 			<div class="form-group" style="float:clear;"></div>
 			

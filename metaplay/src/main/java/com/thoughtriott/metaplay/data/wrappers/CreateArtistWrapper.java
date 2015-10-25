@@ -27,35 +27,39 @@ public class CreateArtistWrapper {
 	String locationCity;
 	@Size(min = 3, max = 25)
 	String locationState;
+	@Size(min = 3, max = 25)
+	String locationCountry;
+	@Size(min = 3, max = 25)
+	String newLocationCountry;
 	
-	@Size(min = 3, max = 50)
-	String member1;
-	@Size(min = 3, max = 50)
-	String member1StageName;
-	@Size(min = 3, max = 50)
-	String member2;
-	@Size(min = 3, max = 50)
-	String member2StageName;
-
-	@Size(min = 3, max = 50)
-	String member3;
-	@Size(min = 3, max = 50)
-	String member3StageName;
-
-	@Size(min = 3, max = 50)
-	String member4;
-	@Size(min = 3, max = 50)
-	String member4StageName;
-
-	@Size(min = 3, max = 50)
-	String member5;
-	@Size(min = 3, max = 50)
-	String member5StageName;
-	
-	@Size(min = 3, max = 50)
-	String member6;
-	@Size(min = 3, max = 50)
-	String member6StageName;
+//	@Size(min = 3, max = 50)
+//	String member1;
+//	@Size(min = 3, max = 50)
+//	String member1StageName;
+//	@Size(min = 3, max = 50)
+//	String member2;
+//	@Size(min = 3, max = 50)
+//	String member2StageName;
+//
+//	@Size(min = 3, max = 50)
+//	String member3;
+//	@Size(min = 3, max = 50)
+//	String member3StageName;
+//
+//	@Size(min = 3, max = 50)
+//	String member4;
+//	@Size(min = 3, max = 50)
+//	String member4StageName;
+//
+//	@Size(min = 3, max = 50)
+//	String member5;
+//	@Size(min = 3, max = 50)
+//	String member5StageName;
+//	
+//	@Size(min = 3, max = 50)
+//	String member6;
+//	@Size(min = 3, max = 50)
+//	String member6StageName;
 	
 	@Size(min = 3, max = 50)
 	String albumNameFromList;
@@ -139,102 +143,119 @@ public class CreateArtistWrapper {
 	public void setLocationState(String locationState) {
 		this.locationState = locationState;
 	}
-
-	public String getMember1() {
-		return member1;
+	
+	public String getLocationCountry() {
+		return locationCountry;
 	}
 
-	public void setMember1(String member1) {
-		this.member1 = member1;
+	public void setLocationCountry(String locationCountry) {
+		this.locationCountry = locationCountry;
+	}
+	
+
+	public String getNewLocationCountry() {
+		return newLocationCountry;
 	}
 
-	public String getMember2() {
-		return member2;
+	public void setNewLocationCountry(String newLocationCountry) {
+		this.newLocationCountry = newLocationCountry;
 	}
-
-	public void setMember2(String member2) {
-		this.member2 = member2;
-	}
-
-	public String getMember3() {
-		return member3;
-	}
-
-	public void setMember3(String member3) {
-		this.member3 = member3;
-	}
-
-	public String getMember4() {
-		return member4;
-	}
-
-	public void setMember4(String member4) {
-		this.member4 = member4;
-	}
-
-	public String getMember5() {
-		return member5;
-	}
-
-	public void setMember5(String member5) {
-		this.member5 = member5;
-	}
-
-	public String getMember6() {
-		return member6;
-	}
-
-	public void setMember6(String member6) {
-		this.member6 = member6;
-	}
-
-	public String getMember1StageName() {
-		return member1StageName;
-	}
-
-	public void setMember1StageName(String member1StageName) {
-		this.member1StageName = member1StageName;
-	}
-
-	public String getMember2StageName() {
-		return member2StageName;
-	}
-
-	public void setMember2StageName(String member2StageName) {
-		this.member2StageName = member2StageName;
-	}
-
-	public String getMember3StageName() {
-		return member3StageName;
-	}
-
-	public void setMember3StageName(String member3StageName) {
-		this.member3StageName = member3StageName;
-	}
-
-	public String getMember4StageName() {
-		return member4StageName;
-	}
-
-	public void setMember4StageName(String member4StageName) {
-		this.member4StageName = member4StageName;
-	}
-
-	public String getMember5StageName() {
-		return member5StageName;
-	}
-
-	public void setMember5StageName(String member5StageName) {
-		this.member5StageName = member5StageName;
-	}
-
-	public String getMember6StageName() {
-		return member6StageName;
-	}
-
-	public void setMember6StageName(String member6StageName) {
-		this.member6StageName = member6StageName;
-	}
+	
+//	public String getMember1() {
+//		return member1;
+//	}
+//
+//	public void setMember1(String member1) {
+//		this.member1 = member1;
+//	}
+//
+//	public String getMember2() {
+//		return member2;
+//	}
+//
+//	public void setMember2(String member2) {
+//		this.member2 = member2;
+//	}
+//
+//	public String getMember3() {
+//		return member3;
+//	}
+//
+//	public void setMember3(String member3) {
+//		this.member3 = member3;
+//	}
+//
+//	public String getMember4() {
+//		return member4;
+//	}
+//
+//	public void setMember4(String member4) {
+//		this.member4 = member4;
+//	}
+//
+//	public String getMember5() {
+//		return member5;
+//	}
+//
+//	public void setMember5(String member5) {
+//		this.member5 = member5;
+//	}
+//
+//	public String getMember6() {
+//		return member6;
+//	}
+//
+//	public void setMember6(String member6) {
+//		this.member6 = member6;
+//	}
+//
+//	public String getMember1StageName() {
+//		return member1StageName;
+//	}
+//
+//	public void setMember1StageName(String member1StageName) {
+//		this.member1StageName = member1StageName;
+//	}
+//
+//	public String getMember2StageName() {
+//		return member2StageName;
+//	}
+//
+//	public void setMember2StageName(String member2StageName) {
+//		this.member2StageName = member2StageName;
+//	}
+//
+//	public String getMember3StageName() {
+//		return member3StageName;
+//	}
+//
+//	public void setMember3StageName(String member3StageName) {
+//		this.member3StageName = member3StageName;
+//	}
+//
+//	public String getMember4StageName() {
+//		return member4StageName;
+//	}
+//
+//	public void setMember4StageName(String member4StageName) {
+//		this.member4StageName = member4StageName;
+//	}
+//
+//	public String getMember5StageName() {
+//		return member5StageName;
+//	}
+//
+//	public void setMember5StageName(String member5StageName) {
+//		this.member5StageName = member5StageName;
+//	}
+//
+//	public String getMember6StageName() {
+//		return member6StageName;
+//	}
+//
+//	public void setMember6StageName(String member6StageName) {
+//		this.member6StageName = member6StageName;
+//	}
 
 	public String getAlbumNameFromList() {
 		return albumNameFromList;

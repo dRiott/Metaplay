@@ -54,6 +54,12 @@ public class LocationController extends RepositoryKeeper {
 	}
 	
 	// ------------------------------ Model Attributes ------------------------------
+
+	@ModelAttribute("location")
+	public Location getLocation() {
+		return new Location();
+	}
+
 	@ModelAttribute("stateOptions")
 	public List<String> getTypes () {
 		return new LinkedList<>(Arrays.asList(new String[] { 
@@ -66,9 +72,9 @@ public class LocationController extends RepositoryKeeper {
 		}));
 	}	
 	
-	@ModelAttribute("location")
-	public Location getLocation() {
-		return new Location();
+	@ModelAttribute(value="countryOptions")
+	public List<String> getCountries() {
+		return locationRepository.findAllCountriesToListString();
 	}
 	
 	// ------------------------------ Validator ------------------------------

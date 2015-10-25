@@ -2,6 +2,7 @@ package com.thoughtriott.metaplay.data.repositories.jpa;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,37 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 	LocationRepository locationRepository;
 	
 	//returns List<String> of each State
-		@Override
-		public List<String> findAllStatesToListString() {
-			List<Location> locList = locationRepository.findAll();
-			Iterator<Location> it = locList.iterator();
-			List<String> stateStringList = new ArrayList<String>();
-			while(it.hasNext()) {
-				Location l = it.next();
-				stateStringList.add(l.getState());
-			}
-			if(locList.size()==0) {
-				System.out.println("LocationRepositoryImpl: findAllStatesToListString()The List<String> stateStringList was empty, returning null");
-				return null;
-			} else {
-				return stateStringList;
+	@Override
+	public List<String> findAllStatesToListString() {
+		List<Location> locList = locationRepository.findAll();
+		Iterator<Location> it = locList.iterator();
+		List<String> stateStringList = new ArrayList<String>();
+		while(it.hasNext()) {
+			Location l = it.next();
+			stateStringList.add(l.getState());
+		}
+		if(locList.size()==0) {
+			return null;
+		} else {
+			return stateStringList;
+		}
+	}
+	
+	//returns List<String> of each Country, adding "** New Country **" to the List.
+	@Override
+	public List<String> findAllCountriesToListString() {
+		List<Location> locList = locationRepository.findAll();
+		Iterator<Location> it = locList.iterator();
+		List<String> countryStringList = new LinkedList<String>();
+		while(it.hasNext()) {
+			Location l = it.next();
+			if(!countryStringList.contains(l.getCountry())) {
+				countryStringList.add(l.getCountry());
 			}
 		}
+		countryStringList.add("** New Country **");
+		return countryStringList;
+	}	
 	
 	
 	//return a string of all of the cities formatted by state

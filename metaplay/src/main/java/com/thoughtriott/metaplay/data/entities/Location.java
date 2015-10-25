@@ -24,6 +24,12 @@ public class Location extends MetaplayEntity {
 		this.city = city;
 		this.state = state;
 	}
+	
+	public Location (String city, String state, String country) {
+		this.city = city;
+		this.state = state;
+		this.country = country;
+	}
 
 	// --------------------------Fields--------------------------
 	@NotNull

@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="/find" key="selection"/>
+		<item value="RECORD" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="/find"/>
-			<item value="repos"/>
-			<item value="qualified"/>
-			<item value="!=null"/>
+			<item value="** New Album **"/>
 			<item value="record"/>
-			<item value="successfulSearchAll"/>
-			<item value="keyset"/>
-			<item value="accout"/>
+			<item value="member"/>
+			<item value="members"/>
+			<item value="selectpicker"/>
+			<item value="cssClass"/>
+			<item value="/resources/css/bootstrap3-3-4.css"/>
+			<item value="&lt;link rel=&quot;stylesheet&quot;&#x09;href=&quot;&lt;spring:url value=&quot;/resources/css/bootstrap-select.min.css&quot;/&gt;&quot; type=&quot;text/css&quot; /&gt;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="&lt;% -- &lt;link rel=&quot;stylesheet&quot;&#x09;href=&quot;&lt;spring:url value=&quot;/resources/css/bootstrap-select.min.css&quot;/&gt;&quot; type=&quot;text/css&quot; /&gt; --%&gt;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="347" key="DIALOG_WIDTH"/>
 		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText-Regular" key="DIALOG_FONT_NAME"/>
 		<item value="499" key="DIALOG_HEIGHT"/>
-		<item value="982" key="DIALOG_X_ORIGIN"/>
-		<item value="87" key="DIALOG_Y_ORIGIN"/>
+		<item value="959" key="DIALOG_X_ORIGIN"/>
+		<item value="176" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

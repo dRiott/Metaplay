@@ -187,6 +187,11 @@ public class AlbumController extends AmazonService {
 		}));
 	}	
 	
+	@ModelAttribute(value="recordLabelCountryOptions")
+	public List<String> getCountries() {
+		return locationRepository.findAllCountriesToListString();
+	}
+	
 }
 
 	// ------------------------------ Notes / Old Code ------------------------------

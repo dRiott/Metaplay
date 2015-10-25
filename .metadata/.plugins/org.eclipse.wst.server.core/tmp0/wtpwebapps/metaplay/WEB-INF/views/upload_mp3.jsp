@@ -8,12 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Track Manager</title>
 
-<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 <link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<link rel="stylesheet"	href="<spring:url value="/resources/css/bootstrap-select.min.css"/>" type="text/css" />
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script	src="<spring:url value="/resources/js/bootstrap-select.min.js"/>"></script>
+<%-- <link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" /> --%>
+
+<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
+<%-- <script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script> --%>
 
 </head>
 
@@ -42,20 +43,17 @@
 						<form:input path="filename" cssClass="form-control" id="id" />
 					</div>
 				
-					<div class="form-group" style="float:clear;"></div>
-				
-					<!-- AUDIO FILE -->	
 					<!-- accept="image/jpeg, image/png, image/gif, image/jpg"  -->
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="audioFile">Audio File</label><span style="padding-left: 10px;"></span><small>mp3, wav, m4p, flac</small>
 							<form:input type="file" path="mp3" id="audioFileInput" cssClass="btn btn-default btn-file" />
 					</div>
-					<!-- END AUDIO FILE -->	
+					
 				</div>	
+				
 				<div class="form-group" style="float:clear;"></div>
 			
 				<button type="submit" class="btn btn-default">Submit</button>
-
 			</div>
 		</form:form>
 	</div>

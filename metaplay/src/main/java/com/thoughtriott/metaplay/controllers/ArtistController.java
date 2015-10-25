@@ -21,7 +21,6 @@ import com.thoughtriott.metaplay.data.entities.Member;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
-import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 
 @Controller
 @RequestMapping("/artist")
@@ -52,21 +51,26 @@ public class ArtistController extends AmazonService {
 		super.saveImage(caw.getArtistImage(), ARTIST, caw.getName());
 		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getTheNewAlbumName());
 		
+	
 		// ****************** BEGIN LOCATION PERSISTENCE ******************
 		System.out.println("Setting/Creating a Location");
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
-		System.out.println(city + ", " + state);
-		if(locationRepository.findLocationByCityAndState(city, state)!=null) {
+		String country = caw.getLocationCountry();
+		System.out.println(city + ", " + state + ", " + country);
+		
+		if(!country.equals("** New Country **") && locationRepository.findLocationByCityAndState(city, state)!=null) {
 			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
 			savedArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
-		} else {
+		} else if (country.equals("** New Country **")){
 			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state)));
+			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, caw.getNewLocationCountry())));
+		} else {
+			//no location in the db with city state combo, country selected from picker
+			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, country)));
 		}
 		
-		
-		
+
 		// ****************** BEGIN GENRE PERSISTENCE ******************
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
@@ -218,6 +222,11 @@ public class ArtistController extends AmazonService {
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {
 		return  albumRepository.findAllToListString();
+	}
+	
+	@ModelAttribute(value="countryOptions")
+	public List<String> getCountries() {
+		return locationRepository.findAllCountriesToListString();
 	}
 	
 	@ModelAttribute(value="recordLabelOptions")
