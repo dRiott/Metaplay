@@ -6,16 +6,19 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Metaplay &copy Genres</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Metaplay &copy Genres</title>
 
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
+	
 	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
-
+	<script src="<spring:url value="/resources/js/showHideTextarea.js"/>"></script>
 </head>
+
 <body>
 	
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
@@ -23,7 +26,7 @@
 	<div class="container" style="padding-left: 7%">
 		
 		<h1>Genres</h1>
-		<table class="table table-hover" id="genresTable">
+		<table class="table table-hover" id="tableWithLongText">
 			<tbody>
 				<tr>
 					<th>Name</th><th>Description</th>
@@ -33,7 +36,7 @@
 					<tr>
 						<c:set var="bioLength" value="${genre.description.length()}"/>
 						<td><a href="<spring:url value="/browse/genre/${genre.id}"/>">${genre.name}</a></td>
-						<td>${fn:substring(genre.description, 0, 300)}<span style="display:none;" id="moreLessBiography${index}">${fn:substring(genre.description, 300, bioLength)}</span></td>
+						<td id="containsBio${index}">${fn:substring(genre.description, 0, 300)}<span style="display:none;" id="moreLessBiography${index}">${fn:substring(genre.description, 300, bioLength)}</span></td>
 						<td>
 							<button id="showButton${index}" class="btn btn-default">More</button>
 							<button id="hideButton${index}" class="btn btn-default" style="display:none">Less</button>
@@ -45,8 +48,5 @@
 		
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
-	<script src="<spring:url value="/resources/js/browseGenreDescriptionShowHide.js"/>"></script>
-	<script> $(window).load(showHideDescription()); </script>
-	<script> $(window).load(fixFinalRow()); </script>
 </body>
 </html>

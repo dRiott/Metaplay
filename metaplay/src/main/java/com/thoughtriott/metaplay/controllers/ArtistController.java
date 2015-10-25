@@ -41,15 +41,13 @@ public class ArtistController extends AmazonService {
 		futureArtist.setBiography(caw.getBiography());
 		Artist savedArtist = artistRepository.saveAndFlush(futureArtist);
 
-		/*savedArtist.setArtistImage(caw.getArtistImage());
-		try {
-			caw.getArtistImage().getInputStream().read(artistImage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		if(caw.getArtistImage()!=null){
+			super.saveImage(caw.getArtistImage(), ARTIST, caw.getName());
+		}
 		
-		super.saveImage(caw.getArtistImage(), ARTIST, caw.getName());
-		super.saveImage(caw.getAlbumCover(), ALBUM, caw.getTheNewAlbumName());
+		if(caw.getAlbumCover()!=null) {
+			super.saveImage(caw.getAlbumCover(), ALBUM, caw.getTheNewAlbumName());
+		}
 		
 	
 		// ****************** BEGIN LOCATION PERSISTENCE ******************
@@ -59,15 +57,33 @@ public class ArtistController extends AmazonService {
 		String country = caw.getLocationCountry();
 		System.out.println(city + ", " + state + ", " + country);
 		
+		if(country.equals("United States")) {
+			if(locationRepository.findLocationByCityAndState(city, state)!=null) {
+				System.out.println("Artist Controller: locationService.findLocation() US city/state exists... setting.");
+				savedArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
+			} else {
+				//united states: new city/state combo
+				savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, country)));
+			}
+		} else {
+			//country isn't US, setting state to null
+			if(locationRepository.findLocationByCityAndCountry(city, country)!=null) {
+				System.out.println("Artist Controller: locationService.findLocation() NON-US city/country exists... setting.");
+				savedArtist.setLocation(locationRepository.findLocationByCityAndCountry(city, country));
+			} else {
+				//nons-US: new city/country combo
+				savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, null, country)));
+			}
+			
+		}
+		
 		if(!country.equals("** New Country **") && locationRepository.findLocationByCityAndState(city, state)!=null) {
-			System.out.println("Artist Controller: locationService.findLocation() exists... setting.");
-			savedArtist.setLocation(locationRepository.findLocationByCityAndState(city, state));
+			
 		} else if (country.equals("** New Country **")){
 			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
 			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, caw.getNewLocationCountry())));
-		} else {
-			//no location in the db with city state combo, country selected from picker
-			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, country)));
+		} else if (country.equals("United States")) {
+			
 		}
 		
 

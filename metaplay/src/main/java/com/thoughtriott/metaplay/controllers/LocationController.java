@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Location;
@@ -19,6 +20,7 @@ import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/location")
+@SessionAttributes("location")
 public class LocationController extends RepositoryKeeper {
 
 	@RequestMapping("/add")
@@ -27,13 +29,13 @@ public class LocationController extends RepositoryKeeper {
 	}
 	
 	@RequestMapping("/review")
-	public String reviewLocation(@Valid @ModelAttribute Location location, Errors errors, Model model, HttpSession session) {
+	public String reviewLocation(@Valid @ModelAttribute Location location, Errors errors, HttpSession session) {
 		System.out.println("LocationController - reviewLocation(): invoking");
 		if(errors.hasErrors()) {
 			return "location_add";
 		}
+		
 		session.setAttribute("location", location);
-		model.addAttribute(location);
 		return "location_review";
 	}
 	
@@ -41,15 +43,30 @@ public class LocationController extends RepositoryKeeper {
 	public String saveLocation(HttpSession session, SessionStatus status){
 		System.out.println("LocationController - saveLocation(): invoking");
 		Location location = (Location) session.getAttribute("location");
-		if(locationRepository.findLocationByCityAndState(location.getCity(), location.getState())!=null) {
-			System.out.println("Location Controller: locationService.findLocation() exists... returning to Location/add.");
-			status.setComplete();
-			return "redirect:/location/add";
+		String city = location.getCity();
+		String state = location.getState();
+		String country = location.getCountry();
+		
+		if(country.equals("United States")) {
+			if(locationRepository.findLocationByCityAndState(city, state)!=null) {
+				System.out.println("Location Controller: locationService.findLocation() US city/state exists... returning to Location/add.");
+			} else {
+				//united states: new city/state combo
+				locationRepository.saveAndFlush(location);
+			}
 		} else {
-			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			locationRepository.saveAndFlush(location);
-			status.setComplete();
+			//country isn't US, setting state to null
+			if(locationRepository.findLocationByCityAndCountry(city, country)!=null) {
+				System.out.println("Location Controller: locationService.findLocation() NON-US city/country exists... returning to Location/add.");
+			} else {
+				//nons-US: new city/country combo
+				location.setState(null);
+				location.setCountry(location.getNewCountry());
+				locationRepository.saveAndFlush(location);
+			}
 		}
+		
+		status.setComplete();
 		return "redirect:/location/add";
 	}
 	
@@ -77,6 +94,7 @@ public class LocationController extends RepositoryKeeper {
 		return locationRepository.findAllCountriesToListString();
 	}
 	
+
 	// ------------------------------ Validator ------------------------------
 	/*//registering the LocationValidator with this controller using a WebDataBinder object.
 	@InitBinder

@@ -13,6 +13,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer>, Lo
 
 	List<Location> findLocationByStateOrderByState(String state);
 	Location findLocationByCityAndState(String city, String state);
+	Location findLocationByCityAndCountry(String city, String country);
 }
 	
 

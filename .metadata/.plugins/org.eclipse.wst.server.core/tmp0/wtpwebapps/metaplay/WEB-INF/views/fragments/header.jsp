@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
@@ -51,40 +52,7 @@
 						<li><a href="<spring:url value="/role/add"/>">Role</a></li>					
 						<li><a href="<spring:url value="/track/add"/>">Track</a></li>
 					</ul></li>
-	
-				<!-- Albums -->
-				<%-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Albums
-						<span class="caret"></span>
-				</a>
-	
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="<spring:url value="/album/add"/>">Add</a></li>
-						<li><a href="<spring:url value="/album/add"/>">Find</a></li>
-					</ul></li>
-	
-				<!-- Tracks -->
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Tracks
-						<span class="caret"></span>
-				</a>
-	
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="<spring:url value="/track/add"/>">Add</a></li>
-						<li><a href="<spring:url value="/track/find"/>">Find</a></li>
-					</ul></li>
-	
-				<!-- Playlists -->
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Playlists
-						<span class="caret"></span>
-				</a>
-	
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="<spring:url value="/playlist/add"/>">Add</a></li>
-						<li><a href="<spring:url value="/playlist/find"/>">Find</a></li>
-					</ul></li>
-	 --%>
+
 				<!-- More -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">More
@@ -95,22 +63,6 @@
 						<li><a href="<spring:url value="/track/404"/>">4 Tha Drake Fanz</a></li>
 					</ul>
 				</li>
-	
-	<%-- 			<!-- Login Page -->
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Account
-						<span class="caret"></span>
-					</a>
-	
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="<spring:url value="/account/add"/>">New User?
-								Start here!</a></li>
-						<li><a href="<spring:url value="/account/login"/>">Login Ya
-								Noggin'</a></li>
-						<li><a href="<spring:url value="/account/byebye"/>">I Go Bye
-								Bye</a></li>
-					</ul></li> --%>
 			</ul>
 		</div>
 			
@@ -149,36 +101,38 @@
 
 	</div>
 </nav>
+
+<%-- <script src="<spring:url value="/resources/js/ajaxAccountnameHeader.js"/>"></script>--%>
+
 <script>
+
+	/**
+	 * This grabs the Accountname to do an ajax call to get the id for the Profile dropdown link under the Accountname header item.
+	 */
 	$(document).ready(function(){
-		
-		var accountname = $('#accountname').attr('value');
-		console.log("got the accountname: " + accountname);
-		
-		$.ajax({
-			headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-			url: "/metaplay/rest/account?query="+accountname, 
-			method: "post", 
-			dataType: "json",
-			success: successfulAccountGrab,
-			error: errorFunction
-		})
-		
-		function errorFunction(returnedData, status) {
-			console.log("ERROR: SOMETHING WENT WRONG");
-			console.log("ERROR: WE GOT THIS DATA: " + returnedData);
-			console.log("ERROR: WE GOT THIS STATS: " + status)
-		}
-		
-		function successfulAccountGrab(returnedData, status) {
-			var id = returnedData.id;
-			console.log("got the id: " + id);
-			var url = "<spring:url value='/account/"+id+"'/>";
-			$('#targetLink').attr("href", url);
-		}
-		
+			var accountname = $('#accountname').attr('value');
+	
+			$.ajax({
+				headers: { 
+			        'Accept': 'application/json',
+			        'Content-Type': 'application/json' 
+			    },
+				url: "/metaplay/rest/account?query="+accountname, 
+				method: "post", 
+				dataType: "json",
+				success: successfulAccountGrab,
+				error: errorFunction
+			})
+			
+			function errorFunction(returnedData, status) {
+				console.log("Accountname Grab Error, Data: " + returnedData);
+				console.log("Accountname Grab Error, Status: " + status)
+			}
+			
+			function successfulAccountGrab(returnedData, status) {
+				var url = "<spring:url value='/account/"+returnedData.id+"'/>";
+				$('#targetLink').attr("href", url);
+			}
+			
 	}); //end document.ready
 </script>

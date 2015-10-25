@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,6 +52,9 @@ public class Location extends MetaplayEntity {
 	private String entityType = "location";
 	
 	private String country;
+	
+	@Transient
+	private String newCountry;
 
 	// --------------------------Getters & Setters--------------------------
 	public Collection<RecordLabel> getRecordLabels() {
@@ -99,6 +103,14 @@ public class Location extends MetaplayEntity {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getNewCountry() {
+		return newCountry;
+	}
+
+	public void setNewCountry(String newCountry) {
+		this.newCountry = newCountry;
 	}
 
 	// --------------------------Collection Adders and Removers--------------------------
