@@ -25,13 +25,10 @@
 
 	<div class="container" style="padding-left: 7%" style="padding-left: 8%">
 
-		<div class="row">
-			<h1><a>Artist</a><span style="padding-left: 10px;"></span><small><small>The * indicates a required field.</small></small></h1>
-		</div>
+		<h1><a>Artist</a><span style="padding-left: 10px;"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/artist/save" var="thisURL" />
-		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data"
-			modelAttribute="createArtistWrapper">
+		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data" modelAttribute="createArtistWrapper">
 
 			<div class="row" id="artistNameAndImage">
 				<div class="col-md-6">
@@ -65,7 +62,7 @@
 					<form:select path="locationCountry" cssClass="selectpicker" items="${countryOptions}" id="countries" />
 					</div>
 				</div>
-				<div class="col-md-6" id="newCountryName" style="display:none;">
+				<div class="col-md-6" id="newCountryDiv" style="display:none;">
 					<label for="newCountry"><em>* New Country:</em></label>
 					<form:input cssClass="form-control" path="newLocationCountry" id="newCountryInput" cssErrorClass="has-error" />
 				</div>
@@ -215,15 +212,15 @@
 						</div>
 						<div class="col-md-2">
 							<label for="albumNumTracks" style="font-style:italic;"><small>Total Tracks</small></label>
-							<form:input path="albumNumTracks" cssClass="form-control" id="album-numTracks" />
+							<form:input path="albumNumTracks" cssClass="form-control" id="album-numTracks" min="0"/>
 						</div>
 						<div class="col-md-3">
-							<label for="newAlbumReleaseDate" style="font-style:italic;"><small>Release Date</small> <small><small>(e.g. 04-31-1990 or 4/22/1990)</small></small></label>
-							<form:input path="albumReleaseDate" cssClass="form-control" id="newAlbumReleaseDate" />
+							<label for="newAlbumReleaseDate" style="font-style:italic;"><small>Release Date</small></label>
+							<form:input path="albumReleaseDate" cssClass="form-control" id="newAlbumReleaseDate" type="date"/>
 						</div>
 						<div class="col-md-3">
 							<label for="newAlbumAlbumCover" style="font-style:italic;"><em>New Album: Cover</em>
-							<small><small><span style="padding-left: 5px">jpeg, jpg, png, or gif</span></small></small></label>
+							<small><small><span style="padding-left: 5px">jpg, png, gif</span></small></small></label>
 							<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
 						</div>
 					</div>
@@ -272,8 +269,9 @@
 				<div class="form-group" style="float:clear;"></div>
 				
 			</div> <!-- END ALBUM POP OUT FIELDS -->
+			
 			<div class="form-group" style="float:clear;"></div>
-				<!--  End ARTIST fields -->
+			<!--  End ARTIST fields -->
 
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form:form>
@@ -281,7 +279,7 @@
 	
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	
-		<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
-<!-- 		<script>$(window).load(addEventHandlers());</script>
- -->	</body>
+	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
+		
+</body>
 </html>

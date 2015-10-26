@@ -3,12 +3,10 @@ $(document).ready(function () {
 	
 			//Genre Options "Other" Box Hide/Unhide
 			var selectOtherGR = document.getElementById("genreName");
-			var inputBoxGR = document.getElementById("newGenreName");
-			var inputBoxGRdescription = document.getElementById("newGenreDescription");
-			
-			//having to use .onchange= instead of an addEventListener method because of how the page is rendered
-			//by Spring form... It's altering the form:form to be a button - I can no longer select the right element.
 			selectOtherGR.onchange=function(){
+				var inputBoxGR = document.getElementById("newGenreName");
+				var inputBoxGRdescription = document.getElementById("newGenreDescription");
+				
 				if(selectOtherGR.value=="** New Genre **") {
 					inputBoxGR.style.display="inline";
 					inputBoxGRdescription.style.display="inline";
@@ -20,21 +18,31 @@ $(document).ready(function () {
 			
 			//Location Options "** New Country **" Show/Hide
 			var selectCountry = $("#countries");
-			var statesDiv = $("#location-state-div");
-			var newCountryName = $("#newCountryName");
-			
 			selectCountry.change(function(){
+				var city = $("#location-city");
+				var statesDiv = $("#location-state-div");
+				var newCountryDiv = $("#newCountryDiv");
+				var newCountryInput = $("#newCountryInput");
 				var selectCountryValue = selectCountry.val();
 
-				if(selectCountryValue=="** New Country **") {
-					newCountryName.css("display", "inline");
-					statesDiv.css("display", "none");
+				if(selectCountryValue=="United States") {
+					statesDiv.show();
+					newCountryDiv.hide();				
+					city.attr("placeholder", "Birmingham");
+				} else if (selectCountryValue=="** New Country **") {
 					
-				} else if (selectCountryValue=="United States") {
-					statesDiv.css("display", "inline");
-					newCountryName.css("display", "none");
+					city.focus();
+					city.blur(function () {
+						newCountryInput.focus()
+					})
+					
+					statesDiv.hide();
+					newCountryInput.attr("placeholder", "England");
+					newCountryDiv.show();
+					city.attr("placeholder", "London");
 				} else {
-					newCountryName.css("display", "inline");				
+					statesDiv.hide();
+					newCountryDiv.hide();				
 				}
 			}); //end selectCountry.change()
 			

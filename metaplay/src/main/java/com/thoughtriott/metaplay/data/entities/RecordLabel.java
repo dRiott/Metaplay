@@ -26,7 +26,7 @@ public class RecordLabel extends MetaplayEntity {
 		this.name = recordLabelName;
 		this.location = location;
 	}
-
+	
 	// --------------------------Fields--------------------------	
 	private String description;
 	

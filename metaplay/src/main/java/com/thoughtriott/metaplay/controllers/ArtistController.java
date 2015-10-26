@@ -55,6 +55,7 @@ public class ArtistController extends AmazonService {
 		String city = caw.getLocationCity();
 		String state = caw.getLocationState();
 		String country = caw.getLocationCountry();
+		String newCountry = caw.getNewLocationCountry();
 		System.out.println(city + ", " + state + ", " + country);
 		
 		if(country.equals("United States")) {
@@ -67,26 +68,16 @@ public class ArtistController extends AmazonService {
 			}
 		} else {
 			//country isn't US, setting state to null
-			if(locationRepository.findLocationByCityAndCountry(city, country)!=null) {
+			if(locationRepository.findLocationByCityAndCountry(city, newCountry)!=null) {
 				System.out.println("Artist Controller: locationService.findLocation() NON-US city/country exists... setting.");
-				savedArtist.setLocation(locationRepository.findLocationByCityAndCountry(city, country));
+				savedArtist.setLocation(locationRepository.findLocationByCityAndCountry(city, newCountry));
 			} else {
 				//nons-US: new city/country combo
-				savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, null, country)));
+				savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, null, newCountry)));
 			}
 			
 		}
 		
-		if(!country.equals("** New Country **") && locationRepository.findLocationByCityAndState(city, state)!=null) {
-			
-		} else if (country.equals("** New Country **")){
-			System.out.println("Artist Controller: locationService.findLocation() doesn't exist: creating & setting.");
-			savedArtist.setLocation(locationRepository.saveAndFlush(new Location(city, state, caw.getNewLocationCountry())));
-		} else if (country.equals("United States")) {
-			
-		}
-		
-
 		// ****************** BEGIN GENRE PERSISTENCE ******************
 		System.out.println("Setting/Creating a Genre");
 		String genreName = caw.getGenreName();
@@ -120,41 +111,6 @@ public class ArtistController extends AmazonService {
 				savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
 			}
 		}
-		
-
-		// ****************** BEGIN MEMBER PERSISTENCE ******************
-//		System.out.println("Going to add members to the artist");
-//		String[][] members = new String[][]{
-//				{caw.getMember1(), caw.getMember1StageName()},
-//				{caw.getMember2(), caw.getMember2StageName()},
-//				{caw.getMember3(), caw.getMember3StageName()},
-//				{caw.getMember4(), caw.getMember4StageName()},
-//				{caw.getMember5(), caw.getMember5StageName()},
-//				{caw.getMember6(), caw.getMember6StageName()}
-//		};
-//				
-//		for (int i = 0; i<members.length; i++) {
-//			if (!members[i][0].equals("")) {
-//				System.out.println("members[i][0] wasn't .equals(\"\"), (Full Name) : " + members[i][0]);
-//				String[] nameArray = memberRepository.splitFullName(members[i][0]);
-//				
-//				String lastName = nameArray[nameArray.length-1];
-//				System.out.println("The returned member's last name: " + lastName);
-//				if(memberRepository.findMemberByLastName(lastName)!=null && memberRepository.findMemberByLastName(lastName).size()==0) {
-//					Member newMember = memberRepository.setNameFromArray(nameArray);
-//					//add stage name if it exists
-//					if(!members[i][1].equals("")){
-//						System.out.println("members[i][1] (The Stage Name) :" + members[i][1]);
-//						newMember.setStageName(members[i][1]);
-//						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-//					} else {
-//						savedArtist.addMember(memberRepository.saveAndFlush(newMember));				
-//					}
-//				} else {
-//					savedArtist.addMember(memberRepository.findMemberByLastName(lastName).get(0));
-//				}
-//			}
-//		}
 		
 		// ****************** BEGIN ALBUM PERSISTENCE ******************
 		System.out.println("Setting/Creating an Album");

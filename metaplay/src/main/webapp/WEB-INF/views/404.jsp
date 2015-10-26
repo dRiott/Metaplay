@@ -16,8 +16,6 @@
 		<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
 	</head>
 	<body>
-		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-	
 		<div class="container" style="padding-left: 7%" id="errors">
 			<c:if test="${param.logout !=null}">
 				<div class="alert alert-success">
@@ -33,12 +31,11 @@
 
 		<div id = "drakeButtonDiv">
 			<button type="button" id="noMoreDrake" class="btn btn-primary btn-lg"
-			style="position:absolute; top: 235px; left: 37px">Bye Bye Drake</button>
+			style="position:absolute; top: 100px; left: 40px; background-color:white; color:black">Bye Bye Drake</button>
 		</div>
 
 		<div id="drakeStatus" style="position:absolute; top: 90px; left: 250px"></div>	
 
-		<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 	
 	<script>$(window).load(addEventListeners());</script>
 	</body>

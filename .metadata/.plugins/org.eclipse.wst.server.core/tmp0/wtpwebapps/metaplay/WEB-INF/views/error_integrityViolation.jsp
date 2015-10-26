@@ -21,7 +21,7 @@
 
 	<div class="container" style="padding-left: 7%">
 	<h1>An error has occurred.</h1>
-	<p> An entity (Artist, Album, Account...) by that name already exists. Please add a unique one!</p>
+	<p>There was an issue with our database. Either what you want to create already exists, or violates the database's integrity.</p>
 	
 	<br/>
 	

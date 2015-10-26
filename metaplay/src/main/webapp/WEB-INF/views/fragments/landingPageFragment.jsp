@@ -44,7 +44,6 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
 						<li><a href="<spring:url value="/role/add"/>">Roles</a></li>
-						<li><a href="<spring:url value="/audio/upload"/>">Upload Mp3</a></li>
 					</ul>
 				</li>
 			</ul>

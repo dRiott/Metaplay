@@ -35,6 +35,10 @@ public class CreateAlbumWrapper {
 	private String recordLabelCity;
 	@Size(min = 3, max = 25)
 	private String recordLabelState;
+	@Size(min = 3, max = 25)
+	private String recordLabelCountry;
+	@Size(min = 3, max = 25)
+	private String recordLabelNewCountry;
 	
 	private List<CreateTrackWrapper> createTrackWrappers;
 	
@@ -163,6 +167,22 @@ public class CreateAlbumWrapper {
 
 	public void setAlbumCover(MultipartFile albumCover) {
 		this.albumCover = albumCover;
+	}
+
+	public String getRecordLabelCountry() {
+		return recordLabelCountry;
+	}
+
+	public void setRecordLabelCountry(String recordLabelCountry) {
+		this.recordLabelCountry = recordLabelCountry;
+	}
+
+	public String getRecordLabelNewCountry() {
+		return recordLabelNewCountry;
+	}
+
+	public void setRecordLabelNewCountry(String recordLabelNewCountry) {
+		this.recordLabelNewCountry = recordLabelNewCountry;
 	}
 	
 }

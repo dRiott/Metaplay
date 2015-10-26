@@ -11,11 +11,9 @@
 
 <link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 <link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<%-- <link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" /> --%>
 
 <script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
 <script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
-<%-- <script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script> --%>
 
 </head>
 <body>
@@ -32,12 +30,28 @@
 
 
 			<div class="form-group">
-				<label for="location-city">Location City</label> <span>${location.city}</span>
+				<label for="location-city">City</label> <span>${location.city}</span>
 			</div>
+			
+			<c:choose>
+				<c:when test="${location.country.equals('United States')}">
+					<div class="form-group">
+						<label for="location-state">State</label> <span>${location.state}</span>
+					</div>
+					
+					<div class="form-group">
+						<label for="location-country">Country</label> <span>${location.country}</span>
+					</div>
+				</c:when>
+				
+				<c:otherwise>
+					<div class="form-group">
+						<label for="location-country">Country</label> <span>${location.newCountry}</span>
+					</div>
+				</c:otherwise>
+			</c:choose>
 
-			<div class="form-group">
-				<label for="location-state">Location State</label> <span>${location.state}</span>
-			</div>
+			
 		
 
 			<a href="<spring:url value="/location/add"/>" class="btn btn-default">Edit</a>

@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+
+$(document).ready(function () {
+	
+	for(var i = $("#artistsTable tr").length; i-=1;) {		
+		//grabs the more button, sets up click function
+		$("#containsBio"+i).next().children().first().click(function () {
+			$(this).parent().prev().children().first().show();
+			$(this).siblings().show();
+			$(this).hide();
+		});
+		
+		//grabs the less button, sets up click function
+		$("#containsBio"+i).next().children().last().click(function() {
+			$(this).parent().prev().children().first().hide();
+			$(this).siblings().show();
+			$(this).hide();
+		});
+	}
+	
+	
+//	$("tr").each(function() {
+////		  $this = $(this)
+////		  var value = $this.find("span.value").html();
+////		  var quantity = $this.find("input.quantity").val();
+//		  console.log("GET");
+//		});
+//	
+	
+}); //end document.ready
+

@@ -29,115 +29,118 @@
 		<h1>Create an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/album/save" var="thisFormURL" />                                 
-		<form:form action="${thisFormURL}" method="post" enctype="multipart/form-data" modelAttribute="createAlbumWrapper" onsubmit="fixNumberFormatException();">  
+		<form:form action="${thisFormURL}" method="post" enctype="multipart/form-data" modelAttribute="createAlbumWrapper" onsubmit="ensureVoidsAreZeroes();">  
 		<form:errors path="*" element="div" cssClass="errors"/>
         	<div class="form-group">
 				<div class="row">                                                                    
 					<div class="col-md-4">                                                         
-						<label for="albumName">* Name</label>                                
-						<form:input type="text" path="name" id="albumName" cssClass="form-control" cssErrorClass="has-error"/>          
+						<label for="albumName">* New Album</label>                                
+						<form:input type="text" path="name" id="albumName" cssClass="form-control" cssErrorClass="has-error" placeholder="Thriller"/>          
+					</div>  
+					
+					<div class="col-md-4">    
+						<label>...Or</label>                                                     
+						<form:select path="albumFromList" cssClass="selectpicker" id="albumListName" >
+							<form:options items="${albumOptions}" />
+						</form:select>					
 					</div>       
 				</div>		
 				
 				<div class="form-group" style="float:clear;"></div>
-				
-				<div class="row">                                                                    
-					<div class="col-md-4">                                                         
-						<label for="albumName">Or Update An Existing One</label>                                
-						<form:select path="albumFromList" cssClass="selectpicker" id="albumListName" >
-							<form:options items="${albumOptions}" />
-						</form:select>					</div>       
-				</div>		
-				<div class="form-group" style="float:clear;"></div>
 					
 			<!-- BEGIN Artist -->
 				<div class="row">
-					<div class="col-md-1">
+					<div class="col-md-2">
 						<label for="albumArtistName">Artist</label>
-						<form:select path="artistFromList" cssClass="selectpicker" id="albumArtistName" >
-							<form:options items="${artistOptions}" />
-						</form:select>
+						<div class="form-group">
+							<form:select path="artistFromList" cssClass="selectpicker" id="albumArtistName" >
+								<form:options items="${artistOptions}" />
+							</form:select>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group" style="float:clear;"></div>
-				
-				<div class="form-group" id="newAlbumArtistName" style="display:none;">
-					<hr/>
-					<label for="newAlbumArtistName" style="font-style:italic;">New Artist:</label>
-					<form:input cssClass="form-control" type="text" path="theNewArtist" id="newAlbumArtistNameInput" cssErrorClass="has-error" />
-				
-				<div class="form-group" style="float:clear;"></div>
-				
-					<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
-					<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
-					<hr/>
+					
+					<div class="col-md-4" id="newAlbumArtistName" style="display:none;">
+						<label for="newAlbumArtistName" style="font-style:italic;">New Artist:</label>
+						<form:input cssClass="form-control" type="text" path="theNewArtist" id="newAlbumArtistNameInput" cssErrorClass="has-error" placeholder="The Beach Boys"/>
+					</div>
+					
+					<div class="col-md-2" id="newAlbumArtistAddButton" style="display:none;">
+						<label for="newAlbumArtistButton" style="font-style:italic;">Or...</label>
+						<a href="<spring:url value="/artist/add"/>" class="btn btn-default">Go To Add Artist Page</a>
+					</div>
 				</div>
 			<!-- END Artist -->
 				
 			<!-- START RECORDLABEL -->
-				<div class="form-group">
-					<label for="recordLabelName">Record Label</label>
-					<form:select path="recordLabelFromList" cssClass="selectpicker" id="recordLabelName" >
-						<form:options items="${recordLabelOptions}" />
-					</form:select>
-					<div class="form-group" id="newRecordLabelName" style="display:none;">
-						<hr/>
-						<div class="row">
-							<div class="col-md-4">
-								<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
-								<form:input cssClass="form-control" type="text" path="theNewRecordLabel" id="newRecordLabelNameInput" cssErrorClass="has-error" />
-							</div>
+				<div class="row">
+					<hr id="recordLabelHr1" style="display:none;">
+					<div class="col-md-3">
+						<label for="recordLabelName">Record Label</label>
+						<div class="form-group">
+							<form:select path="recordLabelFromList" cssClass="selectpicker" id="recordLabelName" >
+								<form:options items="${recordLabelOptions}" />
+							</form:select>
 						</div>
+					</div>
+					
+					<div class="col-md-4" id="newRecordLabelName" style="display:none;">
+						<label for="newRecordLabelName" style="font-style:italic;">New Record Label:</label>
+						<form:input cssClass="form-control" type="text" path="theNewRecordLabel" 
+							id="newRecordLabelNameInput" cssErrorClass="has-error" placeholder="Young Turks"/>
+					</div>
+				</div>
 						
-						<div class="form-group" style="float:clear;"></div>
-						<div class="row">
-							<div class="col-md-4">
-								<label for="recordLabelCity"><em>Record Label: City</em></label>
-								<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
-							</div>
-							<div class="col-md-4">
-								<label for="recordLabelState"><em>Record Label: State</em></label>
-								<div class="form-group">
-								<form:select path="recordLabelState" cssClass="selectpicker" items="${recordLabelStateOptions}"
-									id="recordLabelState" />
-								</div>
-							</div>
-						</div>
-						<hr/>
-						<div class="form-group" style="float:clear;"></div>
-					</div>
-				</div>
-			<!-- END RECORDLABEL -->
-				
 				<div class="form-group" style="float:clear;"></div>
-				
-			<!-- ALBUM COVER -->	
-				 <div class="row">     
-					<div class="col-md-6">
-						<label for="albumCover">Album Cover</label><span style="padding-left: 10px;"></span><small>jpeg, jpg, png, or gif</small>
-							<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
+						
+				<div class="row" id="newRecordLabelLocation" style="display:none;">
+					<div class="col-md-4">
+						<label for="recordLabelCity"><em>Record Label: City</em></label>
+						<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" placeholder="Birmingham"/>
+					</div>
+					<div class="col-md-2" id="rlState">
+						<label for="recordLabelState"><em>Record Label: State</em></label>
+						<div class="form-group">
+						<form:select path="recordLabelState" cssClass="selectpicker" items="${recordLabelStateOptions}"
+							id="recordLabelState" />
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<label for="recordLabelCountry">Country</label>
+						<div class="form-group">
+						<form:select path="recordLabelCountry" cssClass="selectpicker" items="${recordLabelCountryOptions}" id="rlCountries" />
+						</div>
+					</div>
+					
+					<div class="col-md-4" id="rlCountry" style="display:none;">
+						<label for="newCountry"><em>* New Country:</em></label>
+						<form:input cssClass="form-control" path="recordLabelNewCountry" id="newCountryInput" cssErrorClass="has-error" />
 					</div>
 				</div>
-			<!-- END ALBUM COVER -->	
-			
+				<hr id="recordLabelHr2" style="display:none;">
+		<!-- END RECORDLABEL -->
+				
 				<div class="form-group" style="float:clear;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
-						<label for="albumReleaseDate">Release Date<span style="padding-left: 10px"></span><small>(e.g. 04-31-1990 or 4/22/1990)</small></label>
-						<form:input path="releaseDate" cssClass="form-control"
-							id="albumReleaseDate" />
+						<label for="albumCover">Album Cover<span style="padding-left:10px;"><small>jpg, png, gif</small></span></label>
+						<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
+					</div>
+				
+					<div class="col-md-3">
+						<label for="albumReleaseDate">Release Date</label>
+						<form:input path="releaseDate" cssClass="form-control" type="date" id="albumReleaseDate" />
 					</div>
 					
 					<div class="col-md-1">
 						<label for="albumLengthMinutes">*Minutes</label>
-						<form:input path="lengthMinutes" id="albumMinutes" class="boxes"  cssClass="form-control"/>
+						<form:input path="lengthMinutes" id="albumMinutes" class="albumLength"  cssClass="form-control" value=""/>
 					</div>
 	
 					<div class="col-md-1">
 						<label for="albumLengthSeconds">*Seconds</label>
-						<form:input path="lengthSeconds" id="albumSeconds" cssClass="form-control"/>
+						<form:input path="lengthSeconds" id="albumSeconds" class="albumLength" cssClass="form-control" value=""/>
 					</div>
 				</div>
 				
@@ -145,7 +148,7 @@
 				
 				<!--  BEGINNING TRACKS HERE -->
 				
-				<div class="row">			
+				<div class="row">
 					<div class="col-md-8">
 						<label for="albumTrack">Tracks: </label>
 					</div>
@@ -154,7 +157,7 @@
 				
 				<c:forEach begin="0" end="29" var="val" varStatus="valStatus">
 					<c:choose>
-						<c:when test="${val+1<=12}">
+						<c:when test="${val+1<=3}">
 							<div class="row" style="display:inline;" id="${val+1}">
 								<div class="col-md-4 showNextTrack">
 									<label for="trackNumber" >${val + 1}. </label>
@@ -162,15 +165,15 @@
 								</div>
 								<div class="col-md-1">
 									<label for="trackLengthMinutes">Minutes</label>
-									<form:input path="createTrackWrappers[${val}].lengthMinutes" id="minutes${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].lengthMinutes" id="minutes${val+1}" class="minutes" cssClass="form-control"/>
 								</div>	
 								<div class="col-md-1">
 									<label for="trackLengthSeconds">Seconds</label>
-									<form:input path="createTrackWrappers[${val}].lengthSeconds" id="seconds${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].lengthSeconds" id="seconds${val+1}" class="seconds" cssClass="form-control"/>
 								</div>
 								<div class="col-md-1">
 									<label for="trackBpm">BPM</label>
-									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" class="bpm" cssClass="form-control"/>
 								</div>
 								<div class="col-md-3">
 									<label for="trackBpm">MP3</label>
@@ -186,15 +189,15 @@
 								</div>
 								<div class="col-md-1">
 									<label for="trackLengthMinutes">Minutes</label>
-									<form:input path="createTrackWrappers[${val}].lengthMinutes" id="minutes${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].lengthMinutes" class="minutes" id="minutes${val+1}" cssClass="form-control"/>
 								</div>	
 								<div class="col-md-1">
 									<label for="trackLengthSeconds">Seconds</label>
-									<form:input path="createTrackWrappers[${val}].lengthSeconds" id="seconds${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].lengthSeconds" class="seconds" id="seconds${val+1}" cssClass="form-control"/>
 								</div>
 								<div class="col-md-1">
 									<label for="trackBpm">BPM</label>
-									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" cssClass="form-control"/>
+									<form:input path="createTrackWrappers[${val}].bpm" id="bpm${val+1}" class="bpm" cssClass="form-control"/>
 								</div>
 								<div class="col-md-3">
 									<label for="trackBpm">MP3</label>
@@ -222,7 +225,6 @@
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>	
 	
 	<script src="<spring:url value="/resources/js/albumAddShowHide.js"/>"></script>
-	<script type="text/javascript">getRidOfZeroes();</script>
 	
 </body>
 </html>

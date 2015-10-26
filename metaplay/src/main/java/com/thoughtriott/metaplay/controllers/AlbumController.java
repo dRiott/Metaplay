@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.entities.Location;
 import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import com.thoughtriott.metaplay.data.entities.Track;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
@@ -127,13 +128,34 @@ public class AlbumController extends AmazonService {
 		String recordLabelName = caw.getRecordLabelFromList();
 		String recordLabelCity = caw.getRecordLabelCity();
 		String recordLabelState = caw.getRecordLabelState();
+		String recordLabelCountry = caw.getRecordLabelCountry();
+		String recordLabelNewCountry = caw.getRecordLabelNewCountry();
+		
 		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName).size()>0) {
 			futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 		} else if(recordLabelName.equals("** New Record Label **")) {
-			String newRecordLabelName = caw.getTheNewRecordLabel();
-			RecordLabel rl = (RecordLabel) recordLabelRepository.saveAndFlush(
-				new RecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)));
-			futureAlbum.setRecordLabel(rl);
+			Location rlLocation = null;
+			
+			if(recordLabelCountry.equals("United States")) {
+				if(locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)!=null) {
+					System.out.println("Album Controller: locationService.findLocation() US city/state exists... setting.");
+					rlLocation = locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState);
+				} else {
+					//united states: new city/state combo
+					rlLocation = locationRepository.saveAndFlush(new Location(recordLabelCity, recordLabelState, recordLabelNewCountry));
+				}
+			} else {
+				//country isn't US, setting state to null
+				if(locationRepository.findLocationByCityAndCountry(recordLabelCity, recordLabelNewCountry)!=null) {
+					System.out.println("Album Controller: locationService.findLocation() NON-US city/country exists... setting.");
+					rlLocation = locationRepository.findLocationByCityAndCountry(recordLabelCity, recordLabelNewCountry);
+				} else {
+					//nons-US: new city/country combo
+					rlLocation = locationRepository.saveAndFlush(new Location(recordLabelCity, null, recordLabelNewCountry));
+				}
+			}
+
+			futureAlbum.setRecordLabel(recordLabelRepository.saveAndFlush(new RecordLabel(caw.getTheNewRecordLabel(), rlLocation)));
 		}
 		
 		System.out.println("AlbumController: final step - Creating the Album");
@@ -162,12 +184,18 @@ public class AlbumController extends AmazonService {
 	
 	@ModelAttribute(value="artistOptions")
 	public List<String> getArtists() {
-		return  artistRepository.findAllToListString();
+		List<String> artistOptions = artistRepository.findAllToListString();
+//		artistOptions.remove("** New Artist **");
+		return artistOptions;
 	}
 	
 	@ModelAttribute(value="albumOptions")
 	public List<String> getAlbums() {
-		return  albumRepository.findAllToListString();
+		List<String> albumOptions = albumRepository.findAllToListString();
+		albumOptions.remove("** New Album **");
+		albumOptions.remove("** Do Not Add Album Now **");
+		albumOptions.add(0, "** Update An Album **");
+		return albumOptions;
 	}
 	
 	@ModelAttribute(value="recordLabelOptions")

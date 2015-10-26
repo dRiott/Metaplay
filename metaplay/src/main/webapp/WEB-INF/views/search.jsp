@@ -14,6 +14,7 @@
 	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
 	<script src="<spring:url value="/resources/js/AJAXsearch.js"/>"></script>
+	<script src="<spring:url value="/resources/js/waitingAnimation.js"/>"></script>
 </head>
 <body>
 	

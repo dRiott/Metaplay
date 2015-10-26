@@ -50,25 +50,36 @@
 			
 			<div class="form-group">
 				<label for="singleArtistGenre">Genre</label>
-				<c:choose>
-					<c:when test="${artist.genre!=null}">
-						<span><a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a></span>
-					</c:when>
-					<c:otherwise>
-						<td>No genre assigned yet. They're probably Christian Death Metal, my best guess.</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${artist.genre!=null}">
+							<span><a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a></span>
+						</c:when>
+						<c:otherwise>
+							<span>No genre assigned yet. They're probably Christian Death Metal, my best guess.</span>
+						</c:otherwise>
+					</c:choose>
+				</div>	
 			</div>
 			<div class="form-group">
 				<label for="singleArtistLocation">Location</label>
-				<c:choose>
-					<c:when test="${artist.location!=null}">
-						<span><a href="<spring:url value="/browse/location/${artist.location.id}"/>">${artist.location.city}, ${artist.location.state}</a></span>
-					</c:when>
-					<c:otherwise>
-						<td>No location assigned yet.</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${artist.location!=null}">
+							<c:choose>
+								<c:when test="${artist.location.country.equals('United States')}">
+									<a href="<spring:url value="/browse/location/${artist.location.id}"/>">${artist.location.city}, ${artist.location.state}</a>
+								</c:when>
+								<c:otherwise>
+									<a href="<spring:url value="/browse/location/${artist.location.id}"/>">${artist.location.city}, ${artist.location.country}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+								No location assigned yet.
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="singleArtistMembers">Members</label> 
@@ -92,33 +103,36 @@
 			</div>
 			<div class="form-group">
 				<label for="singleArtistAlbums">Albums</label>
-				<c:choose>
-					<c:when test="${artist.albums.size()==0 }">
-						<c:out value="This artist has no albums. Hmm..." /><span style="padding-left: 6px;"></span>
-						<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
-					</c:when>
-					<c:otherwise>
-						<ul>
-							<c:forEach items="${artist.albums}" var="album">
-								<li>
-									<div class="form-group" >
-										<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px;height:auto;"
-										alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
-									</div>
-									<a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a>
-									<c:choose>
-										<c:when test="${album.releaseDate!=null}">
-											<span>(<fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/>)</span>
-										</c:when>
-										<c:otherwise>
-											<span>Unknown Date, Probably Midnight, Thursday, 1 January 1970, not counting leap seconds.</span>				
-										</c:otherwise>
-									</c:choose>
-								</li>
-							</c:forEach>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+							<c:when test="${artist.albums.size()==0 }">
+									<c:out value="This artist has no albums. Hmm..." /><span style="padding-left: 6px;"></span>
+									<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
+							</c:when>
+						
+						<c:otherwise>
+							<ul>
+								<c:forEach items="${artist.albums}" var="album">
+									<li>
+										<div class="form-group" >
+											<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px;height:auto;"
+											alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+										</div>
+										<a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a>
+										<c:choose>
+											<c:when test="${album.releaseDate!=null}">
+												<span>(<fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/>)</span>
+											</c:when>
+											<c:otherwise>
+												<span>Unknown Date, Probably Midnight, Thursday, 1 January 1970, not counting leap seconds.</span>				
+											</c:otherwise>
+										</c:choose>
+									</li>
+								</c:forEach>
+							</ul>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="singleArtistImage">Image</label>

@@ -33,7 +33,7 @@ $(document).ready(function () {
 			statesDiv.css("display", "inline");
 			newCountryName.css("display", "none");
 		} else {
-			newCountryName.css("display", "inline");				
+			newCountryName.css("display", "none");				
 		}
 	}); //end selectCountry.change()
 	
