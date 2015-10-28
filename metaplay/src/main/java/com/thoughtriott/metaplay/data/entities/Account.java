@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -54,6 +57,9 @@ public class Account extends MetaplayEntity {
 	@Lob
 	@Column(name="profile_picture")
 	private byte[] profilePicture;
+	
+	@Transient
+	private MultipartFile avatar;
 	
 	//--------------------------Getters & Setters--------------------------
 	public List<Role> getRoles() {
@@ -126,6 +132,14 @@ public class Account extends MetaplayEntity {
 
 	public void setProfilePicture(byte[] profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+
+	public MultipartFile getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(MultipartFile avatar) {
+		this.avatar = avatar;
 	}
 
 	//--------------------------Collection Adders and Removers--------------------------

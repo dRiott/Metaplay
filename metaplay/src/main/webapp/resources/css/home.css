@@ -1,3 +1,6 @@
+.container {
+	padding-left: 7%;
+}
 
 #container.1 {
 	color: snow;
@@ -51,3 +54,5 @@ body {
 audio {
 	background-color: #EEEEEE;
 }
+
+

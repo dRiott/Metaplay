@@ -6,7 +6,6 @@ $(document).ready(function () {
 	
 	//handles the browse_genres and browse_artists pages which have a table of textareas to show/hide
 	if($("#tableWithLongText").length != 0) {
-		console.log("found a table!");
 		for(var i = $("#tableWithLongText tr").length; i-=1;) {		
 			//grabs the more button, sets up click function
 			$("#containsBio"+i).next().children().first().click(function () {

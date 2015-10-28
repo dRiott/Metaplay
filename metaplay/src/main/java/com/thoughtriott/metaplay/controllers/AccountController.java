@@ -71,6 +71,7 @@ public class AccountController extends AmazonService {
 	
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
 	public String showProfile(@PathVariable Integer accountId, Model model, @AuthenticationPrincipal User activeUser) {
+		//checks account_id to see if they are trying to view a profile page that is not their own, throws them back to theirs.
 		int activeId = accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0).getId();
 		if(accountId != activeId) {
 			//need to throw an error here because a user tried to access a profile page that was not there own.
@@ -83,6 +84,18 @@ public class AccountController extends AmazonService {
 		model.addAttribute(account);
 		return "account_profile";
 		}
+	}
+	
+	@RequestMapping(value = "/changeavatar", method = RequestMethod.POST)
+	public String saveAvatar(@ModelAttribute Account acctWithAvatar, Model model, @AuthenticationPrincipal User activeUser) {
+		Account activeAccount = accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0);
+
+		if(acctWithAvatar.getAvatar()!=null) {
+			super.saveImage(acctWithAvatar.getAvatar(), PROFILEPICS, activeAccount.getAccountname());
+		}
+		
+		model.addAttribute("accountId", activeAccount.getId());
+		return "redirect:/account/{accountId}";
 	}
 
 	@RequestMapping("/accessDenied")

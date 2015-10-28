@@ -8,15 +8,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+		<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
 		<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
 		<script src="<spring:url value="/resources/js/404.js"/>"></script>
-		<script>	$(document).ready(addDrakes()); </script>
 		<title>404F41Lur</title>
 		<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 		<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
 	</head>
 	<body>
-		<div class="container" style="padding-left: 7%" id="errors">
+		<div class="container" id="errors">
 			<c:if test="${param.logout !=null}">
 				<div class="alert alert-success">
 					<strong>Thank you!</strong> Logged out successfully.
@@ -24,7 +24,7 @@
 			</c:if>
 		</div>
 
-		<div class="container" style="padding-left: 7%" id="main" style="position:absolute; top: 90px; left: 250px">
+		<div class="container" id="main" style="position:absolute; top: 90px; left: 250px">
 			<h1 id="main-h1">Your life has taken a strange turn...</h1>
 			<small id="main-small">Be careful what you ask for.</small>
 		</div>
@@ -35,8 +35,6 @@
 		</div>
 
 		<div id="drakeStatus" style="position:absolute; top: 90px; left: 250px"></div>	
-
 	
-	<script>$(window).load(addEventListeners());</script>
 	</body>
 </html>

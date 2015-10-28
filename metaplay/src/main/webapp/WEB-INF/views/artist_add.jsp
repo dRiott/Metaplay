@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	
 	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+	<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
 	<script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script>
 </head>
@@ -23,9 +24,9 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div class="container" style="padding-left: 7%" style="padding-left: 8%">
+	<div class="container">
 
-		<h1><a>Artist</a><span style="padding-left: 10px;"></span><small><small>The * indicates a required field.</small></small></h1>
+		<h1>Add an Artist<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/artist/save" var="thisURL" />
 		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data" modelAttribute="createArtistWrapper">
@@ -212,7 +213,7 @@
 						</div>
 						<div class="col-md-2">
 							<label for="albumNumTracks" style="font-style:italic;"><small>Total Tracks</small></label>
-							<form:input path="albumNumTracks" cssClass="form-control" id="album-numTracks" min="0"/>
+							<form:input path="albumNumTracks" cssClass="form-control" id="album-numTracks" min="0" type="number"/>
 						</div>
 						<div class="col-md-3">
 							<label for="newAlbumReleaseDate" style="font-style:italic;"><small>Release Date</small></label>

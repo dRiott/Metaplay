@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.MetaplayEntity;
@@ -102,11 +104,11 @@ public class RestSearchController extends RepositoryKeeper {
 			}
 			globalCounter++;
 		} else {
-			System.out.println("Hmm, global counter was 0.");
+			System.out.println("Hmm, global counter wasn't 0, the repo has already been initialized.");
 		}
 		System.out.println("THE SIZE OF THE ALL ENTITIES LIST: " + allEntitiesList.size());
 	}
-
+	
 }
 
 // ------------------------------ Notes / Old Code ------------------------------

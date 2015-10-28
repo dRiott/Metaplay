@@ -6,6 +6,7 @@ $(document).ready(function () {
 	
 	var artistSearch = $("#searchArtists");
 	var searchAll = $("#searchAll");
+	;
 	
 	artistSearch.keydown(function () {
 //		console.log("keydown");
@@ -13,11 +14,9 @@ $(document).ready(function () {
 	});
 	
 	searchAll.keydown(function () {
-		if($("#allResultsTable tr").length==0 && $("#searchAll").val()>0) {
+		if($("#allResultsTable tr").length==0) {
 			console.log("waiting");
 			$(document.body).css({'cursor' : 'wait'});
-		} else {
-			$(document.body).css({'cursor' : 'default'});
 		}
 	});
 	

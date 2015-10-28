@@ -13,7 +13,7 @@ $(document).ready(function () {
 					   ];
 	
 	var randomNum = Math.floor(Math.random() * backgrounds.length);
-	$('body').css('background-image', 'url(http://localhost:8080/metaplay/resources/img/' + backgrounds[randomNum] + ')');
+	$('body').css('background-image', 'url(../resources/img/' + backgrounds[randomNum] + ')');
 	
 	//focus the cursor to the first empty form input
 	var input = $('form').find('input[type=text],textarea,select').filter(':visible:first');

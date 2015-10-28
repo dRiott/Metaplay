@@ -87,5 +87,9 @@ $(document).ready(function () {
 	
 		$("#noMoreDrake").click(makeDrakeCry);
 		
-			
+		
+		$(document.body).css('background-image', 'url(../resources/img/draketennis.gif');
+		$(document.body).css('background-repeat', 'repeat');
+		
+		
 });
