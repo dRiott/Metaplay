@@ -11,11 +11,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "playlist")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"accounts"})
 public class Playlist extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
@@ -40,11 +43,9 @@ public class Playlist extends MetaplayEntity {
 	@JoinTable(name="track_playlist", 
 	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
-	@JsonManagedReference
 	private List<Track> tracks;
 	
 	@ManyToMany(mappedBy = "playlists")
-	@JsonBackReference
 	private List<Account> accounts;
 	
 	private String description;
@@ -134,42 +135,53 @@ public class Playlist extends MetaplayEntity {
 //--------------------------Collection Printers--------------------------
 
 	public String getTracksToString () {
-		if(getTracks()!=null) {
-		Iterator<Track> it = getTracks().iterator();
-		String tracksString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Track currentTrack = it.next();
-			if(tracksString.length() > 1) {
-			tracksString = tracksString + ", " + currentTrack.getName();
-			} else if (!it.hasNext()) {
-				tracksString = tracksString + ", " + currentTrack.getName() + "}";
-			} else {
-				tracksString = "Tracks: {" + currentTrack.getName();
-			}
-		}
-		return tracksString;
-		} return "No tracks.";
+		if(tracks!=null) {
+			Iterator<Track> it = tracks.iterator();
+			String tracksString = "";
+			int size = tracks.size();
+			while(it.hasNext()) {
+				Track currentTrack = it.next();
+				if (size==0) {
+					tracksString = "No tracks.";
+				} else if(size==1) {
+					tracksString = "{" + currentTrack.getName() + "}";
+				} else {
+					if(tracksString.length() == 0) {
+						tracksString = "{" + currentTrack.getName();
+					} else if (!it.hasNext()) {
+						tracksString = tracksString + ", " + currentTrack.getName() + "}";
+					} else {
+						tracksString = tracksString + ", " + currentTrack.getName();
+					}
+				}
+			} return tracksString;
+		} return "Tracks list was null.";
 	}
 	
 	public String getAccountsToString () {
-		if(getAccounts()!=null) {
-		Iterator<Account> it = getAccounts().iterator();
-		String accountsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Account currentAccount = it.next();
-			if(accountsString.length() > 1) {
-			accountsString = accountsString + ", " + currentAccount.getAccountname();
-			} else if (!it.hasNext()) {
-				accountsString = accountsString + ", " + currentAccount.getAccountname() + "}";
-			} else {
-				accountsString = "Accounts: {" + currentAccount.getAccountname();
-			}
-		}
-		return accountsString;
-		} return "No accounts";
+		if(accounts!=null) {
+			Iterator<Account> it = accounts.iterator();
+			String accountsString = "";
+			int size = accounts.size();
+			while(it.hasNext()) {
+				Account currentAccount = it.next();
+				if (size==0) {
+					accountsString = "No accounts.";
+				} else if(size==1) {
+					accountsString = "{" + currentAccount.getName() + "}";
+				} else {
+					if(accountsString.length() == 0) {
+						accountsString = "{" + currentAccount.getName();
+					} else if (!it.hasNext()) {
+						accountsString = accountsString + ", " + currentAccount.getName() + "}";
+					} else {
+						accountsString = accountsString + ", " + currentAccount.getName();
+					}
+				}
+			} return accountsString;
+		} return "Accounts list was null.";
 	}
+	
 //--------------------------toString()--------------------------
 	
 	@Override

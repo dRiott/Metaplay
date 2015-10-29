@@ -8,10 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "genre")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"description"})
 public class Genre extends MetaplayEntity {
 
 // --------------------------Constructors--------------------------
@@ -82,22 +87,27 @@ public class Genre extends MetaplayEntity {
 //--------------------------Collection Printers--------------------------
 
 	public String getArtistsToString () {
-		if(getArtists()!=null) {
-		Iterator<Artist> it = getArtists().iterator();
-		String artistsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Artist currentArtist = it.next();
-			if(artistsString.length() > 1) {
-			artistsString = artistsString + ", " + currentArtist.getName();
-			} else if (!it.hasNext()) {
-				artistsString = artistsString + ", " + currentArtist.getName() + "}";
-			} else {
-				artistsString = "Artists, what!?: {" + currentArtist.getName();
-			}
-		}
-		return artistsString;
-		} return "No artists.";
+		if(artists!=null) {
+			Iterator<Artist> it = artists.iterator();
+			String artistsString = "";
+			int size = artists.size();
+			while(it.hasNext()) {
+				Artist currentArtist = it.next();
+				if (size==0) {
+					artistsString = "No artists.";
+				} else if(size==1) {
+					artistsString = "{" + currentArtist.getName() + "}";
+				} else {
+					if(artistsString.length() == 0) {
+						artistsString = "{" + currentArtist.getName();
+					} else if (!it.hasNext()) {
+						artistsString = artistsString + ", " + currentArtist.getName() + "}";
+					} else {
+						artistsString = artistsString + ", " + currentArtist.getName();
+					}
+				}
+			} return artistsString;
+		} return "Artists list was null.";
 	}
 
 //--------------------------toString()--------------------------

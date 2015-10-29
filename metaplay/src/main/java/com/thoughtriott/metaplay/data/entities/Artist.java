@@ -16,10 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "artist")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"artistImage", "biography"})
 public class Artist extends MetaplayEntity {
 	
 	// --------------------------Constructors--------------------------
@@ -52,14 +57,14 @@ public class Artist extends MetaplayEntity {
 	@JsonManagedReference
 	private List<Album> albums = new LinkedList<Album>();
 	
-	@Column(name="entity_type")
-	private String entityType = "artist";
-	
 	private String biography;
 	
 	@Lob
 	@Column(name="artist_image")
 	private byte[] artistImage;
+	
+	@Column(name="entity_type")
+	private String entityType = "artist";
 
 	//--------------------------Getters & Setters--------------------------	
 	public String getEntityType() {
@@ -176,41 +181,51 @@ public class Artist extends MetaplayEntity {
 	
 	//--------------------------Collection Printers--------------------------
 	public String getMembersToString () {
-		if(getMembers()!=null) {
-		Iterator<Member> it = getMembers().iterator();
-		String membersString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Member currentMember = it.next();
-			if(membersString.length() > 1) {
-			membersString = membersString + ", " + currentMember.getFirstName() + " " + currentMember.getLastName();
-			} else if (!it.hasNext()) {
-				membersString = membersString + ", " + currentMember.getFirstName() + " " + currentMember.getLastName() + "}";
-			} else {
-				membersString = "Members: {" + currentMember.getFirstName() + " " + currentMember.getLastName();
-			}
-		}
-		return membersString;
-		} return "No members.";
+		if(members!=null) {
+			Iterator<Member> it = members.iterator();
+			String membersString = "";
+			int size = members.size();
+			while(it.hasNext()) {
+				Member currentMember = it.next();
+				if (size==0) {
+					membersString = "No members.";
+				} else if(size==1) {
+					membersString = "{" + currentMember.getName() + "}";
+				} else {
+					if(membersString.length() == 0) {
+						membersString = "{" + currentMember.getName();
+					} else if (!it.hasNext()) {
+						membersString = membersString + ", " + currentMember.getName() + "}";
+					} else {
+						membersString = membersString + ", " + currentMember.getName();
+					}
+				}
+			} return membersString;
+		} return "Members list was null.";
 	}
-
+	
 	public String getAlbumsToString () {
-		if(getAlbums()!=null) {
-		Iterator<Album> it = getAlbums().iterator();
-		String albumsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Album currentAlbum = it.next();
-			if(albumsString.length() > 1) {
-				albumsString = albumsString + ", " + currentAlbum.getName();
-			} else if (!it.hasNext()) {
-				albumsString = albumsString + ", " + currentAlbum.getName() + "}";
-			} else {
-				albumsString = "Albums: {" + currentAlbum.getName();
-			}
-		}
-		return albumsString; 
-		} return "No albums";
+		if(albums!=null) {
+			Iterator<Album> it = albums.iterator();
+			String albumsString = "";
+			int size = albums.size();
+			while(it.hasNext()) {
+				Album currentAlbum = it.next();
+				if (size==0) {
+					albumsString = "No albums.";
+				} else if(size==1) {
+					albumsString = "{" + currentAlbum.getName() + "}";
+				} else {
+					if(albumsString.length() == 0) {
+						albumsString = "{" + currentAlbum.getName();
+					} else if (!it.hasNext()) {
+						albumsString = albumsString + ", " + currentAlbum.getName() + "}";
+					} else {
+						albumsString = albumsString + ", " + currentAlbum.getName();
+					}
+				}
+			} return albumsString;
+		} return "Albums list was null.";
 	}
 	
 	public String getGenreToString () {

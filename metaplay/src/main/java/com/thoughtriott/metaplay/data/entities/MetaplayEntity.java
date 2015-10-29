@@ -32,4 +32,5 @@ public abstract class MetaplayEntity {
 		this.name = name;
 	}
 	
+	
 }

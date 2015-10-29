@@ -15,10 +15,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "album")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"albumCover"})
 public class Album extends MetaplayEntity {
 
 	// --------------------------Fields--------------------------
@@ -175,26 +180,31 @@ public class Album extends MetaplayEntity {
 	}
 
 	// ----------------Collection Printers----------------
-	public String getTracksToString() {
-		if (getTracks() != null) {
-			Iterator<Track> it = getTracks().iterator();
+	
+	public String getTracksToString () {
+		if(tracks!=null) {
+			Iterator<Track> it = tracks.iterator();
 			String tracksString = "";
-			while (it.hasNext()) {
-				// if-else prevents ", " from being appended the first time, appends } on the final time.
+			int size = tracks.size();
+			while(it.hasNext()) {
 				Track currentTrack = it.next();
-				if (tracksString.length() > 1) {
-					tracksString = tracksString + ", " + currentTrack.getName();
-				} else if (!it.hasNext()) {
-					tracksString = tracksString + ", " + currentTrack.getName() + "}";
+				if (size==0) {
+					tracksString = "No tracks.";
+				} else if(size==1) {
+					tracksString = "{" + currentTrack.getName() + "}";
 				} else {
-					tracksString = "Tracks: {" + currentTrack.getName();
+					if(tracksString.length() == 0) {
+						tracksString = "{" + currentTrack.getName();
+					} else if (!it.hasNext()) {
+						tracksString = tracksString + ", " + currentTrack.getName() + "}";
+					} else {
+						tracksString = tracksString + ", " + currentTrack.getName();
+					}
 				}
-			}
-			return tracksString;
-		}
-		return "No tracks";
+			} return tracksString;
+		} return "Tracks list was null.";
 	}
-
+	
 	public String getArtistToString() {
 		if (artist != null) {
 			return artist.getName();

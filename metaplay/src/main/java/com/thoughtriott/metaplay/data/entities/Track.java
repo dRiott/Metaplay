@@ -13,9 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "track")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"playlists", "audioFile", "lyrics"})
 public class Track extends MetaplayEntity {
 	
 // --------------------------Constructors--------------------------
@@ -43,7 +48,6 @@ public class Track extends MetaplayEntity {
 	private Album album;
 	
 	@ManyToMany(mappedBy="tracks", cascade = CascadeType.ALL)
-	@JsonBackReference
 	private Collection<Playlist> playlists;
 	
 	@Column(name="entity_type")
@@ -190,30 +194,36 @@ public class Track extends MetaplayEntity {
 //--------------------------Collection Printers--------------------------
 
 	public String getPlaylistsToString () {
-		if(getPlaylists()!=null) {
-		Iterator<Playlist> it = getPlaylists().iterator();
-		String playlistsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Playlist currentPlaylist = it.next();
-			if(playlistsString.length() > 1) {
-			playlistsString = playlistsString + ", " + currentPlaylist.getName();
-			} else if (!it.hasNext()) {
-				playlistsString = playlistsString + ", " + currentPlaylist.getName() + "}";
-			} else {
-				playlistsString = "Playlists: {" + currentPlaylist.getName();
-			}
-		}
-		return playlistsString;
-		} return "No playlists.";
+		if(playlists!=null) {
+			Iterator<Playlist> it = playlists.iterator();
+			String playlistsString = "";
+			int size = playlists.size();
+			while(it.hasNext()) {
+				Playlist currentPlaylist = it.next();
+				if (size==0) {
+					playlistsString = "no playlists.";
+				} else if(size==1) {
+					playlistsString = "{" + currentPlaylist.getName() + "}";
+				} else {
+					if(playlistsString.length() == 0) {
+						playlistsString = "{" + currentPlaylist.getName();
+					} else if (!it.hasNext()) {
+						playlistsString = playlistsString + ", " + currentPlaylist.getName() + "}";
+					} else {
+						playlistsString = playlistsString + ", " + currentPlaylist.getName();
+					}
+				}
+			} return playlistsString;
+		} return "Playlist list was null.";
 	}
-
+	
 	public String getAlbumToString () {
 		if(album!=null) {
 			return album.getName();
 		}
 		return "Album is null.";
 	}
+	
 	
 	
 //--------------------------toString()--------------------------

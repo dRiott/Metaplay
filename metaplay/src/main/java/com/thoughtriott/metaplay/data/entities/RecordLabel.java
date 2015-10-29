@@ -11,10 +11,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "recordlabel")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"description"})
 public class RecordLabel extends MetaplayEntity {
 	
 	
@@ -98,22 +103,27 @@ public class RecordLabel extends MetaplayEntity {
 //--------------------------Collection Printers--------------------------
 
 	public String getAlbumsToString () {
-		if(getAlbums()!=null) {
-		Iterator<Album> it = getAlbums().iterator();
-		String artistsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Album currentAlbum = it.next();
-			if(artistsString.length() > 1) {
-			artistsString = artistsString + ", " + currentAlbum.getName();
-			} else if (!it.hasNext()) {
-				artistsString = artistsString + ", " + currentAlbum.getName() + "}";
-			} else {
-				artistsString = "Artists: {" + currentAlbum.getName();
-			}
-		}
-		return artistsString;
-		} return "No artists.";
+		if(albums!=null) {
+			Iterator<Album> it = albums.iterator();
+			String albumsString = "";
+			int size = albums.size();
+			while(it.hasNext()) {
+				Album currentAlbum = it.next();
+				if (size==0) {
+					albumsString = "No albums.";
+				} else if(size==1) {
+					albumsString = "{" + currentAlbum.getName() + "}";
+				} else {
+					if(albumsString.length() == 0) {
+						albumsString = "{" + currentAlbum.getName();
+					} else if (!it.hasNext()) {
+						albumsString = albumsString + ", " + currentAlbum.getName() + "}";
+					} else {
+						albumsString = albumsString + ", " + currentAlbum.getName();
+					}
+				}
+			} return albumsString;
+		} return "Albums list was null.";
 	}
 	
 	public String getLocationToString () {

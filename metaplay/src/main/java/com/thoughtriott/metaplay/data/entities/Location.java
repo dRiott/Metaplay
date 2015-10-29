@@ -11,10 +11,15 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "location")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties({"newCountry"})
 public class Location extends MetaplayEntity {
 	
 	// --------------------------Constructors--------------------------
@@ -36,7 +41,7 @@ public class Location extends MetaplayEntity {
 	@NotNull
 	@Size(min=3, max=40)
 	private String city;
-	@NotNull
+
 	@Size(min=3, max=40)
 	private String state;
 
@@ -154,44 +159,52 @@ public class Location extends MetaplayEntity {
 	
 	//--------------------------Collection Printers--------------------------
 	public String getArtistsToString () {
-		if(getArtists()!=null) {
-		Iterator<Artist> it = getArtists().iterator();
-		String artistsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Artist currentArtist = it.next();
-			if(artistsString.length() > 1) {
-			artistsString = artistsString + ", " + currentArtist.getName();
-			} else if (!it.hasNext()) {
-				artistsString = artistsString + ", " + currentArtist.getName() + "}";
-			} else {
-				artistsString = "Artists: {" + currentArtist.getName();
-			}
-		}
-		return artistsString;
-		}
-		return "No artists.";
-	}	
+		if(artists!=null) {
+			Iterator<Artist> it = artists.iterator();
+			String artistsString = "";
+			int size = artists.size();
+			while(it.hasNext()) {
+				Artist currentArtist = it.next();
+				if (size==0) {
+					artistsString = "No artists.";
+				} else if(size==1) {
+					artistsString = "{" + currentArtist.getName() + "}";
+				} else {
+					if(artistsString.length() == 0) {
+						artistsString = "{" + currentArtist.getName();
+					} else if (!it.hasNext()) {
+						artistsString = artistsString + ", " + currentArtist.getName() + "}";
+					} else {
+						artistsString = artistsString + ", " + currentArtist.getName();
+					}
+				}
+			} return artistsString;
+		} return "Artists list was null.";
+	}
 	
 	public String getRecordLabelsToString () {
-		if(getRecordLabels()!=null) {
-		Iterator<RecordLabel> it = getRecordLabels().iterator();
-		String recordLabelsString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			RecordLabel currentRecordLabel = it.next();
-			if(recordLabelsString.length() > 1) {
-				recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName();
-			} else if (!it.hasNext()) {
-				recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName() + "}";
-			} else {
-				recordLabelsString = "Record Labels: {" + currentRecordLabel.getName();
-			}
-		}
-		return recordLabelsString;
-		}
-		return "No record labels.";
-	}	
+		if(recordLabels!=null) {
+			Iterator<RecordLabel> it = recordLabels.iterator();
+			String recordLabelsString = "";
+			int size = recordLabels.size();
+			while(it.hasNext()) {
+				RecordLabel currentRecordLabel = it.next();
+				if (size==0) {
+					recordLabelsString = "No record labels.";
+				} else if(size==1) {
+					recordLabelsString = "{" + currentRecordLabel.getName() + "}";
+				} else {
+					if(recordLabelsString.length() == 0) {
+						recordLabelsString = "{" + currentRecordLabel.getName();
+					} else if (!it.hasNext()) {
+						recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName() + "}";
+					} else {
+						recordLabelsString = recordLabelsString + ", " + currentRecordLabel.getName();
+					}
+				}
+			} return recordLabelsString;
+		} return "Record Label list was null.";
+	}
 	
 	// --------------------------toString()--------------------------
 	@Override

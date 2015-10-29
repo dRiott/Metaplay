@@ -17,10 +17,11 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "account")
+@JsonIgnoreProperties({"password", "enabled", "profilePicture", "avatar"})
 public class Account extends MetaplayEntity {
 
 	// --------------------------Constructors--------------------------
@@ -32,19 +33,20 @@ public class Account extends MetaplayEntity {
 	@JoinTable(name="account_role", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
-	@JsonManagedReference
 	private List<Role> roles;
 
 	@ManyToMany
 	@JoinTable(name="playlist_account", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
-	@JsonManagedReference
 	private List<Playlist> playlists;
 	
 	private String accountname;
+	
 	private String password;
+
 	private String email;
+
 	private boolean enabled;
 
 	@Column(name="entity_type")

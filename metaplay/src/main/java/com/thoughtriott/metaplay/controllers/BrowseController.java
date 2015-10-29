@@ -102,6 +102,7 @@ public class BrowseController extends RepositoryKeeper {
 	
 	@RequestMapping(value="member/{memberId}")
 	public String findMember(Model model, @PathVariable("memberId") int memberId) {
+		System.out.println(memberRepository.getOne(memberId));
 		model.addAttribute("member", memberRepository.getOne(memberId));
 		return "single_member";
 	}
