@@ -10,11 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "track")
@@ -25,9 +23,9 @@ public class Track extends MetaplayEntity {
 	}
 	
 // --------------------------Fields--------------------------
-	@OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private Collection<Playlist_Track> playlistTracks;
+//	@OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
+//	@JsonManagedReference
+//	private Collection<Playlist_Track> playlistTracks;
 
 	@Column(name="length_seconds")
 	private int length;
@@ -107,13 +105,13 @@ public class Track extends MetaplayEntity {
 		this.trackNumber = trackNumber;
 	}
 	
-	public Collection<Playlist_Track> getPlaylistTracks() {
-		return playlistTracks;
-	}
-
-	public void setPlaylistTracks(Collection<Playlist_Track> playlistTracks) {
-		this.playlistTracks = playlistTracks;
-	}
+//	public Collection<Playlist_Track> getPlaylistTracks() {
+//		return playlistTracks;
+//	}
+//
+//	public void setPlaylistTracks(Collection<Playlist_Track> playlistTracks) {
+//		this.playlistTracks = playlistTracks;
+//	}
 
 	public Album getAlbum() {
 		return album;
@@ -125,6 +123,10 @@ public class Track extends MetaplayEntity {
 
 	public Collection<Playlist> getPlaylists() {
 		return playlists;
+	}
+	
+	public void setPlaylists(Collection<Playlist> playlists) {
+		this.playlists = playlists;
 	}
 	
 	public byte[] getAudioFile() {
@@ -139,27 +141,27 @@ public class Track extends MetaplayEntity {
 	//change the order of a track in a given playlist
 	public void setTrackOrderInPlaylist(Playlist playlist, int trackNumber) {
 		
-		Iterator<Playlist_Track> trackIt = this.getPlaylistTracks().iterator();
-			while(trackIt.hasNext()) {
-				Playlist_Track pt = trackIt.next();
-				if(pt.getPlaylist() == playlist){
-					pt.setTrackNumber(trackNumber);
-				} else {
-					System.out.println("No playlist by that name was found.");
-				}
-			}
+//		Iterator<Playlist_Track> trackIt = this.getPlaylistTracks().iterator();
+//			while(trackIt.hasNext()) {
+//				Playlist_Track pt = trackIt.next();
+//				if(pt.getPlaylist() == playlist){
+//					pt.setTrackNumber(trackNumber);
+//				} else {
+//					System.out.println("No playlist by that name was found.");
+//				}
+//			}
 			
-			Iterator<Playlist_Track> playlistIt = playlist.getPlaylistTracks().iterator();
-			while(playlistIt.hasNext()) {
-				Playlist_Track pt = playlistIt.next();
-				if(pt.getPlaylist() == playlist) {
-					if(pt.getTrackNumber() >= trackNumber && pt.getTrack()!=this) {
-						pt.setTrackNumber(trackNumber + 1);
-					}
-				} else {
-					System.out.println("No playlist by that name was found.");
-				}
-			}
+//			Iterator<Playlist_Track> playlistIt = playlist.getPlaylistTracks().iterator();
+//			while(playlistIt.hasNext()) {
+//				Playlist_Track pt = playlistIt.next();
+//				if(pt.getPlaylist() == playlist) {
+//					if(pt.getTrackNumber() >= trackNumber && pt.getTrack()!=this) {
+//						pt.setTrackNumber(trackNumber + 1);
+//					}
+//				} else {
+//					System.out.println("No playlist by that name was found.");
+//				}
+//			}
 			
 		System.out.println("Successfully updated track order. Track: " + this.getName() + " is now position #" 
 				+ trackNumber + " in the playlist \"" + playlist.getName() + "\".");
@@ -168,22 +170,22 @@ public class Track extends MetaplayEntity {
 
 //--------------------------Collection Adders and Removers--------------------------
 	
-	//adds a Playlist_Track to Collection<Playlist_Track>
-	public void addPlaylist(Playlist playlist, int trackNumber) {
-		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(playlist)) {
-			getPlaylistTracks().add(new Playlist_Track(this, playlist, trackNumber));
-		}
-	}
-		
-	// removes a Member from Collection<Member>, setting its Artist_Member to null.
-	public void removePlaylist(Playlist playlist) {
-		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(playlist)) {
-			getPlaylistTracks().remove(playlist);
-		}
-		if (playlist.getTracks().contains(this)) {
-			playlist.removeTrack(this);
-		}
-	}
+//	//adds a Playlist_Track to Collection<Playlist_Track>
+//	public void addPlaylist(Playlist playlist, int trackNumber) {
+//		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(playlist)) {
+//			getPlaylistTracks().add(new Playlist_Track(this, playlist, trackNumber));
+//		}
+//	}
+
+//	// removes a Member from Collection<Member>, setting its Artist_Member to null.
+//	public void removePlaylist(Playlist playlist) {
+//		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(playlist)) {
+//			getPlaylistTracks().remove(playlist);
+//		}
+//		if (playlist.getTracks().contains(this)) {
+//			playlist.removeTrack(this);
+//		}
+//	}
 
 //--------------------------Collection Printers--------------------------
 
@@ -206,51 +208,51 @@ public class Track extends MetaplayEntity {
 		} return "No playlists.";
 	}
 
-	public void setPlaylists(Collection<Playlist> playlists) {
-		this.playlists = playlists;
-	}
-	
-	public String getPlaylistTracksToString () {
-		if(getPlaylistTracks()!=null) {
-		Iterator<Playlist_Track> it = getPlaylistTracks().iterator();
-		
-		String playlistTracksString = "";
-		while(it.hasNext()) {
-			//if-else prevents ", " from being appended the first time, appends } on the final time.
-			Playlist_Track currentPlaylistTrack = it.next();
-			if(playlistTracksString.length() > 1) {
-			playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
-					+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
-					currentPlaylistTrack.getTrackNumber();
-			} else if (!it.hasNext()) {
-				playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
-						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
-						currentPlaylistTrack.getTrackNumber() + "}";
-			} else {
-				playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
-						+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
-						currentPlaylistTrack.getTrackNumber();
-			}
-		}
-		return playlistTracksString;
-		} else {return null;}
-	}	
-	
 	public String getAlbumToString () {
 		if(album!=null) {
-			return album.toString();
+			return album.getName();
 		}
 		return "Album is null.";
 	}
+	
 	
 //--------------------------toString()--------------------------
 
 	//Tracks and Playlists: @ManyToMany. B/c StackOverflowError --> Altered toString(): playlists, playlistTracks, album.getName()
 	@Override
 	public String toString() {
-		return "Track [id=" + id + ", playlistTracks=" + getPlaylistTracksToString() + ", name=" + name + ", length=" + length
+		return "Track [id=" + id + ", name=" + name + ", length=" + length
 				+ ", lyrics=" + lyrics + ", bpm=" + bpm + ", trackNumber=" + trackNumber + ", album=" + getAlbumToString()
 				+ ", playlists=" + getPlaylistsToString() + "]";
 	}
 	
 }
+
+
+//--------------------------Notes / Old Code--------------------------
+
+//public String getPlaylistTracksToString () {
+//if(getPlaylistTracks()!=null) {
+//Iterator<Playlist_Track> it = getPlaylistTracks().iterator();
+//
+//String playlistTracksString = "";
+//while(it.hasNext()) {
+//	//if-else prevents ", " from being appended the first time, appends } on the final time.
+//	Playlist_Track currentPlaylistTrack = it.next();
+//	if(playlistTracksString.length() > 1) {
+//	playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+//			+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+//			currentPlaylistTrack.getTrackNumber();
+//	} else if (!it.hasNext()) {
+//		playlistTracksString = playlistTracksString + ", " + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+//				+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+//				currentPlaylistTrack.getTrackNumber() + "}";
+//	} else {
+//		playlistTracksString = "Playlist_Tracks: {" + "Playlist: " + currentPlaylistTrack.getPlaylist().getName()
+//				+ ", Track: " + currentPlaylistTrack.getTrack().getName() + ", Track Number In Playlist: " +
+//				currentPlaylistTrack.getTrackNumber();
+//	}
+//}
+//return playlistTracksString;
+//} else {return null;}
+//}	

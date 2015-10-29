@@ -1,8 +1,13 @@
 package com.thoughtriott.metaplay.controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,14 +27,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Playlist;
+import com.thoughtriott.metaplay.data.entities.Playlist_Track;
 import com.thoughtriott.metaplay.data.wrappers.CreatePlaylistWrapper;
 import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
-
 
 @Controller
 @RequestMapping("/playlist")
 public class PlaylistController extends RepositoryKeeper {
-
+	
+	@PersistenceContext
+	EntityManager eman;
+	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addPlaylist(Model model){
 		
@@ -43,21 +51,50 @@ public class PlaylistController extends RepositoryKeeper {
 		return "playlist_review";
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public String savePlaylist(@RequestBody ObjectNode[] tracks, @AuthenticationPrincipal User activeUser){
+	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String savePlaylist(@RequestBody ObjectNode[] playlistInfo, @AuthenticationPrincipal User activeUser){
+		System.out.println("1. Tracks length: " + playlistInfo.length);
 		
-		Account activeAccount = accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0);
-
+		String playlistName = "";
+		String playlistDescription = "";
+		List<Integer> accountIds = new ArrayList<Integer>();
+		SortedMap<Integer, Integer> trackIds = new TreeMap<Integer, Integer>();
 		
-		System.out.println("in the right controller method...");
-		System.out.println("Tracks length: " + tracks.length);
-		
-		for (ObjectNode track : tracks) {
-			System.out.println(track);
-			int trackId = track.get("trackId").asInt();
-			int trackOrderNum = track.get("trackNumber").asInt();
-			System.out.println("Track id: " + trackId + ", Track Number: " + trackOrderNum);
+		//iterate throught the json object and add the info to java variables: playlistName, playlistDescription, accountIds, trackIds
+		for (ObjectNode info : playlistInfo) {
+			System.out.println("Printing the info: " + info);
+			
+			if(info.has("name")) {
+				playlistName = info.get("name").asText();
+				playlistDescription = info.get("description").asText();
+			} else if(info.has("trackId")){
+				trackIds.put(info.get("trackId").asInt(), info.get("trackNumber").asInt());
+			} else if (info.has("id")) {
+				accountIds.add(info.get("id").asInt());
+			}
 		}
+		
+		//creating a new playlist
+		Playlist savedPlaylist = playlistRepository.saveAndFlush(new Playlist(playlistName, playlistDescription));
+		
+		if(trackIds.size() > 0) {
+			for (Entry<Integer, Integer> entry : trackIds.entrySet()) {
+				playlistTrackRepository.saveAndFlush(new Playlist_Track(entry.getKey(), savedPlaylist.getId(), entry.getValue()));
+			}
+		}
+		
+		// adding current logged in account to the playlist.
+		Account activeAccount = accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0);
+		accountRepository.save(activeAccount.addPlaylist(savedPlaylist));
+		
+		//adding the selected friend accounts to the shared playlist.
+		if(accountIds.size() > 0) {
+			for(int accountId : accountIds) {
+				Account friendAccount = accountRepository.findOne(accountId);
+				accountRepository.save(friendAccount.addPlaylist(savedPlaylist));
+			}
+		}
+		
 		//"redirect:/playlist/add"
 		return "success";
 	}
@@ -66,21 +103,11 @@ public class PlaylistController extends RepositoryKeeper {
 	//playlist account search on playlist_add page, using jquery UI autocomplete.
 	@RequestMapping(value="/accountsearch", method=RequestMethod.GET)
 	public @ResponseBody String findAccount(@RequestParam("term") String term) {
-		System.out.println("I've got this term: " + term);
-		
 		List<Account> accounts = accountRepository.findAccountByAccountnameLike(term+"%");
-
-		List<String> accountNames = new ArrayList<String>(); 
-		Iterator<Account> it = accounts.iterator();
-		while(it.hasNext()) {
-			accountNames.add(it.next().getAccountname());
-		}
-
-		ObjectMapper mapper = new ObjectMapper();
+		
 		try {
-			String artistsStringified = mapper.writeValueAsString(accountNames);
-			System.out.println("Stringified: " + artistsStringified);
-			return artistsStringified;
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString(accounts);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			return "JSON Failed";
@@ -93,8 +120,16 @@ public class PlaylistController extends RepositoryKeeper {
 		return "single_playlist";
 	}
 
-	
-	
+	// ------------------------------ Regular Methods ------------------------------
+//	
+//	@Transactional
+//	public void insertPlaylistTrack(int trackId, int playlistId, int trackNumber) {
+//		Query query = eman.createQuery("INSERT INTO track_playlist (track_id, playlist_id, track_number) VALUES(?,?,?)");
+//		query.setParameter(1, trackId);
+//		query.setParameter(2, playlistId);
+//		query.setParameter(3, trackNumber);
+//		query.executeUpdate();
+//	}
 	
 	// ------------------------------ Model Attributes ------------------------------
 	@ModelAttribute("createPlaylistWrapper")

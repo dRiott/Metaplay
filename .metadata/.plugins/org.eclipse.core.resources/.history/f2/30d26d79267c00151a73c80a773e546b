@@ -1,0 +1,13 @@
+/**
+ *  Configures the sortable, draggable, and selectable tracks.
+ */
+
+$(document).ready(function () {
+	
+	$("table").sortable({
+		placeholder: "emptySpace"
+	});
+	
+	
+	
+}); // end document.ready

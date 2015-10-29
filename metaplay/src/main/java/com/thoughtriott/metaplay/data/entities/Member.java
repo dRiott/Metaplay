@@ -161,7 +161,7 @@ public class Member extends MetaplayEntity {
 	//Members and Artists: @ManyToMany. B/c StackOverflowError --> Altered toString(): artists
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", artists=" + this.getArtistsToString() + ", firstName=" + firstName + ", middleName=" + middleName
+		return "Member [id=" + id + ", artists=" + getArtistsToString() + ", firstName=" + firstName + ", middleName=" + middleName
 				+ ", lastName=" + lastName + ", stageName=" + stageName + "]";
 	}
 

@@ -29,10 +29,6 @@
 
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
 
-	<div id="messageDiv" style="display:hidden">
-		<!-- for writting message on success/error AJAX call -->
-	</div>
-	
 	<div class="container drBlockLeft">
 		<div class="row">
 			<div class="form-group">
@@ -43,7 +39,7 @@
 		
 		<div class="row DR_Textarea">	
 			<div class="form-group" id="description">
-				<textarea class="form-control" id="descriptionInput" rows="4" cols="20" placeholder="Description: This amazing banger will set your party on fire..."></textarea>
+				<textarea class="form-control" id="playlistDescription" rows="4" cols="20" placeholder="Description: This amazing banger will set your party on fire..."></textarea>
 			</div>
 		</div>
 	</div>		
@@ -116,6 +112,10 @@
 				</tbody>
 			</table>
 		</div> <!-- end tracks div -->
+		
+		<div id="messageDiv" style="display:hidden">
+		<!-- for writting message on success/error AJAX call -->
+		</div>
 		
 		<div class="DR_Table DR_InnerTable" id = "playlistDiv">
 			<h4><label for="playlistTable">To Here: <em>Your New Playlist</em></label></h4>

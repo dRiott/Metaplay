@@ -2,16 +2,11 @@ package com.thoughtriott.metaplay.data.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "track_playlist")
@@ -22,65 +17,73 @@ public class  Playlist_Track {
 	public Playlist_Track() {
 		
 	}
-	
-	public Playlist_Track(Track track, Playlist playlist, int trackNumber) {
-//		this.id = new Playlist_TrackPK(track.getId(), playlist.getId());
-		this.track = track;
-		this.playlist = playlist;
+
+	public Playlist_Track(int trackId, int playlistId, int trackNumber) {
+		super();
+		this.trackId = trackId;
+		this.playlistId = playlistId;
 		this.trackNumber = trackNumber;
 	}
+
+
+//	public Playlist_Track(Track track, Playlist playlist, int trackNumber) {
+////		this.id = new Playlist_TrackPK(track.getId(), playlist.getId());
+//		this.track = track;
+//		this.playlist = playlist;
+//		this.trackNumber = trackNumber;
+//	}
 
 // --------------------------Fields--------------------------
 	public static final String TYPE = "playlist_track";
 
 	@Id
-	@Column(name="track_id", insertable=false, updatable=false)
+	@Column(name="track_id")
 	private int trackId;
 
 	@Id
-	@Column(name="playlist_id", insertable=false, updatable=false)
+	@Column(name="playlist_id")
 	private int playlistId;
 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="track_id", referencedColumnName="id")
-	@JsonBackReference
-	private Track track;
-
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="playlist_id", referencedColumnName="id")
-	@JsonBackReference
-	private Playlist playlist;
+//	@ManyToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="track_id", referencedColumnName="id")
+//	@JsonBackReference
+//	private Track track;
+//
+//	
+//	@ManyToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="playlist_id", referencedColumnName="id")
+//	@JsonBackReference
+//	private Playlist playlist;
 
 	@Column(name="track_number")
 	private int trackNumber;
 	
 //--------------------------Getters & Setters--------------------------
 
-	public int getTrackTrackId() {
-		return this.track.getId();
-	}
-
-	public int getPlaylistPlaylistId() {
-		return this.playlist.getId();
-	}
-	
-	public Track getTrack() {
-		return track;
-	}
-
-	public void setTrack(Track track) {
-		this.track = track;
-	}
-
-	public Playlist getPlaylist() {
-		return playlist;
-	}
-
-	public void setPlaylist(Playlist playlist) {
-		this.playlist = playlist;
-	}
+//	public int getTrackTrackId() {
+//		return this.track.getId();
+//	}
+//
+//	public int getPlaylistPlaylistId() {
+//		return this.playlist.getId();
+//	}
+//	
+//	public Track getTrack() {
+//		return track;
+//	}
+//
+//	public void setTrack(Track track) {
+//		this.track = track;
+//	}
+//
+//	public Playlist getPlaylist() {
+//		return playlist;
+//	}
+//
+//	public void setPlaylist(Playlist playlist) {
+//		this.playlist = playlist;
+//	}
 
 	public int getTrackNumber() {
 		return trackNumber;
@@ -90,15 +93,15 @@ public class  Playlist_Track {
 		this.trackNumber = trackNumber;
 	}
 
+
+
 	
 //--------------------------toString()--------------------------
-	
 	@Override
 	public String toString() {
-		return "Playlist_Track [track=" + track + ", playlist=" + playlist + ", trackNumber="
-				+ trackNumber + "]";
+		return "Playlist_Track [trackId=" + trackId + ", playlistId=" + playlistId + ", trackNumber=" + trackNumber
+				+ "]";
 	}
-
 }
 
 //--------------------------PK CLASS--------------------------

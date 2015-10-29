@@ -143,7 +143,11 @@
 				</div>
 			</div>
 		
-		<a href="<spring:url value="/browse/artists"/>" class="btn btn-default">Back To Browse</a>
+			<div class="form-group">
+				<hr/>
+				<a href="<spring:url value="/browse/artists"/>" class="btn btn-default">Back To Browse</a>
+			</div>
+		
 		</div>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>

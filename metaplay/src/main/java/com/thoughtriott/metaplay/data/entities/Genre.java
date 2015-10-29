@@ -93,7 +93,7 @@ public class Genre extends MetaplayEntity {
 			} else if (!it.hasNext()) {
 				artistsString = artistsString + ", " + currentArtist.getName() + "}";
 			} else {
-				artistsString = "Artists: {" + currentArtist.getName();
+				artistsString = "Artists, what!?: {" + currentArtist.getName();
 			}
 		}
 		return artistsString;
@@ -105,7 +105,7 @@ public class Genre extends MetaplayEntity {
 	//In artist: genre.getName()
 	@Override
 	public String toString() {
-		return "Genre [id=" + id + ", artists=" + this.getArtistsToString() + ", name=" + name + ", description=" + description + "]";
+		return "Genre [id=" + id + ", artists=" + getArtistsToString() + ", name=" + name + ", description=" + description + "]";
 	}
 
 }

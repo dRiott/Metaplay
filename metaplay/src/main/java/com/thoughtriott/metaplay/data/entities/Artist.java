@@ -215,14 +215,14 @@ public class Artist extends MetaplayEntity {
 	
 	public String getGenreToString () {
 		if(genre!=null) {
-			return genre.toString();
+			return genre.getName();
 		}
 		return "Genre is null.";
 	}
 	
 	public String getLocationToString () {
 		if(location!=null) {
-			return location.toString();
+			return location.getName();
 		}
 		return "Location is null.";
 	}

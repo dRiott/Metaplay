@@ -12,6 +12,7 @@ import com.thoughtriott.metaplay.data.repositories.jpa.GenreRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.LocationRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistTrackRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
@@ -34,6 +35,8 @@ public abstract class RepositoryKeeper {
 	protected MemberRepository memberRepository;
 	@Autowired
 	protected PlaylistRepository playlistRepository;
+	@Autowired
+	protected PlaylistTrackRepository playlistTrackRepository;
 	@Autowired
 	protected RecordLabelRepository recordLabelRepository;
 	@Autowired

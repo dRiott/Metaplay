@@ -1,0 +1,26 @@
+/**
+ * Sets the background to one of the pictures in the backgrounds array.
+ * Focuses the cursor to the first empty form input
+ */
+
+$(document).ready(function () {
+
+	var backgrounds = ["fourtet.gif", "melloncollie.gif", "daedelus.gif", "dilla.gif", "drake.gif", "fatherjohn.gif", "francisdrake.gif", "umo.gif", "toroymoi.gif",
+	                   "kendrick.gif", "rashad.gif", "thomyorke.gif", "tupac.gif", "wiz.gif", "talib.gif", "mosdef.gif", "eminem.gif", "goldpanda.gif",
+	                  "kurtcobain.gif", "earlsweatshirt.gif", "burial.gif", "aphex.gif", "chancetherapper.gif", "deadmau5.gif", 
+	                   "davidbowie.gif", "goldpanda.gif", "yoshimi.gif", "youthlagoon.gif", "xxyyxx.gif", "actress.gif", "tuneyards.gif", "flyinglotus.gif",
+	                   "unicorns.gif", "tallestman.gif", "dandeacon.gif", "slowmagic.gif", "sbtrkt.gif"
+					   ];
+	
+	var randomNum = Math.floor(Math.random() * backgrounds.length);
+	$('body').css('background-image', 'url(http://localhost:8080/metaplay/resources/img/' + backgrounds[randomNum] + ')');
+	
+	//focus the cursor to the first empty form input
+	var input = $('form').find('input[type=text],textarea,select').filter(':visible:first');
+	if(input!=null) {
+		input.focus();
+	}
+	
+}); // end document.ready
+
+

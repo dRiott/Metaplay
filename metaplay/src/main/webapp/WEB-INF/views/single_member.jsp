@@ -58,7 +58,10 @@
 				</c:choose>
 			</div>
 
-		<a href="<spring:url value="/browse/accounts"/>" class="btn btn-default">Back To Browse</a>
+			<div class="form-group">
+				<hr/>
+				<a href="<spring:url value="/browse/accounts"/>" class="btn btn-default">Back To Browse</a>
+			</div>
 
 		</div>
 	</div>

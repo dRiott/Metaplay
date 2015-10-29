@@ -118,18 +118,16 @@ public class RecordLabel extends MetaplayEntity {
 	
 	public String getLocationToString () {
 		if(location!=null) {
-			return location.toString();
+			return location.getName();
 		}
 		return "Location is null.";
 	}
 	
 //--------------------------toString()--------------------------
 	
-	//In Artist: recordLabel.getName()
-	//B/c StackOverflowError, altered this toString(): location.getCity()
 	@Override
 	public String toString() {
-		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", description=" + getDescription() + ", albums=" + getAlbumsToString() + "]";
+		return "RecordLabel [id=" + id + ", name=" + name + ", location=" + getLocationToString() + ", description=" + description + ", albums=" + getAlbumsToString() + "]";
 	}
 
 }

@@ -9,8 +9,8 @@
 <!-- Logo -->		
 		<div class="imageLogoDiv" >
 			<a class="navbar-brand" href="<spring:url value="/"/>">
-			<img class="imageLogo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
-					<img class="imageLogoLayer" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
+				<img class="imageLogo logo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
+				<img class="imageLogoLayer logo" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
 			</a>
 		</div>
 		

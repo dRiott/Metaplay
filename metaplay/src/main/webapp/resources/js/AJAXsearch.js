@@ -24,7 +24,6 @@ $(document).ready(function(){
 				url: '/metaplay/rest/artist?query='+field.value,
 				type: 'POST',
 				dataType: 'json',
-			//	data: 'query='+field.value,
 				success: successfulSearchArtist,
 				error: errorFunction
 			})
@@ -92,7 +91,7 @@ $(document).ready(function(){
 	function successfulSearchArtist(returnedData, status) {
 		var table = $('#allResultsTable');
 		$(document.body).css({'cursor' : 'default'});
-		
+		console.log(JSON.stringify(returnedData));
 		if(returnedData.length===0) {
 			var $row = $("<tr>");
 			$row.append("<td>No results found, try another search!</td>");
@@ -107,23 +106,28 @@ $(document).ready(function(){
 				 $("#allResultsTable tbody").append($row);
 			}
 		}
-		
 	}
 	
 	function successfulSearchAll(returnedData, status) {
 		var table = $('#allResultsTable');
 		$(document.body).css({'cursor' : 'default'});
-
-		for(var i=0; i<returnedData.length; i++){
+		console.log(JSON.stringify(returnedData));
+		if(returnedData.length===0) {
 			var $row = $("<tr>");
-			var url = "<td><a href='/metaplay/browse/"+returnedData[i].entityType+"/"+returnedData[i].id+"'>"+returnedData[i].name+"</a></td>"
-			
-			if(!$("#allResultsTable tr > a").is(":contains("+returnedData[i].name+")")) {
-				$row.append($(url));
-			}
-			
-			if(!$("#allResultsTable tr").is(":contains("+$row+")")) {
-				$("#allResultsTable tbody").append($row);
+			$row.append("<td>No results found, try another search!</td>");
+			$("#allResultsTable tbody").append($row);
+		} else {
+			for(var i=0; i<returnedData.length; i++){
+				var $row = $("<tr>");
+				var url = "<td><a href='/metaplay/browse/"+returnedData[i].entityType+"/"+returnedData[i].id+"'>"+returnedData[i].name+"</a></td>"
+				
+				if(!$("#allResultsTable tr > a").is(":contains("+returnedData[i].name+")")) {
+					$row.append($(url));
+				}
+				
+				if(!$("#allResultsTable tr").is(":contains("+$row+")")) {
+					$("#allResultsTable tbody").append($row);
+				}
 			}
 		}
 	}

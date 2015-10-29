@@ -1,0 +1,22 @@
+/**
+ *  Configures the sortable, draggable, and selectable tracks.
+ */
+
+$(document).ready(function () {
+	
+//	$("table tbody").sortable({
+//		placeholder: "emptySpace"
+//	});
+//	
+	$(function () {
+	    $('td, th', '#sortFixed').each(function () {
+	        var cell = $(this);
+	        cell.width(cell.width());
+	    });
+
+	    $('#sortFixed tbody').sortable().disableSelection();
+	});
+	
+	
+	
+}); // end document.ready

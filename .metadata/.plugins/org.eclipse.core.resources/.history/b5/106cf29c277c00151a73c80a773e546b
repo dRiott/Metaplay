@@ -1,0 +1,44 @@
+/**
+ *  Configures the sortable, draggable, and selectable tracks.
+ */
+
+$(document).ready(function () {
+	
+//	$("table tbody").sortable({
+//		placeholder: "emptySpace"
+//	});
+//	
+	$(function () {
+	    $('td, th', '#tracksTable').each(function () {
+	        var cell = $(this);
+	        cell.width(cell.width());
+	    });
+
+	    $('#tracksTable tbody').sortable().disableSelection();
+	});
+	
+//	$('#tracksTable tbody').sortable({
+//	    items: '> tr',
+//	    forcePlaceholderSize: true,
+//	    placeholder:'must-have-class',
+//	    start: function (event, ui) {
+//	        // Build a placeholder cell that spans all the cells in the row
+//	        var cellCount = 0;
+//	        $('td, th', ui.helper).each(function () {
+//	            // For each TD or TH try and get it's colspan attribute, and add that or 1 to the total
+//	            var colspan = 1;
+//	            var colspanAttr = $(this).attr('colspan');
+//	            if (colspanAttr > 1) {
+//	                colspan = colspanAttr;
+//	            }
+//	            cellCount += colspan;
+//	        });
+//
+//	        // Add the placeholder UI - note that this is the item's content, so TD rather than TR
+//	        ui.placeholder.html('<td colspan="' + cellCount + '">&nbsp;</td>');
+//	    }
+//	}).disableSelection();
+	
+	
+	
+}); // end document.ready

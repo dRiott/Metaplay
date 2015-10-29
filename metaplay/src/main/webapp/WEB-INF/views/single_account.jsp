@@ -76,35 +76,6 @@
 					<ul>
 						<c:forEach items="${account.playlists}" var="playlist">
 							<li><a href="<spring:url value="/browse/playlist/${playlist.id}"/>">${playlist.name}</a></li>
-							<li>
-								<c:choose>
-									<c:when test="${playlist.accounts.size()==0}">
-										<span>This playlist has no accounts. Weird. /></span>
-									</c:when>
-									<c:otherwise>
-										<c:forEach items="${playlist.accounts}" var="account" varStatus="count">	
-											<c:choose>
-												<c:when test="${count.index!=(playlist.accounts.size-1)}">
-													<span><a href="<spring:url value="/browse/account/${account.accountname.id}"/>">${account.accountname}</a>,</span>
-												</c:when>
-												<c:otherwise>
-													<span>${account.accountname}</span>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</li>
-							<li>
-								<c:choose>
-									<c:when test="${playlist.description!=null}">
-										<span>${playlist.description}</span>
-									</c:when>
-									<c:otherwise>
-										<span>No description provided.</span>				
-									</c:otherwise>
-								</c:choose>
-							</li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -123,7 +94,10 @@
 				</div>
 			</div>
 
-		<a href="<spring:url value="/browse/accounts"/>" class="btn btn-default">Back To Browse</a>
+			<div class="form-group">
+				<hr/>
+				<a href="<spring:url value="/browse/accounts"/>" class="btn btn-default">Back To Browse</a>
+			</div>
 
 		</div>
 	</div>

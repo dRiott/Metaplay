@@ -1,28 +1,43 @@
 $(document).ready(function () {			
 			
 	//Artist Options "Other" Box Hide/Unhide
-	var selectOtherAR = document.getElementById("trackArtistName");
-	var inputBoxAR = document.getElementById("newTrackArtistName");
-	selectOtherAR.onchange=function(){
-		if(selectOtherAR.value=="** New Artist **") {
-			inputBoxAR.style.display="inline";
+	$("#trackArtistName").on("change", function(){
+		if($("#trackArtistName").val()=="** New Artist **") {
+			$("#newTrackArtistName").show();
 		} else {
-			inputBoxAR.style.display="none";	
+			$("#newTrackArtistName").hide();	
 		}
-	}
+	});
 	
 	//Album Options "Other" Box Hide/Unhide
-	var selectOtherAL = document.getElementById("trackAlbumName");
-	var inputBoxAL = document.getElementById("newTrackAlbumName");
-	var inputBoxALcover = document.getElementById("newTrackAlbumCover");
-	selectOtherAL.onchange=function(){
-		if(selectOtherAL.value=="** New Album **") {
-			inputBoxAL.style.display="inline";
-			inputBoxALcover.style.display="inline";
+	$("#trackAlbumName").on("change", function(){
+		if($("#trackAlbumName").val()=="** New Album **") {
+			$("#newTrackAlbumName").show();
 		} else {
-			inputBoxAL.style.display="none";	
-			inputBoxALcover.style.display="none";
+			$("#newTrackAlbumName").hide();
 		}
-	}
+	});
+	
+	$('[type=number]').val("");
 			
 }); //end document.ready
+
+//validate the form on submit
+function validate(form) {
+	var artistListValue = document.getElementById("trackArtistName").value;
+	var albumListValue = document.getElementById("trackAlbumName").value;
+	var errMessage = "";
+
+	if(artistListValue.includes("No Artists exist, add one!")) {
+		errMessage += "Please pick an artist, or add one!\r\n";
+	}
+	if(albumListValue.includes("No Albums exist, add one!")) {
+		errMessage += "Please pick an album, or add one!\r\n";
+	}
+	if(errMessage.length >0) {
+		alert(errMessage);
+		return false;					
+	} else {
+		return true;
+	}
+}

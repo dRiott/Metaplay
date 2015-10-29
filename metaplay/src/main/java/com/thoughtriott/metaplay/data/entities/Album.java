@@ -197,16 +197,16 @@ public class Album extends MetaplayEntity {
 
 	public String getArtistToString() {
 		if (artist != null) {
-			return artist.toString();
+			return artist.getName();
 		}
 		return "Artist is null.";
 	}
 	
 	public String getRecordLabelToString () {
 		if(recordLabel!=null) {
-			return recordLabel.toString();
+			return recordLabel.getName();
 		}
-		return "recordLabel is null.";
+		return "Record Label is null.";
 	}
 
 	// --------------------------toString()--------------------------

@@ -1,0 +1,20 @@
+/**
+ * Set up so that on mouseover Avatar, allows upload picture to change.
+ */
+
+$(document).ready(function() {
+	
+	$("#avatarDiv").mouseover(allowUpload);
+	$("#avatarDiv").mouseleave(removeUpload);
+		
+	
+}); // end document.ready
+
+
+	function allowUpload() {
+		$("#avatarUplaod").show();
+	}
+		
+	function removeUpload() {
+		$("#avatarUpload").hide(4000);
+	}

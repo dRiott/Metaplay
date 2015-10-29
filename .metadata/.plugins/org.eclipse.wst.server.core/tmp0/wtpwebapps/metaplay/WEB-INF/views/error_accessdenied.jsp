@@ -10,6 +10,7 @@
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
 	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
+	<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
 
 </head>
@@ -34,7 +35,7 @@
 		</ul>
 	</div> -->
 
-	<div class="container" style="padding-left: 7%">
+	<div class="container">
 		<h1>Security Issue</h1>
 		<p>You're not supposed to go there! Unfortunately, you don't have the right credentials. </p>
 	

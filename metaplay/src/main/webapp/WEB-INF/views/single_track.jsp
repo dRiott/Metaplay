@@ -38,61 +38,72 @@
 			</div>
 
 			<div class="form-group">
-				<label for="project-name">Number</label> <span>${track.trackNumber}</span>
+				<label for="project-name">Track Number on Album</label> 
+				<div class="form-group">	
+					${track.trackNumber}
+				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="project-name">Album</label>
-				<c:choose>
-					<c:when test="${track.album!=null}">
-						<td><a href="<spring:url value="/browse/album/${track.album.id}"/>">${track.album.name}</a></td>
-					</c:when>
-					<c:otherwise>
-						<td>Not yet assigned to an album.</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${track.album!=null}">
+							<td><a href="<spring:url value="/browse/album/${track.album.id}"/>">${track.album.name}</a></td>
+						</c:when>
+						<c:otherwise>
+							<td>Not yet assigned to an album.</td>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="project-name">Length</label> 
-				<c:choose>
-					<c:when test="${track.length!=null }">
-						<%-- Formatting the minutes from track.length --%>
-						<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
-						<td><c:out value="${minutes}"/>:<!-- 
-								 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
-								 		   --><c:out value="${track.length%60}"/></c:otherwise>
-									</c:choose>
-						</td>
-					</c:when>
-					<c:otherwise>
-						<td>-</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${track.length!=null }">
+							<%-- Formatting the minutes from track.length --%>
+							<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
+							<td><c:out value="${minutes}"/>:<!-- 
+									 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
+									 		   --><c:out value="${track.length%60}"/></c:otherwise>
+										</c:choose>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td>-</td>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="project-name">Lyrics</label>
-				<c:choose>
-					<c:when test="${track.lyrics!=null}">
-						<td>${track.lyrics}</td>
-					</c:when>
-					<c:otherwise>
-						<td>No lyrics have been added.</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${track.lyrics!=null}">
+							<td>${track.lyrics}</td>
+						</c:when>
+						<c:otherwise>
+							<td>No lyrics have been added.</td>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="project-name">BPM</label> 
-				<c:choose>
-					<c:when test="${track.bpm!=null}">
-						<td>${track.bpm}</td>
-					</c:when>
-					<c:otherwise>
-						<td>?</td>
-					</c:otherwise>
-				</c:choose>
+				<div class="form-group">
+					<c:choose>
+						<c:when test="${track.bpm!=null}">
+							<td>${track.bpm}</td>
+						</c:when>
+						<c:otherwise>
+							<td>?</td>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 
 			<div class="form-group">
@@ -103,13 +114,16 @@
 					</c:if>
 					<ul>
 						<c:forEach items="${track.playlists}" var="playlist">
-							<li><a href="<spring:url value="/browse/playlist/${track.playlist.id}"/>">${track.playlist.name}</a></li>
+							<li><a href="<spring:url value="/browse/playlist/${playlist.id}"/>">${playlist.name}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 			
-			<a href="<spring:url value="/browse/tracks"/>" class="btn btn-default">Back To Browse</a>
+			<div class="form-group">
+				<hr/>
+				<a href="<spring:url value="/browse/tracks"/>" class="btn btn-default">Back To Browse</a>
+			</div>
 
 		</div>
 	</div>

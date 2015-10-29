@@ -37,7 +37,7 @@
 							</c:if>
 							<ul>
 								<c:forEach items="${account.playlists}" var="playlist">
-									<li>${playlist}</li>
+									<li><a href="<spring:url value="/browse/playlist/${playlist.id}"/>">${playlist.name}</a></li>
 								</c:forEach>
 							</ul>
 							</div>

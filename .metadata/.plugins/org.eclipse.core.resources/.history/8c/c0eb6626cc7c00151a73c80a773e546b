@@ -1,0 +1,128 @@
+
+#container.1 {
+	color: snow;
+	background-color: #E5E5E5;
+	
+}
+
+body {
+	background-color: #E5E5E5;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+	background-size: 500px Auto;
+}
+
+.DRnavBarDiv{
+	padding-left: 13.5%;
+}
+
+.imageLogoDiv{
+	display:block;
+	clear:right;
+}
+
+.imageLogo {
+	width:13.5%;
+	max-width:180px;
+	 position: absolute;
+	 clear: both;
+    /* top: 30%; */
+   /*  left: 5%; */
+   	height:auto; 
+   
+	-webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.imageLogoLayer {
+	width:13.5%;
+	opacity: .4;
+	max-width:180px;
+	 position: absolute;
+	 clear: both;
+   	height:auto; 
+}
+
+audio {
+	background-color: #EEEEEE;
+}
+
+#outerDiv {
+	display:block;
+	float:clear;
+	font-size: 0.8em;
+}
+
+#tracksDiv {
+	padding-left:9%;
+	padding-right:2.5%;
+	float:left;
+}
+
+#playlistDiv {
+	/* padding-left:2.5%; */
+	padding-right:2.5%;
+	float:left;
+	min-height: 300px;
+	max-width: 50%;
+}
+
+
+#tracksTable thead {
+	display: block;
+	width:100%;
+}
+
+#tracksTable tbody {
+	height: 350px;
+	width: 100%;
+	display: block;
+	overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#playlistTable thead {
+	display: block;
+	width:100%;
+}
+
+#playlistTable tbody {
+	height: 350px;
+	display: block;
+	overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.drBlockLeft {
+	display:block;
+	padding-left: 16%;
+	padding-right: 2%;
+	float: left;
+/* 	border: 2px solid;
+ */	width: 46%;
+}
+
+.drBlockRight {
+	padding-right: 4%;
+	display:block;
+	float:left;
+/* 	border: 2px solid;
+ */	width: 50%;
+	height: 20%;
+}
+
+#playlistSubmitButton {
+	float:right;
+}
+
+#submitButtonDiv {
+	padding-right: 10%;
+}
+
+
+

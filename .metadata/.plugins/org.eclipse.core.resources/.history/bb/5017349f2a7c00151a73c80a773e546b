@@ -1,0 +1,17 @@
+/**
+ *  Configures the sortable, draggable, and selectable tracks.
+ */
+
+$(document).ready(function () {
+
+	
+	$('td, th', '#tracksTable').each(function () {
+        var cell = $(this);
+        cell.width(cell.width());
+    });
+
+    $('#tracksTable tbody').sortable().draggable();
+	
+	$("#playlistTable tbody").sortable().droppable();
+	
+}); // end document.ready
