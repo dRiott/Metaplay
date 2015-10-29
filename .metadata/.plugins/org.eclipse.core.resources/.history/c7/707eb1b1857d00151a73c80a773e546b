@@ -1,0 +1,23 @@
+$(document).ready(function () {			
+			
+	//Artist Options "Other" Box Hide/Unhide
+	$("#trackArtistName").change(function(){
+		if($(this).val()=="** New Artist **") {
+			$("#newTrackArtistName").show();
+		} else {
+			$("#newTrackArtistName").hide();	
+		}
+	});
+	
+	//Album Options "Other" Box Hide/Unhide
+	$("#trackAlbumName").change(function(){
+		if($(this).val()=="** New Album **") {
+			$("#newTrackAlbumName").show();
+			$("#newTrackAlbumCover").show();
+		} else {
+			$("#newTrackAlbumName").hide();
+			$("#newTrackAlbumCover").hide();
+		}
+	});
+			
+}); //end document.ready

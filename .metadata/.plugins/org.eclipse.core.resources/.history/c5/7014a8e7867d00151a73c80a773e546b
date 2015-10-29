@@ -1,0 +1,43 @@
+$(document).ready(function () {			
+			
+	//Artist Options "Other" Box Hide/Unhide
+	document.getElementById("trackArtistName").onclick=function(){
+		if($(this).val()=="** New Artist **") {
+			$("#newTrackArtistName").show();
+		} else {
+			$("#newTrackArtistName").hide();	
+		}
+	};
+	
+	//Album Options "Other" Box Hide/Unhide
+	$("#trackAlbumName").change(function(){
+		if($(this).val()=="** New Album **") {
+			$("#newTrackAlbumName").show();
+			$("#newTrackAlbumCover").show();
+		} else {
+			$("#newTrackAlbumName").hide();
+			$("#newTrackAlbumCover").hide();
+		}
+	});
+			
+}); //end document.ready
+
+//validate the form on submit
+function validate(form) {
+	var artistListValue = document.getElementById("trackArtistName").value;
+	var albumListValue = document.getElementById("trackAlbumName").value;
+	var errMessage = "";
+
+	if(artistListValue.includes("No Artists exist, add one!")) {
+		errMessage += "Please pick an artist, or add one!\r\n";
+	}
+	if(albumListValue.includes("No Albums exist, add one!")) {
+		errMessage += "Please pick an album, or add one!\r\n";
+	}
+	if(errMessage.length >0) {
+		alert(errMessage);
+		return false;					
+	} else {
+		return true;
+	}
+}
