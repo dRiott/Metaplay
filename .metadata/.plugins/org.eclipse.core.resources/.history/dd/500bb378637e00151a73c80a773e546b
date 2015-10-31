@@ -1,0 +1,127 @@
+/* BEGIN PLAYLIST_ADD CSS*/
+.drBlockLeft {
+	display:block;
+/*	border: 2px dashed; */
+	padding-left: 18%;
+	padding-right: 2%;
+	float: left;
+	width: 46%;
+}
+
+.drBlockRight {
+	padding-left: 5%;
+	display:block;
+/* 	border: 2px dashed; */	
+	float:left;
+	width: 50%;
+	height: 15%;
+}
+
+#playlistSubmitButton {
+	float:right;
+}
+
+#submitButtonDiv {
+	display:block;
+	padding-right: 10%;
+}
+
+#outerDiv {
+	display:block;
+	float:clear;
+	font-size: 0.8em;
+ 	border: 2px dashed;
+}
+
+#tracksDiv {
+	/* border: 2px dashed; */
+	padding-left:5%;
+	float:left;
+	width: 100%;
+	max-width: 50%;
+}
+
+#playlistDiv {
+	/* border: 2px solid; */
+	padding-left:2.5%;
+	width: 100%;
+	float:left;
+	min-height: 300px;
+	max-width: 50%;
+}
+
+
+#tracksTable thead {
+	display: block;
+	width:100%;
+}
+
+#tracksTable tbody {
+	border: 2px dashed;
+	height: 330px;
+	width: 100%;
+	display: block;
+	overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#playlistTable {
+	
+}
+
+#playlistTable thead {
+	display: block;
+	width:100%;
+}
+
+#playlistTable tbody {
+	border: 2px dashed;
+	height: 330px;
+	display: block;
+	overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#accountsTable tbody {
+	height: 90px;
+	width: 100%;
+	display: block;
+	overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#accountsSelected {
+	height: 94px;
+	width: 91%;
+	display: block;
+	background-color:white;
+}
+
+h4 {
+	padding-left: 2px;
+}
+
+#descriptionInput{
+	resize:none;
+}
+
+.accountSpan {
+	padding-right: 8px;
+}
+
+.accountSpan img {
+	padding-left: 0.8%;
+	width: 10px;
+	height: auto;
+}
+
+#messageDiv {
+	padding-left: 17%;
+}
+
+.tinted {
+	opacity: .5;
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+/* END PLAYLIST_ADD CSS*/

@@ -11,7 +11,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Playlist Manager</title>
-
+	
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/jquery-ui.min.css"/>" type="text/css" />
@@ -33,13 +33,13 @@
 		<div class="row">
 			<div class="form-group">
 				<label for="playlistName">Name Your Playlist</label>
-				<input class="form-control" id="playlistName" placeholder="TrapHead Chillum"/>
+				<input class="form-control savedField" id="playlistName" placeholder="TrapHead Chillum"/>
 			</div>
 		</div>	
 		
 		<div class="row DR_Textarea">	
 			<div class="form-group" id="description">
-				<textarea class="form-control" id="playlistDescription" rows="4" cols="20" placeholder="Description: This amazing banger will set your party on fire..."></textarea>
+				<textarea class="form-control savedField" id="playlistDescription" rows="4" cols="20" placeholder="Description: This amazing banger will set your party on fire..."></textarea>
 			</div>
 		</div>
 	</div>		
@@ -67,7 +67,7 @@
 			<tbody>
 			</tbody>
 		</table> -->
-			<div class="form-control DR_Textarea" id="accountsSelected">
+			<div class="form-control DR_Textarea savedField" id="accountsSelected">
 			</div>
 	</div>
 
@@ -79,25 +79,25 @@
 			<table class="table table-hover" id="tracksTable">
 				<thead>
 					<tr>
-						<th id="playlistTHeadTh0">Name</th>
-						<th id="playlistTHeadTh1">Artist</th>
-						<th id="playlistTHeadTh2">Album</th>
-						<th id="playlistTHeadTh3">Length</th>
+						<th id="trackTHeadTh1">Name</th>
+						<th id="trackTHeadTh2">Artist</th>
+						<th id="trackTHeadTh3">Album</th>
+						<th id="trackTHeadTh4">Length</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${tracks}" var="track">
 						<tr trackId="${track.id}">
-							<!--  <td class="hidenTrackId" style="display:none"></td>-->
-							<td class="tdWidth">${track.name}</td>
-							<td class="tdWidth" id="trackTdArtist">${track.album.artist.name}</td>
-							<td class="tdWidth" id="trackTdName">${track.album.name}</td>
+							<td class="tdWidthTracks" id="trackNumber" style="display:none"></td>
+							<td class="tdWidthTracks" id="trackName" >${track.name}</td>
+							<td class="tdWidthTracks" id="trackArtist">${track.album.artist.name}</td>
+							<td class="tdWidthTracks" id="trackAlbum">${track.album.name}</td>
 							
 							<%-- Formatting the minutes from track.length --%>
 							<c:choose>
 								<c:when test="${track.length!=null }">
 									<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
-									<td class="tdWidth"><c:out value="${minutes}"/>:<!-- 
+									<td class="tdWidthTracks"><c:out value="${minutes}"/>:<!-- 
 									 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
 									 		   --><c:out value="${track.length%60}"/></c:otherwise>
 										</c:choose>
@@ -113,19 +113,16 @@
 			</table>
 		</div> <!-- end tracks div -->
 		
-		<div id="messageDiv" style="display:hidden">
-		<!-- for writting message on success/error AJAX call -->
-		</div>
-		
 		<div class="DR_Table DR_InnerTable" id = "playlistDiv">
 			<h4><label for="playlistTable">To Here: <em>Your New Playlist</em></label></h4>
 			<table class="table table-hover" id="playlistTable">
 				<thead>
 					<tr>
-						<th id="trackTHeadTh0">Name</th>
-						<th id="trackTHeadTh1">Artist</th>
-						<th id="trackTHeadTh2">Album</th>
-						<th id="trackTHeadTh3">Length</th>
+						<th id="playlistTHeadTh0">#</th>
+						<th id="playlistTHeadTh1">Track</th>
+						<th id="playlistTHeadTh2">Artist</th>
+						<th id="playlistTHeadTh3">Album</th>
+						<th id="playlistTHeadTh4">Length</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,8 +130,10 @@
 			</table>
 		</div> <!-- end playlist div -->
 		
-		<!-- <div class="form-group" id="submitButtonDiv">
-		</div> -->
+		
+		<div id="messageDiv" style="display:hidden">
+		<!-- for writting message on success/error AJAX call -->
+		</div>
 		
 		<div style="clear:both;"></div>
 	</div> <!-- END OUTER DIV -->

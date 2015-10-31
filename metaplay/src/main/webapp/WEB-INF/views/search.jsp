@@ -21,9 +21,8 @@
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 	
 
-	<div class="container" style="padding-left: 11%; padding-top: 5%;">
-		<form:form name="testPage">
-			<h1 style="font-family: Times, serif;"><em>Search Metaplay!</em></h1>
+	<div class="container">
+			<h1 class="dH1">Search Metaplay!</h1>
 	 		
 			<div class="form-group" style="float:clear;"></div>
 	 		
@@ -31,7 +30,7 @@
 	 		<div class="row">
 		 		<div class="col-md-4">
 			 		<input id="randomResultButton" type="button" value="Random Result" class="btn btn-default"/>
-			 		<span style="padding-left: 10px;" id="randomResultDiv"></span>
+			 		<span id="randomResultDiv"></span>
 				</div>
 			</div>
 			
@@ -63,7 +62,6 @@
  					<table class="table table-hover" id="allResultsTable"><tr></tr></table>
  				</div>
 			</div>
-		</form:form>
 	</div>
 	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
 </body>

@@ -26,7 +26,7 @@
 
 	<div class="container">
 		
-		<h1>Genres</h1>
+		<h1 class="dH1">Genres</h1>
 		<table class="table table-hover" id="tableWithLongText">
 			<tbody>
 				<tr>

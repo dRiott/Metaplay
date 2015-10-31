@@ -46,15 +46,8 @@ public class PlaylistController extends RepositoryKeeper {
 		return "playlist_add";
 	}
 	
-	@RequestMapping("/review")
-	public String review(@ModelAttribute Playlist playlist) {
-		return "playlist_review";
-	}
-	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String savePlaylist(@RequestBody ObjectNode[] playlistInfo, @AuthenticationPrincipal User activeUser){
-		System.out.println("1. Tracks length: " + playlistInfo.length);
-		
 		String playlistName = "";
 		String playlistDescription = "";
 		List<Integer> accountIds = new ArrayList<Integer>();
@@ -62,8 +55,6 @@ public class PlaylistController extends RepositoryKeeper {
 		
 		//iterate throught the json object and add the info to java variables: playlistName, playlistDescription, accountIds, trackIds
 		for (ObjectNode info : playlistInfo) {
-			System.out.println("Printing the info: " + info);
-			
 			if(info.has("name")) {
 				playlistName = info.get("name").asText();
 				playlistDescription = info.get("description").asText();
@@ -95,8 +86,13 @@ public class PlaylistController extends RepositoryKeeper {
 			}
 		}
 		
-		//"redirect:/playlist/add"
-		return "success";
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString(savedPlaylist);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

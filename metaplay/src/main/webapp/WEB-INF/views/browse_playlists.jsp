@@ -21,7 +21,7 @@
 
 	<div class="container">
 		
-		<h1>Playlists</h1>
+		<h1 class="dH1">Playlists</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>

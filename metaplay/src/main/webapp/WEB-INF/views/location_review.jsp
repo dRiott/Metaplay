@@ -31,23 +31,23 @@
 
 
 			<div class="form-group">
-				<label for="location-city">City</label> <span>${location.city}</span>
+				<label for="location-city">City</label> <span class="dSpan">${location.city}</span>
 			</div>
 			
 			<c:choose>
 				<c:when test="${location.country.equals('United States')}">
 					<div class="form-group">
-						<label for="location-state">State</label> <span>${location.state}</span>
+						<label for="location-state">State</label> <span class="dSpan">${location.state}</span>
 					</div>
 					
 					<div class="form-group">
-						<label for="location-country">Country</label> <span>${location.country}</span>
+						<label for="location-country">Country</label> <span class="dSpan">${location.country}</span>
 					</div>
 				</c:when>
 				
 				<c:otherwise>
 					<div class="form-group">
-						<label for="location-country">Country</label> <span>${location.newCountry}</span>
+						<label for="location-country">Country</label> <span class="dSpan">${location.newCountry}</span>
 					</div>
 				</c:otherwise>
 			</c:choose>

@@ -27,14 +27,14 @@
 
 	<div class="container">
 		<div class="row">
-			<h1 style="font-family: Times, serif;"><em>Album: ${album.name}</em></h1>
+			<h1 class="dH1">Album: ${album.name}</h1>
 
 			<div class="form-group">
 				<label for="project-name">Artist</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.artist!=null}">
-							<span><a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a></span>
+							<span class="dSpan"><a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a></span>
 						</c:when>
 						<c:otherwise>
 							<td>No artist assigned yet.</td>
@@ -47,7 +47,7 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.recordLabel!=null}">
-							<span><a href="<spring:url value="/browse/recordlabel/${album.recordLabel.id}"/>">${album.recordLabel.name}</a></span>
+							<span class="dSpan"><a href="<spring:url value="/browse/recordlabel/${album.recordLabel.id}"/>">${album.recordLabel.name}</a></span>
 						</c:when>
 						<c:otherwise>
 							<td>No Record Label assigned yet.</td>
@@ -65,10 +65,10 @@
 				<label for="project-name">Tracks</label>
 				<div class="form-group">
 					 <c:if test="${album.numTracks!=null}">
-					 	<span>${album.numTracks}</span>
+					 	<span class="dSpan">${album.numTracks}</span>
 					 </c:if>
 					  <c:if test="${album.numTracks==null}">
-					 	<span>?</span>
+					 	<span class="dSpan">?</span>
 					 </c:if>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.length==0}">
-							<span>?</span>
+							<span class="dSpan">?</span>
 						</c:when>
 						<c:when test="${album.length!=null}">
 							<%-- Formatting the minutes from track.length --%>
@@ -91,7 +91,7 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<span>?</span>				
+							<span class="dSpan">?</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -101,10 +101,10 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.releaseDate!=null}">
-							<span><fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/></span>
+							<span class="dSpan"><fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/></span>
 						</c:when>
 						<c:otherwise>
-							<span>No release date has been added.</span>				
+							<span class="dSpan">No release date has been added.</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -114,10 +114,10 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.description!=null}">
-							<span>${album.description}</span>					
+							<span class="dSpan">${album.description}</span>					
 						</c:when>
 						<c:otherwise>
-							<span>No description.</span>				
+							<span class="dSpan">No description.</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>

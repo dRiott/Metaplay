@@ -23,7 +23,7 @@
 
 	<div class="container">
 		
-		<h1>Albums</h1>
+		<h1 class="dH1">Albums</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
@@ -57,7 +57,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${album.description!=null && !album.description.isEmpty()}">
-									<span>${album.description}</span>
+									<span class="dSpan">${album.description}</span>
 								</c:when>
 								<c:otherwise>
 									No description given.

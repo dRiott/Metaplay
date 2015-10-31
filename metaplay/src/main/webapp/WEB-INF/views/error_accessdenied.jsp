@@ -36,7 +36,7 @@
 	</div> -->
 
 	<div class="container">
-		<h1>Security Issue</h1>
+		<h1 class="dH1">Security Issue</h1>
 		<p>You're not supposed to go there! Unfortunately, you don't have the right credentials. </p>
 	
 		<br>

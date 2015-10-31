@@ -21,7 +21,7 @@
 
 	<div class="container">
 		
-		<h1>Accounts</h1>
+		<h1 class="dH1">Accounts</h1>
 		<table class="table table-hover" style="width:60%;">
 			<tbody>
 				<tr>

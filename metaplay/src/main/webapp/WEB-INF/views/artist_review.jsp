@@ -32,14 +32,14 @@
 				<h2>Please Review the Artist for Accuracy</h2>
 		<!-- START Artist fields here -->
 				<div class="form-group">
-					<label for="artist-name">Name</label> <span>${createArtistWrapper.name}</span>
+					<label for="artist-name">Name</label> <span class="dSpan">${createArtistWrapper.name}</span>
 				</div>
 				<div class="form-group">
-					<label for="biography">Biography</label> <span>${createArtistWrapper.biography }</span>
+					<label for="biography">Biography</label> <span class="dSpan">${createArtistWrapper.biography }</span>
 				</div>
 				
 				<!--	<div class="form-group">
-					<label for="artist-image">Artist Image</label><span>${artist.artistImage }</span>
+					<label for="artist-image">Artist Image</label><span class="dSpan">${artist.artistImage }</span>
 				</div> -->
 				
 		<!-- START Genre fields here -->	
@@ -66,71 +66,71 @@
 				
 		<!-- START Location fields here -->	
 				<div class="form-group">
-					<label for="location-city">City</label> <span>${createArtistWrapper.locationCity}</span>
+					<label for="location-city">City</label> <span class="dSpan">${createArtistWrapper.locationCity}</span>
 				</div>
 				<div class="form-group">
-					<label for="location-state">State</label> <span>${createArtistWrapper.locationState}</span>
+					<label for="location-state">State</label> <span class="dSpan">${createArtistWrapper.locationState}</span>
 				</div>
 				
 		<!--  START Member fields here -->
 				<c:if test="${createArtistWrapper.member1!=''}">
 					<div class="form-group">
-						<label for="member1">Member #1 Full Name</label> <span>${createArtistWrapper.member1}</span>
+						<label for="member1">Member #1 Full Name</label> <span class="dSpan">${createArtistWrapper.member1}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member1StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #1 Stage Name</label> <span>${createArtistWrapper.member1StageName}</span>
+						<label for="member1">Member #1 Stage Name</label> <span class="dSpan">${createArtistWrapper.member1StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member2!=''}">
 					<div class="form-group">
-						<label for="member1">Member #2 Full Name</label> <span>${createArtistWrapper.member2}</span>
+						<label for="member1">Member #2 Full Name</label> <span class="dSpan">${createArtistWrapper.member2}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member2StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #2 Stage Name</label> <span>${createArtistWrapper.member2StageName}</span>
+						<label for="member1">Member #2 Stage Name</label> <span class="dSpan">${createArtistWrapper.member2StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member3!=''}">
 					<div class="form-group">
-						<label for="member1">Member #3 Full Name</label> <span>${createArtistWrapper.member3}</span>
+						<label for="member1">Member #3 Full Name</label> <span class="dSpan">${createArtistWrapper.member3}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member3StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #3 Stage Name</label> <span>${createArtistWrapper.member3StageName}</span>
+						<label for="member1">Member #3 Stage Name</label> <span class="dSpan">${createArtistWrapper.member3StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member4!=''}">
 					<div class="form-group">
-						<label for="member1">Member #4 Full Name</label> <span>${createArtistWrapper.member4}</span>
+						<label for="member1">Member #4 Full Name</label> <span class="dSpan">${createArtistWrapper.member4}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member4StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #4 Stage Name</label> <span>${createArtistWrapper.member4StageName}</span>
+						<label for="member1">Member #4 Stage Name</label> <span class="dSpan">${createArtistWrapper.member4StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member5!=''}">
 					<div class="form-group">
-						<label for="member1">Member #5 Full Name</label> <span>${createArtistWrapper.member5}</span>
+						<label for="member1">Member #5 Full Name</label> <span class="dSpan">${createArtistWrapper.member5}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member5StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #5 Stage Name</label> <span>${createArtistWrapper.member5StageName}</span>
+						<label for="member1">Member #5 Stage Name</label> <span class="dSpan">${createArtistWrapper.member5StageName}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member6!=''}">
 					<div class="form-group">
-						<label for="member1">Member #6 Full Name</label> <span>${createArtistWrapper.member6}</span>
+						<label for="member1">Member #6 Full Name</label> <span class="dSpan">${createArtistWrapper.member6}</span>
 					</div>
 				</c:if>
 				<c:if test="${createArtistWrapper.member6StageName!=''}">
 					<div class="form-group">
-						<label for="member1">Member #6 Stage Name</label> <span>${createArtistWrapper.member6StageName}</span>
+						<label for="member1">Member #6 Stage Name</label> <span class="dSpan">${createArtistWrapper.member6StageName}</span>
 					</div>
 				</c:if>
 				
@@ -148,10 +148,10 @@
 							<c:out value="${createArtistWrapper.theNewAlbumName}"/>
 						</div>
 						<div class="form-group">
-							<label for="album-numTracks"><em>New Album: Number of Tracks</em></label><span>${createArtistWrapper.albumNumTracks }</span>
+							<label for="album-numTracks"><em>New Album: Number of Tracks</em></label><span class="dSpan">${createArtistWrapper.albumNumTracks }</span>
 						</div>
 						<div class="form-group">
-							<label for="album-releaseDate"><em>New Album: Release Date</em></label><span>${createArtistWrapper.albumReleaseDate }</span>
+							<label for="album-releaseDate"><em>New Album: Release Date</em></label><span class="dSpan">${createArtistWrapper.albumReleaseDate }</span>
 						</div>
 					</c:if>
 				</div>
@@ -161,7 +161,7 @@
 				<!-- <div class="form-group">
 					<label>Members</label>
 					<c:forEach var="members" items="${artist.members}">
-						<span>${members}</span>
+						<span class="dSpan">${members}</span>
 					</c:forEach>
 				</div> -->
 					

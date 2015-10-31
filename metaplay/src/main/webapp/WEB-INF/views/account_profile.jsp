@@ -29,7 +29,7 @@
 
 	<div class="container" id="profileContainer">
 		<div class="row" style="padding-left: 5%;">
-			<h1 style="font-family: Times, serif;"><em>${account.accountname}</em></h1>
+			<h1 class="dH1">${account.accountname}</h1>
 			
 			<div class="form-group" id="avatarDiv" >
 				<c:set var="profilePictures" value="profilePictures"/>
@@ -44,7 +44,7 @@
 					
 						 <div class="row">     
 							<div class="col-md-6">
-								<label for="avatarInput">New Avatar</label><span style="padding-left: 10px;"></span><small>jpeg, jpg, png, or gif</small>
+								<label for="avatarInput">New Avatar</label><span class="dSpan"></span><small>jpeg, jpg, png, or gif</small>
 								<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="avatar" id="avatarInput" cssClass="btn btn-default btn-file" />
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="account-email">Email</label> <br /> <span>${account.email}</span>
+				<label for="account-email">Email</label> <br /> <span class="dSpan">${account.email}</span>
 			</div>
 
 			<label for="roles">Roles</label>

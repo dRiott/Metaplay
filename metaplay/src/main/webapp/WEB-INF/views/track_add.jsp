@@ -27,7 +27,7 @@
 
 	<div class="container">
 		<div class="row">
-			<h1><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
+			<h1 class="dH1"><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 		</div>
 
 		<spring:url value="/track/save" var="thisURL" />
@@ -118,7 +118,7 @@
 
 				<div class="row">
 					<div class="col-md-4">
-						<label for="audioFile">Audio File</label><span style="padding-left: 10px;"></span><small>mp3, wav, m4p, flac</small>
+						<label for="audioFile">Audio File</label><span class="dSpan"></span><small>mp3, wav, m4p, flac</small>
 						<form:input type="file" path="mp3" id="audioFileInput" cssClass="btn btn-default btn-file" />
 					</div>
 				</div>

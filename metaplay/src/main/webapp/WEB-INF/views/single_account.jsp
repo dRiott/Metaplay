@@ -29,7 +29,7 @@
 		<div class="row">
 
 			<div class="form-group">
-				<h1 style="font-family: Times, serif;"><em>Account: ${account.accountname}</em></h1>
+				<h1 class="dH1">Account: ${account.accountname}</h1>
 				<div class="form-group">
 					<img src="/metaplay/image/retrieve?foldername=profilePictures&filename=${account.accountname}" style="max-width: 500px; height:auto;"
 						alt="Image not found" id="avatarPic" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'" width="144" height="103"/>
@@ -85,10 +85,10 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${account.registrationDate!=null}">
-							<span><fmt:formatDate type="date" dateStyle="long" value="${account.registrationDate}"/></span>
+							<span class="dSpan"><fmt:formatDate type="date" dateStyle="long" value="${account.registrationDate}"/></span>
 						</c:when>
 						<c:otherwise>
-							<span>No registration date has been added.</span>				
+							<span class="dSpan">No registration date has been added.</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>

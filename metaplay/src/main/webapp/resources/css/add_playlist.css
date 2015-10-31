@@ -99,8 +99,17 @@ h4 {
 	height: auto;
 }
 
+.dBorder {
+	border-top: 2px dashed;
+	border-bottom: 2px dashed;
+}
+
 #messageDiv {
-	padding-left: 17%;
+	clear:both;
+	display:block;
+	text-align: center;
+	font: "Times, serif";
+	font-style: italic;
 }
 
 .tinted {
@@ -108,4 +117,13 @@ h4 {
 	-webkit-filter: blur(3px);
 	filter: blur(3px);
 }
+
+.trackOrderNum {
+	display:inline;
+}
+
+#playlistTHeadTh {
+	width: 5px;
+}
+
 /* END PLAYLIST_ADD CSS*/

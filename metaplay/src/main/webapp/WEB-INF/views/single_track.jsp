@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<div class="row">
-			<h1 style="font-family: Times, serif;"><em>Track: ${track.name}</em></h1>
+			<h1 class="dH1">Track: ${track.name}</h1>
 
 			<div class="form-group">
 				<sec:authorize access="isAuthenticated()">				

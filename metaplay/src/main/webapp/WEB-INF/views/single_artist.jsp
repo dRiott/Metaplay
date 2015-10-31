@@ -32,7 +32,7 @@
 	<div class="container">
 		<div class="row">
 
-			<h1 style="font-family: Times, serif;"><em>Artist: ${artist.name}</em></h1>
+			<h1 class="dH1">Artist: ${artist.name}</h1>
 			
 			<div class="form-group" style="float:clear;"></div>
 			
@@ -40,7 +40,7 @@
 				<div class="col-md-8">
 					<label for="singleArtistBiography">Biography</label><br/>
 					<c:set var="bioLength" value="${artist.biography.length()}"/>
-					<span>${fn:substring(artist.biography, 0, 300)}</span><!-- 
+					<span class="dSpan">${fn:substring(artist.biography, 0, 300)}</span><!-- 
 					 --><span style="display:none;" id="hiddenBiography">${fn:substring(artist.biography, 300, bioLength)}</span>
 					<button id="showButton" class="btn btn-default">More</button>
 					<button id="hideButton" class="btn btn-default" style="display:none">Less</button>
@@ -54,10 +54,10 @@
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${artist.genre!=null}">
-							<span><a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a></span>
+							<span class="dSpan"><a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a></span>
 						</c:when>
 						<c:otherwise>
-							<span>No genre assigned yet. They're probably Christian Death Metal, my best guess.</span>
+							<span class="dSpan">No genre assigned yet. They're probably Christian Death Metal, my best guess.</span>
 						</c:otherwise>
 					</c:choose>
 				</div>	
@@ -122,10 +122,10 @@
 										<a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a>
 										<c:choose>
 											<c:when test="${album.releaseDate!=null}">
-												<span>(<fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/>)</span>
+												<span class="dSpan">(<fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/>)</span>
 											</c:when>
 											<c:otherwise>
-												<span>Unknown Date, Probably Midnight, Thursday, 1 January 1970, not counting leap seconds.</span>				
+												<span class="dSpan">Unknown Date, Probably Midnight, Thursday, 1 January 1970, not counting leap seconds.</span>				
 											</c:otherwise>
 										</c:choose>
 									</li>
