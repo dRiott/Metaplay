@@ -10,6 +10,7 @@
 
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
+	
 	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
 	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
@@ -21,7 +22,7 @@
 
 	<div class="container">
 		
-		<h1>Record Labels</h1>
+		<h1 class="dH1">Record Labels</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
@@ -32,7 +33,7 @@
 						<td><a href="<spring:url value="/browse/recordlabel/${recordlabel.id}"/>">${recordlabel.name}</a></td>
 						<td><c:choose>
 								<c:when test="${recordlabel.description!=null && !recordlabel.description.isEmpty()}">
-									<span>${recordlabel.description}</span>
+									<span class="dSpan">${recordlabel.description}</span>
 								</c:when>
 								<c:otherwise>
 									No description given yet.
@@ -42,7 +43,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${recordlabel.location!=null}">
-									<span><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
+									<span class="dSpan"><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
 								</c:when>
 								<c:otherwise>
 									<td>No location assigned yet.</td>

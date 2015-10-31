@@ -22383,3 +22383,47 @@
 2015-10-30 09:12:26,476 [Worker-1517] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2015-10-30 09:12:26,476 [Worker-1517] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2015-10-30 09:12:26,476 [Worker-1517] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:08:41,067 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:08:41,070 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:08:41,071 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:08:41,071 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:09:37,170 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:09:37,170 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:09:37,171 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:09:37,171 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:09:59,502 [Worker-1858] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:09:59,502 [Worker-1858] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:09:59,502 [Worker-1858] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:09:59,502 [Worker-1858] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:10:10,791 [Worker-1858] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:10:10,792 [Worker-1858] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:10:10,792 [Worker-1858] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:10:10,792 [Worker-1858] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:10:46,983 [Worker-1856] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:10:46,984 [Worker-1856] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:10:46,984 [Worker-1856] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:10:46,984 [Worker-1856] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:11:03,636 [Worker-1345] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:11:03,636 [Worker-1345] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:11:03,636 [Worker-1345] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:11:03,636 [Worker-1345] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:11:43,764 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:11:43,765 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:11:43,765 [Worker-1861] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:11:43,766 [Worker-1861] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:16:46,079 [Worker-1865] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:16:46,080 [Worker-1865] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:16:46,080 [Worker-1865] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:16:46,080 [Worker-1865] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:16:47,094 [Worker-1867] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:16:47,094 [Worker-1867] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-10-31 09:16:47,094 [Worker-1867] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:16:47,094 [Worker-1867] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:25:14,895 [Worker-1868] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:25:14,896 [Worker-1868] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-10-31 09:25:14,896 [Worker-1868] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:25:14,896 [Worker-1868] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources
+2015-10-31 09:25:17,815 [Worker-1865] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:25:17,816 [Worker-1865] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-10-31 09:25:17,816 [Worker-1865] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-10-31 09:25:17,816 [Worker-1865] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/PoorYorick/git/metaplay/metaplay/src/test/resources

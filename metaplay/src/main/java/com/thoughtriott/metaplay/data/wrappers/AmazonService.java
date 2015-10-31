@@ -26,7 +26,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Controller
-public abstract class AmazonService extends RepositoryKeeper {
+public abstract class AmazonService extends RepositoryKeeper implements SecurityCredentials {
 //extends RepositoryKeeper so that controllers that need to use AmazonService and extend it can still 
 // have access to RepositoryKeeper's fields.
 	
@@ -34,10 +34,7 @@ public abstract class AmazonService extends RepositoryKeeper {
 		protected static final String PROFILEPICS = "profilePictures";
 		protected static final String ALBUM = "album";
 		protected static final String ARTIST = "artist";
-		static final String BUCKETIMAGE = "metaplaypictures";
-		static final String BUCKETAUDIO = "metaplayaudio";
-		static final String AWS_KEY = "AKIAIBWGLPRG2FMCGDKA";
-		static final String AWS_SECRET_KEY = "IvqMfT32WLjJ+OacA0e6tU6WEQjkX/OU0+f+g4VE";
+		
 	
 	//Utility method for uploading an image to S3, see: http://www.jets3t.org/toolkit/code-samples.html#downloading
 	@RequestMapping(value = "/saveimage")

@@ -26,7 +26,7 @@
 
 	<div class="container">
 
-		<h1>Add an Artist<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
+		<h1 class="dH1">Add an Artist<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<spring:url value="/artist/save" var="thisURL" />
 		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data" modelAttribute="createArtistWrapper">

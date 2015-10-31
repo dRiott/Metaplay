@@ -27,7 +27,7 @@
 
 	<div class="container">
 		<div class="row">
-			<h1 style="font-family: Times, serif;"><em>Playlist: ${playlist.name}</em></h1>
+			<h1 class="dH1">Playlist: ${playlist.name}</h1>
 
 			<div class="form-group">
 				<label for="project-name">Description</label> 

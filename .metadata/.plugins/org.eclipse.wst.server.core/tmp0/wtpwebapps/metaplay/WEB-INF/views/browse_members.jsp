@@ -20,7 +20,7 @@
 
 	<div class="container">
 		
-		<h1>Members</h1>
+		<h1 class="dH1">Members</h1>
 		<table class="table table-hover" style="width:40%">
 			<tbody>
 				<tr>

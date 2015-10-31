@@ -21,7 +21,7 @@
 	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
 
 	<div class="container">
-	<h1>An error has occurred.</h1>
+	<h1 class="dH1">An error has occurred.</h1>
 	<p>There was an issue with our database. Either what you want to create already exists, or violates the database's integrity.</p>
 	
 	<br/>

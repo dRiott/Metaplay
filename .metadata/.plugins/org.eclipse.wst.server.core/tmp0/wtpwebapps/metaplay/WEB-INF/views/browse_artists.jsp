@@ -25,7 +25,7 @@
 
 	<div class="container">
 		
-		<h1>Artists</h1>
+		<h1 class="dH1">Artists</h1>
 		<table class="table table-hover" id="tableWithLongText">
 			<tbody>
 				<tr>

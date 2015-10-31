@@ -1,0 +1,10 @@
+package com.thoughtriott.metaplay.data.wrappers;
+
+public interface SecurityCredentials {
+
+	static final String BUCKETIMAGE = "metaplaypictures";
+	static final String BUCKETAUDIO = "metaplayaudio";
+	static final String AWS_KEY = "AKIAIBWGLPRG2FMCGDKA";
+	static final String AWS_SECRET_KEY = "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";
+	
+}

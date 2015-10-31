@@ -1,3 +1,12 @@
+.dH1 {
+	font-family: Times, serif;
+	font-style: italic;
+}
+
+.dSpan {
+	padding-left: 10px;
+}
+
 .container {
 	padding-left: 7%;
 }

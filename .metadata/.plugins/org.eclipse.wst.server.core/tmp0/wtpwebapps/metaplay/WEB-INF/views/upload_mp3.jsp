@@ -26,7 +26,7 @@
 
 	<div class="container">
 		<div class="row">
-			<h1>Upload An MP3</h1>
+			<h1 class="dH1">Upload An MP3</h1>
 			<p>ID corresponds to the ID of the Track you want the MP3 to be associated with.</p>
 		</div>
 
@@ -46,7 +46,7 @@
 				
 					<!-- accept="image/jpeg, image/png, image/gif, image/jpg"  -->
 					<div class="col-md-4">
-						<label for="audioFile">Audio File</label><span style="padding-left: 10px;"></span><small>mp3, wav, m4p, flac</small>
+						<label for="audioFile">Audio File</label><span class="dSpan"></span><small>mp3, wav, m4p, flac</small>
 							<form:input type="file" path="mp3" id="audioFileInput" cssClass="btn btn-default btn-file" />
 					</div>
 					

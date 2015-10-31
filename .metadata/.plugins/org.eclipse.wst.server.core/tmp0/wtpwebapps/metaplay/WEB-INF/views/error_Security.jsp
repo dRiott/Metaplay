@@ -36,7 +36,7 @@
 	</div> -->
 
 	<div class="container">
-		<h1>Security Issue</h1>
+		<h1 class="dH1">Security Issue</h1>
 		<p>Something went wrong. The token submitted did not match the expectation. Please try again!</p>
 	
 		<br>

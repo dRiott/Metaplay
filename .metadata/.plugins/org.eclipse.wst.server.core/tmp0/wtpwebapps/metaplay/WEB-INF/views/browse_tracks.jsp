@@ -27,7 +27,7 @@
 
 	<div class="container">
 		
-		<h1>Tracks</h1>
+		<h1 class="dH1">Tracks</h1>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
@@ -46,7 +46,7 @@
 
 						<td>
 							<a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
-							<span style="padding-left: 10px;"></span>		
+							<span class="dSpan"></span>		
 							<sec:authorize access="isAuthenticated()">				
 								<audio controls>
 									<source src="/metaplay/audio/retrieve?id=${track.id}&filename=${track.name}" type="audio/mpeg" />

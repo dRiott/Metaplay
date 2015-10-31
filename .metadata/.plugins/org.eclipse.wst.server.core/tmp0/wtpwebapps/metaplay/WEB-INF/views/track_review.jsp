@@ -32,13 +32,13 @@
 				<h2>Please Review the Track for Accuracy</h2>
 	
 				<div class="form-group">
-					<label for="trackNumber">* Track Number</label> <span>${createTrackWrapper.trackNumber}</span>
+					<label for="trackNumber">* Track Number</label> <span class="dSpan">${createTrackWrapper.trackNumber}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackName">* Name</label> <span>${createTrackWrapper.name }</span>
+					<label for="trackName">* Name</label> <span class="dSpan">${createTrackWrapper.name }</span>
 				</div>
 				<%-- <div class="form-group">
-					<label for="trackArtistName">Artist</label><span>${createTrackWrapper.artist }</span>
+					<label for="trackArtistName">Artist</label><span class="dSpan">${createTrackWrapper.artist }</span>
 				</div> --%>
 				<div class="form-group">
 					<label for="trackArtistName">Artist</label>
@@ -60,26 +60,26 @@
 					</c:if>
 				</div>
 				<div class="form-group">
-					<label for="trackAlbumCover">Album Cover</label> <span>${createTrackWrapper.albumCover}</span>
+					<label for="trackAlbumCover">Album Cover</label> <span class="dSpan">${createTrackWrapper.albumCover}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthMinutes">* Length: Minutes</label> <span>${createTrackWrapper.lengthMinutes}</span>
+					<label for="trackLengthMinutes">* Length: Minutes</label> <span class="dSpan">${createTrackWrapper.lengthMinutes}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLengthSeconds">* Seconds</label> <span>${createTrackWrapper.lengthSeconds}</span>
+					<label for="trackLengthSeconds">* Seconds</label> <span class="dSpan">${createTrackWrapper.lengthSeconds}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackBpm">BPM</label> <span>${createTrackWrapper.bpm}</span>
+					<label for="trackBpm">BPM</label> <span class="dSpan">${createTrackWrapper.bpm}</span>
 				</div>
 				<div class="form-group">
-					<label for="trackLyrics">Lyrics</label> <span>${createTrackWrapper.lyrics}</span>
+					<label for="trackLyrics">Lyrics</label> <span class="dSpan">${createTrackWrapper.lyrics}</span>
 				</div>					
 				
 		<!--  START Exampe ForEach -->
 				<!-- <div class="form-group">
 					<label>Members</label>
 					<c:forEach var="members" items="${artist.members}">
-						<span>${members}</span>
+						<span class="dSpan">${members}</span>
 					</c:forEach>
 				</div> -->
 					

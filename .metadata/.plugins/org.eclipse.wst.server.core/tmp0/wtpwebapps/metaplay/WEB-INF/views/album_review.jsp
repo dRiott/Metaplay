@@ -32,7 +32,7 @@
 				<h2>Please Review the Album</h2>
 	
 				<div class="form-group">
-					<label for="albumName">* Album Name</label> <span>${createAlbumWrapper.name}</span>
+					<label for="albumName">* Album Name</label> <span class="dSpan">${createAlbumWrapper.name}</span>
 				</div>
 
 				<div class="form-group">
@@ -70,14 +70,14 @@
 				</div>	
 				
 				<div class="form-group">
-					<label for="albumReleaseDate">Release Date</label> <span>${createAlbumWrapper.releaseDate}</span>
+					<label for="albumReleaseDate">Release Date</label> <span class="dSpan">${createAlbumWrapper.releaseDate}</span>
 				</div>
 				
 				<div class="form-group">
-					<label for="albumLengthMinutes">* Minutes</label> <span>${createAlbumWrapper.lengthMinutes}</span>
+					<label for="albumLengthMinutes">* Minutes</label> <span class="dSpan">${createAlbumWrapper.lengthMinutes}</span>
 				</div>
 				<div class="form-group">
-					<label for="albumLengthSeconds">* Seconds</label> <span>${createAlbumWrapper.lengthSeconds}</span>
+					<label for="albumLengthSeconds">* Seconds</label> <span class="dSpan">${createAlbumWrapper.lengthSeconds}</span>
 				</div>
 				
 				<label for="albumTracks">Tracks</label><br/>

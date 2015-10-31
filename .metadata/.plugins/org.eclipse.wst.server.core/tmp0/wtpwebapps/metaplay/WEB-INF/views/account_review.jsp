@@ -33,11 +33,11 @@
 				<h2>Please Review Your Credentials for Accuracy</h2>
 	
 				<div class="form-group">
-					<label for="accountname">Account Name</label> <span>${account.accountname}</span>
+					<label for="accountname">Account Name</label> <span class="dSpan">${account.accountname}</span>
 				</div>
 				
 				<div class="form-group">
-					<label for="email">Email</label> <span>${account.email}</span>
+					<label for="email">Email</label> <span class="dSpan">${account.email}</span>
 				</div>
 		
 				<a href="<spring:url value="/account/add"/>" class="btn btn-default">Edit</a>

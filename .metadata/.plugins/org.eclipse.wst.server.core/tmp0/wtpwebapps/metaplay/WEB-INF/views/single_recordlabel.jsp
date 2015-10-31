@@ -26,13 +26,13 @@
 
 	<div class="container">
 		<div class="row">
-			<h1 style="font-family: Times, serif;"><em>Record Label: ${recordlabel.name}</em></h1>
+			<h1 class="dH1">Record Label: ${recordlabel.name}</h1>
 
 			<div class="form-group">
 				<label for="singleRecordLabelDescription">Description</label>
 				<c:choose>
 					<c:when test="${recordlabel.description!=null && !recordlabel.description.isEmpty()}">
-						<span>${recordlabel.description}</span>
+						<span class="dSpan">${recordlabel.description}</span>
 					</c:when>
 					<c:otherwise>
 						No description given yet.
@@ -44,7 +44,7 @@
 				<label for="singleRecordLabelLocation">Location</label>
 				<c:choose>
 					<c:when test="${recordlabel.location!=null}">
-						<span><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
+						<span class="dSpan"><a href="<spring:url value="/browse/location/${recordlabel.location.id}"/>">${recordlabel.location.city}, ${recordlabel.location.state}</a></span>
 					</c:when>
 					<c:otherwise>
 						<td>No location assigned yet.</td>

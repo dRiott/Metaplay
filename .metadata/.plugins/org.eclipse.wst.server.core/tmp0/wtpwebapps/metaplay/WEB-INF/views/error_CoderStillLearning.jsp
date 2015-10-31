@@ -40,7 +40,7 @@
 	<div class="container">
 	
 	
-	<h1>Oops</h1>
+	<h1 class="dH1">Oops</h1>
 	
 	<p>Something went wrong. As much as we'd like to skirt blame... Let's be realistic.</p>
 

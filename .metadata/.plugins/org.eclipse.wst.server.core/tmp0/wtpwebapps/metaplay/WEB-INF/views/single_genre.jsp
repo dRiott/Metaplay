@@ -30,7 +30,7 @@
 	<div class="container">
 		<div class="row">
 
-			<h1 style="font-family: Times, serif;"><em>Genre: ${genre.name}</em></h1>
+			<h1 class="dH1">Genre: ${genre.name}</h1>
 			
 			<div class="form-group" style="float:clear;"></div>
 			
@@ -38,7 +38,7 @@
 				<div class="col-md-8">
 					<label for="singleGenreDescription">Description</label><br/>
 					<c:set var="bioLength" value="${genre.description.length()}"/>
-					<span>${fn:substring(genre.description, 0, 300)}</span><!-- 
+					<span class="dSpan">${fn:substring(genre.description, 0, 300)}</span><!-- 
 					 --><span style="display:none;" id="hiddenBiography">${fn:substring(genre.description, 300, bioLength)}</span>
 					<button id="showButton" class="btn btn-default">More</button>
 					<button id="hideButton" class="btn btn-default" style="display:none">Less</button>
