@@ -49,21 +49,6 @@ $(document).ready(function () {
 		}
 	});
 	//end NORMAL PAGE MANIPULATION STUFF.
-		
-	
-	//for some bizarre reason, bootstrap navbar wasn't opening the header dropdowns.
-	//the click was registered, and in the console the classes were attempting to change, but kept their values
-	//I'm hacking around this with the following on click event... This may cause problems in the future!?
-	$(".dropdown").click(function () {
-		if($(this).hasClass("open")) {
-			$(this).removeClass("open")
-			$(this).first().css("aria-expanded", false);
-		} else {
-			$(this).addClass("open");
-			$(this).first().css("aria-expanded", true);
-		}
-	})
-	
 	
 	//autocomplete for the accounts search input
 	$("#accountSearchInput").autocomplete({

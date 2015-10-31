@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.security.web.csrf.CsrfException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.NestedServletException;
@@ -25,7 +26,7 @@ public class GlobalMetaplayExceptionHandler {
 	
 	//SQLException.class
 	// DataAccessException.class
-	@ExceptionHandler({ PersistenceException.class})
+	@ExceptionHandler({ PersistenceException.class, TransactionSystemException.class})
 	public String databaseError(HttpServletRequest req, Exception exception, HttpSession session) {
 		 logger.error("Request: " + req.getRequestURL() + " raised " + exception);
 		session.setAttribute("url", req.getRequestURL());

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,10 +39,15 @@ public class AccountController extends AmazonService {
 		newAccount.setEnabled(true);
 		newAccount.setAccountname(caw.getAccountname());
 		newAccount.setEmail(caw.getEmail());
-		newAccount.setPassword(caw.getPassword());
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(caw.getPassword());
+		newAccount.setPassword(hashedPassword);
+		
 		if(caw.getProfilePicture()!=null) {
 			super.saveImage(caw.getProfilePicture(), PROFILEPICS, caw.getAccountname());
 		}
+		
 		Account savedAccount = accountRepository.save(newAccount);
 		Role role = roleRepository.findRoleOrderByName("Lurker").get(0);
 		savedAccount.addRole(role);

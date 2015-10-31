@@ -2,11 +2,15 @@ package com.thoughtriott.metaplay.config;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
@@ -19,8 +23,12 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select accountname, password, enabled from account where accountname=?")
-		.authoritiesByUsernameQuery("select account.accountname, role.Id from account, role where account.accountname=? ");
+		auth.jdbcAuthentication().dataSource(dataSource)
+		.passwordEncoder(passwordEncoder())
+		.usersByUsernameQuery("select accountname, password, enabled from account where accountname=?")
+//		.authoritiesByUsernameQuery("select account.accountname, role.name from account, role where account.accountname=?");
+//		.authoritiesByUsernameQuery("SELECT account.accountname, role.name FROM account, account_role, role WHERE account.accountname = ? and account.id = account_role.account_id");");
+		.authoritiesByUsernameQuery("select a.accountname, r.name from account a join account_role ar on (a.id=ar.account_id) join role r on (ar.role_id=r.id) where a.accountname=?");
 	}
 	
 	@Override
@@ -31,12 +39,19 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().rememberMe().key("metaplayKey")
 				.and().logout().logoutSuccessUrl("/").logoutUrl("/logout")
 				.and().authorizeRequests()
-					.antMatchers("/account/login", "/account/review", "/account/save", "/account/add", "/", "/browse/**", "/more/payment", "/more/image").permitAll()
-					.antMatchers("/role/add", "/role/assign").hasRole("GOD")
-					.antMatchers("/artist/**", "/album/**", "/location/**", "/playlist/**", "/role/**", "/track/**", "/account/**").authenticated()
+					.antMatchers("/account/**", "/", "/browse/**", "/more/payment", "/resources/img/favicon.ico").permitAll()
+					.antMatchers("/role/add", "/role/assign").hasAuthority("God")
+					.antMatchers(HttpMethod.POST, "/account/**", "/album/**", "/artist/**", "/audio/**", "/location/**", "/playlist/**", "/role/**", "/track/**").hasAuthority("God")
+					.antMatchers("/album/**", "/artist/**", "/audio/**", "/location/**", "/playlist/**", "/role/**", "/track/**").authenticated()
 					.anyRequest().permitAll()
 				.and().exceptionHandling().accessDeniedPage("/account/accessDenied");
 		//for https
 		//.and().requiresChannel().antMatchers("/account/save", "/album/save", "/artist/save", "/location/save", "/playlist/save", "/track/save").requiresSecure();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;	
 	}
 }
