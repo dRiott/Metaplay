@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.thoughtriott.metaplay.data.entities.Account;
+import com.thoughtriott.metaplay.data.entities.Request;
 import com.thoughtriott.metaplay.data.entities.Role;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
@@ -103,7 +104,21 @@ public class AccountController extends AmazonService {
 		model.addAttribute("accountId", activeAccount.getId());
 		return "redirect:/account/{accountId}";
 	}
-
+	
+	@RequestMapping(value="/requestRole", method=RequestMethod.GET)
+	public String getRoleRequest(Model model) {
+		model.addAttribute("request", new Request());
+		return "account_roleRequest";
+	}
+	
+	@RequestMapping(value="/requestRole", method=RequestMethod.POST)
+	public String submitRoleRequest(Request request, @AuthenticationPrincipal User activeUser) {
+		System.out.println("inside the moethod");
+		request.setAccount(accountRepository.findAccountByAccountname(activeUser.getUsername()).get(0));
+		requestRepository.saveAndFlush(request);
+		return "redirect:/account/requestRole";
+	}
+	
 	@RequestMapping("/accessDenied")
 	public String getDeniedRedirect() {
 		return "error_accessdenied";

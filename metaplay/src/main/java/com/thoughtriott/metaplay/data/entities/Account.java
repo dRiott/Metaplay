@@ -1,5 +1,6 @@
 package com.thoughtriott.metaplay.data.entities;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "account")
@@ -62,6 +65,10 @@ public class Account extends MetaplayEntity {
 	
 	@Transient
 	private MultipartFile avatar;
+	
+	@OneToMany(mappedBy = "account")
+	@JsonManagedReference
+	private Collection<Request> requests;
 	
 	//--------------------------Getters & Setters--------------------------
 	public List<Role> getRoles() {
@@ -144,6 +151,14 @@ public class Account extends MetaplayEntity {
 		this.avatar = avatar;
 	}
 
+	public Collection<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(Collection<Request> requests) {
+		this.requests = requests;
+	}
+
 	//--------------------------Collection Adders and Removers--------------------------
 	public Account addRole(Role role) {
 		if (getRoles()!=null && !getRoles().contains(role)) {
@@ -164,6 +179,13 @@ public class Account extends MetaplayEntity {
 		}
 		if(targetedRole!=null){
 			roles.remove(targetedRole);
+		}
+		return this;
+	}
+	
+	public Account addRequest(Request request) {
+		if (requests!=null && !requests.contains(request)) {
+			requests.add(request);
 		}
 		return this;
 	}
@@ -228,7 +250,25 @@ public class Account extends MetaplayEntity {
 			}
 		}
 		return playlistsString;
-		}return "No roles";
+		} return "No playlists";
+	}
+	
+	public String getRequestsToString () {
+		if(getRequests()!=null) {
+			Iterator<Request> it = getRequests().iterator();
+			String requestsString = "";
+			while(it.hasNext()) {
+				//if-else prevents ", " from being appended the first time, appends } on the final time.
+				if(requestsString.length() > 1) {
+					requestsString = requestsString + ", " + it.next().getRequest();
+				} else if (!it.hasNext()) {
+					requestsString = requestsString + ", " + it.next().getRequest() + "}";
+				} else {
+					requestsString = "Requests: {" + it.next().getRequest();
+				}
+			}
+			return requestsString;
+		} return "No requests";
 	}
 	
 	//--------------------------toString()--------------------------
@@ -236,7 +276,7 @@ public class Account extends MetaplayEntity {
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", roles= " + getRolesToString() + ", playlists=" + getPlaylistsToString() + ", accountname=" + accountname
-				+ ", password=" + password + ", registrationDate=" + registrationDate + ", email=" + email + "]";
+				+ ", password=" + password + ", registrationDate=" + registrationDate + ", email=" + email + ", requests=" + getRequestsToString() + "]";
 	}
 
 }

@@ -40,7 +40,6 @@ public class PlaylistController extends RepositoryKeeper {
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addPlaylist(Model model){
-		
 		model.addAttribute("accounts", accountRepository.findAll());
 		model.addAttribute("tracks", trackRepository.findAll());
 		return "playlist_add";

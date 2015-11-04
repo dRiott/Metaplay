@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,13 +10,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Track Manager</title>
 	
-	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	
-	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
-	<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
-	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script>
 	
 	<script src="<spring:url value="/resources/js/trackAdd.js"/>"></script>
@@ -28,6 +29,10 @@
 	<div class="container">
 		<div class="row">
 			<h1 class="dH1"><a>Track</a><span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
+		
+			<sec:authorize access="!hasAuthority('God')">
+				<h3 class="dH1">Looks like you don't have priviledges to submit new info. <a href="<spring:url value="/account/requestRole"/>">Make a request!</a></h3>
+			</sec:authorize>
 		</div>
 
 		<spring:url value="/track/save" var="thisURL" />

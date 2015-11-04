@@ -14,6 +14,7 @@ import com.thoughtriott.metaplay.data.repositories.jpa.MemberRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.PlaylistTrackRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.RecordLabelRepository;
+import com.thoughtriott.metaplay.data.repositories.jpa.RequestRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.RoleRepository;
 import com.thoughtriott.metaplay.data.repositories.jpa.TrackRepository;
 //import com.thoughtriott.metaplay.data.repositories.mongo.AudioFileRepository;
@@ -41,6 +42,8 @@ public abstract class RepositoryKeeper {
 	protected RecordLabelRepository recordLabelRepository;
 	@Autowired
 	protected RoleRepository roleRepository;
+	@Autowired
+	protected RequestRepository requestRepository;
 	@Autowired
 	protected TrackRepository trackRepository;
 	@Autowired

@@ -1,0 +1,16 @@
+package com.thoughtriott.metaplay.data.repositories.jpa;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.thoughtriott.metaplay.data.entities.Account;
+import com.thoughtriott.metaplay.data.entities.Request;
+
+public interface RequestRepository extends JpaRepository<Request, Integer> {
+
+	//this is where you write Spring Data Queries to be read and interpreted by Spring
+	List<Account> findAccountByAccountname(String accountname);
+	List<Account> findAccountByAccountnameLike(String accountname);
+	
+}

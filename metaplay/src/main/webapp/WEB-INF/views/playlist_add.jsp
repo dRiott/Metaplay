@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,15 +11,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Playlist Manager</title>
 	
-	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap3-3-4.css"/>" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/jquery-ui.min.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/add_playlist.css"/>" type="text/css" />
 	
-	<script src="<spring:url value="/resources/lib/jquery.js"/>"></script>
-	<script src="<spring:url value="/resources/lib/jquery-ui-min.js"/>"></script>
-	<script src="<spring:url value="/resources/lib/bootstrap-min.js"/>"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script>
 	<script	src="<spring:url value="/resources/js/playlistAdd.js"/>"></script>
 </head>
@@ -58,17 +57,8 @@
 		
 		<div class="form-group" style="clear:both;"></div>
 		
-		<!-- <table class="table table-hover" id="accountsTable">
-			<thead>
-				<tr>
-					<th id="accountNameTh">Accountname</th>
-				</tr>
-			</thead>	
-			<tbody>
-			</tbody>
-		</table> -->
-			<div class="form-control DR_Textarea savedField" id="accountsSelected">
-			</div>
+		<div class="form-control DR_Textarea savedField" id="accountsSelected"></div>
+		
 	</div>
 
 	<div class="form-group" style="clear:both;"></div>

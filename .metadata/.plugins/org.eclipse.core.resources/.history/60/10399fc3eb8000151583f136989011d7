@@ -1,0 +1,19 @@
+package com.thoughtriott.metaplay.data.wrappers;
+
+public interface SecurityCredentials {
+
+	String BUCKETIMAGE = "metaplaypictures";
+	String BUCKETAUDIO = "metaplayaudio";
+	String AWS_KEY = "AKIAJ6MR6Z5XCIC6XM6A";
+	String AWS_SECRET_KEY = "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";
+		
+}
+
+
+/*    select account.accountname, role.name from account a, account_role ar, role r where account.accountname=? and a.id = ar.account_id and r.id = ar.role_id
+ *		
+ * 
+ * 
+ * 
+ * */
+ 

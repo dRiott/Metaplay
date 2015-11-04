@@ -1,0 +1,28 @@
+package com.thoughtriott.metaplay.data.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "location")
+public class Request {
+	
+	public Request() {
+	}
+	
+	private String request;
+
+	public String getRequest() {
+		return request;
+	}
+
+	public void setRequest(String request) {
+		this.request = request;
+	}
+
+	@Override
+	public String toString() {
+		return "Request [request=" + request + "]";
+	}
+	
+}

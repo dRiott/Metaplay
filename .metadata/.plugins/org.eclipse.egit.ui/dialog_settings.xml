@@ -6,6 +6,9 @@
 	<item value="523" key="DIALOG_HEIGHT"/>
 	<item value="-123" key="DIALOG_X_ORIGIN"/>
 	<item value="-240" key="DIALOG_Y_ORIGIN"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/dRiott/Metaplay.git"/>
+	</list>
 	<list key="CommitDialog.authorValues">
 		<item value="dRiott &lt;david.riott1@gmail.com&gt;"/>
 		<item value="David Riott &lt;david.riott1@gmail.com&gt;"/>

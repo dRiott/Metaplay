@@ -1,5 +1,0 @@
-/**
- * Set up so that on mouseover Avatar, allows upload picture to change.
- */
-
-alert("I'm here!");
