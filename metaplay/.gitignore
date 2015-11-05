@@ -42,11 +42,11 @@ Desktop.ini
 ######################
 # Eclipse
 ######################
-
+**/.history/**
 *.pydevproject
 .project
 .metadata
-*.history
+**/.metadata/**
 .history
 bin/**
 tmp/**
@@ -60,6 +60,8 @@ local.properties
 .settings/
 .loadpath
 /src/main/resources/rebel.xml
+
+
 # External tool builders
 .externalToolBuilders/
 
