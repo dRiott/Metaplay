@@ -1,11 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
-import java.util.Iterator;
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.thoughtriott.metaplay.data.entities.Member;
+import java.util.Iterator;
+import java.util.List;
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom {
 

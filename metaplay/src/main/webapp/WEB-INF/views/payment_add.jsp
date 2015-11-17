@@ -4,10 +4,12 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Credit Card Processor</title>
+   
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -18,15 +20,15 @@
 	<script src="<spring:url value="/resources/js/validatePayment.js"/>"></script>
 </head>
 
-<body>
+<body class="delayedReveal">
 	<div id="wrapper">
-		<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
+		<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 		
-		<div class="container" style="padding-left: 7%" style="border: 2px dashed;">
+		<div class="drContainer">
 			
-			<h1 >Credit Card Processing</h1>
-			<h2>Pen Your CC Info, Playa</h2>
-			
+			<h1>Pen Your CC Info, Playa</h1>
+			<h2 style="font-family: monospace, sans-serif;"><small><em>This is just for fun!</em></small></h2>
+			<br/>
 			<spring:url value="/payment/process" var="thisFormURL" />
 			<form:form id="formCreditCard" action="${thisFormURL}" method="post" modelAttribute="creditCard" onsubmit="fixOtherValue(); return validate(this);">
 				<form:errors path="*" element="div" cssClass="errors" />
@@ -39,7 +41,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
@@ -50,7 +52,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
@@ -61,16 +63,16 @@
 					</div>
 				</div>
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
 					<div class="col-md-6" id="optionCardTypeInput" style="display:none;">
 						<label for="nameOnCard" style="font-style:italic;">Other Card Type:</label>
-						<form:input type="text" cssClass="form-control" path="cardType" id="otherCardTypeOption" cssErrorClass="has-error" />
+						<form:input type="text" cssClass="form-control" path="otherCardType" id="otherCardTypeOption" cssErrorClass="has-error" />
 					</div>
 				</div>
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
@@ -79,7 +81,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
 					<div class="col-md-4">
@@ -88,16 +90,13 @@
 					</div>
 				</div>	
 				
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<button type="submit" class="btn btn-default">Submit</button>
-				
-				<div class="form-group" style="float:clear;"></div>
 			</form:form>
-	
 		</div>
 	</div>
 	
-</div>	
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

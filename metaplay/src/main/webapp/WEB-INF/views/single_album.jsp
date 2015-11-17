@@ -1,40 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>MetaPlay &copy Album</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Metaplay Album</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
-<%-- <link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" /> --%>
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<%-- <script	src="<spring:url value="/resources/lib/bootstrap-select.min.js"/>"></script> --%>
-
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
-<body>
 
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<div class="container">
-		<div class="row">
+	<div class="drContainer">
+		<div class="row drRow">
 			<h1 class="dH1">Album: ${album.name}</h1>
 
 			<div class="form-group">
-				<label for="project-name">Artist</label>
+				<label>Artist</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.artist!=null}">
-							<span class="dSpan"><a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a></span>
+							<span><a href="<spring:url value="/browse/artist/${album.artist.id}"/>">${album.artist.name}</a></span>
 						</c:when>
 						<c:otherwise>
 							<td>No artist assigned yet.</td>
@@ -43,11 +40,11 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Record Label</label>
+				<label>Record Label</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.recordLabel!=null}">
-							<span class="dSpan"><a href="<spring:url value="/browse/recordlabel/${album.recordLabel.id}"/>">${album.recordLabel.name}</a></span>
+							<span><a href="<spring:url value="/browse/recordlabel/${album.recordLabel.id}"/>">${album.recordLabel.name}</a></span>
 						</c:when>
 						<c:otherwise>
 							<td>No Record Label assigned yet.</td>
@@ -57,27 +54,28 @@
 			</div>
 			
 			<div class="form-group" >
-				<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 350px;height:auto;"
-				alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+				<img src="/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 350px;height:auto;"
+				alt="Image not found" onerror="this.onerror=null; this.src='<spring:url value='/resources/img/default.gif'/>'"/>
+
 			</div>
 				
 			<div class="form-group">
-				<label for="project-name">Tracks</label>
+				<label>Tracks</label>
 				<div class="form-group">
 					 <c:if test="${album.numTracks!=null}">
-					 	<span class="dSpan">${album.numTracks}</span>
+					 	<span>${album.numTracks}</span>
 					 </c:if>
 					  <c:if test="${album.numTracks==null}">
-					 	<span class="dSpan">?</span>
+					 	<span>?</span>
 					 </c:if>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Length</label>
+				<label>Length</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.length==0}">
-							<span class="dSpan">?</span>
+							<span>?</span>
 						</c:when>
 						<c:when test="${album.length!=null}">
 							<%-- Formatting the minutes from track.length --%>
@@ -91,33 +89,33 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<span class="dSpan">?</span>				
+							<span>?</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Release Date</label>
+				<label>Release Date</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.releaseDate!=null}">
-							<span class="dSpan"><fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/></span>
+							<span><fmt:formatDate type="date" dateStyle="long" value="${album.releaseDate}"/></span>
 						</c:when>
 						<c:otherwise>
-							<span class="dSpan">No release date has been added.</span>				
+							<span>No release date has been added.</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="project-name">Description</label> 
+				<label>Description</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${album.description!=null}">
-							<span class="dSpan">${album.description}</span>					
+							<span>${album.description}</span>					
 						</c:when>
 						<c:otherwise>
-							<span class="dSpan">No description.</span>				
+							<span>No description.</span>				
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -130,6 +128,6 @@
 
 		</div>
 	</div>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

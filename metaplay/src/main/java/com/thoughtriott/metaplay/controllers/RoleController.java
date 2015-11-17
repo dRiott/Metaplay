@@ -1,18 +1,17 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.Account;
+import com.thoughtriott.metaplay.data.entities.Role;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import com.thoughtriott.metaplay.data.wrappers.RoleWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.Account;
-import com.thoughtriott.metaplay.data.entities.Role;
-import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
-import com.thoughtriott.metaplay.data.wrappers.RoleWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/role")

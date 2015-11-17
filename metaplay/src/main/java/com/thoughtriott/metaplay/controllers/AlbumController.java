@@ -1,14 +1,9 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
+import com.thoughtriott.metaplay.data.entities.*;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
+import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,14 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.Album;
-import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.entities.RecordLabel;
-import com.thoughtriott.metaplay.data.entities.Track;
-import com.thoughtriott.metaplay.data.wrappers.AmazonService;
-import com.thoughtriott.metaplay.data.wrappers.CreateAlbumWrapper;
-import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
+import javax.validation.Valid;
+import java.util.*;
 
 @Controller
 @RequestMapping("/album")
@@ -56,7 +45,7 @@ public class AlbumController extends AmazonService {
 		futureAlbum.setReleaseDate(dateFormatter.getDateFromString(caw.getReleaseDate()));
 		
 		// ****************** BEGIN TRACK PERSISTENCE ******************
-		Map<Integer, String> tracksMap = new HashMap<Integer, String>(); //for setting the tracks' album after creating THIS album
+		Map<Integer, String> tracksMap = new HashMap<>(); //for setting the tracks' album after creating THIS album
 		
 		List<CreateTrackWrapper> createTrackWrappers = caw.getCreateTrackWrappers();
 		Iterator<CreateTrackWrapper> it = createTrackWrappers.iterator();
@@ -112,7 +101,7 @@ public class AlbumController extends AmazonService {
 		
 		// ****************** BEGIN ARTIST PERSISTENCE ******************	
 		System.out.println("AlbumController: Setting/Creating an Artist");
-		if(caw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByName(caw.getArtistFromList())!=null) {
+		if(!caw.getArtistFromList().equals("** New Artist **") && artistRepository.findArtistByName(caw.getArtistFromList())!=null) {
 			System.out.println("AlbumController: setting Artist - Found the artist already in the DB: " + caw.getArtistFromList());
 			futureAlbum.setArtist(artistRepository.findArtistByName(caw.getArtistFromList()));
 		} else {
@@ -131,10 +120,10 @@ public class AlbumController extends AmazonService {
 		String recordLabelCountry = caw.getRecordLabelCountry();
 		String recordLabelNewCountry = caw.getRecordLabelNewCountry();
 		
-		if(recordLabelName!="** New Record Label **" && recordLabelRepository.findRecordLabelByName(recordLabelName).size()>0) {
+		if(!recordLabelName.equals("** New Record Label **") && recordLabelRepository.findRecordLabelByName(recordLabelName).size()>0) {
 			futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 		} else if(recordLabelName.equals("** New Record Label **")) {
-			Location rlLocation = null;
+			Location rlLocation;
 			
 			if(recordLabelCountry.equals("United States")) {
 				if(locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)!=null) {

@@ -1,28 +1,44 @@
-.dH1 {
-	font-family: Times, serif;
-	font-style: italic;
-}
+/**
+The padding for the main containers are all set with javascript in footer.js based on the position of the Search nav item.
+*/
 
-.dSpan {
-	padding-left: 10px;
-}
-
-.container {
-	padding-left: 7%;
-}
-
-#container.1 {
-	color: snow;
-	background-color: #E5E5E5;
-	
+html {
+    /*prevents horizontal scrolling*/
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
-	background-color: #E5E5E5;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: bottom right;
+	background: #E5E5E5 fixed bottom right no-repeat;
 	background-size: 500px Auto;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    /*prevents horizontal scrolling*/
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+audio {
+    background-color: #EEEEEE;
+}
+
+hr {
+    margin-left:0;
+    width: 40%;
+}
+
+a.mono {
+    font-family: monospace, sans-serif;
+    font-style: italic;
+}
+
+/* BEGIN CLASS CSS SELECTORS */
+.dH1 {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-style: italic;
+}
+
+.dSpan {
+    padding-left: 10px;
 }
 
 .DRnavBarDiv{
@@ -37,16 +53,17 @@ body {
 .imageLogo {
 	width:13.5%;
 	max-width:180px;
-	 position: absolute;
-	 clear: both;
-    /* top: 30%; */
-   /*  left: 5%; */
-   	height:auto; 
+	position: absolute;
+    clear: both;
+   	height:auto;
    
+    /* Spin only the record, not the glossy logoLayer.*/
 	-webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
 }
+
+/* Spin the Logo! */
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
@@ -55,13 +72,32 @@ body {
 	width:13.5%;
 	opacity: .4;
 	max-width:180px;
-	 position: absolute;
-	 clear: both;
+    position: absolute;
+    clear: both;
    	height:auto; 
 }
 
-audio {
-	background-color: #EEEEEE;
+.drMessages {
+	font-family: monospace, sans-serif;
+	font-style: italic;
 }
 
+/* This class is added to tables that I wanted to not take up all of the page. Now, they look nicer. */
+.browseTable {
+	width: 80%;
+}
 
+.error {
+    font-family: monospace, sans-serif;
+    font-style: italic;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: #ebccd1 1px solid;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+}
+
+.delayedReveal {
+    visibility: hidden;
+}

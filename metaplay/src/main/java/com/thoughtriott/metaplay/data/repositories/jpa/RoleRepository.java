@@ -1,10 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
-import java.util.List;
 
+import com.thoughtriott.metaplay.data.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.thoughtriott.metaplay.data.entities.Role;
+import java.util.List;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer>, RoleRepositoryCustom {

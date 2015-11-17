@@ -17,8 +17,8 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "album")
@@ -139,8 +139,7 @@ public class Album extends MetaplayEntity {
 	}
 
 	public void setLengthMinSec(int minutes, int seconds) {
-		int length = (minutes * 60) + seconds;
-		this.length = length;
+		this.length = (minutes * 60) + seconds;
 	}
 
 	public List<Track> getTracks() {

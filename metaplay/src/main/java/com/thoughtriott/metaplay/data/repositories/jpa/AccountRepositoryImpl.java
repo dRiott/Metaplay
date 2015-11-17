@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Account;
 
 public class AccountRepositoryImpl implements AccountRepositoryCustom {
 	
@@ -41,7 +40,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom {
 	public List<String> findAllToListString() {
 		List<Account> accountList = accountRepository.findAll();
 		Iterator<Account> it = accountList.iterator();
-		List<String> accountStringList = new ArrayList<String>();
+		List<String> accountStringList = new ArrayList<>();
 		while (it.hasNext()) {
 			Account account = it.next();
 			accountStringList.add(account.getAccountname());

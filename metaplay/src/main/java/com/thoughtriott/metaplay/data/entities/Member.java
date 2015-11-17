@@ -1,18 +1,13 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Entity
 @Table(name = "member")

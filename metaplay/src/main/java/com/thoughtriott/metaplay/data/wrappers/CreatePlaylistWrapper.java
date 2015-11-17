@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
-import java.util.List;
+import com.thoughtriott.metaplay.data.entities.Account;
+import com.thoughtriott.metaplay.data.entities.Track;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.thoughtriott.metaplay.data.entities.Account;
-import com.thoughtriott.metaplay.data.entities.Track;
+import java.util.List;
 
 public class CreatePlaylistWrapper {
 

@@ -1,17 +1,16 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.List;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.thoughtriott.metaplay.data.entities.Album;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.Track;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateTrackWrapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/track")
@@ -41,7 +40,7 @@ public class TrackController extends AmazonService {
 				Album newAlbum = new Album();
 				newAlbum.setName(ctw.getTheNewAlbum());
 				//to create a new album, an artist isn't necessary... but if it does exist, add the artist to the album.
-				if(ctw.getArtistFromList()!="** New Artist **" && artistRepository.findArtistByName(ctw.getArtistFromList())!=null) {
+				if(!ctw.getArtistFromList().equals("** New Artist **") && artistRepository.findArtistByName(ctw.getArtistFromList())!=null) {
 					newAlbum.setArtist(artistRepository.findArtistByName(ctw.getArtistFromList()));
 				} else if(ctw.getArtistFromList().equals("** New Artist **")) {
 					newAlbum.setArtist(artistRepository.saveAndFlush(new Artist(ctw.getTheNewArtist())));

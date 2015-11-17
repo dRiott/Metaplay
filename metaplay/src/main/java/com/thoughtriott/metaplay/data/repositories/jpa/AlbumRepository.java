@@ -1,10 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
-import java.util.List;
 
+import com.thoughtriott.metaplay.data.entities.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.thoughtriott.metaplay.data.entities.Album;
+import java.util.List;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Integer>, AlbumRepositoryCustom {
@@ -12,8 +12,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, AlbumRep
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
 	List<Album> findAlbumByName(String name);
 	List<Album> findAlbumByNameOrderByName(String name);
-	
-	
 }
 	
 

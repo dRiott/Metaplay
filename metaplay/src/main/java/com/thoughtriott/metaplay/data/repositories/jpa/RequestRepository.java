@@ -1,10 +1,9 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.thoughtriott.metaplay.data.entities.Request;
+import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 

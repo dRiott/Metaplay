@@ -1,9 +1,9 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
+
 import com.thoughtriott.metaplay.data.entities.Artist;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer>, ArtistRepositoryCustom {
 	

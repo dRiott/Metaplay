@@ -10,7 +10,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Playlist Manager</title>
-	
+
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/jquery-ui.min.css"/>" type="text/css" />
@@ -24,11 +26,10 @@
 	<script	src="<spring:url value="/resources/js/playlistAdd.js"/>"></script>
 </head>
 
-<body>
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-
-	<div class="container drBlockLeft">
+	<div class="drContainer drBlockLeft">
 		<div class="row">
 			<div class="form-group">
 				<label for="playlistName">Name Your Playlist</label>
@@ -121,7 +122,7 @@
 		</div> <!-- end playlist div -->
 		
 		
-		<div id="messageDiv" style="display:hidden">
+		<div id="messageDiv" style="display:none">
 		<!-- for writting message on success/error AJAX call -->
 		</div>
 		

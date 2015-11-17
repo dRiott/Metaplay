@@ -9,8 +9,8 @@
 <!-- Logo -->		
 		<div class="imageLogoDiv" >
 			<a class="navbar-brand" href="<spring:url value="/"/>">
-				<img class="imageLogo logo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
-				<img class="imageLogoLayer logo" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
+				<img class="imageLogo logo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"/>
+				<img class="imageLogoLayer logo" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"/>
 			</a>
 		</div>
 		
@@ -20,7 +20,7 @@
 				<li class="dropdown" ><a> </a></li>
 				
 			<!-- Search -->
-				<li><a href="<spring:url value="/search"/>">Search</a></li>
+				<li><a id="searchLink" href="<spring:url value="/search"/>">Search</a></li>
 				
 			<!-- Browse -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -55,7 +55,7 @@
 
 				<!-- More -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">More
+					data-toggle="dropdown" role="button" aria-expanded="false">Extras
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<spring:url value="/role/assign"/>">Assign Roles</a></li>
@@ -64,6 +64,9 @@
 						<li><a href="<spring:url value="/audio/upload"/>">Upload Mp3</a></li>
 					</ul>
 				</li>
+				
+				<!-- About -->
+				<li><a href="<spring:url value="/about"/>">About</a></li>
 			</ul>
 		</div>
 			
@@ -103,37 +106,4 @@
 	</div>
 </nav>
 
-<%-- <script src="<spring:url value="/resources/js/ajaxAccountnameHeader.js"/>"></script>--%>
-
-<script>
-
-	/**
-	 * This grabs the Accountname to do an ajax call to get the id for the Profile dropdown link under the Accountname header item.
-	 */
-	$(document).ready(function(){
-			var accountname = $('#accountname').attr('value');
-	
-			$.ajax({
-				headers: { 
-			        'Accept': 'application/json',
-			        'Content-Type': 'application/json' 
-			    },
-				url: "/metaplay/rest/account?query="+accountname, 
-				method: "post", 
-				dataType: "json",
-				success: successfulAccountGrab,
-				error: errorFunction
-			})
-			
-			function errorFunction(returnedData, status) {
-				console.log("Accountname Grab Error, Data: " + returnedData);
-				console.log("Accountname Grab Error, Status: " + status)
-			}
-			
-			function successfulAccountGrab(returnedData, status) {
-				var url = "<spring:url value='/account/"+returnedData.id+"'/>";
-				$('#targetLink').attr("href", url);
-			}
-			
-	}); //end document.ready
-</script>
+<script src="<spring:url value="/resources/js/ajaxAccountnameHeader.js"/>"></script>

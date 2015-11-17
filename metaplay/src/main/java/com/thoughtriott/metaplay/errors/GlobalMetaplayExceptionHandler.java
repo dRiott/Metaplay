@@ -1,9 +1,6 @@
 package com.thoughtriott.metaplay.errors;
 
-import javax.persistence.PersistenceException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.security.web.csrf.CsrfException;
@@ -12,7 +9,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.NestedServletException;
 
-import com.amazonaws.services.s3.model.AmazonS3Exception;
+import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @ControllerAdvice
 public class GlobalMetaplayExceptionHandler {
@@ -83,8 +82,7 @@ public class GlobalMetaplayExceptionHandler {
 		return "error_Security";
 	}
 	
-	
-	
+
 	@ExceptionHandler(MetaplayServerErrorException.class)
 	public String metaplayServerErrorHandler() {
 		return DEFAULT_ERROR_VIEW;

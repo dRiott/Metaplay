@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Track;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Track;
 
 public class TrackRepositoryImpl implements TrackRepositoryCustom {
 
@@ -18,7 +17,7 @@ public class TrackRepositoryImpl implements TrackRepositoryCustom {
 	public List<String> findAllToListString() {
 		List<Track> trackList = trackRepository.findAll();
 		Iterator<Track> it = trackList.iterator();
-		List<String> trackStringList = new ArrayList<String>();
+		List<String> trackStringList = new ArrayList<>();
 		while (it.hasNext()) {
 			Track track = it.next();
 			trackStringList.add(track.getName());

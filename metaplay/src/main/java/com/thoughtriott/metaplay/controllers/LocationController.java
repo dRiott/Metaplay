@@ -1,12 +1,7 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import com.thoughtriott.metaplay.data.entities.Location;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/location")

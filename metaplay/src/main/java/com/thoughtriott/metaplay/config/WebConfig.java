@@ -1,7 +1,5 @@
 package com.thoughtriott.metaplay.config;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +13,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.List;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.thoughtriott.metaplay.controllers", "com.thoughtriott.metaplay.data.repositories",  "com.thoughtriott.metaplay.data.utilities"})
+@ComponentScan({"com.thoughtriott.metaplay.controllers", "com.thoughtriott.metaplay.data.repositories"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -41,14 +41,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/pdf/**").addResourceLocations("/pdf/");
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 	    // equivalent to <mvc:argument-resolvers>
 	}
-	
-	
+
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 	    // equivalent to <mvc:message-converters>

@@ -1,15 +1,14 @@
 package com.thoughtriott.metaplay.controllers;
 
-import javax.persistence.EntityNotFoundException;
-
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import javax.persistence.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/browse")

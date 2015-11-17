@@ -1,9 +1,6 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.CreditCard;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.CreditCard;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/payment")

@@ -1,20 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-
-
 <!DOCTYPE html>
 <html>
 
 <head>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>MetaPlay &copy Artist</title>
-	
+	<title>Metaplay Artist</title>
+
+	<link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	
@@ -25,45 +23,44 @@
 
 </head>
 
-<body>
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-
-	<div class="container">
-		<div class="row">
+	<div class="drContainer">
+		<div class="row drRow">
 
 			<h1 class="dH1">Artist: ${artist.name}</h1>
 			
-			<div class="form-group" style="float:clear;"></div>
+			<div class="form-group" style="clear:both;"></div>
 			
 			<div class="row">
 				<div class="col-md-8">
-					<label for="singleArtistBiography">Biography</label><br/>
+					<label>Biography</label><br/>
 					<c:set var="bioLength" value="${artist.biography.length()}"/>
-					<span class="dSpan">${fn:substring(artist.biography, 0, 300)}</span><!-- 
+					<span>${fn:substring(artist.biography, 0, 300)}</span><!-- 
 					 --><span style="display:none;" id="hiddenBiography">${fn:substring(artist.biography, 300, bioLength)}</span>
 					<button id="showButton" class="btn btn-default">More</button>
 					<button id="hideButton" class="btn btn-default" style="display:none">Less</button>
 				</div>
 			</div>
 		
-			<div class="form-group" style="float:clear;"></div>
+			<div class="form-group" style="clear:both;"></div>
 			
 			<div class="form-group">
-				<label for="singleArtistGenre">Genre</label>
+				<label>Genre</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${artist.genre!=null}">
-							<span class="dSpan"><a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a></span>
+							<a href="<spring:url value="/browse/genre/${artist.genre.id}"/>">${artist.genre.name}</a>
 						</c:when>
 						<c:otherwise>
-							<span class="dSpan">No genre assigned yet. They're probably Christian Death Metal, my best guess.</span>
+							<span>No genre assigned yet. They're probably Christian Death Metal, my best guess.</span>
 						</c:otherwise>
 					</c:choose>
 				</div>	
 			</div>
 			<div class="form-group">
-				<label for="singleArtistLocation">Location</label>
+				<label>Location</label>
 				<div class="form-group">
 					<c:choose>
 						<c:when test="${artist.location!=null}">
@@ -83,7 +80,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="singleArtistMembers">Members</label> 
+				<label>Members</label>
 				<div>
 					<c:set var="membersSize" value="${artist.members.size()}"/>
 					<c:if test="${membersSize==0 }">
@@ -103,11 +100,11 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="singleArtistAlbums">Albums</label>
+				<label>Albums</label>
 				<div class="form-group">
 					<c:choose>
 							<c:when test="${artist.albums.size()==0 }">
-									<c:out value="This artist has no albums. Hmm..." /><span style="padding-left: 6px;"></span>
+									<c:out value="This artist has no albums. Hmm..." /><span class="dSpan"></span>
 									<a href="<spring:url value="/album/add"/>" class="btn btn-default">Go To Add Album Page</a>
 							</c:when>
 						
@@ -116,8 +113,8 @@
 								<c:forEach items="${artist.albums}" var="album">
 									<li>
 										<div class="form-group" >
-											<img src="/metaplay/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px;height:auto;"
-											alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+											<img src="/image/retrieve?foldername=album&filename=${album.name}" style="max-width: 100px;height:auto;"
+											alt="Image not found" onerror="this.onerror=null; this.src='<spring:url value='/resources/img/default.gif'/>'"/>
 										</div>
 										<a href="<spring:url value="/browse/album/${album.id}"/>">${album.name}</a>
 										<c:choose>
@@ -136,20 +133,20 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="singleArtistImage">Image</label>
+				<label>Image</label>
 				<div class="form-group" >
-					<img src="/metaplay/image/retrieve?foldername=artist&filename=${artist.name}" style="max-width: 500px;height:auto;"
-					alt="Image not found" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'"/>
+					<img src="/image/retrieve?foldername=artist&filename=${artist.name}" style="max-width: 500px;height:auto;"
+					alt="Image not found" onerror="this.onerror=null; this.src='<spring:url value='/resources/img/default.gif'/>'"/>
 				</div>
 			</div>
 		
 			<div class="form-group">
-				<hr/>
+				<br/><hr/><hr/>
 				<a href="<spring:url value="/browse/artists"/>" class="btn btn-default">Back To Browse</a>
 			</div>
 		
 		</div>
 	</div>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

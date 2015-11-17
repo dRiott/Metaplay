@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Genre;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Genre;
 
 public class GenreRepositoryImpl implements GenreRepositoryCustom {
 
@@ -42,7 +41,7 @@ public class GenreRepositoryImpl implements GenreRepositoryCustom {
 	public List<String> findAllToFormattedString() {
 		List<Genre> genreList = genreRepository.findAll();
 		Iterator<Genre> it = genreList.iterator();
-		List<String> genStrList = new ArrayList<String>();
+		List<String> genStrList = new ArrayList<>();
 		while (it.hasNext()) {
 			Genre genre = it.next();
 			genStrList.add(genre.getName());

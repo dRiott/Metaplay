@@ -1,11 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
-import java.util.Iterator;
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.Playlist;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.thoughtriott.metaplay.data.entities.Playlist;
+import java.util.Iterator;
+import java.util.List;
 
 public class PlaylistRepositoryImpl implements PlaylistRepositoryCustom {
 

@@ -2,26 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 	
 		<!-- Logo -->		
 		<div class="imageLogoDiv" >
 			<a class="navbar-brand" href="<spring:url value="/"/>">
-				<img class="imageLogo logo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"></img>
-				<img class="imageLogoLayer logo" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"></img>
+				<img class="imageLogo logo" src="<spring:url value="/resources/img/vinylDark.gif" />" id="logo"	alt="logoDark.gif" style="width:auto\9"/>
+				<img class="imageLogoLayer logo" src="<spring:url value="/resources/img/vinyl.gif" />" id="logoLightLayer" alt="logoLight.gif" style="width:auto\9"/>
 			</a>
 		</div>
 
 		<!-- BEGIN HEADER LINKS -->
 		<div class="DRnavBarDiv">
-			<ul class="nav navbar-nav" style="padding-top: 5px;">
+			<ul class="nav navbar-nav" style="padding-top: 10px;">
 	
 				<!-- Search -->
-				<li><a href="<spring:url value="/search"/>">Search</a></li>
+				<li><a id="searchLink" href="<spring:url value="/search"/>">Search</a></li>
 
-	
 				<!-- Browse -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">Browse <span class="caret"></span></a>
@@ -40,12 +38,16 @@
 	
 				<!-- More -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">More<span class="caret"></span></a>
+					data-toggle="dropdown" role="button" aria-expanded="false">Extras<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<spring:url value="/payment/process"/>">Payment</a></li>
 						<li><a href="<spring:url value="/role/add"/>">Roles</a></li>
 					</ul>
 				</li>
+				
+				<!-- About -->
+				<li><a href="<spring:url value="/about"/>">About</a></li>
+				
 			</ul>
 		</div>
 		

@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.RecordLabel;
 
 public class RecordLabelRepositoryImpl implements RecordLabelRepositoryCustom {
 
@@ -18,7 +17,7 @@ public class RecordLabelRepositoryImpl implements RecordLabelRepositoryCustom {
 	public List<String> findAllAsListString() {
 		List<RecordLabel> recordLabelList = recordLabelRepository.findAll();
 		Iterator<RecordLabel> it = recordLabelList.iterator();
-		List<String> recLblStrList = new LinkedList<String>();
+		List<String> recLblStrList = new LinkedList<>();
 		while(it.hasNext()) {
 			RecordLabel rl = it.next();
 			recLblStrList.add(rl.getName());

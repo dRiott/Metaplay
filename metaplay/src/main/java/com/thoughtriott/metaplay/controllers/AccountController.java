@@ -1,26 +1,20 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Request;
 import com.thoughtriott.metaplay.data.entities.Role;
 import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import com.thoughtriott.metaplay.data.wrappers.CreateAccountWrapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/account")
@@ -59,12 +53,15 @@ public class AccountController extends AmazonService {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String getLoginPage(HttpSession session) {
-		if (session.getAttribute("loginStatus") == null) {
-			int counter = 0;
-			session.setAttribute("counter", counter);
+	public String getLoginPage(
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout,
+			HttpSession session, Model model) {
+
+		if (error != null) {
+			model.addAttribute("error", "Invalid username and password!");
 		}
-		System.out.println("AccountController: getLoginPage() - SessionAttribute \"loginStatus\": " + session.getAttribute("loginStatus"));
+
 		return "account_login";
 	}
 	

@@ -1,9 +1,9 @@
 package com.thoughtriott.metaplay.config;
 
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
-
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class MetaplayWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

@@ -1,10 +1,9 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
-import java.util.List;
-
+import com.thoughtriott.metaplay.data.entities.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.thoughtriott.metaplay.data.entities.Account;
+import java.util.List;
 
 public interface AccountRepository extends JpaRepository<Account, Integer>, AccountRepositoryCustom {
 
@@ -14,8 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer>, Acco
 	List<Account> findAccountByAccountnameLike(String accountname);
 	
 }
-
-
 
 //http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 	// By extending JpaRepository, inherits 18 methods for performing common persistence operations
@@ -31,4 +28,3 @@ public interface AccountRepository extends JpaRepository<Account, Integer>, Acco
 		//     - save(Iterable<S> entities) 
 		//     - flush(): Flushes all pending changes to the database.
 		//     - deleteAllInBatch() : Deletes all entites in a batch call.
-

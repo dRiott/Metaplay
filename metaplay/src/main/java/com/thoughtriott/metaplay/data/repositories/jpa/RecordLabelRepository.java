@@ -1,10 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
-import java.util.List;
 
+import com.thoughtriott.metaplay.data.entities.RecordLabel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import java.util.List;
 
 @Repository
 public interface RecordLabelRepository extends JpaRepository<RecordLabel, Integer>, RecordLabelRepositoryCustom {

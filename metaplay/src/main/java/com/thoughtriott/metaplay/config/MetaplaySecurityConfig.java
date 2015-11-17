@@ -26,8 +26,6 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication().dataSource(dataSource)
 		.passwordEncoder(passwordEncoder())
 		.usersByUsernameQuery("select accountname, password, enabled from account where accountname=?")
-//		.authoritiesByUsernameQuery("select account.accountname, role.name from account, role where account.accountname=?");
-//		.authoritiesByUsernameQuery("SELECT account.accountname, role.name FROM account, account_role, role WHERE account.accountname = ? and account.id = account_role.account_id");");
 		.authoritiesByUsernameQuery("select a.accountname, r.name from account a join account_role ar on (a.id=ar.account_id) join role r on (ar.role_id=r.id) where a.accountname=?");
 	}
 	
@@ -51,7 +49,6 @@ public class MetaplaySecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder;	
+		return new BCryptPasswordEncoder();
 	}
 }

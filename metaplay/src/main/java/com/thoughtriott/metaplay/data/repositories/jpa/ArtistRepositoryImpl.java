@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Artist;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Artist;
 
 public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
 	
@@ -18,7 +17,7 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
 	public List<String> findAllToListString() {
 		List<Artist> artistList = artistRepository.findAll();
 		Iterator<Artist> it = artistList.iterator();
-		List<String> artistStrList = new ArrayList<String>();
+		List<String> artistStrList = new ArrayList<>();
 		while(it.hasNext()) {
 			Artist a = it.next();
 			artistStrList.add(a.getName());

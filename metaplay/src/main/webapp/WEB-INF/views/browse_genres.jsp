@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -9,8 +8,10 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Metaplay &copy Genres</title>
-
+	<title>Metaplay Genres</title>
+  
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
 	
@@ -20,14 +21,13 @@
 	<script src="<spring:url value="/resources/js/showHideTextarea.js"/>"></script>
 </head>
 
-<body>
-	
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>			
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<div class="container">
+	<div class="drContainer">
 		
 		<h1 class="dH1">Genres</h1>
-		<table class="table table-hover" id="tableWithLongText">
+		<table class="table table-hover browseTable" id="tableWithLongText">
 			<tbody>
 				<tr>
 					<th>Name</th><th>Description</th>
@@ -48,6 +48,6 @@
 		</table>
 		
 	</div>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

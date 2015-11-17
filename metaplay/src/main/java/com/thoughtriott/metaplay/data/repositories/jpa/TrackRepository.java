@@ -1,10 +1,10 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
-import java.util.List;
 
+import com.thoughtriott.metaplay.data.entities.Track;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.thoughtriott.metaplay.data.entities.Track;
+import java.util.List;
 
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Integer>, TrackRepositoryCustom {
@@ -13,6 +13,7 @@ public interface TrackRepository extends JpaRepository<Track, Integer>, TrackRep
 	List<Track> findTrackByName(String Name);
 	List<Track> findTrackByNameOrderByName(String name);
 	List<Track> findTrackByNameAndLength(String name, Integer length);
+	List<Track> findTrackByNameLike(String name);
 	
 }
 	

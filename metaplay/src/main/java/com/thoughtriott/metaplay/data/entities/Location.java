@@ -1,20 +1,15 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Entity
 @Table(name = "location")
@@ -124,7 +119,7 @@ public class Location extends MetaplayEntity {
 		if (getRecordLabels()!=null && !getRecordLabels().contains(recordLabel)) {
 			getRecordLabels().add(recordLabel);
 			if (recordLabel.getLocation() != null) {
-				recordLabel.getLocation().getArtists().remove(recordLabel);
+				recordLabel.getLocation().getRecordLabels().remove(recordLabel);
 			}
 			recordLabel.setLocation(this);
 		}

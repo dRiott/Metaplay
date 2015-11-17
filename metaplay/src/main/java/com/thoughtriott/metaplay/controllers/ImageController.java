@@ -1,14 +1,13 @@
 package com.thoughtriott.metaplay.controllers;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/image")

@@ -6,10 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Welcome!</title>
-	
+   
+   	<link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+  	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	
@@ -21,22 +22,21 @@
 	<!-- DYNAMICALLY SET THE TITLE TO ACCOUNTNAME -->
 	<c:set var="accountName" value="Welcome ${account.accountname}!"/>
 	<script> $(document).ready(function() { document.title = "${accountName}";}); </script>
-	
 </head>
 
-<body>
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<div class="container" id="profileContainer">
-		<div class="row" style="padding-left: 5%;">
+	<div class="drContainer" id="profileContainer">
+		<div class="row drRow">
 			<h1 class="dH1">${account.accountname}</h1>
 			
 			<div class="form-group" id="avatarDiv" >
 				<c:set var="profilePictures" value="profilePictures"/>
-				<img src="/metaplay/image/retrieve?foldername=profilePictures&filename=${account.accountname}" style="max-width: 500px; height:auto;"
-					alt="Image not found" id="avatarPic" onerror="this.onerror=null; this.src='http://localhost:8080/metaplay/resources/img/default.gif'" width="144" height="103"/>
+				<img src="/image/retrieve?foldername=profilePictures&filename=${account.accountname}" style="max-width: 500px; height:auto;"
+					alt="Image not found" id="avatarPic" onerror="this.onerror=null; this.src='metaplay.me/resources/img/default.gif'" width="144" height="103"/>
 			
-				<div class="form-group" style="float:clear;"></div>
+				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="form-group" id="avatarUpload" style="display:none;">
 					<spring:url value="/account/changeavatar" var="thisFormURL" />
@@ -49,7 +49,7 @@
 							</div>
 						</div>
 							
-						<div class="form-group" style="float:clear;"></div>
+						<div class="form-group" style="clear:both;"></div>
 						
 						<button type="submit" class="btn btn-default">Submit</button>
 						
@@ -57,10 +57,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="account-email">Email</label> <br /> <span class="dSpan">${account.email}</span>
+				<label>Email</label> <br /> <span class="dSpan">${account.email}</span>
 			</div>
 
-			<label for="roles">Roles</label>
+			<label>Roles</label>
 			<c:choose>
 			<c:when test="${roles.size()==0 }">
 				<div class="form-group">
@@ -86,7 +86,7 @@
 		</div>
 	</div>
 	
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"/>
 	
 </body>
 </html>

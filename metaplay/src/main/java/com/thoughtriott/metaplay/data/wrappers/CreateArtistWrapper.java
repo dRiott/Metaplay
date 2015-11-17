@@ -1,13 +1,11 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
-import java.util.List;
+import com.thoughtriott.metaplay.data.entities.Member;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.thoughtriott.metaplay.data.entities.Member;
+import java.util.List;
 
 public class CreateArtistWrapper {
 

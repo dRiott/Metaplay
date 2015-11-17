@@ -1,25 +1,15 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "artist")
@@ -51,11 +41,11 @@ public class Artist extends MetaplayEntity {
 		joinColumns = @JoinColumn(name = "artist_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "member_id", referencedColumnName="id"))
     @JsonManagedReference
-	private List<Member> members = new LinkedList<Member>();
+	private List<Member> members = new LinkedList<>();
 	
 	@OneToMany(mappedBy="artist", cascade = CascadeType.PERSIST)
 	@JsonManagedReference
-	private List<Album> albums = new LinkedList<Album>();
+	private List<Album> albums = new LinkedList<>();
 	
 	private String biography;
 	

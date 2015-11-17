@@ -3,13 +3,16 @@
  */
 
 $(document).ready(function () {
-	fixWidths();
+	var playlistTr = $("#playlistTable tbody tr");
+    var submitBtn = $("#playlistSubmitButton");
+
+    fixWidths();
 	
-	//augement Function to include a method method (hides some prototype ugliness):
+	//augment Function to include a method method (hides some prototype ugliness):
 	Function.prototype.method = function (name, func) {
 		this.prototype[name] = func;
 		return this;
-	}
+	};
 
 	//augment String to include a trim method: 
 	String.method('trim', function () {
@@ -36,13 +39,13 @@ $(document).ready(function () {
 		revert: true,
 		receive: function(event, ui) {
 			ui.item.children().first().text(1+ui.item.index()).show();
-			$("#playlistTable tbody tr").each(function (index, element) {
+			$(playlistTr).each(function (index, element) {
 				$(element).children().first().text(index+1);
 			});
 			fixWidths();
 		},
-		stop: function(event, ui) {
-			$("#playlistTable tbody tr").each(function (index, element) {
+		stop: function(event) {
+			$(playlistTr).each(function (index, element) {
 				$(element).children().first().text(index+1);
 			});
 			fixWidths();
@@ -54,7 +57,7 @@ $(document).ready(function () {
 	$("#accountSearchInput").autocomplete({
 		source: function (term, response) {
 			$.ajax({
-				url: '/metaplay/playlist/accountsearch', 
+				url: '/playlist/accountsearch', 
 				data: term,
 				dataType: "json",
 				success: function(data) {
@@ -96,7 +99,7 @@ $(document).ready(function () {
 	
 	
 	//set up event handler for the hover effect over the submit button to save playlist.
-	$("#playlistSubmitButton").hover(
+	$(submitBtn).hover(
 			function () { 
 				$("div").not(".DR_Textarea").not('.imageLogoDiv').not("#description").not(":contains(Playlist)").addClass("tinted");
 			}, 
@@ -106,7 +109,7 @@ $(document).ready(function () {
 	);
 	
 	//Save the playlist!
-	$("#playlistSubmitButton").click(function(e) {
+	$(submitBtn).click(function(e) {
 		var playlistInfo = [];
 		var tracksStringified = "";
 		
@@ -116,7 +119,7 @@ $(document).ready(function () {
 		
 		playlistInfo.push({name: $("#playlistName").val(), description: $("#playlistDescription").val()});
 		
-		$("#playlistTable tbody tr").each(function (index) {
+		$(playlistTr).each(function (index) {
 			playlistInfo.push({trackNumber: index+=1, trackId: $(this).attr("trackId")});
 		});
 		
@@ -133,18 +136,17 @@ $(document).ready(function () {
 			        'Accept': 'application/json',
 			        'Content-Type': 'application/json' 
 			    },
-				url: '/metaplay/playlist/save',
+				url: '/playlist/save',
 				type: 'POST',
 				dataType: 'json',
 				data: tracksStringified,
 				success: function (playlist) {
 					console.log(JSON.stringify(playlist));
 					$(document.body).css({'cursor' : 'default'});
-					$("#playlistTable tbody tr").remove();
+					$(playlistTr).remove();
 					$(".savedField").val("");
 					$(".accountSpan").remove();
-					var url = "<h1>Playlist created successfully! <a href='/metaplay/browse/"+playlist.entityType
-						+"/"+playlist.id+"'>"+playlist.name+"</a></h1>"
+					var url = "<h1>Playlist created successfully! <a href='/browse/playlist/"+playlist.id+"'>"+playlist.name+"</a></h1>";
 					$("#messageDiv").html(url).addClass("dBorder").show(200).delay(3000).hide(300);
 				},
 				error: function (returnedData, status) {

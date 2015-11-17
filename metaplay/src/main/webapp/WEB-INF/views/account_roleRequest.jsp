@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Welcome!</title>
-	
+    
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
 	
@@ -19,13 +19,14 @@
 
 </head>
 
-<body>
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-	<div class="container"  id="1">
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
+
+	<div class="drContainer"  id="1">
 		<h1>Want to have access to add new data?</h1>
 	</div>
 
-	<div class="container" >
+	<div class="drContainer" >
 		<spring:url value="/account/requestRole" var="thisFormURL" />                                 
 		<form:form  name='f' action="${thisFormURL}" method="post" modelAttribute="request">  
 		<form:errors path="*" element="div" cssClass="errors"/>
@@ -38,13 +39,13 @@
                 </div>
             </div>    
 			
-			<div class="form-group" style="float:clear;"></div>
+			<div class="form-group" style="clear:both;"></div>
 
 			<button type="submit" class="btn btn-default">Submit</button>
 			
 		</form:form>
 	</div>
 	
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

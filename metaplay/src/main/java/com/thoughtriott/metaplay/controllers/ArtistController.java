@@ -1,26 +1,20 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import com.thoughtriott.metaplay.data.entities.*;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
+import org.eclipse.persistence.internal.jpa.rs.metadata.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.thoughtriott.metaplay.data.entities.Album;
-import com.thoughtriott.metaplay.data.entities.Artist;
-import com.thoughtriott.metaplay.data.entities.Genre;
-import com.thoughtriott.metaplay.data.entities.Location;
-import com.thoughtriott.metaplay.data.entities.Member;
-import com.thoughtriott.metaplay.data.entities.RecordLabel;
-import com.thoughtriott.metaplay.data.wrappers.AmazonService;
-import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
+import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/artist")
@@ -135,7 +129,7 @@ public class ArtistController extends AmazonService {
 				futureAlbum.setRecordLabel(recordLabelRepository.findRecordLabelByName(recordLabelName).get(0));
 			} else if(recordLabelName.equals("** New Record Label **")) {
 				String newRecordLabelName = caw.getTheNewRecordLabel();
-				RecordLabel rl = (RecordLabel) recordLabelRepository.saveAndFlush(
+				RecordLabel rl = recordLabelRepository.saveAndFlush(
 					new RecordLabel(newRecordLabelName, locationRepository.findLocationByCityAndState(recordLabelCity, recordLabelState)));
 				futureAlbum.setRecordLabel(rl);
 			}
@@ -205,29 +199,24 @@ public class ArtistController extends AmazonService {
 	public List<String> getRecordLabels() {
 		return  recordLabelRepository.findAllAsListString();
 	}
-	
+
+	LinkedList<String> statesList = new LinkedList<>(Arrays.asList(new String[] {
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut",
+            "Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+            "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+            "Mississippi", "Missouri", "Montana Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+            "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island","South Carolina",
+            "South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
+    }));
+
 	@ModelAttribute("stateOptions")
 	public List<String> getStatesArtistLocation () {
-		return new LinkedList<>(Arrays.asList(new String[] { 
-		"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut", 
-		"Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-		"Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-		"Mississippi", "Missouri", "Montana Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
-		"North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island","South Carolina",
-		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
-		}));
+		return statesList;
 	}	
 	
 	@ModelAttribute("recordLabelStateOptions")
 	public List<String> getStatesRecordLabelLocation () {
-		return new LinkedList<>(Arrays.asList(new String[] { 
-		"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado","Connecticut", 
-		"Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-		"Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-		"Mississippi", "Missouri", "Montana Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
-		"North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island","South Carolina",
-		"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington", "West Virginia", "Wisconsin", "Wyoming"
-		}));
+		return statesList;
 	}
 }	
 

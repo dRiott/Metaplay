@@ -1,29 +1,20 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtriott.metaplay.data.entities.Account;
 import com.thoughtriott.metaplay.data.entities.Artist;
 import com.thoughtriott.metaplay.data.entities.MetaplayEntity;
-import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import com.thoughtriott.metaplay.data.entities.Track;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/rest")
-public class RestSearchController extends RepositoryKeeper {
+public class RestSearchController extends AmazonService {
 
 	//Repositories were null if initiated statically — this way they get initiated by an AJAX call when search.jsp loads.
 	private Map<String, JpaRepository<?, Integer>> repoMap;
@@ -33,7 +24,7 @@ public class RestSearchController extends RepositoryKeeper {
 	@RequestMapping(value="/loadAllEntities", method=RequestMethod.GET, consumes="application/json")
 	@ResponseBody
 	public String loadAllEntities() {
-		repoMap = new HashMap<String, JpaRepository<?, Integer>>();
+		repoMap = new HashMap<>();
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.AccountRepository", accountRepository);
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository", albumRepository);
 	 	repoMap.put("com.thoughtriott.metaplay.data.repositories.jpa.ArtistRepository", artistRepository);
@@ -69,16 +60,19 @@ public class RestSearchController extends RepositoryKeeper {
 	//gets the account id for the profile link in fragment: header.jsp (shows on every page if user is logged in)
 	@RequestMapping(value="/account", method=RequestMethod.POST, consumes="application/json")
 	public Account findAccount(@RequestParam("query") String query) {
-		Account account = accountRepository.findAccountByAccountname(query).get(0);
-		return account;
+		return accountRepository.findAccountByAccountname(query).get(0);
 	}
 	
 	//for search for artists input box
 	@RequestMapping(value="/artist", method=RequestMethod.POST, consumes="application/json")
 	public List<Artist> findArtistLike(@RequestParam("query") String query) {
-		String dbQuery = query+"%";
-		List<Artist> artists = artistRepository.findArtistByNameLike(dbQuery);
-		return artists;
+		return artistRepository.findArtistByNameLike(query+"%");
+	}
+	
+	//for search for track ID by track name on Upload_Mp3 page
+	@RequestMapping(value="/track", method=RequestMethod.POST, consumes="application/json")
+	public List<Track> findTrackId(@RequestParam("query") String query) {
+		return trackRepository.findTrackByNameLike("%"+query+"%");
 	}
 	
 	//random result button
@@ -86,8 +80,7 @@ public class RestSearchController extends RepositoryKeeper {
 	public Object findSingleRandom() {
 		Collections.shuffle(allEntitiesList);
 		if(allEntitiesList.size()>0){
-			MetaplayEntity me = (MetaplayEntity) allEntitiesList.get(0);
-			return me;
+			return allEntitiesList.get(0);
 		} else {
 			return null;
 		}
@@ -105,6 +98,12 @@ public class RestSearchController extends RepositoryKeeper {
 		return matchingEntities;
 	}	
 	
+	//random result button
+	@RequestMapping(value="/checkForAudio", method=RequestMethod.GET, consumes="application/json")
+	public boolean getAudio(@RequestParam("id") String id, @RequestParam("name") String filename) {
+		System.out.println("the Id: " + id + ", and the name: " + filename);
+		return checkForAudio(id, filename);
+	}
 	
 }
 
@@ -124,6 +123,4 @@ public class RestSearchController extends RepositoryKeeper {
 			Artist artist = artistRepository.getOne(id);
 			HttpStatus status = artist != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 			return new ResponseEntity<Artist> (artist, status);
-		}*/
-	
-
+	}*/

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Location Manager</title>
-	
+
+    <link id="favicon" rel="shortcut icon" href="<spring:url value='/resources/img/favicon.ico'/>" type="image/x-icon" />
+   	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/lib/bootstrap-select.min.css"/>" type="text/css" />
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
@@ -21,16 +23,15 @@
 	<script src="<spring:url value="/resources/js/locationAdd.js"/>"></script>
 </head>
 
-<body>
+<body class="delayedReveal">
+	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
-	<jsp:include page="../views/fragments/headerSecurity.jsp"></jsp:include>
-
-	<div class="container">
+	<div class="drContainer">
 		<h1 class="dH1">Location</h1>
 
-		<sec:authorize access="!hasAuthority('God')">
+		<security:authorize access="!hasAuthority('God')">
 			<h3 class="dH1">Looks like you don't have priviledges to submit new info. <a href="<spring:url value="/account/requestRole"/>">Make a request!</a></h3>
-		</sec:authorize>
+		</security:authorize>
 
 		<spring:url value="/location/review" var="thisFormURL" />
 		<form:form action="${thisFormURL}" method="post" modelAttribute="location">
@@ -50,7 +51,7 @@
 				
 				<div class="col-md-2">
 					<label for="location-country">Country</label>
-					<div class="form-group">
+					<div class="form-group" id="location-country">
 						<form:select path="country" cssClass="selectpicker" items="${countryOptions}" id="countries" />
 					</div>
 				</div>
@@ -64,6 +65,7 @@
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form:form>
 	</div>
-	<jsp:include page="../views/fragments/footer.jsp"></jsp:include>
+
+	<jsp:include page="../views/fragments/footer.jsp"/>
 </body>
 </html>

@@ -1,28 +1,28 @@
+$(document).ready(function () {
+	var amount = $("#amount");
+	var nameOnCard = $("#nameOnCard");
+	var cardNumber = $("#cardNumber");
+	var cardExpDate = $("#cardExpDate");
 
-
-$(document).ready(function () {			
-	$("#amount").val("");
-	
-	alert("Before changing values");
-	
-	$("#nameOnCard").attr("placeholder", "James Brown");
-	$("#cardNumber").attr("placeholder", "1234-1235-1236-1237");
-	$("#cardExpDate").attr("placeholder", "4/2/2030");
-	$("#amount").attr("placeholder", "5000.00");
+	$(amount).val("");
+	$(nameOnCard).attr("placeholder", "James Brown");
+	$(cardNumber).attr("placeholder", "1234-1235-1236-1237");
+	$(cardExpDate).attr("placeholder", "4/2/2030");
+	$(amount).attr("placeholder", "5000.00");
 	
 	function validate(form) {
 		var errMessage = "";
 
-		if($("#nameOnCard").val().length === 0) {
+		if($(nameOnCard).val().length === 0) {
 			errMessage += "Please enter your name\r\n";
 		}
-		if ($("#cardNumber").val().length === 0) {
+		if ($(cardNumber).val().length === 0) {
 			errMessage += "Please enter your card number\r\n";					
 		}
-		if($("#cardExpDate").val().length === 0) {
+		if($(cardExpDate).val().length === 0) {
 			errMessage += "Please enter your card date\r\n";					
 		}
-		if($("#amount").val().length === 0) {
+		if($(amount).val().length === 0) {
 			errMessage += "Please enter the amount due";					
 		}
 		if(errMessage.length >0) {

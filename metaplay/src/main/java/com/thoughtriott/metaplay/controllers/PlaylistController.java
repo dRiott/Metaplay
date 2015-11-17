@@ -1,27 +1,5 @@
 package com.thoughtriott.metaplay.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -30,6 +8,20 @@ import com.thoughtriott.metaplay.data.entities.Playlist;
 import com.thoughtriott.metaplay.data.entities.Playlist_Track;
 import com.thoughtriott.metaplay.data.wrappers.CreatePlaylistWrapper;
 import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/playlist")
@@ -49,8 +41,8 @@ public class PlaylistController extends RepositoryKeeper {
 	public @ResponseBody String savePlaylist(@RequestBody ObjectNode[] playlistInfo, @AuthenticationPrincipal User activeUser){
 		String playlistName = "";
 		String playlistDescription = "";
-		List<Integer> accountIds = new ArrayList<Integer>();
-		SortedMap<Integer, Integer> trackIds = new TreeMap<Integer, Integer>();
+		List<Integer> accountIds = new ArrayList<>();
+		SortedMap<Integer, Integer> trackIds = new TreeMap<>();
 		
 		//iterate throught the json object and add the info to java variables: playlistName, playlistDescription, accountIds, trackIds
 		for (ObjectNode info : playlistInfo) {

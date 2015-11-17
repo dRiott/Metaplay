@@ -1,11 +1,10 @@
 package com.thoughtriott.metaplay.data.wrappers;
 
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class CreateAlbumWrapper {
 

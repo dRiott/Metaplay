@@ -4,7 +4,7 @@ $.ajax({
         'Accept': 'application/json',
         'Content-Type': 'application/json' 
     },
-	url: "/metaplay/rest/loadAllEntities", 
+	url: "/rest/loadAllEntities", 
 	method: "get", 
 	dataType: "json",
 	success: function () {
@@ -18,8 +18,6 @@ $.ajax({
 });
 
 $(document).ready(function(){
-	var countTEXT = 0;
-	var countJSON = 0;
 	var json;
 	
 	// *****************************START Event Handlers***************************************
@@ -31,11 +29,11 @@ $(document).ready(function(){
 		        'Accept': 'application/json',
 		        'Content-Type': 'application/json' 
 		    },
-			url: "/metaplay/rest/singlerandom", 
+			url: "/rest/singlerandom", 
 			method: "get", 
 			dataType: "json",
-			success: function (returnedData, status) {
-				$('#randomResultDiv').html("<a href='/metaplay/browse/"+returnedData.entityType+"/"+returnedData.id+"'>"+returnedData.name+"</a>");
+			success: function (returnedData) {
+				$('#randomResultDiv').html("<a href='/browse/"+returnedData.entityType+"/"+returnedData.id+"'>"+returnedData.name+"</a>");
 				$("#randomResultButton").attr("disabled", false); //re-enable the button.
 			},
 			error: errorFunction
@@ -52,7 +50,7 @@ $(document).ready(function(){
 				$(document.body).css({'cursor' : 'wait'});
 				$.ajax({
 					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-					url: '/metaplay/rest/artist?query='+field.value,
+					url: '/rest/artist?query='+field.value,
 					type: 'POST',
 					dataType: 'json',
 					success: successfulSearch,
@@ -72,7 +70,7 @@ $(document).ready(function(){
 				$(document.body).css({'cursor' : 'wait'});
 				$.ajax({
 					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-					url: '/metaplay/rest/allentities?query='+field.value,
+					url: '/rest/allentities?query='+field.value,
 					type: 'POST',
 					dataType: 'json',
 					success: successfulSearch,
@@ -84,8 +82,7 @@ $(document).ready(function(){
 		 }, 200); //sets the delay before ajax call.. prevents a ton of calls while client types.
 	});
 	
-	function successfulSearch(returnedData, status) {
-		var table = $('#allResultsTable');
+	function successfulSearch(returnedData) {
 		$(document.body).css({'cursor' : 'default'});
 		if(returnedData.length===0) {
 			var $row = $("<tr>");
@@ -94,7 +91,7 @@ $(document).ready(function(){
 		} else {
 			for(var i=0; i<returnedData.length; i++){
 				var $row = $("<tr>");
-				var url = "<td><a href='/metaplay/browse/"+returnedData[i].entityType+"/"+returnedData[i].id+"'>"+returnedData[i].name+"</a></td>"
+				var url = "<td><a href='/browse/"+returnedData[i].entityType+"/"+returnedData[i].id+"'>"+returnedData[i].name+"</a></td>";
 				if(!$("#allResultsTable tr > a").is(":contains("+returnedData[i].name+")")) {
 					$row.append($(url));
 				}

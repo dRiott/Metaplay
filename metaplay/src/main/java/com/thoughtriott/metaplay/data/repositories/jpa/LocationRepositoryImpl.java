@@ -1,13 +1,12 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Location;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Location;
 
 public class LocationRepositoryImpl implements LocationRepositoryCustom {
 	
@@ -19,7 +18,7 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 	public List<String> findAllStatesToListString() {
 		List<Location> locList = locationRepository.findAll();
 		Iterator<Location> it = locList.iterator();
-		List<String> stateStringList = new ArrayList<String>();
+		List<String> stateStringList = new ArrayList<>();
 		while(it.hasNext()) {
 			Location l = it.next();
 			stateStringList.add(l.getState());
@@ -36,7 +35,7 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 	public List<String> findAllCountriesToListString() {
 		List<Location> locList = locationRepository.findAll();
 		Iterator<Location> it = locList.iterator();
-		List<String> countryStringList = new LinkedList<String>();
+		List<String> countryStringList = new LinkedList<>();
 		while(it.hasNext()) {
 			Location l = it.next();
 			if(!countryStringList.contains(l.getCountry())) {

@@ -1,9 +1,8 @@
 package com.thoughtriott.metaplay.validators;
 
+import com.thoughtriott.metaplay.data.entities.Artist;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import com.thoughtriott.metaplay.data.entities.Artist;
 
 public class ArtistValidator implements Validator {
 

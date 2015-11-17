@@ -1,15 +1,13 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
-import java.util.Iterator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.*;
 
 @Entity
 @Table(name = "role")
@@ -24,7 +22,7 @@ public class Role extends MetaplayEntity {
 // --------------------------Fields--------------------------
 	@ManyToMany(mappedBy = "roles")
 	@JsonIgnore
-	private Collection<Account> accounts;
+	private List<Account> accounts;
 
 //	private String name;
 	private String description;
@@ -33,11 +31,11 @@ public class Role extends MetaplayEntity {
 	private String entityType = "role";
 
 //--------------------------Getters & Setters--------------------------
-	public Collection<Account> getAccounts() {
+	public List<Account> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(Collection<Account> accounts) {
+	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
 
@@ -94,7 +92,7 @@ public class Role extends MetaplayEntity {
 				} else if(getAccounts().size()==1) {
 					accountsString = "{" + currentAccount.getName() + "}";
 				} else {
-					if(size == 0) {
+					if(accounts.indexOf(currentAccount) == 0) {
 						accountsString = "{" + currentAccount.getName();
 					} else if (!it.hasNext()) {
 						accountsString = accountsString + ", " + currentAccount.getName() + "}";

@@ -1,12 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
+import com.thoughtriott.metaplay.data.entities.Album;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtriott.metaplay.data.entities.Album;
 
 public class AlbumRepositoryImpl implements AlbumRepositoryCustom {
 
@@ -18,7 +17,7 @@ public class AlbumRepositoryImpl implements AlbumRepositoryCustom {
 	public List<String> findAllToListString() {
 		List<Album> albumList = albumRepository.findAll();
 		Iterator<Album> it = albumList.iterator();
-		List<String> albumStringList = new LinkedList<String>();
+		List<String> albumStringList = new LinkedList<>();
 		while(it.hasNext()) {
 			Album a = it.next();
 			albumStringList.add(a.getName());

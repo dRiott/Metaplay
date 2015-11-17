@@ -1,21 +1,13 @@
 package com.thoughtriott.metaplay.data.entities;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Entity
 @Table(name = "track")
@@ -67,14 +59,10 @@ public class Track extends MetaplayEntity {
 	}
 	
 	public void setLengthMinSec(int minutes, int seconds) {
-		int length = (minutes*60) + seconds;
-		this.length = length;
+		this.length = (minutes*60) + seconds;
 	}
 	public void setLengthFromStringMinSec(String minutes, String seconds) {
-		int min = Integer.parseInt(minutes);
-		int sec = Integer.parseInt(seconds);
-		int length = (min*60) + sec;
-		this.length = length;
+		this.length = (Integer.parseInt(minutes)*60) + Integer.parseInt(seconds);
 	}
 
 	public String getLyrics() {

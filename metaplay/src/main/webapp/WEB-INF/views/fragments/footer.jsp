@@ -1,6 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
 <div class="container-fluid">
 	<br/>
 	<br/>
@@ -11,4 +10,4 @@
 	</div>	
 </div>
 
-<script src="<spring:url value="/resources/js/footer.js"/>"></script>
+<script src="<spring:url value="/resources/js/globalInFooter.js"/>"></script>
