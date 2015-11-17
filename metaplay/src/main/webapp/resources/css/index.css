@@ -20,6 +20,18 @@ p {
 	font-size: 1.25em;
 }
 
+.bulletedLi {
+	display:list-item;
+	list-style-type: circle;
+	margin-left: 20px;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 1.25em;
+}
+
+.bulletA{
+	font-family: monospace;
+}
+
 #headerContainer {
 	color: SlateGray;
 }
