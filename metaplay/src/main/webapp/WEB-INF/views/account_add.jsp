@@ -23,7 +23,7 @@
 
 	<div class="drContainer"  id="1">
 		<h2>Want to make Friendship?</h2>
-		<h3>HonestDad.docx love friends: <span class="dSpan"></span><small>Prepare to be account'd.</small></h3>
+		<h3>Metaplay loves friends: <span class="dSpan"></span><small>Prepare to be account'd.</small></h3>
 	</div>
 
 	<div class="drContainer" >

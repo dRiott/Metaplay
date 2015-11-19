@@ -83,6 +83,22 @@
 			</c:otherwise>
 			</c:choose>
 
+            <div class="form-group" style="clear:both;"></div>
+
+			<div class="form-group">
+				<label>Your Playlists</label>
+				<div class="form-group">
+					<c:if test="${account.playlists.size()==0 }">
+						<c:out value="You don't have any playlists. "/><a href="<spring:url value="/playlist/add/"/>">Create one!</a>
+					</c:if>
+					<ul>
+						<c:forEach items="${account.playlists}" var="playlist">
+							<li><a href="<spring:url value="/browse/playlist/${playlist.id}"/>">${playlist.name}</a></li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	

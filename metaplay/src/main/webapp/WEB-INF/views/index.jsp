@@ -41,9 +41,9 @@
 			<p>the world by collaborating via music. This is Metaplay's core concept.</p>
             <br/>
             <ul>
-            	<li class="bulletedLi"><a class="bulletA" href="<spring url value='/browse/artists'/>">Browse</a> what's already available</li>
-            	<li class="bulletedLi"><a class="bulletA" href="<spring url value='/account/add'/>">Create an account</a> to listen to music and more</li>
-            	<li class="bulletedLi"><a class="bulletA" href="<spring url value='/search'/>">Explore</a> other features</li>
+            	<li class="bulletedLi"><a class="bulletA" href="<spring:url value='/browse/artists'/>">Browse</a> what's already available</li>
+            	<li class="bulletedLi"><a class="bulletA" href="<spring:url value='/account/add'/>">Create an account</a> to listen to music and more</li>
+            	<li class="bulletedLi"><a class="bulletA" href="<spring:url value='/search'/>">Explore</a> other features</li>
             </ul>
             <br/>
             

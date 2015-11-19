@@ -26,7 +26,7 @@
 	<script	src="<spring:url value="/resources/js/playlistAdd.js"/>"></script>
 </head>
 
-<body class="delayedReveal">
+<body>
 	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
 	<div class="drContainer drBlockLeft">

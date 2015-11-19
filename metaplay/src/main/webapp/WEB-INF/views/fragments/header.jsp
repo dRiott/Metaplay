@@ -89,8 +89,8 @@
 						<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<!-- THIS A HREF IS SET MY JAVASCRIPT AJAX CALL -->
-								<li id="profileLI"><a id="targetLink" href="#">Profile</a></li>	
-								<li><a href="<spring:url value="/logout"/>">I Go Bye Bye</a></li>	
+								<li id="profileLI"><a id="targetLink" href="#">Profile</a></li>
+								<li><a href="<spring:url value="/logout"/>">Logout</a></li>
 							</ul>		
 						</li>
 				</c:when>

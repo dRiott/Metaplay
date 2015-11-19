@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function () {
-	var playlistTr = $("#playlistTable tbody tr");
     var submitBtn = $("#playlistSubmitButton");
 
     fixWidths();
@@ -39,13 +38,13 @@ $(document).ready(function () {
 		revert: true,
 		receive: function(event, ui) {
 			ui.item.children().first().text(1+ui.item.index()).show();
-			$(playlistTr).each(function (index, element) {
+            $("#playlistTable tbody tr").each(function (index, element) {
 				$(element).children().first().text(index+1);
 			});
 			fixWidths();
 		},
 		stop: function(event) {
-			$(playlistTr).each(function (index, element) {
+            $("#playlistTable tbody tr").each(function (index, element) {
 				$(element).children().first().text(index+1);
 			});
 			fixWidths();

@@ -26,7 +26,7 @@ $(document).ready(function () {
 	//focus the cursor to the first empty form input
 	var input = $("*").find('input[type=text],textarea,select').filter(':visible:first');
 	if(input!=null) {
-		input.focus();
+        input.focus();
 	}
 	
 	//sets the container's padding, so that it aligns with the search nav bar item.

@@ -23,7 +23,7 @@
 	<script src="<spring:url value="/resources/js/artistAdd.js"/>"></script>
 </head>
 
-<body class="DVBody delayedReveal">
+<body class="delayedReveal">
 	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
 
 	<div class="drContainer">
@@ -38,7 +38,7 @@
 		<form:form action="${thisURL}" method="POST" enctype="multipart/form-data" modelAttribute="createArtistWrapper">
 
 			<div class="row" id="artistNameAndImage">
-				<div class="col-md-6">
+				<div class="col-md-3">
 					<label for="artist-name">* Name</label>
 					<form:input path="name" cssClass="form-control" id="artist-name" placeholder="Michael Jackson" />
 				</div>
@@ -52,7 +52,7 @@
 			<div class="form-group" style="clear:both;"></div>
 			
 			<div class="row" id="artistLocation">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<label for="location-city">City</label>
 					<form:input path="locationCity" cssClass="form-control"	id="location-city" placeholder="Birmingham"/>
 				</div>
@@ -63,13 +63,13 @@
 						id="location-state" />
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<label for="countries">Country</label>
 					<div class="form-group">
 					<form:select path="locationCountry" cssClass="selectpicker" items="${countryOptions}" id="countries" />
 					</div>
 				</div>
-				<div class="col-md-6" id="newCountryDiv" style="display:none;">
+				<div class="col-md-3" id="newCountryDiv" style="display:none;">
 					<label for="newCountryInput"><em>* New Country:</em></label>
 					<form:input cssClass="form-control" path="newLocationCountry" id="newCountryInput" cssErrorClass="has-error" />
 				</div>
@@ -77,15 +77,17 @@
 			
 			<div class="form-group" style="clear:both;"></div>
 			
-			<div class="form-group">
-				<label for="biography">Biography</label>
-				<form:textarea path="biography" cssClass="form-control" id="biography" rows="10" cols="30" />
-			</div>
+			<div class="row">
+                <div class="col-md-9">
+                    <label for="biography">Biography</label>
+                    <form:textarea path="biography" cssClass="form-control" id="biography" rows="10" cols="30" />
+                </div>
+            </div>
 			
 			<div class="form-group" style="clear:both;"></div>
 			
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<label for="genreName">Genre</label>
 					<div>
 						<form:select path="genreName" id="genreName" cssClass="selectpicker">
@@ -94,7 +96,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-10" id="newGenreName" style="display:none;">
+				<div class="col-md-3" id="newGenreName" style="display:none;">
 					<label for="newGenreName"><em>* New Genre:</em></label>
 					<form:input cssClass="form-control" path="newGenreName" id="newGenreNameInput" cssErrorClass="has-error" />
 				</div>
@@ -102,10 +104,12 @@
 
 			<div class="form-group" style="clear:both;"></div>
 				
-			<div class="form-group" id="newGenreDescription" style="display:none;">
-				<label for="newGenreDescription"><em>New Genre Description:</em></label>
-				<form:textarea rows="3" cssClass="form-control" path="newGenreDescription" id="newGenreDescriptionInput" cssErrorClass="has-error" />
-				<hr/>
+			<div class="row">
+                <div class="col-md-9" id="newGenreDescription" style="display:none;">
+				    <label for="newGenreDescription"><em>New Genre Description:</em></label>
+				    <form:textarea rows="3" cssClass="form-control" path="newGenreDescription" id="newGenreDescriptionInput" cssErrorClass="has-error" />
+				    <hr/>
+                </div>
 			</div>
 
 			<div class="form-group" style="clear:both;"></div>
@@ -113,7 +117,7 @@
 			<!--  Artist Member fields here -->
 			<div class="row" id="${val}">
 				<c:forEach begin="0" end="2" var="val" varStatus="valStatus">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<label>Member #${val+1}</label>
 							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control" 
 							placeholder="Full Name"/>
@@ -129,7 +133,7 @@
 			
 			<div class="row" id="${val}">
 				<c:forEach begin="3" end="5" var="val" varStatus="valStatus">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<label>Member #${val+1}</label>
 							<form:input path="members[${val}].unparsedName" id="memberUnparsedName${val}" cssClass="form-control" placeholder="Full Name"/>
 							<label><input type="checkbox" class="stageNameCheckbox" id="stageNameCheck${val+1}"> Stage Name?</label>
@@ -142,13 +146,15 @@
 
 			<div class="form-group" style="clear:both;"></div>
 
-			<!--  Album fields here -->
+<!--  Album fields here -->
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<label for="albumAlbumName">Album</label>
-					<form:select path="albumNameFromList" cssClass="selectpicker" id="albumAlbumName" >
-						<form:options items="${albumOptions}" />
-					</form:select>
+					<div class="form-group">
+                        <form:select path="albumNameFromList" cssClass="selectpicker" id="albumAlbumName" >
+						    <form:options items="${albumOptions}" />
+    					</form:select>
+                    </div>
 				</div>
 				
 				<div class="col-md-4" id="orAlbumAddLink" style="display:none">	
@@ -161,7 +167,7 @@
 			
 			<div class="form-group" style="clear:both;"></div>
 
-            <!--  ALBUM FIELDS THAT POP OUT -->
+<!--  ALBUM FIELDS THAT POP OUT -->
 			<div class="form-group" id="newAlbumAlbumName" style="display:none;">
 
                 <hr/>
@@ -175,12 +181,17 @@
 							<label for="albumNumTracks" style="font-style:italic;"><small>Total Tracks</small></label>
 							<form:input path="albumNumTracks" cssClass="form-control" id="album-numTracks" min="0" type="number"/>
 						</div>
+                    </div>
+
+                <div class="form-group" style="clear:both;"></div>
+
+                <div class="row">
 						<div class="col-md-3">
 							<label for="newAlbumReleaseDate" style="font-style:italic;"><small>Release Date</small></label>
 							<form:input path="albumReleaseDate" cssClass="form-control" id="newAlbumReleaseDate" type="date"/>
 						</div>
 						<div class="col-md-3">
-							<label for="albumCoverInput" style="font-style:italic;"><em>New Album: Cover</em>
+							<label for="albumCoverInput" style="font-style:italic;"><small>New Album: Cover</small>
 							<small><small><span style="padding-left: 5px">jpg, png, gif</span></small></small></label>
 							<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="albumCover" id="albumCoverInput" cssClass="btn btn-default btn-file" />
 						</div>
@@ -188,7 +199,7 @@
 				
 				<div class="form-group" style="clear:both;"></div>
 				
-				<!-- START RECORDLABEL -->
+<!-- START RECORDLABEL -->
 				<div class="form-group" id="newAlbumRecordLabel">
 					
 					<div class="form-group">
@@ -206,31 +217,31 @@
 								<label for="newRecordLabelName" style="font-style:italic;"><small>New Record Label:</small></label>
 								<form:input cssClass="form-control" type="text" path="theNewRecordLabel" id="newRecordLabelNameInput" cssErrorClass="has-error" />
 							</div>
-							
+                        </div>
+
+                        <div class="form-group" style="clear:both;"></div>
+
+                        <div class="row">
 							<div class="col-md-3" id="newRecordLabelCity" style="display:none;">
-									<label for="recordLabelCity"><em><small>Record Label: City</small></em></label>
-									<form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
+                                <label for="recordLabelCity"><em><small>Record Label: City</small></em></label>
+                                <form:input path="recordLabelCity" cssClass="form-control" id="recordLabelCity" />
 							</div>
-							
+
 							<div class="col-md-3" id="newRecordLabelState" style="display:none;">
 								<label for="recordLabelState"><em><small>Record Label: State</small></em></label>
 								<div class="form-group">
-								<form:select path="recordLabelState" cssClass="selectpicker" items="${recordLabelStateOptions}"
-									id="recordLabelState" />
+                                    <form:select id="recordLabelState" path="recordLabelState" cssClass="selectpicker" items="${recordLabelStateOptions}"/>
 								</div>
 							</div>
-							
-						</div>
+                        </div>
+
+                    </div>
 					
-						<hr/>
+                    <hr/>
 				
-					</div>
-				</div><!-- END RECORDLABEL -->
-				
-				<div class="form-group" style="clear:both;"></div>
-				
+                </div><!--END NEW RECORD LABEL-->
 			</div> <!-- END ALBUM POP OUT FIELDS -->
-			
+
 			<div class="form-group" style="clear:both;"></div>
 
 			<button type="submit" class="btn btn-default">Submit</button>
