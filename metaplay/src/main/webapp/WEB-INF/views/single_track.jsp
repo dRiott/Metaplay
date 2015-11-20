@@ -29,7 +29,7 @@
 			
 			<div class="form-group">
 				<sec:authorize access="!isAuthenticated()">
-					<h3 class="dH1">Looks like you're not logged in - you won't be able to stream music. <a href="<spring:url value="/account/login"/>">Login!</a></h3>
+					<h3 class="drSecurity">Looks like you're not logged in! You won't be able to stream music. <a href="<spring:url value="/account/login"/>">Login</a></h3>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">				
 					<span data-id="${track.id}" data-name="${track.name}" class="audioSpan"></span>

@@ -1,5 +1,4 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <div class="container-fluid">
 	<br/>
 	<br/>

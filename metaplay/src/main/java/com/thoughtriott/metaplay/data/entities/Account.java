@@ -26,7 +26,7 @@ public class Account extends MetaplayEntity {
 		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
 	private List<Role> roles;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name="playlist_account", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
@@ -179,9 +179,9 @@ public class Account extends MetaplayEntity {
 	}
 	
 	public Account addPlaylist(Playlist playlist) {
-		if (getPlaylists()!=null && !getPlaylists().contains(playlist)) {
-			getPlaylists().add(playlist);
-			if (!playlist.getAccounts().contains(this)) {
+		if (playlists!=null && !playlists.contains(playlist)) {
+			playlists.add(playlist);
+			if (playlist.getAccounts()!=null && playlist.getAccounts().contains(this)) {
 				playlist.addAccount(this);
 			}
 		}

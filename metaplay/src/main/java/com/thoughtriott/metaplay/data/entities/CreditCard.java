@@ -10,6 +10,7 @@ public class CreditCard {
 	String cardType;
 	Date cardExpDate;
 	double amount;
+	String otherCardType;
 	
 // --------------------------Constructors--------------------------
 	public CreditCard() {
@@ -66,7 +67,15 @@ public class CreditCard {
 		this.amount = amount;
 	}
 
-// --------------------------toString()--------------------------
+    public String getOtherCardType() {
+        return otherCardType;
+    }
+
+    public void setOtherCardType(String otherCardType) {
+        this.otherCardType = otherCardType;
+    }
+
+    // --------------------------toString()--------------------------
 	@Override
 	public String toString() {
 		return "CreditCard [nameOnCard=" + nameOnCard + ", cardNumber=" + cardNumber + ", cardType=" + cardType

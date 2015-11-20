@@ -30,7 +30,7 @@
 		<h1 class="dH1">Add an Album<span style="padding-left: 10px"></span><small><small>The * indicates a required field.</small></small></h1>
 
 		<sec:authorize access="!hasAuthority('God')">
-			<h3 class="dH1">Looks like you don't have priviledges to submit new info. <a href="<spring:url value="/account/requestRole"/>">Make a request!</a></h3>
+			<h3 class="drSecurity">Looks like you don't have priviledges to submit new info. <a href="<spring:url value="/account/requestRole"/>">Make a request!</a></h3>
 		</sec:authorize>
 
 		<spring:url value="/album/save" var="thisFormURL" />                                 

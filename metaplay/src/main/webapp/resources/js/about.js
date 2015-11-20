@@ -16,6 +16,7 @@ $(document).ready(function() {
     /* CHOOSE WHETHER TO USE PDF.JS TO RENDER PDF RESUME OR JUST USE OBJECT IF IN CHROME */
     // Browser Specific Characteristic:
     //Chrome: The global chrome object, containing properties including a documented chrome.webstore object.
+    var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
     var isChrome = !!window.chrome && !isOpera;
 
     if (isChrome) {

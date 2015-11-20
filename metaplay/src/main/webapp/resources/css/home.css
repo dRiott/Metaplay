@@ -12,6 +12,7 @@ body {
 	background: #E5E5E5 fixed bottom right no-repeat;
 	background-size: 500px Auto;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: slategray;
     /*prevents horizontal scrolling*/
     max-width: 100%;
     overflow-x: hidden;
@@ -35,6 +36,13 @@ a.mono {
 .dH1 {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-style: italic;
+    color: slategray;
+}
+
+.drSecurity {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-style: italic;
+    color: darkseagreen;
 }
 
 .dSpan {

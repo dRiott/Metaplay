@@ -72,10 +72,16 @@
 						<c:forEach items="${playlist.tracks}" var="track" varStatus="count">
 							<tr trackId="${track.id}">
 								<td>${count.index+1}</td>
-								<td class="tdWidth">${track.name}</td>
-								<td class="tdWidth" id="trackTdArtist">${track.album.artist.name}</td>
-								<td class="tdWidth" id="trackTdName">${track.album.name}</td>
-								
+								<td class="tdWidth">
+									<a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
+								</td>
+								<td class="tdWidth">
+									<a href="<spring:url value="/browse/artist/${track.album.artist.id}"/>">${track.album.artist.name}</a>
+								</td>
+								<td class="tdWidth">
+									<a href="<spring:url value="/browse/album/${track.album.id}"/>">${track.album.name}</a>
+								</td>
+
 								<%-- Formatting the minutes from track.length --%>
 								<c:choose>
 									<c:when test="${track.length!=null }">

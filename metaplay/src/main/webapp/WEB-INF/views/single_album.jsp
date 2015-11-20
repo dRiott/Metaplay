@@ -60,14 +60,55 @@
 			</div>
 				
 			<div class="form-group">
-				<label>Tracks</label>
-				<div class="form-group">
+				<label>Total Tracks: </label>
 					 <c:if test="${album.numTracks!=null}">
 					 	<span>${album.numTracks}</span>
 					 </c:if>
 					  <c:if test="${album.numTracks==null}">
 					 	<span>?</span>
 					 </c:if>
+                <br/>
+				<div class="form-group">
+					<c:if test="${album.tracks!=null}">
+                        <table class="table table-hover browseTable" id="playlistTable">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Artist</th>
+                                <th>Album</th>
+                                <th>Length</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="track" items="${album.tracks}" varStatus="count">
+                                    <tr trackId="${track.id}">
+                                        <td>${count.index+1}.</td>
+                                        <td class="tdWidth">
+                                            <a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
+                                        </td>
+                                        <td class="tdWidth" id="trackTdArtist">
+                                            <a href="<spring:url value="/browse/artist/${track.album.artist.id}"/>">${track.album.artist.name}</a>
+                                        </td>
+                                        <td class="tdWidth" id="trackTdName">${track.album.name}</td>
+
+                                        <%-- Formatting the minutes from track.length --%>
+                                        <c:choose>
+                                            <c:when test="${track.length!=null }">
+                                                <fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
+                                                <td class="tdWidth"><c:out value="${minutes}"/>:<!--
+                                                 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
+                                                           --><c:out value="${track.length%60}"/></c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                            </c:when>
+                                        </c:choose>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+					</c:if>
+
 				</div>
 			</div>
 			<div class="form-group">

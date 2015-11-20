@@ -111,14 +111,18 @@ $(document).ready(function () {
 	$(submitBtn).click(function(e) {
 		var playlistInfo = [];
 		var tracksStringified = "";
-		
+
 		console.log("You clicked the submit button!");
 		e.preventDefault();
+
+        //disable the submit button once they've attempted to save the playlist
+        $(submitBtn).attr("disabled","disabled");
+
 		$(document.body).css({'cursor' : 'wait'});
 		
 		playlistInfo.push({name: $("#playlistName").val(), description: $("#playlistDescription").val()});
 		
-		$(playlistTr).each(function (index) {
+		$("#playlistTable tbody tr").each(function (index) {
 			playlistInfo.push({trackNumber: index+=1, trackId: $(this).attr("trackId")});
 		});
 		
@@ -140,9 +144,10 @@ $(document).ready(function () {
 				dataType: 'json',
 				data: tracksStringified,
 				success: function (playlist) {
+                    $(submitBtn).attr("disabled", false); //re-enable the button.
 					console.log(JSON.stringify(playlist));
 					$(document.body).css({'cursor' : 'default'});
-					$(playlistTr).remove();
+					$("#playlistTable tbody tr").remove();
 					$(".savedField").val("");
 					$(".accountSpan").remove();
 					var url = "<h1>Playlist created successfully! <a href='/browse/playlist/"+playlist.id+"'>"+playlist.name+"</a></h1>";

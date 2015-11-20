@@ -1,10 +1,11 @@
 package com.thoughtriott.metaplay.data.repositories.jpa;
 
-import com.thoughtriott.metaplay.data.entities.Playlist;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.thoughtriott.metaplay.data.entities.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public interface PlaylistRepository extends JpaRepository<Playlist, Integer>, PlaylistRepositoryCustom {
@@ -12,6 +13,9 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Integer>, Pl
 	//this is where you write Spring Data Queries to be read and interpreted by Spring
 	List<Playlist> findPlaylistByName(String name);
 	List<Playlist> findPlaylistByNameOrderByName(String name);
+
+    @Query("SELECT p FROM Playlist p JOIN FETCH p.tracks WHERE p.id = (:id)")
+    public Playlist findByIdAndFetchTracksEagerly(@Param("id") Integer id);
 }
 	
 

@@ -32,13 +32,13 @@ public class Playlist extends MetaplayEntity {
 //	@JsonManagedReference
 //	private List<Playlist_Track> playlistTracks;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(name="track_playlist", 
 	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
 	private List<Track> tracks;
 	
-	@ManyToMany(mappedBy = "playlists")
+	@ManyToMany(mappedBy = "playlists", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private List<Account> accounts;
 	
 	private String description;
@@ -85,7 +85,7 @@ public class Playlist extends MetaplayEntity {
 
 	
 	//adds a Track to List<Tracks>
-	public void addTrack(Track track, int trackNumber) {
+	public void addTrack(Track track) {
 		if (getTracks()!=null && !getTracks().contains(track)) {
 			getTracks().add(track);
 //			if (!track.getPlaylists().contains(this)) {
