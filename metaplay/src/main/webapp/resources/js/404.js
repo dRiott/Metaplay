@@ -10,7 +10,7 @@ $(document).ready(function () {
 	var moveDrakesIntervals = [];
 	
     var currentUrl = '../resources/img/tinyDrake.gif';
-   
+    
     addDrakesInterval = setInterval(function() {
     	var drake = document.createElement("img");
 		var drakesLength = drakes.length;

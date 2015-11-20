@@ -23,7 +23,7 @@ $(document).ready(function() {
         $("#pdfDiv").show();
     } else {
         $("#the-canvas").show();
-        PDFJS.getDocument('http://localhost:8080/resources/pdf/Riott_David_Nov2015.pdf').then(function(pdf) {
+        PDFJS.getDocument('http://metaplay.me/resources/pdf/Riott_David_Nov2015.pdf').then(function(pdf) {
             pdf.getPage(1).then(function(page) {
                 var scale = 1.3;
                 var viewport = page.getViewport(scale);
