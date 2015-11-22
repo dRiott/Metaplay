@@ -39,7 +39,7 @@ public class Track extends MetaplayEntity {
 	@JsonBackReference
 	private Album album;
 	
-	@ManyToMany(mappedBy="tracks", cascade = CascadeType.MERGE)
+	@ManyToMany(mappedBy="tracks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Collection<Playlist> playlists;
 	
 	@Column(name="entity_type")

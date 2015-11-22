@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
+	<div class="container-fluid drNavDiv">
 	
 		<!-- Logo -->		
 		<div class="imageLogoDiv" >
@@ -59,7 +59,7 @@
 				<c:url var="logoutUrl" value="/logout"/>
 				<!-- Form MUST BE A POST TO PROTECT AGAINST CROSS-SITE REQUEST FORGERY -->
 				<form:form class="navbar-form pull-right" action="${logoutUrl}" method="post">
-					<input type="submit" class="btn btn-default" value="Logout" />
+					<input type="submit" class="btn btn-default drHeaderButton" value="Logout" />
 				</form:form>
 				<p class="navbar-text pull-right">
 					<c:out value="${currentUser}"/>
@@ -69,8 +69,8 @@
 				<p class="navbar-text pull-right">
 					<c:url value="/account/add" var="accountAddUrl"/>
 					<c:url value="/account/login" var="loginUrl"/>
-					<a href="${accountAddUrl}" class="btn btn-default">New Account</a>
-					<a href="${loginUrl}" class="btn btn-default">Login</a>
+					<a href="${accountAddUrl}" class="btn btn-default drHeaderButton">New Account</a>
+					<a href="${loginUrl}" class="btn btn-default drHeaderButton">Login</a>
 				</p>
 			</c:otherwise>
 		</c:choose>

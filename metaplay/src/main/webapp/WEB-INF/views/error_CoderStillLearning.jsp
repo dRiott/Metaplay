@@ -39,15 +39,15 @@
 	<div class="drContainer">
 	
 	
-	<h1 class="dH1">Oops</h1>
-	
-	<p>Something went wrong. As much as we'd like to skirt blame... Let's be realistic.</p>
-
+	<h1 class="dH1">Oops, something went wrong.</h1>
 	<br>
-	
+	<p> As much as we'd like to skirt blame... Let's be realistic.</p>
 	<h5><em>It's my fault! I'm still learning. Thanks for helping the website improve!</em></h5>
-	
+	<br/>
 	<hr/>
+	<p> My guess is there was something being worked on and the session expired. Sorry about that!</p>
+	<hr/>
+	<br/>
 	<small>SrslyTHoSry</small>
 	<br/>
 	<small>Obligatory Flying Cats</small>

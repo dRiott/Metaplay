@@ -1,20 +1,26 @@
 package com.thoughtriott.metaplay.controllers;
 
-import com.thoughtriott.metaplay.data.entities.*;
-import com.thoughtriott.metaplay.data.wrappers.AmazonService;
-import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
-import org.eclipse.persistence.internal.jpa.rs.metadata.model.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import com.thoughtriott.metaplay.data.entities.Album;
+import com.thoughtriott.metaplay.data.entities.Artist;
+import com.thoughtriott.metaplay.data.entities.Genre;
+import com.thoughtriott.metaplay.data.entities.Location;
+import com.thoughtriott.metaplay.data.entities.Member;
+import com.thoughtriott.metaplay.data.entities.RecordLabel;
+import com.thoughtriott.metaplay.data.wrappers.AmazonService;
+import com.thoughtriott.metaplay.data.wrappers.CreateArtistWrapper;
 
 @Controller
 @RequestMapping("/artist")

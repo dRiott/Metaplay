@@ -36,14 +36,14 @@ function stopRave() {
     for (var i = 1; i < 999; i++) {
         window.clearInterval(i);
     }
-    $(document.body).css("backgroundColor", '#E5E5E5');
+    $(document.body).css("backgroundColor", '#e6e5e7');
 }
 
 function startRave() {
-    var currentColor = '#E5E5E5';
+    var currentColor = '#e6e5e7';
     intervalId = setInterval(function() {
         $(document.body).css("backgroundColor", currentColor);
-        currentColor = currentColor === '#E5E5E5' ? 'black' : '#E5E5E5';
+        currentColor = currentColor === '#e6e5e7' ? 'black' : '#e6e5e7';
     }, 150);
 }
 

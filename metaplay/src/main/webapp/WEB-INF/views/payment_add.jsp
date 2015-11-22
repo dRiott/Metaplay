@@ -66,7 +66,7 @@
 				<div class="form-group" style="clear:both;"></div>
 				
 				<div class="row">
-					<div class="col-md-6" id="optionCardTypeInput" style="display:none;">
+					<div class="col-md-4" id="optionCardTypeInput" style="display:none;">
 						<label for="nameOnCard" style="font-style:italic;">Other Card Type:</label>
 						<form:input type="text" cssClass="form-control" path="otherCardType" id="otherCardTypeOption" cssErrorClass="has-error" />
 					</div>

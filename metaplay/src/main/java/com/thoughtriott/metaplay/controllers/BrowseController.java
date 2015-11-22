@@ -1,15 +1,17 @@
 package com.thoughtriott.metaplay.controllers;
 
-import com.thoughtriott.metaplay.data.entities.*;
-import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
-import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.persistence.*;
+import com.thoughtriott.metaplay.data.repositories.jpa.AlbumRepository;
+import com.thoughtriott.metaplay.data.wrappers.RepositoryKeeper;
 
 @Controller
 @RequestMapping("/browse")
@@ -118,9 +120,6 @@ public class BrowseController extends RepositoryKeeper {
 	
 	@RequestMapping(value="playlist/{playlistId}")
 	public String findPlaylist(Model model, @PathVariable("playlistId") int playlistId) {
-		System.out.println("Calling the playlistRepo");
-		Playlist p = playlistRepository.getOne(playlistId);
-		System.out.println("Accounts: "  + p.getAccountsToString());
 		model.addAttribute("playlist", playlistRepository.getOne(playlistId));
         em.getEntityManagerFactory().getCache().evictAll();
 		return "single_playlist";

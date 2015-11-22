@@ -1,0 +1,50 @@
+/** 
+	This css is linked to the single_playlist page, and concerts the edit and delete aspects
+*/
+
+@CHARSET "UTF-8";
+
+
+
+/* We want the buttons on the same line as the header. Prevent display:block; */
+#playlistHeader {
+	display:inline;
+}
+
+/* Applied to all the buttons for editing playlist */
+.playlistButtton {
+	margin-bottom: 15px;
+}
+
+/* Applied to the confirm/cancel edit playlist buttons inside #messageDiv */
+.editButton {
+	margin-left: 5px;
+}
+
+/* The first grouping of buttons: edit and delete */
+#drEditButtonDiv {
+	display:none;
+	padding-left: 20px;
+}
+
+/* DIV holding the confirm and cancel buttons */
+#drConfirmDeleteDiv{	
+	display:none;
+}
+
+/* CONFIRM delete playlist button */
+#drConfirmDeleteBtn {
+	background-color: #D5DED9;
+	/* 868276 */
+	color: #7E7C77;
+}
+
+/* CANCEL delete playlist button */
+#messageHeader {
+	display:inline;
+}
+
+	
+#messageDiv {
+	display:none;
+}

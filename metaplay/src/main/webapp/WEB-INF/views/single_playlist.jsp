@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,10 +14,14 @@
 	<link rel="icon" type="image/x-icon" href="<spring:url value='/resources/img/favicon.ico'/>"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 	<link rel="stylesheet"	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
+	<link rel="stylesheet"	href="<spring:url value="/resources/css/playlistEdit.css"/>" type="text/css" />
 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+ 	<script src="<spring:url value="/resources/js/getAudio.js"/>"></script>
+ 	<script src="<spring:url value="/resources/js/playlistEdit.js"/>"></script>
+	
 </head>
 
 <body class="delayedReveal">
@@ -24,8 +29,27 @@
 
 	<div class="drContainer">
 		<div class="row drRow">
-			<h1 class="dH1">Playlist: ${playlist.name}</h1>
+			
+			<h1 data-playlistId ="${playlist.id}" id="playlistHeader" class="dH1">Playlist: ${playlist.name}</h1>
 
+			<span id="drEditButtonDiv">
+				<button id="drEditBtn" class="btn btn-default playlistButtton">Edit</button>
+				<button id="drDeleteBtn" class="btn btn-default playlistButtton">Delete</button>
+				<span id="drConfirmDeleteDiv">
+					<button id="drConfirmDeleteBtn" class="btn btn-default playlistButtton">Confirm</button>
+					<button id="drCancelBtn" class="btn btn-default playlistButtton">Cancel</button>
+				</span>
+			</span>		
+			
+			<div class="form-group" style="clear:both;"></div>					
+			
+			<!-- for writing a message on unsuccessful ajax call -->
+			<div class="row">
+				<div id="messageDiv" class="error col-md-7"></div>
+			</div>
+
+			<div class="form-group" style="clear:both;"></div>					
+		
 			<div class="form-group">
 				<label>Description</label>
 				<div class="row">
@@ -49,12 +73,33 @@
 						<c:otherwise>
 							<ul>
 								<c:forEach items="${playlist.accounts}" var="account">
-									<li><a href="<spring:url value="/browse/account/${account.id}"/>">${account.name}</a></li>
+									<sec:authorize access="isAuthenticated()">				
+										<c:set var="activeAccount" value="<%= request.getUserPrincipal().getName() %>"></c:set>
+										<c:choose>
+											<c:when test="${activeAccount.equals(account.name)}">
+												<li><a class="playlistOwner" href="<spring:url value="/browse/account/${account.id}"/>">${account.name} (That's you!)</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a class="playlistOwner" href="<spring:url value="/browse/account/${account.id}"/>">${account.name}</a></li>							
+											</c:otherwise>
+										</c:choose>
+									</sec:authorize>
+
+									<sec:authorize access="isAnonymous()">
+										<li><a href="<spring:url value="/browse/account/${account.id}"/>">${account.name}</a></li>				
+									</sec:authorize>
 								</c:forEach>
 							</ul>
 						</c:otherwise>
 					</c:choose>
 				</div>
+			</div>
+
+			<div class="form-group" style="font-family: monospace, sans-serif; font-style: italic;">
+				<c:if test="${playlist.tracks.size() == 0}">
+					<p>Whoops! You may have arrived here early. Refresh the page! </p>
+					<p>Otherwise, this playlist has no tracks.</p>
+				</c:if>				
 			</div>
 
 			<div class="form-group">
@@ -74,6 +119,10 @@
 								<td>${count.index+1}</td>
 								<td class="tdWidth">
 									<a href="<spring:url value="/browse/track/${track.id}"/>">${track.name}</a>
+									<span class="dSpan"></span>		
+									<sec:authorize access="isAuthenticated()">				
+										<span data-id="${track.id}" data-name="${track.name}" class="audioSpan"></span>
+									</sec:authorize>
 								</td>
 								<td class="tdWidth">
 									<a href="<spring:url value="/browse/artist/${track.album.artist.id}"/>">${track.album.artist.name}</a>
@@ -93,7 +142,6 @@
 										</td>
 									</c:when>
 								</c:choose>
-								
 							</tr>
 						</c:forEach>
 					</tbody>

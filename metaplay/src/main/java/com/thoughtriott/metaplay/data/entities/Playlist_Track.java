@@ -84,8 +84,9 @@ public class  Playlist_Track {
 		return trackNumber;
 	}
 
-	public void setTrackNumber(int trackNumber) {
+	public Playlist_Track setTrackNumber(int trackNumber) {
 		this.trackNumber = trackNumber;
+		return this;
 	}
 
 

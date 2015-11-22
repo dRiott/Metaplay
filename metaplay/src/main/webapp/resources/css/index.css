@@ -97,12 +97,3 @@ button {
 #messageDiv {
 	margin-top: 27px;
 }
-
-.msg {
-	margin-left: 15px;
-	padding: 15px;
-	border: #bce8f1 1px solid;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-}

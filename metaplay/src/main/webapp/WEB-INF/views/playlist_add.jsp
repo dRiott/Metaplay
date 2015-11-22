@@ -28,18 +28,41 @@
 
 <body>
 	<jsp:include page="../views/fragments/headerSecurity.jsp"/>
-
+		
+	<div id="messageDiv" style="display:none">
+		<!-- for writting message on success/error AJAX call -->
+	</div>
+	
+	<div class="form-group" style="clear:both;"></div>
+	
 	<div class="drContainer drBlockLeft">
 		<div class="row">
 			<div class="form-group">
 				<label for="playlistName">Name Your Playlist</label>
-				<input class="form-control savedField" id="playlistName" placeholder="TrapHead Chillum"/>
+				<c:choose>
+					<c:when test="${not empty playlist}">
+						<input class="form-control savedField" id="playlistName" data-playlistId="${playlist.id}" value="${playlist.name}" placeholder="TrapHead Chillum"/>					
+					</c:when>
+					<c:otherwise>
+						<input class="form-control savedField" id="playlistName" data-playlistId="-1" placeholder="TrapHead Chillum"/>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>	
 		
 		<div class="row DR_Textarea">	
 			<div class="form-group" id="description">
-				<textarea class="form-control savedField" id="playlistDescription" rows="4" cols="20" placeholder="Description: This amazing banger will set your party on fire..."></textarea>
+				<c:choose>
+					<c:when test="${not empty playlist}">
+						<textarea class="form-control savedField" id="playlistDescription" rows="4" cols="20" 
+							placeholder="Description: This amazing banger will set your party on fire...">${playlist.description}</textarea>
+					</c:when>
+					<c:otherwise>
+						<textarea class="form-control savedField" id="playlistDescription" rows="4" cols="20" 
+							placeholder="Description: This amazing banger will set your party on fire..."></textarea>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 		</div>
 	</div>		
@@ -58,7 +81,14 @@
 		
 		<div class="form-group" style="clear:both;"></div>
 		
-		<div class="form-control DR_Textarea savedField" id="accountsSelected"></div>
+		<div class="form-control DR_Textarea savedField" id="accountsSelected">
+			<c:if test="${not empty playlist}">
+				<c:forEach items="${playlist.accounts}" var="account">
+					<span class='accountSpan' accountId="${account.id}">${account.name}
+						<img class='deleter' src='http://metaplay.me/resources/img/close.gif'/></span>
+				</c:forEach>
+			</c:if>
+		</div>
 		
 	</div>
 
@@ -117,14 +147,35 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${not empty playlist}">
+						<c:forEach items="${playlist.tracks}" var="track" varStatus="count">
+							<tr trackId="${track.id}">
+								<td class="tdWidthTracks editTrack" id="editableTr0">${count.index+1}</td>
+								<td class="tdWidthTracks editTrack" id="editableTr1" >${track.name}</td>
+								<td class="tdWidthTracks editTrack" id="editableTr2">${track.album.artist.name}</td>
+								<td class="tdWidthTracks editTrack" id="editableTr3">${track.album.name}</td>
+								
+								<%-- Formatting the minutes from track.length --%>
+								<c:choose>
+									<c:when test="${track.length!=null }">
+										<fmt:formatNumber var="minutes" pattern="##" value="${track.length div 60}"/>
+										<td class="tdWidthTracks editTrack" id="editableTr4"><c:out value="${minutes}"/>:<!-- 
+										 --><c:choose><c:when test="${(track.length%60)<10}"><c:out value="0${track.length%60}"/></c:when><c:otherwise><!--
+										 		   --><c:out value="${track.length%60}"/></c:otherwise>
+											</c:choose>
+										</td>
+									</c:when>
+									<c:otherwise>
+										<td>-</td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		</div> <!-- end playlist div -->
 		
-		
-		<div id="messageDiv" style="display:none">
-		<!-- for writting message on success/error AJAX call -->
-		</div>
 		
 		<div style="clear:both;"></div>
 	</div> <!-- END OUTER DIV -->

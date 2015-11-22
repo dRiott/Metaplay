@@ -9,7 +9,7 @@ $(document).ready(function () {
 	var backgrounds = ["actress.gif", "Antony.gif", "aphex.gif", "builttospill.gif", "burial.gif", "chancetherapper.gif",
 	                   "daedelus.gif", "dandeacon.gif", "davidbowie.gif", "deadmau5.gif", "dilla.gif", "drake.gif", 
 	                   "earlsweatshirt.gif", "eminem.gif",
-	                   "fatherjohn.gif", "fkatwigs.gif", "flyinglotus.gif", "flylo.gif", "fourtet.gif", "francisdrake.gif", 
+	                   "fatherjohn.gif", "flyinglotus.gif", "flylo.gif", "fourtet.gif", "francisdrake.gif", 
 	                   "goldpanda.gif", "gorillaz.gif",
 	                   "kalkbrenner.gif", "kendrick.gif", "kurtcobain.gif",
 	                   "melloncollie.gif", "miles.gif", "mosdef.gif", 

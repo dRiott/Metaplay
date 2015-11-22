@@ -21,7 +21,9 @@
 
 	<div class="drContainer">
 	<h1 class="dH1">An error has occurred.</h1>
-	<p>There was an issue with our database. Either what you want to create already exists, or violates the database's integrity.</p>
+	<p>There was an issue with our database.</p>
+	<br/>
+	<p>Either what you want to create already exists, what you're looking for doesn't exist, or it violates the database's integrity.</p>
 	
 	<br/>
 

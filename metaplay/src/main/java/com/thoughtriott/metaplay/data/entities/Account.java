@@ -26,7 +26,7 @@ public class Account extends MetaplayEntity {
 		inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName="id"))
 	private List<Role> roles;
 
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="playlist_account", 
 		joinColumns = @JoinColumn(name = "account_id", referencedColumnName="id"),
 		inverseJoinColumns= @JoinColumn(name = "playlist_id", referencedColumnName="id"))
@@ -148,6 +148,19 @@ public class Account extends MetaplayEntity {
 	}
 
 	//--------------------------Collection Adders and Removers--------------------------
+	
+	/* this method is used to check if Account.playlists contains a playlist with a given id.
+	 * when updating a playlist, its other fields might change, and the regular collection.contains() method
+	 * would return false, even though there are existing join table account_playlist relationships. */
+	public boolean containsPlaylist(int playlistId) {
+		for(Playlist p : playlists) {
+			if (p.id == playlistId) {
+				return true;
+			} 
+		}
+		return false;
+	}
+	
 	public Account addRole(Role role) {
 		if (getRoles()!=null && !getRoles().contains(role)) {
 			getRoles().add(role);

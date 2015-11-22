@@ -38,8 +38,8 @@ public class GlobalMetaplayExceptionHandler {
 		 logger.error("Request: " + req.getRequestURL() + " raised " + exception);
 		session.setAttribute("url", req.getRequestURL());
 		session.setAttribute("exception", exception);
-		System.out.println("message: " + exception.getMessage());
-		System.out.println("stack trace: " + exception.getStackTrace().toString());
+		System.out.println("The exception type is: " + exception.getMessage());
+		System.out.println("Stack trace: " + exception.getStackTrace());
 		return "error_CoderStillLearning";
 	}
 	

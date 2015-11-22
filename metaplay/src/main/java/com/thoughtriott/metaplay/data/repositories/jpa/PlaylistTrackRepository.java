@@ -12,6 +12,7 @@ public interface PlaylistTrackRepository extends JpaRepository<Playlist_Track, I
 //	//interpreted by Spring
 //	List<Playlist_Track> findPlaylist_TrackByTrack(Track track);
 	List<Playlist_Track> findPlaylist_TrackByTrackId(int trackId);
+	List<Playlist_Track> findPlaylist_TrackByTrackIdAndPlaylistId(int trackId, int playlistId);
 }
 	
 

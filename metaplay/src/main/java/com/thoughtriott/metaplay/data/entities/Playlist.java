@@ -1,12 +1,20 @@
 package com.thoughtriott.metaplay.data.entities;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import javax.persistence.*;
-import java.util.Iterator;
-import java.util.List;
 
 @Entity
 @Table(name = "playlist")
@@ -32,13 +40,13 @@ public class Playlist extends MetaplayEntity {
 //	@JsonManagedReference
 //	private List<Playlist_Track> playlistTracks;
 
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinTable(name="track_playlist", 
 	joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name = "track_id", referencedColumnName="id"))
 	private List<Track> tracks;
 	
-	@ManyToMany(mappedBy = "playlists", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "playlists", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private List<Account> accounts;
 	
 	private String description;
@@ -80,9 +88,18 @@ public class Playlist extends MetaplayEntity {
 		this.accounts = accounts;
 	}
 
+//	public List<Playlist_Track> getPlaylistTracks() {
+//		return playlistTracks;
+//	}
+//
+//	public void setPlaylistTracks(List<Playlist_Track> playlistTracks) {
+//		this.playlistTracks = playlistTracks;
+//	}
+
 //--------------------------Collection Adders and Removers--------------------------
 	
 
+	
 	
 	//adds a Track to List<Tracks>
 	public void addTrack(Track track) {
@@ -174,6 +191,20 @@ public class Playlist extends MetaplayEntity {
 			} return accountsString;
 		} return "Accounts list was null.";
 	}
+
+//	//adds a Track to List<Playlist_Track>
+//	public void addTrackToPlaylistTrack(Track track, int trackNumber) {
+//		if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(track)) {
+//			getPlaylistTracks().add(new Playlist_Track(track.getId(), id, trackNumber));
+//		}
+//	}
+//
+//	// removes a Track from List<Playlist_Track>
+//	public void removeTrackToPlaylistTrack(Track track) {
+//		if (getPlaylistTracks()!=null && getPlaylistTracks().contains(track)) {
+//			getPlaylistTracks().remove(track);
+//		}
+//	}
 	
 //--------------------------toString()--------------------------
 	
@@ -182,32 +213,12 @@ public class Playlist extends MetaplayEntity {
 		return "Playlist [id=" + id + ", tracks=" + getTracksToString() + ", accounts="
 				+ getAccountsToString() + ", name=" + name + ", description=" + description + "]";
 	}
-	
-}
+
+
+} // end of Playlist.java
+
 
 //--------------------------Notes / Old Code--------------------------
-
-
-////adds a Track to List<Playlist_Track>
-//public void addTrackToPlaylistTrack(Track track, int trackNumber) {
-//	if (getPlaylistTracks()!=null && !getPlaylistTracks().contains(track)) {
-//		getPlaylistTracks().add(new Playlist_Track(track, this, trackNumber));
-////		if (!track.getPlaylistTracks().contains(this)) {
-////			track.getPlaylistTracks().add(new Playlist_Track(track, this, trackNumber));
-////		}
-//	}
-//}
-//
-//// removes a Track from List<Playlist_Track>
-//public void removeTrackToPlaylistTrack(Track track) {
-//	if (getPlaylistTracks()!=null && getPlaylistTracks().contains(track)) {
-//		getPlaylistTracks().remove(track);
-////		if (track.getPlaylistTracks().contains(this)) {
-////			track.getPlaylistTracks().remove(this);
-////		}
-//	}
-//}
-
 //public List<Playlist_Track> getPlaylistTracks() {
 //return playlistTracks;
 //}

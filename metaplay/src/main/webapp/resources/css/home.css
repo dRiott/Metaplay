@@ -9,10 +9,11 @@ html {
 }
 
 body {
-	background: #E5E5E5 fixed bottom right no-repeat;
+	background: #e6e5e7 fixed bottom right no-repeat;
 	background-size: 500px Auto;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     color: slategray;
+    
     /*prevents horizontal scrolling*/
     max-width: 100%;
     overflow-x: hidden;
@@ -32,17 +33,38 @@ a.mono {
     font-style: italic;
 }
 
-/* BEGIN CLASS CSS SELECTORS */
+
+/* change the shadow and border of any input box */
+.form-control:focus {
+  border-color: #99B2B7;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153,178,183, 0.6);
+}
+
 .dH1 {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-style: italic;
-    color: slategray;
+    color: slategray; /* Pachyderm by Yasmino: #7A6A53 */
+}
+
+.drHeaderButton {
+	/* css for the buttons in the header navbar*/ 
+}
+
+.drNavDiv {
+	/* 
+	dark grey blue: C5E0DC 
+	grey green: #D5DED9
+	bond: #D5DED9
+	current fave: #C5E0DC
+	*/
+	background-color:#D5DED9;
+	color: #948C75;
 }
 
 .drSecurity {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-style: italic;
-    color: darkseagreen;
+    color: #C5E0DC;
 }
 
 .dSpan {
@@ -95,6 +117,8 @@ a.mono {
 	width: 80%;
 }
 
+/* This handles the ?error url param for incorrect account/password combinations,
+	 and also #messageDiv on the single_playlist.jsp */
 .error {
     font-family: monospace, sans-serif;
     font-style: italic;
@@ -102,10 +126,23 @@ a.mono {
     margin-bottom: 20px;
     border: #ebccd1 1px solid;
     border-radius: 4px;
-    color: #a94442;
+    color: #E08E79;
     background-color: #f2dede;
 }
 
+/* This handles the ?logout url param for the index page, 
+	and also #messageDiv on the single_playlist.jsp */
+.msg {
+	margin-left: 15px;
+	padding: 15px;
+	border: #b3bcba 1px solid;
+	border-radius: 4px;
+	color: #7E7C77;
+	background-color: #D5DED9;
+}
+
+/* this class is added to the body of pages that need to have their positioning changed on page load.
+	they are first repositioned as invisible to the page, then they are revealed (this class is removed) */
 .delayedReveal {
     visibility: hidden;
 }

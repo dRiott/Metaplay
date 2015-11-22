@@ -5,6 +5,7 @@
 $(document).ready(function () {
     var submitBtn = $("#playlistSubmitButton");
 
+    
     fixWidths();
 	
 	//augment Function to include a method method (hides some prototype ugliness):
@@ -18,15 +19,13 @@ $(document).ready(function () {
 		return this.replace(/^\s+|\s+$/g, '');
 	});
 	
-	//BEGIN NORMAL PAGE MANIPULATION STUFF
+	//BEGIN JQUERY SORTABLE
 	//set up the tables to be sortable, and connect them for dropping
 	$("#tracksTable tbody").sortable({
 		connectWith: "#playlistTable tbody",
 		cursor: "grabbing",
 		revert: true,
 		receive: function(event, ui) {
-			console.log("Tracks Table: Hmm, over!");
-			console.log(JSON.stringify(event.target));
 			ui.item.children().first().hide();
 			fixWidths();
 		}
@@ -37,23 +36,19 @@ $(document).ready(function () {
 		cursor: "grabbing",
 		revert: true,
 		receive: function(event, ui) {
+			//show the track number
 			ui.item.children().first().text(1+ui.item.index()).show();
-            $("#playlistTable tbody tr").each(function (index, element) {
-				$(element).children().first().text(index+1);
-			});
-			fixWidths();
+			orderTrackNumbers();
 		},
-		stop: function(event) {
-            $("#playlistTable tbody tr").each(function (index, element) {
-				$(element).children().first().text(index+1);
-			});
-			fixWidths();
-		}
+		stop: orderTrackNumbers
 	});
-	//end NORMAL PAGE MANIPULATION STUFF.
+	//end JQUERY SORTABLE.
 	
 	//autocomplete for the accounts search input
 	$("#accountSearchInput").autocomplete({
+		search: function () {
+			$(document.body).css({'cursor' : 'wait'});
+		},
 		source: function (term, response) {
 			$.ajax({
 				url: '/playlist/accountsearch', 
@@ -61,21 +56,26 @@ $(document).ready(function () {
 				dataType: "json",
 				success: function(data) {
 					//for each returned Account, set up the ui.item attributes.
+					$(document.body).css({'cursor' : 'default'});
+
 					$.each(data, function(index, element) {
 						element.accountId = element.id;
 						element.value=element.name;
 					});
 					response(data);
+					
 				},
 				error: function (data, status) {
-					console.log("ERROR: an ajax call failed:");
-					console.log("ERROR: With this data: " + JSON.stringify(data));
+					$("#messageDiv").html("<h4>Something went wrong. Try again, or refresh the page.</h4>")
+						.addClass("dBorder").show(200).delay(2000).hide(200);
+					$(document.body).css({'cursor' : 'default'});
 					console.log("ERROR: And this status: " + status)
+					console.log("ERROR: With this data: " + JSON.stringify(data));
 				}
 			})
 		},
 		minLength: 2,
-		delay: 700,
+		delay: 300,
 		select: function(event, ui) {
 			//prevents the autocomplete from filling the search bar with the name, instead clears the input for next search.
 			event.preventDefault();
@@ -83,7 +83,8 @@ $(document).ready(function () {
 			
 			//adds a span element (contains accountId attr with Acccount's id) into div below the search input, onclick: removes it.
 			if (ui.item.value === $("#accountnameOut").text().trim()) {
-				$("#messageDiv").html("<h4>That's you! You'll be the owner of this playlist.</h4>").addClass("dBorder").show(200).delay(3000).hide(200);
+				$("#messageDiv").html("<h4>That's you! You'll be the owner of this playlist.</h4>")
+					.addClass("dBorder").show(200).delay(3000).hide(200);
 			} else if (!$("#accountsSelected").is(":contains("+ui.item.value+")")) {
 				$("#accountsSelected").append("<span class='accountSpan' accountId='"+ui.item.accountId+"'>"+ui.item.value
 						+"<img class='deleter' src='../resources/img/close.gif'/></span>");
@@ -91,7 +92,8 @@ $(document).ready(function () {
 					$(this).parent().remove();
 				});
 			} else {
-				$("#messageDiv").html("<h4>You've already added them!</h4>").addClass("dBorder").show(200).delay(2000).hide(200);
+				$("#messageDiv").html("<h4>You've already added them!</h4>")
+					.addClass("dBorder").show(200).delay(2000).hide(200);
 			}
 		}
 	}); //end account search autocomplete
@@ -109,30 +111,31 @@ $(document).ready(function () {
 	
 	//Save the playlist!
 	$(submitBtn).click(function(e) {
-		var playlistInfo = [];
-		var tracksStringified = "";
+		var playlistInfo = []; //contains all info about playlist; will be stringified into the below variable
+		var tracksStringified = ""; //contains all the contents of the playlistInfo array, stringified and sent to server
 
-		console.log("You clicked the submit button!");
 		e.preventDefault();
-
-        //disable the submit button once they've attempted to save the playlist
-        $(submitBtn).attr("disabled","disabled");
-
-		$(document.body).css({'cursor' : 'wait'});
+        $(submitBtn).attr("disabled","disabled");  //disable the submit button
+		$(document.body).css({'cursor' : 'wait'});  //change the cursor
 		
-		playlistInfo.push({name: $("#playlistName").val(), description: $("#playlistDescription").val()});
+		//add the name, description, and id to the playlistInfo array
+		playlistInfo.push({name: $("#playlistName").val(), 
+			description: $("#playlistDescription").val(), 
+			id: $("#playlistName").attr("data-playlistId")}); //if editing an exisiting playlist, this is the playlist id, otherwise, -1
 		
+		//push the tracks onto the array
 		$("#playlistTable tbody tr").each(function (index) {
 			playlistInfo.push({trackNumber: index+=1, trackId: $(this).attr("trackId")});
 		});
 		
+		//push the accounts onto the array
 		$("#accountsSelected span").each(function() {
 			playlistInfo.push({id: $(this).attr("accountId")})
 		});
 		
-		tracksStringified = JSON.stringify(playlistInfo);
-		console.log("Stringified tracksInfo data: " + tracksStringified);
-		
+		tracksStringified = JSON.stringify(playlistInfo); //convert the array to a string to send to server
+
+		//make the ajax call
 		if (tracksStringified!==null) {
 			$.ajax({
 				headers: { 
@@ -150,13 +153,13 @@ $(document).ready(function () {
 					$("#playlistTable tbody tr").remove();
 					$(".savedField").val("");
 					$(".accountSpan").remove();
-					var url = "<h1>Playlist created successfully! <a href='/browse/playlist/"+playlist.id+"'>"+playlist.name+"</a></h1>";
+					var url = "<h1>Success! Allow a moment to display updates, and refresh if needed: <a href='/browse/playlist/"+playlist.id+"'>"+playlist.name+"</a></h1>";
 					$("#messageDiv").html(url).addClass("dBorder").show(200).delay(3000).hide(300);
 				},
 				error: function (returnedData, status) {
 					$(document.body).css({'cursor' : 'default'});
-					console.log("Failed to save the playlist via REST, Data: " + JSON.stringify(returnedData));
 					console.log("Fail to save the playlist via REST, Status: " + status)
+					console.log("Failed to save the playlist via REST, Data: " + JSON.stringify(returnedData));
 				}
 			});
 		} else {
@@ -168,8 +171,8 @@ $(document).ready(function () {
 	
 }); // end document.ready
 
+//set up each tr so that when it's grabbed, it doesn't scrunch its tds.
 function fixWidths() {
-	//set up each tr so that when it's grabbed, it doesn't scrunch its tds.
 	$('td, th', '#tracksTable').each(function () {
         var cell = $(this);
         cell.width(cell.width());
@@ -182,19 +185,23 @@ function fixWidths() {
 
 	//grab the width of the tr and set the th accordingly. workaround for scrollable tbodies that are sortable/draggable.
 	$('.tdWidthTracks').each(function(index, element) {
-		console.log("1. Element Id: " + $(element).attr("id") + ", index: " + index + " has a width of " + $(element).width());
-		
+		//console.log("1. Element Id: " + $(element).attr("id") + ", index: " + index + " has a width of " + $(element).width());
 		$("#playlistTHeadTh" + index).css("width", 1.1*$(element).width());
 		
-		if(index === 0) {
-			//skip, there is no #trackTHeadTh0
-		} else {
+		if(index > 0 && index < 3) {
 			$("#trackTHeadTh" + index).css("width", 1.1*$(element).width());
-		}
-	    
-		if (index > 3) {
+			$("#editableTr"+index).css("width", 1.1*$(element).width());
+		} else if (index>3) {
 	    	return false;
 	    }
 	});
+}
+
+//set the track number to the tr's appropriate index in the tbody
+function orderTrackNumbers () {
+    $("#playlistTable tbody tr").each(function (index, element) {
+		$(element).children().first().text(index+1);
+	});
+	fixWidths();
 }
 

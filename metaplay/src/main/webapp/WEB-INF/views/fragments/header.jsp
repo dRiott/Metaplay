@@ -4,7 +4,7 @@
 
 
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
+	<div class="container-fluid drNavDiv">
 
 <!-- Logo -->		
 		<div class="imageLogoDiv" >
@@ -82,7 +82,7 @@
 					<c:url var="logoutUrl" value="/logout"/>
 					<!-- Form MUST BE A POST TO PROTECT AGAINST CROSS-SITE REQUEST FORGERY -->
 					<form:form class="navbar-form pull-right" action="${logoutUrl}" method="post">
-						<input type="submit" class="btn btn-default" value="Logout" />
+						<input type="submit" class="btn btn-default drHeaderButton" value="Logout" />
 					</form:form>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" id="accountnameOut"
 						data-toggle="dropdown" role="button" aria-expanded="false"><c:out value="${currentUser}"/>
