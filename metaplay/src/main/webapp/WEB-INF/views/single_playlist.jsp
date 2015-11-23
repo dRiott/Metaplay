@@ -31,7 +31,11 @@
 		<div class="row drRow">
 			
 			<h1 data-playlistId ="${playlist.id}" id="playlistHeader" class="dH1">Playlist: ${playlist.name}</h1>
-
+	
+			<sec:authorize access="!isAuthenticated()">
+				<h3 class="drSecurity">Looks like you're not logged in! You won't be able to stream music.</h3>
+			</sec:authorize>
+	
 			<span id="drEditButtonDiv">
 				<button id="drEditBtn" class="btn btn-default playlistButtton">Edit</button>
 				<button id="drDeleteBtn" class="btn btn-default playlistButtton">Delete</button>

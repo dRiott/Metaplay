@@ -35,7 +35,7 @@
 			<div class="form-group">
 				<label>Email</label>
 				<div class="form-group">
-					${account.email}
+					<a class="mono" href="mailto:${account.email}">${account.email}</a>
 				</div>
 			</div>
 			

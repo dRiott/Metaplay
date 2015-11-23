@@ -33,28 +33,23 @@ p {
 }
 
 #headerContainer {
-	color: SlateGray;
+	color: #7E7C77;
 }
 
 #permaRaveButton {
 	background-color: slategray;
 	position: absolute;
 	border: transparent;
-	/*top: 90%;*/
-	/*left: 2.5%;*/
-	/*width: 10em;*/
-	/*height: 7em;*/
-	/*font-size: 30px;*/
+	background-color: #D5DED9;
+	color: #7E7C77;
 }
 
 #noMoreParty {
 	background-color: slategray;
 	position:absolute;
 	border: transparent;
-	/*top: 90%;*/
-	/*left: 12%;*/
-	/*width: 10em;*/
-	/*height: 2.5em;*/
+	background-color: #D5DED9;
+	color: #7E7C77;
 }
 
 #sidePanel {
@@ -80,20 +75,14 @@ p {
 	text-align: center;
 }
 
-button {
-	background-size: cover;
-}
-
-.drSideButton {
-	width: 10em;
-	height: 8em;
-}
-
-.drCenterButton {
-	width: 15em;
-	height: 8em;
-}
-
 #messageDiv {
 	margin-top: 27px;
+}
+
+/* override the default hightlight color */
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
 }

@@ -44,7 +44,7 @@
 					
 						 <div class="row">     
 							<div class="col-md-6">
-								<label for="avatarInput">New Avatar</label><span class="dSpan"></span><small>jpeg, jpg, png, or gif</small>
+								<label for="avatarInput">New Avatar</label><span class="dSpan"><small>jpeg, jpg, png, or gif</small></span>
 								<form:input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" path="avatar" id="avatarInput" cssClass="btn btn-default btn-file" />
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Email</label> <br /> <span class="dSpan">${account.email}</span>
+				<label>Email</label> <br /> <span class="dSpan"><a class="mono" href="mailto:${account.email}">${account.email}</a></span>
 			</div>
 
 			<label>Roles</label>

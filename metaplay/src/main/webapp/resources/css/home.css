@@ -12,7 +12,7 @@ body {
 	background: #e6e5e7 fixed bottom right no-repeat;
 	background-size: 500px Auto;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    color: slategray;
+    color: #7E7C77;
     
     /*prevents horizontal scrolling*/
     max-width: 100%;
@@ -23,33 +23,56 @@ audio {
     background-color: #EEEEEE;
 }
 
+/* hr elements appear on browsing pages, and occasionally add pages. */
 hr {
     margin-left:0;
     width: 40%;
 }
 
+/* styling of the anchor tags */
+a {
+  text-decoration: inherit;
+  font-style: inherit;
+  color: #6c9985;
+}
+
+a:hover {
+ text-decoration: underline;
+ color: #618975;
+}
+
+/* a:visited {
+	border: none;
+	text-decoration: none;
+	font-style: normal;
+	color: #FC9D9A;
+} */
+
+/* e.g. on about.jsp */
 a.mono {
     font-family: monospace, sans-serif;
     font-style: italic;
 }
 
-
-/* change the shadow and border of any input box */
+/* any input box -- set to change the shadow and border */
 .form-control:focus {
   border-color: #99B2B7;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153,178,183, 0.6);
 }
 
+/* h1 at the top of almost every page. */
 .dH1 {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-style: italic;
-    color: slategray; /* Pachyderm by Yasmino: #7A6A53 */
+    color: #7E7C77; 
+    /* slategray; Pachyderm by Yasmino: #7A6A53 */
 }
 
 .drHeaderButton {
 	/* css for the buttons in the header navbar*/ 
 }
 
+/* header nav bar! */
 .drNavDiv {
 	/* 
 	dark grey blue: C5E0DC 
@@ -61,25 +84,31 @@ a.mono {
 	color: #948C75;
 }
 
+/* used for notifying the user of certain privileges they don't have if they're not logged in or have the right role. */
 .drSecurity {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: monospace, sans-serif;
     font-style: italic;
-    color: #C5E0DC;
+    color: #7E7C77;
 }
 
+
+/* any span used for slight horizontal spacing */
 .dSpan {
     padding-left: 10px;
 }
 
+/* spacing to clear left of the logo */
 .DRnavBarDiv{
 	padding-left: 13.5%;
 }
 
+/* div containing the logo */
 .imageLogoDiv{
 	display:block;
 	clear:right;
 }
 
+/* logo itself: under-layer */
 .imageLogo {
 	width:13.5%;
 	max-width:180px;
@@ -98,6 +127,7 @@ a.mono {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+/* the lighter logo layer on top of the logo*/
 .imageLogoLayer {
 	width:13.5%;
 	opacity: .4;
@@ -105,11 +135,6 @@ a.mono {
     position: absolute;
     clear: both;
    	height:auto; 
-}
-
-.drMessages {
-	font-family: monospace, sans-serif;
-	font-style: italic;
 }
 
 /* This class is added to tables that I wanted to not take up all of the page. Now, they look nicer. */
@@ -145,4 +170,12 @@ a.mono {
 	they are first repositioned as invisible to the page, then they are revealed (this class is removed) */
 .delayedReveal {
     visibility: hidden;
+}
+
+/* override the default hightlight color */
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
 }

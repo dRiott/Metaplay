@@ -31,7 +31,7 @@
 				<h3 class="drSecurity">Looks like you don't have priviledges to submit new info. <a href="<spring:url value="/account/requestRole"/>">Make a request!</a></h3>
 			</sec:authorize>
 			
-			<div class="drMessages" id="messages"></div>
+			<div class="msg" id="messages"></div>
 		
 			<div class="col-md-12">
 			<spring:url value="/audio/upload" var="thisURL" />

@@ -31,7 +31,7 @@
 		
 		<h1 class="dH1">Tracks</h1>
 		<sec:authorize access="!isAuthenticated()">
-			<h3 class="drSecurity">Looks like you're not logged in! You won't be able to stream music. <a href="<spring:url value="/account/login"/>">Login</a></h3>
+			<h3 class="drSecurity">Looks like you're not logged in! You won't be able to stream music.</h3>
 		</sec:authorize>
 		<br/>
 		
